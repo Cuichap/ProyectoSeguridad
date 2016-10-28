@@ -1,0 +1,109 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="rest.modelo.entidad.SubMenu"%>
+<%@ page pageEncoding="UTF-8" %>
+<%-- 
+    Document   : principal
+    Created on : 20/10/2016, 08:00:35 PM
+    Author     : USUARIO
+--%>
+
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.Menu"%>
+<%@page import="rest.modelo.daoimpl.MenuDaoImpl"%>
+<%@page import="rest.modelo.dao.MenuDao"%>
+<jsp:useBean id="Tipo" scope="session" class="java.lang.String" />
+<jsp:useBean id="Perfil" scope="session" class="java.lang.String" />
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
+<jsp:useBean id="Usuario" scope="session" class="java.lang.String" />
+<jsp:useBean id="IdMenu" scope="request" class="java.lang.String" />
+<jsp:useBean id="IdSubMenu" scope="request" class="java.lang.String" />
+<jsp:useBean id="JSP" scope="request" class="java.lang.String" />
+
+<%
+    if (idUsuario.equals("") && Usuario.equals("") && Tipo.equals("") && Perfil.equals("")) {
+        response.sendRedirect("salir");
+    }
+
+    MenuDao dao = new MenuDaoImpl();
+    Menu menu = new Menu();
+    SubMenu submenu = new SubMenu();
+
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Garita UPeU</title>
+
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/local.css" />
+        <link rel="stylesheet" type="text/css" href="res/css/estilos.css" />
+
+        <script type="text/javascript" src="res/js/funciones.js"></script>
+
+        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+        <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+        <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script> -->
+    </head>
+    <body>
+        <div id="wrapper">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand hidden-sm hidden-xs" style="color: white;">Sistema de Seguridad -- UPeU</a>
+                    <a class="navbar-brand hidden-lg hidden-md" style="color: white;">Garita -- UPeU</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <%if (!JSP.equals("")) {%>
+                        <li class="active"><a><%=JSP%></a></li>
+                                <%} else {%>
+                        <li class="active"><a>Inicio</a></li>
+                            <%}
+                                List<SubMenu> lista = dao.listarSubMenu(IdMenu, Perfil);
+                                for (SubMenu subMen : lista) {
+                            %>
+                        <li id="submenu<%=subMen.getIdSubMenu()%>"><a href="javascript:ir<%=subMen.getIdSubMenu()%>()"><%=subMen.getNombreSubMenu()%></a></li>
+                        <input type="hidden" value="<%=subMen.getNombreSubMenu()%>" id="<%=subMen.getIdSubMenu()%>">
+                        <%}%>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-left navbar-user">
+                        <%
+                            List<Menu> list = dao.listarMenus(Perfil);
+                            for (Menu men : list) {
+                        %>
+                        <li id="menu<%=men.getIdmenu()%>"><a href="javascript:ir<%=men.getIdmenu()%>()"><%=men.getNombreMenu()%></a></li>
+                            <%}
+                                for (Menu men : list) {%> 
+
+                        <form role="form" method="post" action="paginas" name="<%=men.getNombreMenu()%>">
+                            <input type="hidden" name="opcion" value="<%=men.getNombreMenu()%>">
+                            <input type="hidden" name="url" value="<%=men.getUrl()%>">
+                            <input type="hidden" name="idmenu" value="<%=men.getIdmenu()%>">
+                        </form>
+                        <%}%>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right navbar-user">
+                        <li class="dropdown user-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;<%=Usuario%>&nbsp;<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a style="cursor: pointer;" data-toggle="modal" data-target="#perfil"><i class="fa fa-user"></i>&nbsp;&nbsp;Perfil</a></li>
+                                <li><a href="#"><i class="fa fa-gear"></i>&nbsp;&nbsp;Configuración</a></li>
+                                <li class="divider"></li>
+                                <li><a href="salir"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>

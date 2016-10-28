@@ -1,0 +1,147 @@
+/* General */
+.drop-shadow {
+    -webkit-box-shadow: 1 1 7px 2px rgba(0, 0, 0, .5);
+    box-shadow:  0 0 12px black;
+    border-radius:5px;
+}
+
+.backcolor {
+    background: #3b5998;
+}
+
+.textocolor {
+    color: white;
+}
+.textocolor a{
+    color: white;
+}
+
+.back {
+    background: white;
+}
+
+/* Footer */
+.pie {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: #3b5998;
+    -webkit-box-shadow: 1 1 7px 2px rgba(0, 0, 0, .5);
+    box-shadow:  0 0 12px black;
+    border-radius:5px;
+}
+.pie footer {
+    color: white;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+/* Redes Sociales */
+*{
+    padding: 0;
+}
+.contenido{
+    position: fixed;
+    left: 0;
+    top: 330px;
+    z-index: 2000;
+}
+.social img{
+    border-radius: 8px;
+}
+.social li a{
+    color: white;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    font-size: 0;
+    font-family: oblique bold cursive;
+    width: 50px;
+    height: 40px;
+    padding-top: 4px;
+    padding-bottom: 5px;
+}
+.social li a:hover{
+    background-color: black;
+    width: 140px;
+    font-size: 15px;
+    height: 50px;
+    padding-top: 9px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.facebook{background-color: #3b5998;}
+.twitter{background-color: #4099FF;}
+.youtube{background-color: #c4302b;}
+.linkedin{background-color: #0e76a8;}
+.google{background-color: #d34836;}
+
+/* fin */
+
+/* de ciudad.html */
+
+.lado{
+    border-left: 2px solid;
+}
+
+.caja{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.public{
+    border-bottom-style: double;
+    border-top-style: double;
+    margin-top: 10px;
+}
+
+.texto{
+    font-weight: bold;
+    font-family: oblique bold cursive;
+}
+
+/* Sombra de la Imagen */
+.imgBox {
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-left: 22px;
+}
+
+/* Scroolbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 7px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #7a7a7a;
+  border: 1px solid #c0c0c0;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #595959;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #3e3e3e;
+}
+::-webkit-scrollbar-track {
+  background: #c3c3c3;
+  border: 1px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #c3c3c3;
+}
+::-webkit-scrollbar-track:active {
+  background: #c3c3c3;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

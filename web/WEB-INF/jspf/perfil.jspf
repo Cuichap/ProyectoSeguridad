@@ -1,0 +1,57 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<style>
+    .btn-circle {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 20px;
+        line-height: 1.42;
+        border-radius: 25px;
+        border: solid 0;
+    }
+</style>
+<script>
+    function deshabilita(){
+        document.getElementById('Editar').style.display = 'none';
+        document.getElementById('top').style.display = 'none'; 
+        document.getElementById('bottom').style.display = 'block';
+        document.getElementById('ver').style.display = 'none';
+    }
+    function habilita(){
+        document.getElementById('Editar').style.display = 'block';
+        document.getElementById('top').style.display = 'block';
+        document.getElementById('bottom').style.display = 'none';
+        document.getElementById('ver').style.display = 'block';
+    }
+</script>
+<section class="modal fade" id="perfil">
+    <section class="modal-dialog modal-md" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+        <section class="modal-content">
+            <img class="img-responsive" style="width: 600px; height: 200px; border-top-left-radius: 5px; border-top-right-radius: 5px;" src="res/img/tercero.jpg">
+            <h1 align="center">
+                <img data-src="holder.js/200x200" class="img-circle" style="width: 130px; height: 130px; margin-top: -80px;" src="res/img/add_user.jpg" data-holder-rendered="true">
+            </h1>
+            <section id="mostrar" class="modal-header bg-info" style="margin-top: -80px; height: 90px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+                <section class="col-sm-12">
+                    <article class="col-sm-4">
+                        <p style="padding-top: 5px;" align="center">
+                            <a id="Editar" style="display: none;" class="btn btn-primary btn-circle"><i class="glyphicon glyphicon-pencil"></i></a>
+                        </p>
+                    </article>
+                    <article class="col-sm-4"></article>
+                    <article class="col-sm-4">
+                        <p style="padding-top: 5px;" align="center">
+                            <a style="display: block;" id="bottom" class="btn btn-primary btn-circle" onclick="habilita()"><i class="glyphicon glyphicon-eye-open"></i></a>
+                            <a style="display: none;" id="top"  class="btn btn-primary btn-circle" onclick="deshabilita()"><i class="glyphicon glyphicon-eye-close"></i></a>
+                        </p>
+                    </article>
+                </section>
+            </section>
+            <section style="display: none;" id="ver" class="modal-body">
+
+            </section>
+        </section>
+    </section>
+</section>

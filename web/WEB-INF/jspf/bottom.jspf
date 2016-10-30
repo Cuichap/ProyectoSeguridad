@@ -10,3 +10,100 @@
 </div>
 </body>
 </html>
+
+<!-- <section class="modal fade" id="addPersona">
+            <section class="modal-dialog modal-md">
+                <section class="modal-content">
+                    <form class="form-signin" role="form" method="post" action="">
+                        <section class="modal-header bg-primary" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 style="font-family: oblique bold cursive;" align="center" class="modal-title" id="myModalLabel"><span><b>Ingresar los Datos de la Persona</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombres</label>
+                                        <input type="text" class="form-control" id="nombres" placeholder="Nombres" name="nombres">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="apellidos">Apellidos</label>
+                                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipo">Tipo de Documento</label>
+                                        <select class="form-control" id="tipo" name="tipoDocumento">
+                                            <option hidden>Seleccionar Tipo de Documento</option>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="numeroDoc">N° Documento</label>
+                                        <input type="number" class="form-control" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="procedencia">Procedencia</label>
+                                        <input type="text" class="form-control" id="procedencia" placeholder="Procedencia" name="procedencia">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="direccion">Dirección</label>
+                                        <input type="text" class="form-control" id="direccion" placeholder="Dirección" name="direccion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="telefono">Teléfono</label>
+                                        <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Género</label>
+                                        <label for="genero">Genero</label>
+                                        <select class="form-control" id="genero" name="genero">
+                                            <option hidden>Seleccionar su Género</option>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="imagen">Seleccione su Imagen</label>
+                                        <input type="file" disabled id="imagen" name="img">
+                                        <p class="help-block">Vayase a la ...</p>
+                                    </div>
+                                    <input type="hidden" name="opcion" value="AddPersona">
+                                </div>
+                            </div>
+                        </section>
+                        <h4 align="center">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                            </button>
+                            <button class="btn btn-primary" type="submit">
+                                Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                            </button>
+                        </h4>
+                        <h1></h1>
+                    </form>
+                </section>
+            </section>
+        </section> -->

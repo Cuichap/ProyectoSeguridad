@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
+<%@page import="rest.modelo.entidad.Opcion"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -63,12 +67,12 @@
                         <h3 align="center"><span><b>Ingresar los Datos del Menú</b></span></h3>
                     </div>
                     <div class="panel-body">
-                        <form id="addmenu" class="form-signin" role="form" method="post" action="">
+                        <form id="addmenu" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="menu">Menú</label>
-                                        <input type="text" class="form-control" id="menu" placeholder="Nombre del Menú" name="menu">
+                                        <input type="text" class="form-control" id="menu" placeholder="Nombre del Menú" name="nombres">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -76,16 +80,35 @@
                                         <label for="tipoMenu">Tipo de Menú</label>
                                         <select class="form-control" id="tipo" name="tipoMenu">
                                             <option hidden>Seleccionar Tipo de Menú</option>
-                                            <option value=""></option>
+                                            <option value="nivel1">Menú</option>
+                                            <option value="nivel2">SubMenú</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="descripcion">Descripción</label>
-                                        <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Objeto" name="descripcion"></textarea>
+                                        <label for="tipoMenu">Seleccionar Menú</label>
+                                        <select class="form-control" id="tipo" name="idSubMenu">
+                                            <option hidden>Seleccionar Menú</option>
+                                            <%
+                                                MantenimientoDao dao = new MantenimientoDaoImpl();
+
+                                                List<Opcion> listaOpcAct = dao.listarOpcionesAct();
+                                                for (Opcion opcionact : listaOpcAct) {
+
+                                            %>
+                                            <option value="<%=opcionact.getOpcionesid()%>"><%=opcionact.getMenu()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="url">Url</label>
+                                        <input type="text" class="form-control" id="url" placeholder="Url del Menú" name="url">
+                                        <input type="hidden" name="opcion" value="AddMenu">
                                     </div>
                                 </div>
                             </div>

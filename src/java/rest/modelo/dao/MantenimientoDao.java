@@ -51,18 +51,29 @@ public interface MantenimientoDao {
     public boolean AgregarTipoIncidencia(TipoIncidencia tipoIncidencia);
     public boolean AgregarTipoDocumento(TipoDocumento tipoDocumento);
     
-    /* MANTENIMIENTO -- LISTAs */
+    /* MANTENIMIENTO -- EDITAR */
+    
+    
+    /* MANTENIMIENTO -- LISTAS -- ACTIVOS */
     public List<TipoDocumento> listarTipoDocumentoAct();
     public List<Area> listarAreasAct();
     public List<Perfiles> listarPerfilesAct();
     public List<TipoPersona> listarTipoPersonaAct();
+    public List<Opcion> listarOpcionesAct();
+    
+    /* MANTENIMIENTO -- LISTAS */
     public List<Persona> listarPersona();
     public List<TipoPersona> listarTipoPersona();
     public List<Usuario> listarUsuario();
     public List<Objeto> listarObjeto();
     public List<Opcion> listarMenus();
     
-    /* MANTENIMIENTO ELIMINAR */
+    /* MANTENIMIENTO -- EXTRAS */
+    public boolean RestablecerPassword(String id);
+    
+    /* MANTENIMIENTO -- ELIMINAR */
+    public boolean EliminarPersona(String id);
+    public boolean EliminarTipoPersona(String id);
     public boolean EliminarUsuario(String id);
     
 }

@@ -39,7 +39,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarPersona(Persona persona) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO persona VALUES (null, '" + persona.getNombres() + "', '" + persona.getApellidos() + "', '" + persona.getDireccion() + "', '" + persona.getProcedencia() + "', " + persona.getNumdocumento() + ", '" + persona.getTipoducumentoid() + "', '" + persona.getTelefono() + "', '" + persona.getGenero() + "', '" + persona.getImg() + "', 1)";
+        String COMANDO = "INSERT INTO persona VALUES (null, '" + persona.getNombres() + "', '" + persona.getApellidos() + "', '" + persona.getDireccion() + "', '" + persona.getProcedencia() + "', " + persona.getTipoducumentoid() + ", " + persona.getNumdocumento() + ", '" + persona.getTelefono() + "', '" + persona.getGenero() + "', '" + persona.getImg() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -111,7 +111,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarOpciones(Opcion opcion) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO opciones VALUES (null, '"+ opcion.getSubopcionesid() +"', '"+ opcion.getMenu() +"', '"+ opcion.getTipo() +"', '"+ opcion.getUrl() +"', 1)";
+        String COMANDO = "INSERT INTO opciones VALUES (null, "+ opcion.getSubopcionesid() +", '"+ opcion.getMenu() +"', '"+ opcion.getTipo() +"', '"+ opcion.getUrl() +"', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -361,7 +361,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     /* MANTENIMIENTO -- EDITAR */
-    /* MANTENIMIENTO -- LISTAS  */
+    /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
     @Override
     public List<TipoDocumento> listarTipoDocumentoAct() {
         Conexion cx = Configuracion.GaritaUPeU();
@@ -424,10 +424,27 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
+    public List<Opcion> listarOpcionesAct() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Opcion> listaOpcionesAct = new ArrayList<>();
+        String query = "SELECT opciones_id as id, menu as nombre FROM opciones WHERE tipo='nivel1' AND estado=1";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Opcion opcion = new Opcion();
+            opcion.setOpcionesid(cx.getCol("id"));
+            opcion.setMenu(cx.getCol("nombre"));
+            listaOpcionesAct.add(opcion);
+        }
+        return listaOpcionesAct;
+    }
+
+    
+    /* MANTENIMIENTO -- LISTAS */
+    @Override
     public List<Persona> listarPersona() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Persona> listaPer = new ArrayList<>();
-        String query = "SELECT per.persona_id as id, per.nombre, per.apellidos, per.direccion, per.procedencia, per.tipo_documento_id as idtipo, tp.nombre_documento as nombdoc, per.ndocumento, per.telefono, per.genero FROM persona as per, tipo_documento as tp WHERE per.tipo_documento_id=tp.tipo_documento_id";
+        String query = "SELECT per.persona_id as id, per.nombre, per.apellidos, per.direccion, per.procedencia, per.tipo_documento_id as idtipo, tp.nombre_documento as nombdoc, per.ndocumento, per.telefono, per.genero, CASE per.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM persona as per, tipo_documento as tp WHERE per.tipo_documento_id=tp.tipo_documento_id";
         cx.execQuery(query);
         while (cx.getNext()) {
             Persona persona = new Persona();
@@ -441,6 +458,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             persona.setNumdocumento(cx.getCol("ndocumento"));
             persona.setTelefono(cx.getCol("telefono"));
             persona.setGenero(cx.getCol("genero"));
+            persona.setEstado(cx.getCol("estado"));
             listaPer.add(persona);
         }
         return listaPer;
@@ -502,7 +520,66 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     
+    /* MANTENIMIENTO -- EXTRAS */
+    @Override
+    public boolean RestablecerPassword(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE usuario SET contrasena='1234567890' WHERE usuario_id='"+ id +"'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+    
+    
     /* MANTENIMIENTO -- ELIMINAR */
+    @Override
+    public boolean EliminarPersona(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE persona SET estado=0 WHERE persona_id='"+ id +"'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarTipoPersona(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_persona SET estado=0 WHERE tipo_persona_id='"+ id +"'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+    
     @Override
     public boolean EliminarUsuario(String id) {
         Conexion cx = Configuracion.GaritaUPeU();

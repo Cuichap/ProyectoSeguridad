@@ -62,12 +62,12 @@
                         <h3 align="center"><span><b>Ingresar los Datos del Objeto</b></span></h3>
                     </div>
                     <div class="panel-body">
-                        <form id="addobj" class="form-signin" role="form" method="post" action="">
+                        <form id="addobj" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="objeto">Objeto</label>
-                                        <input type="text" class="form-control" id="objeto" placeholder="Nombre del Objeto" name="objeto">
+                                        <input type="text" class="form-control" id="objeto" placeholder="Nombre del Objeto" name="nombres">
                                     </div>
                                 </div>
                             </div>
@@ -76,6 +76,7 @@
                                     <div class="form-group">
                                         <label for="descripcion">Descripción</label>
                                         <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Objeto" name="descripcion"></textarea>
+                                        <input type="hidden" name="opcion" value="AddObjeto">
                                     </div>
                                 </div>
                             </div>

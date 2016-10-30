@@ -28,10 +28,22 @@
             <div id="listaTipoPer" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">
                 <div data-brackets-id="733" class="panel panel-primary">
                     <div data-brackets-id="734" class="panel-heading">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                            <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'persona', '1')" type="text" class="form-control" placeholder="Buscar Tipo de Persona." aria-describedby="basic-addon1">
-                        </div>
+                        <article class="col-sm-8" style="color: white;">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                                <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'persona', '1')" type="text" class="form-control" placeholder="Buscar Tipo de Persona." aria-describedby="basic-addon1">
+                            </div>
+                        </article>
+                        <article align="right" class="col-sm-4">
+                            <div class="input-group col-sm-12">
+                                <select class="form-control">
+                                    <option hidden>Seleccionar el Estado</option>
+                                    <option value="1">Activos</option>
+                                    <option value="0">Inactivos</option>
+                                </select>
+                            </div>
+                        </article>
+                        <div class="row"></div>
                     </div>
                     <div data-brackets-id="736" class="panel-body">
                         <div class="col-md-12" style="overflow: auto; padding: 0px;">
@@ -61,9 +73,14 @@
                                         <td><%=tipoPersona.getNombreTipoPersona()%></td>
                                         <td><%=tipoPersona.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Tipo de Persona" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Tipo de Persona" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Tipo de Persona" align="center"><a onclick="eliminar<%=tipoPersona.getTipoPersonaid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                    function eliminar<%=tipoPersona.getTipoPersonaid()%>() {
+                                        $("#tipPerDelete").val("<%=tipoPersona.getTipoPersonaid()%>");
+                                    }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -81,7 +98,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input type="text" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="tipoPersona">
+                                        <input type="text" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona">
                                         <input type="hidden" name="opcion" value="AddTipoPersona">
                                     </div>
                                 </div>
@@ -98,6 +115,32 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Tipo de Persona?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="tipPerDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeleteTipoPersona">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
             </div>
         </div>
     </body>

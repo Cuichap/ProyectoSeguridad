@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
+<%@page import="rest.modelo.entidad.Turno"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,6 +39,7 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdTurno</th>
                                         <th>Turno</th>
                                         <th>Hora de Inicio</th>
                                         <th>Hora de Fin</th>
@@ -43,15 +48,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                         List<Turno> listarTurnos = dao.listarTurnos();
+                                         for(Turno turn : listarTurnos)
+                                         {
+                                             count++;
+                                         
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=turn.getTurnoid()%></td>
+                                        <td><%=turn.getNombreturno()%></td>
+                                        <td><%=turn.getHorainicio()%></td>
+                                        <td><%=turn.getHorafin()%></td>
+                                        <td><%=turn.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Turno" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Turno" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

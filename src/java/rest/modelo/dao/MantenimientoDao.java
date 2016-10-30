@@ -62,11 +62,24 @@ public interface MantenimientoDao {
     public List<Opcion> listarOpcionesAct();
     
     /* MANTENIMIENTO -- LISTAS */
+    public List<TipoDocumento> listarTipoDocumento();
     public List<Persona> listarPersona();
     public List<TipoPersona> listarTipoPersona();
     public List<Usuario> listarUsuario();
     public List<Objeto> listarObjeto();
     public List<Opcion> listarMenus();
+    public List<TipoIncidencia> listarTipoIncidencia();
+    public List<TipoPermiso> listarSalida();
+    public List<Motivo> listarMotivos();
+    public List<Responsabilidad> listarResponsabilidad();
+    public List<TipoDeber> listarTipoDeber();
+    public List<Deber> listarDeberes();
+    public List<Turno> listarTurnos();
+    public List<Marca> listarMarcas();
+    public List<TipoVehiculo> listarTipoVehiculo();
+    public List<Vehiculo> listarVehiculo();
+    public List<Area> listarArea();
+    public List<Perfiles> listarPerfiles();
     
     /* MANTENIMIENTO -- EXTRAS */
     public boolean RestablecerPassword(String id);

@@ -14,6 +14,7 @@ public class TipoPermiso {
     private String tipopermisoid;
     private String nombretipopermiso;
     private String descripcion;
+    private String estado;
 
     public TipoPermiso() {
     }
@@ -42,4 +43,11 @@ public class TipoPermiso {
         this.descripcion = descripcion;
     }
     
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }

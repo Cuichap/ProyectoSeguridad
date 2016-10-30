@@ -57,7 +57,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarTipoPersona(TipoPersona tipoPersona) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO tipo_persona VALUES (null, '"+ tipoPersona.getNombreTipoPersona() +"', 1)";
+        String COMANDO = "INSERT INTO tipo_persona VALUES (null, '" + tipoPersona.getNombreTipoPersona() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -75,7 +75,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarUsuario(Usuario usuario) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO usuario VALUES (null, "+ usuario.getPersonaid() +", "+ usuario.getTipopersonaid() +", "+ usuario.getAreaid() +", "+ usuario.getPerfilid() +", '"+ usuario.getUsuario() +"', '"+ usuario.getContrasena() +"', '"+ usuario.getCodigo() +"', '"+ usuario.getHabitacion() +"', '"+ usuario.getCulto() +"', 1)";
+        String COMANDO = "INSERT INTO usuario VALUES (null, " + usuario.getPersonaid() + ", " + usuario.getTipopersonaid() + ", " + usuario.getAreaid() + ", " + usuario.getPerfilid() + ", '" + usuario.getUsuario() + "', '" + usuario.getContrasena() + "', '" + usuario.getCodigo() + "', '" + usuario.getHabitacion() + "', '" + usuario.getCulto() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -93,7 +93,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarObjeto(Objeto objeto) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO objeto VALUES (null, '"+ objeto.getNombreobjeto() +"', '"+ objeto.getDescripcion() +"', 1)";
+        String COMANDO = "INSERT INTO objeto VALUES (null, '" + objeto.getNombreobjeto() + "', '" + objeto.getDescripcion() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -111,7 +111,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarOpciones(Opcion opcion) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO opciones VALUES (null, "+ opcion.getSubopcionesid() +", '"+ opcion.getMenu() +"', '"+ opcion.getTipo() +"', '"+ opcion.getUrl() +"', 1)";
+        String COMANDO = "INSERT INTO opciones VALUES (null, " + opcion.getSubopcionesid() + ", '" + opcion.getMenu() + "', '" + opcion.getTipo() + "', '" + opcion.getUrl() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -129,7 +129,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarPerfil(Perfiles perfiles) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO perfil VALUES (null, '"+ perfiles.getNombreperfil() +"', 1)";
+        String COMANDO = "INSERT INTO perfil VALUES (null, '" + perfiles.getNombreperfil() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -147,7 +147,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarArea(Area area) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO area VALUES (null, "+ area.getSubareaid() +", '"+ area.getNombre() +"', '"+ area.getDescripcion() +"', 1)";
+        String COMANDO = "INSERT INTO area VALUES (null, " + area.getSubareaid() + ", '" + area.getNombre() + "', '" + area.getDescripcion() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -165,7 +165,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarVehiculo(Vehiculo vehiculo) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO vehiculo VALUES (null, "+ vehiculo.getTipovehiculoid() +", "+ vehiculo.getMarcaid() +", '"+ vehiculo.getNumplaca() +"', '"+ vehiculo.getDecripcion() +"', 1)";
+        String COMANDO = "INSERT INTO vehiculo VALUES (null, " + vehiculo.getTipovehiculoid() + ", " + vehiculo.getMarcaid() + ", '" + vehiculo.getNumplaca() + "', '" + vehiculo.getDecripcion() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -183,7 +183,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarTipoVehiculo(TipoVehiculo tipoVehiculo) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO tipo_vehiculo VALUES (null, '"+ tipoVehiculo.getNombretipovehiculo() +"', 1)";
+        String COMANDO = "INSERT INTO tipo_vehiculo VALUES (null, '" + tipoVehiculo.getNombretipovehiculo() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -201,7 +201,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarMarca(Marca marca) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO marca VALUES (null, '"+ marca.getNombremarca() +"', 1)";
+        String COMANDO = "INSERT INTO marca VALUES (null, '" + marca.getNombremarca() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -219,7 +219,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarTurno(Turno turno) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO turno VALUES (null, '"+ turno.getNombreturno() +"', '"+ turno.getHorainicio() +"', '"+ turno.getHorafin() +"', 1)";
+        String COMANDO = "INSERT INTO turno VALUES (null, '" + turno.getNombreturno() + "', '" + turno.getHorainicio() + "', '" + turno.getHorafin() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -237,7 +237,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarDeber(Deber deber) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO deber VALUES (null, '"+ deber.getNombredeber() +"', "+ deber.getTipodeberid() +", 1)";
+        String COMANDO = "INSERT INTO deber VALUES (null, '" + deber.getNombredeber() + "', " + deber.getTipodeberid() + ", 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -255,7 +255,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarTipoDeber(TipoDeber tipoDeber) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO tipo_deber VALUES (null, '"+ tipoDeber.getNombretipodeber() +"', 1)";
+        String COMANDO = "INSERT INTO tipo_deber VALUES (null, '" + tipoDeber.getNombretipodeber() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -273,7 +273,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarResponsabilidad(Responsabilidad responsabilidad) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO deber_usuario VALUES (null, "+ responsabilidad.getDeberid() +", "+ responsabilidad.getUsuarioid() +", "+ responsabilidad.getTurnoid() +", "+ responsabilidad.getUsuarioidreg() +")";
+        String COMANDO = "INSERT INTO deber_usuario VALUES (null, " + responsabilidad.getDeberid() + ", " + responsabilidad.getUsuarioid() + ", " + responsabilidad.getTurnoid() + ", " + responsabilidad.getUsuarioidreg() + ")";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -291,7 +291,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarMotivo(Motivo motivo) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO motivo VALUES (null, '"+ motivo.getNombremotivo() +"', 1)";
+        String COMANDO = "INSERT INTO motivo VALUES (null, '" + motivo.getNombremotivo() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -309,7 +309,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarTipoSalida(TipoPermiso tipoPermiso) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO tipo_permiso VALUES (null, '"+ tipoPermiso.getNombretipopermiso() +"', '"+ tipoPermiso.getDescripcion() +"', 1)";
+        String COMANDO = "INSERT INTO tipo_permiso VALUES (null, '" + tipoPermiso.getNombretipopermiso() + "', '" + tipoPermiso.getDescripcion() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -327,7 +327,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarTipoIncidencia(TipoIncidencia tipoIncidencia) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO tipo_incidencia VALUES (null, '"+ tipoIncidencia.getNombretipoincidencia() +"', '"+ tipoIncidencia.getDescripcion() +"', 1)";
+        String COMANDO = "INSERT INTO tipo_incidencia VALUES (null, '" + tipoIncidencia.getNombretipoincidencia() + "', '" + tipoIncidencia.getDescripcion() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -345,7 +345,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarTipoDocumento(TipoDocumento tipoDocumento) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO tipo_documento VALUES (null, '"+ tipoDocumento.getNombredocumento() +"', 1)";
+        String COMANDO = "INSERT INTO tipo_documento VALUES (null, '" + tipoDocumento.getNombredocumento() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -361,7 +361,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     /* MANTENIMIENTO -- EDITAR */
-    /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
+ /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
     @Override
     public List<TipoDocumento> listarTipoDocumentoAct() {
         Conexion cx = Configuracion.GaritaUPeU();
@@ -438,7 +438,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
         return listaOpcionesAct;
     }
 
-    
     /* MANTENIMIENTO -- LISTAS */
     @Override
     public List<Persona> listarPersona() {
@@ -511,27 +510,265 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
 
     @Override
     public List<Objeto> listarObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Objeto> listaObjeto = new ArrayList<>();
+        String query = "SELECT objeto_id as id, nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado FROM objeto";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Objeto objeto = new Objeto();
+            objeto.setObjetoid(cx.getCol("id"));
+            objeto.setNombreobjeto(cx.getCol("nombre"));
+            objeto.setDescripcion(cx.getCol("descripcion"));
+            objeto.setEstado(cx.getCol("estado"));
+            listaObjeto.add(objeto);
+        }
+        return listaObjeto;
     }
 
     @Override
     public List<Opcion> listarMenus() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Opcion> listaMenus = new ArrayList<>();
+        String query = "SELECT o.opciones_id as id, o.menu as menup, op.subopciones_id as idsub, op.menu as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN concat( CASE op.tipo WHEN op.subopciones_id=o.opciones_id THEN 'Subarea' END) END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id order by o.opciones_id";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Opcion opcion = new Opcion();
+            opcion.setOpcionesid(cx.getCol("id"));
+            opcion.setMenu(cx.getCol("menup"));
+            opcion.setOpcionesid(cx.getCol("idsub"));
+            opcion.setSubmenu(cx.getCol("menu_s"));
+            opcion.setTipo(cx.getCol("tipo"));
+            opcion.setUrl(cx.getCol("url"));
+            listaMenus.add(opcion);
+        }
+        return listaMenus;
     }
 
-    
+    @Override
+    public List<TipoDocumento> listarTipoDocumento() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoDocumento> listaTipoDoc = new ArrayList<>();
+        String query = "SELECT tipo_documento_id as id, nombre_documento as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_documento";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoDocumento tipoDocumento = new TipoDocumento();
+            tipoDocumento.setTipodocumentoid(cx.getCol("id"));
+            tipoDocumento.setNombredocumento(cx.getCol("nombre"));
+            tipoDocumento.setEstado(cx.getCol("estado"));
+            listaTipoDoc.add(tipoDocumento);
+        }
+        return listaTipoDoc;
+    }
+
+    @Override
+    public List<TipoIncidencia> listarTipoIncidencia() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoIncidencia> listaTipoIncidencia = new ArrayList<>();
+        String query = "SELECT tipo_incidencia_id as id, nombre_tipo_incidencia as nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_incidencia";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoIncidencia tipoincidencia = new TipoIncidencia();
+            tipoincidencia.setTipoincidenciaid(cx.getCol("id"));
+            tipoincidencia.setNombretipoincidencia(cx.getCol("nombre"));
+            tipoincidencia.setDescripcion(cx.getCol("descripcion"));
+            tipoincidencia.setEstado(cx.getCol("estado"));
+            listaTipoIncidencia.add(tipoincidencia);
+        }
+        return listaTipoIncidencia;
+    }
+
+    @Override
+    public List<TipoPermiso> listarSalida() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoPermiso> listaPermiso = new ArrayList<>();
+        String query = "SELECT tipo_permiso_id as id, nombre_tipo_permiso as nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_permiso";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoPermiso tipopermiso = new TipoPermiso();
+            tipopermiso.setTipopermisoid(cx.getCol("id"));
+            tipopermiso.setNombretipopermiso(cx.getCol("nombre"));
+            tipopermiso.setDescripcion(cx.getCol("descripcion"));
+            tipopermiso.setEstado(cx.getCol("estado"));
+            listaPermiso.add(tipopermiso);
+        }
+        return listaPermiso;
+    }
+
+    @Override
+    public List<Motivo> listarMotivos() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Motivo> listaMotivo = new ArrayList<>();
+        String query = "SELECT motivo_id as id, nombre_motivo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM motivo";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Motivo motivo = new Motivo();
+            motivo.setMotivoid(cx.getCol("id"));
+            motivo.setNombremotivo(cx.getCol("nombre"));
+            motivo.setEstado(cx.getCol("estado"));
+            listaMotivo.add(motivo);
+        }
+        return listaMotivo;
+    }
+
+    @Override
+    public List<Responsabilidad> listarResponsabilidad() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Responsabilidad> listaResponsabilidad = new ArrayList<>();
+        String query = "";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Responsabilidad responsabilidad = new Responsabilidad();
+            responsabilidad.setDeberid(cx.getCol("id"));
+            listaResponsabilidad.add(responsabilidad);
+        }
+        return listaResponsabilidad;
+    }
+
+    @Override
+    public List<TipoDeber> listarTipoDeber() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoDeber> listarTipoDeber = new ArrayList<>();
+        String query = "SELECT tipo_deber_id as id, nombre_tipo_deber as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_deber";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoDeber tipodeb = new TipoDeber();
+            tipodeb.setTipodeberid(cx.getCol("id"));
+            tipodeb.setNombretipodeber(cx.getCol("nombre"));
+            tipodeb.setEstado(cx.getCol("estado"));
+            listarTipoDeber.add(tipodeb);
+        }
+        return listarTipoDeber;
+    }
+
+    @Override
+    public List<Deber> listarDeberes() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Deber> listaDeber = new ArrayList<>();
+        String query = "SELECT d.deber_id as id, d.nombre_deber as nombre, td.tipo_deber_id as tipoid, td.nombre_tipo_deber as tipo, CASE d.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber as d, tipo_deber as td WHERE td.tipo_deber_id=d.tipo_deber_id";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Deber deb = new Deber();
+            deb.setDeberid(cx.getCol("id"));
+            deb.setNombredeber(cx.getCol("nombre"));
+            deb.setTipodeberid(cx.getCol("tipoid"));
+            deb.setNombretipodeber(cx.getCol("tipo"));
+            deb.setEstado(cx.getCol("estado"));
+            listaDeber.add(deb);
+        }
+        return listaDeber;
+    }
+
+    @Override
+    public List<Turno> listarTurnos() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Turno> listaTurno = new ArrayList<>();
+        String query = "SELECT turno_id as id, nombre_turno as nombre, horainicio as inicio, horafin as fin, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM turno";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Turno turno = new Turno();
+            turno.setTurnoid(cx.getCol("id"));
+            turno.setNombreturno(cx.getCol("nombre"));
+            turno.setHorainicio(cx.getCol("inicio"));
+            turno.setHorafin(cx.getCol("fin"));
+            turno.setEstado(cx.getCol("estado"));
+            listaTurno.add(turno);
+        }
+        return listaTurno;
+    }
+
+    @Override
+    public List<Marca> listarMarcas() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Marca> listaMarca = new ArrayList<>();
+        String query = "SELECT marca_id as id, nombre_marca as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM marca";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Marca marca = new Marca();
+            marca.setMarcaid(cx.getCol("id"));
+            marca.setNombremarca(cx.getCol("nombre"));
+            marca.setEstado(cx.getCol("estado"));
+            listaMarca.add(marca);
+        }
+        return listaMarca;
+    }
+
+    @Override
+    public List<TipoVehiculo> listarTipoVehiculo() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoVehiculo> listaTipoVeh = new ArrayList<>();
+        String query = "SELECT tipo_vehiculo_id as id, nombre_tipo_vehiculo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM marca";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoVehiculo tpvehiculo = new TipoVehiculo();
+            tpvehiculo.setTipovehiculoid(cx.getCol("id"));
+            tpvehiculo.setNombretipovehiculo(cx.getCol("nombre"));
+            tpvehiculo.setEstado(cx.getCol("estado"));
+            listaTipoVeh.add(tpvehiculo);
+        }
+        return listaTipoVeh;
+    }
+
+    @Override
+    public List<Vehiculo> listarVehiculo() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Vehiculo> listaVehiculo = new ArrayList<>();
+        String query = "SELECT v.vehiculo_id as id, tipo_vehiculo_id as idtipo, tp.nombre_tipo_vehiculo as nombre, m.marca_id as idmarca, m.nombre_marca as nombremarca, v.numplaca as placa, v.descripcion as descripcion, CASE v.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM vehiculo as v, tipovehiculo as tp, marca as m WHERE m.marca_id=v.marca_id and tp.tipo_vehiculo_id=v.tipo_vehiculo_id";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Vehiculo vehiculo = new Vehiculo();
+            vehiculo.setVehiculoid(cx.getCol("id"));
+            vehiculo.setTipovehiculoid(cx.getCol("idtipo"));
+            vehiculo.setNombre(cx.getCol("nombre"));
+            vehiculo.setMarcaid(cx.getCol("idmarca"));
+            vehiculo.setNombremarca(cx.getCol("nombremarca"));
+            vehiculo.setNumplaca(cx.getCol("placa"));
+            vehiculo.setDecripcion(cx.getCol("descripcion"));
+            vehiculo.setEstado(cx.getCol("estado"));
+            listaVehiculo.add(vehiculo);
+        }
+        return listaVehiculo;
+    }
+
+    @Override
+    public List<Area> listarArea() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Area> listaArea = new ArrayList<>();
+        String query = "SELECT v.vehiculo_id as id, tipo_vehiculo_id as idtipo, tp.nombre_tipo_vehiculo as nombre, m.marca_id as idmarca, m.nombre_marca as nombremarca, v.numplaca as placa, v.descripcion as descripcion, CASE ar.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM area a, area ar WHERE a.area_id=ar.area_id";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Area area = new Area();
+            listaArea.add(area);
+        }
+        return listaArea;
+    }
+
+    @Override
+    public List<Perfiles> listarPerfiles() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Perfiles> listaPerfiles = new ArrayList<>();
+        String query = "SELECT perfil_id as id, nombre_perfil as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM perfil";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Perfiles perfiles = new Perfiles();
+            perfiles.setPerfilid(cx.getCol("id"));
+            perfiles.setNombreperfil(cx.getCol("nombre"));
+            perfiles.setEstado(cx.getCol("estado"));
+            listaPerfiles.add(perfiles);
+        }
+        return listaPerfiles;
+    }
+
     /* MANTENIMIENTO -- EXTRAS */
     @Override
     public boolean RestablecerPassword(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE usuario SET contrasena='1234567890' WHERE usuario_id='"+ id +"'";
+        String COMANDO = "UPDATE usuario SET contrasena='1234567890' WHERE usuario_id='" + id + "'";
         try {
             cx.execC(COMANDO);
             cx.Commit();
             cx.Close(1, 1, 1);
             return true;
-        }
-        catch (Exception EX) {
+        } catch (Exception EX) {
             cx.RollBack();
             cx.Close(1, 1, 1);
             System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
@@ -539,20 +776,18 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             return false;
         }
     }
-    
-    
+
     /* MANTENIMIENTO -- ELIMINAR */
     @Override
     public boolean EliminarPersona(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE persona SET estado=0 WHERE persona_id='"+ id +"'";
+        String COMANDO = "UPDATE persona SET estado=0 WHERE persona_id='" + id + "'";
         try {
             cx.execC(COMANDO);
             cx.Commit();
             cx.Close(1, 1, 1);
             return true;
-        }
-        catch (Exception EX) {
+        } catch (Exception EX) {
             cx.RollBack();
             cx.Close(1, 1, 1);
             System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
@@ -564,14 +799,13 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean EliminarTipoPersona(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE tipo_persona SET estado=0 WHERE tipo_persona_id='"+ id +"'";
+        String COMANDO = "UPDATE tipo_persona SET estado=0 WHERE tipo_persona_id='" + id + "'";
         try {
             cx.execC(COMANDO);
             cx.Commit();
             cx.Close(1, 1, 1);
             return true;
-        }
-        catch (Exception EX) {
+        } catch (Exception EX) {
             cx.RollBack();
             cx.Close(1, 1, 1);
             System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
@@ -579,18 +813,17 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             return false;
         }
     }
-    
+
     @Override
     public boolean EliminarUsuario(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE usuario SET estado=0 WHERE usuario_id='"+ id +"'";
+        String COMANDO = "UPDATE usuario SET estado=0 WHERE usuario_id='" + id + "'";
         try {
             cx.execC(COMANDO);
             cx.Commit();
             cx.Close(1, 1, 1);
             return true;
-        }
-        catch (Exception EX) {
+        } catch (Exception EX) {
             cx.RollBack();
             cx.Close(1, 1, 1);
             System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());

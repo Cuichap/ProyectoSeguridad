@@ -14,6 +14,8 @@ public class Deber {
     private String deberid;
     private String nombredeber;
     private String tipodeberid;
+    private String nombretipodeber;
+    private String estado;
 
     public Deber() {
     }
@@ -40,6 +42,22 @@ public class Deber {
 
     public void setTipodeberid(String tipodeberid) {
         this.tipodeberid = tipodeberid;
+    }
+
+    public String getNombretipodeber() {
+        return nombretipodeber;
+    }
+
+    public void setNombretipodeber(String nombretipodeber) {
+        this.nombretipodeber = nombretipodeber;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.Motivo"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,19 +39,30 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdMotivo</th>
                                         <th>Motivo</th>
                                         <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                        List<Motivo> listarMot = dao.listarMotivos();
+                                        for(Motivo list : listarMot){
+                                            
+                                        count++;
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=list.getMotivoid()%></td>
+                                        <td><%=list.getNombremotivo()%></td>
+                                        <td><%=list.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Motivo" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Motivo" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

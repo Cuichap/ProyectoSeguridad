@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.Perfiles"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,19 +39,31 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdPerfil</th>
                                         <th>Perfil</th>
                                         <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                        List<Perfiles> listarPerfiles = dao.listarPerfiles();
+                                        for(Perfiles perfiles : listarPerfiles)
+                                        {
+                                            count++;
+                                        
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=perfiles.getPerfilid()%></td>
+                                        <td><%=perfiles.getNombreperfil()%></td>
+                                        <td><%=perfiles.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Perfil" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Perfil" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

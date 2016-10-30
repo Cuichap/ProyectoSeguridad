@@ -39,7 +39,9 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdMenu</th>
                                         <th>Menú</th>
+                                        <th hidden>IdSubMenu</th>
                                         <th>SubMenú</th>
                                         <th>Tipo</th>
                                         <th>Url</th>
@@ -47,14 +49,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                        
+                                        List<Opcion> listMen = dao.listarMenus();
+                                        for(Opcion opc : listMen){
+                                            count++;
+                                        
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=opc.getOpcionesid()%></td>
+                                        <td><%=opc.getMenu()%></td>
+                                        <td hidden><%=opc.getSubopcionesid()%></td>
+                                        <td><%=opc.getSubmenu()%></td>
+                                        <td><%=opc.getTipo()%></td>
+                                        <td><%=opc.getUrl()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Menú" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Menú" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

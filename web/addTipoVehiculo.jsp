@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.TipoVehiculo"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,19 +39,28 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>TipoVehiculoId</th>
                                         <th>Tipo de Vehículo</th>
                                         <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody><%
+                                    MantenimientoDao dao = new MantenimientoDaoImpl();
+                                    int count = 0;
+                                    List<TipoVehiculo> listaTipoVehiculo = dao.listarTipoVehiculo();
+                                    for (TipoVehiculo tpvehiculo : listaTipoVehiculo) {
+                                        count++;
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=tpvehiculo.getTipovehiculoid()%></td>
+                                        <td><%=tpvehiculo.getNombretipovehiculo()%></td>
+                                        <td><%=tpvehiculo.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Tipo de Vehículo" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Tipo de Vehículo" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

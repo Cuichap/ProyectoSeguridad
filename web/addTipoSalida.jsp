@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.entidad.TipoPermiso"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -42,14 +46,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count=0;
+                                        
+                                        List<TipoPermiso> listarPermiso = dao.listarSalida();
+                                        for(TipoPermiso tipoper: listarPermiso){
+                                            count++;
+                                        
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=tipoper.getTipopermisoid()%></td>
+                                        <td><%=tipoper.getNombretipopermiso()%></td>
+                                        <td><%=tipoper.getDescripcion()%></td>
+                                        <td><%=tipoper.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar el Tipo de Salida" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar el Tipo de Salida" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

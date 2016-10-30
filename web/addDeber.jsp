@@ -4,6 +4,11 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.Deber"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,19 +40,35 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdDeber</th>
                                         <th>Deber</th>
+                                        <th hidden>IdTipoDber</th>
+                                        <th>TipoDeber</th>
                                         <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                        
+                                        List<Deber> listarDeber = dao.listarDeberes();
+                                        for(Deber deb :listarDeber){
+                                            count++;
+                                        
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=deb.getDeberid()%></td>
+                                        <td><%=deb.getNombredeber()%></td>
+                                        <td hidden><%=deb.getTipodeberid()%></td>
+                                        <td><%=deb.getNombretipodeber()%></td>
+                                        <td><%=deb.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Deber" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Deber" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

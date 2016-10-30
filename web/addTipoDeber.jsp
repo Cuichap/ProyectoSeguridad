@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.TipoDeber"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,19 +39,32 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdTipoDeber</th>
                                         <th>Tipo de Deber</th>
                                         <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                        
+                                        List<TipoDeber> listarTipod = dao.listarTipoDeber();
+                                        for(TipoDeber tipdeb : listarTipod)
+                                        {
+                                            count++;
+                                        
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=tipdeb.getTipodeberid()%></td>
+                                        <td><%=tipdeb.getNombretipodeber()%></td>
+                                        <td><%=tipdeb.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Tipo de Deber" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Tipo de Deber" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.TipoIncidencia"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -42,14 +46,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count=0;
+                                        
+                                        List<TipoIncidencia> listarTipoInc = dao.listarTipoIncidencia();
+                                        for(TipoIncidencia tipoinc : listarTipoInc){
+                                            count++;
+                                            
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=tipoinc.getTipoincidenciaid()%></td>
+                                        <td><%=tipoinc.getNombretipoincidencia()%></td>
+                                        <td><%=tipoinc.getDescripcion()%></td>
+                                        <td><%=tipoinc.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar el Tipo de Salida" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar el Tipo de Salida" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.entidad.Vehiculo"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,23 +39,40 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdVehiculo</th>
+                                        <th hidden>IdTipoVehiculo</th>
                                         <th>Vehículo</th>
+                                        <th hidden>IdMarca</th>
                                         <th>Marca</th>
                                         <th>N° Placa</th>
                                         <th>Descripción</th>
+                                        <td>Estado</td>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                        List<Vehiculo> listaVehiculo = dao.listarVehiculo();
+                                        for(Vehiculo vehiculo : listaVehiculo){
+                                            count++;
+                                        
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <th hidden><%=vehiculo.getVehiculoid()%></th>
+                                        <th hidden><%=vehiculo.getTipovehiculoid()%></th>
+                                        <td><%=vehiculo.getNombre()%></td>
+                                        <th hidden><%=vehiculo.getMarcaid()%></th>
+                                        <td><%=vehiculo.getNombremarca()%></td>
+                                        <td><%=vehiculo.getNumplaca()%></td>
+                                        <td><%=vehiculo.getDecripcion()%></td>
+                                        <td><%=vehiculo.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Vehículo" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Vehículo" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

@@ -13,6 +13,7 @@ public class TipoDeber {
     
     private String tipodeberid;
     private String nombretipodeber;
+    private String estado;
 
     public TipoDeber() {
     }
@@ -31,6 +32,14 @@ public class TipoDeber {
 
     public void setNombretipodeber(String nombretipodeber) {
         this.nombretipodeber = nombretipodeber;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

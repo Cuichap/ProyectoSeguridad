@@ -13,6 +13,7 @@ public class TipoDocumento {
     
     private String tipodocumentoid;
     private String nombredocumento;
+    private String estado;
 
     public TipoDocumento() {
     }
@@ -31,6 +32,14 @@ public class TipoDocumento {
 
     public void setNombredocumento(String nombredocumento) {
         this.nombredocumento = nombredocumento;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

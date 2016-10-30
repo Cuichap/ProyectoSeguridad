@@ -14,6 +14,7 @@ public class Objeto {
     private String objetoid;
     private String nombreobjeto;
     private String descripcion;
+    private String estado;
 
     public Objeto() {
     }
@@ -40,5 +41,13 @@ public class Objeto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

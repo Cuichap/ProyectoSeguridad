@@ -361,7 +361,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     /* MANTENIMIENTO -- EDITAR */
- /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
+    /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
     @Override
     public List<TipoDocumento> listarTipoDocumentoAct() {
         Conexion cx = Configuracion.GaritaUPeU();

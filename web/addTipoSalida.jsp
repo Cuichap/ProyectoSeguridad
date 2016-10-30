@@ -26,14 +26,26 @@
                 </article>
             </section>
             <div id="listaTipoSalida" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">
-                <div data-brackets-id="733" class="panel panel-primary">
-                    <div data-brackets-id="734" class="panel-heading">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                            <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tiposalidas', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Salidas." aria-describedby="basic-addon1">
-                        </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <article class="col-sm-8" style="color: white;">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                                <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tiposalidas', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Salidas." aria-describedby="basic-addon1">
+                            </div>
+                        </article>
+                        <article align="right" class="col-sm-4">
+                            <div class="input-group col-sm-12">
+                                <select class="form-control">
+                                    <option hidden>Seleccionar el Estado</option>
+                                    <option value="1">Activos</option>
+                                    <option value="0">Inactivos</option>
+                                </select>
+                            </div>
+                        </article>
+                        <div class="row"></div>
                     </div>
-                    <div data-brackets-id="736" class="panel-body">
+                    <div class="panel-body">
                         <div class="col-md-12" style="overflow: auto; padding: 0px;">
                             <table style="margin-top: 0px;" id="tiposalidas" class="table table-bordered table-condensed table-hover table-responsive">
                                 <thead class="bg-primary">

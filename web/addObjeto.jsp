@@ -62,11 +62,11 @@
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
-                                        
+
                                         List<Objeto> listarObjeto = dao.listarObjeto();
-                                        for(Objeto obj: listarObjeto){
-                                            
-                                        count++;
+                                        for (Objeto obj : listarObjeto) {
+
+                                            count++;
                                     %>
                                     <tr>
                                         <td><%=count%></td>
@@ -75,9 +75,14 @@
                                         <td><%=obj.getDescripcion()%></td>
                                         <td><%=obj.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Objeto" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Objeto" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Objeto" align="center"><a onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                    function eliminar<%=obj.getObjetoid()%>() {
+                                        $("#objDelete").val("<%=obj.getObjetoid()%>");
+                                    }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -121,6 +126,32 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar esta Persona?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="" id="objDelete" name="id">
+                                    <input type="" name="opcion" value="DeleteObjeto">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div>                    
         </div>
     </body>
 </html>

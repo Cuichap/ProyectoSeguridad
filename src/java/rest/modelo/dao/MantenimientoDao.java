@@ -88,5 +88,20 @@ public interface MantenimientoDao {
     public boolean EliminarPersona(String id);
     public boolean EliminarTipoPersona(String id);
     public boolean EliminarUsuario(String id);
+    public boolean EliminarObjeto(String id);
+    public boolean EliminarMenu(String id);
+    public boolean EliminarPerfil(String id);
+    public boolean EliminarArea(String id);
+    public boolean EliminarVehiculo(String id);
+    public boolean EliminarTipoVehiculo(String id);
+    public boolean EliminarMarca(String id);
+    public boolean EliminarTurno(String id);
+    public boolean EliminarDeber(String id);
+    public boolean EliminarTipoDeber(String id);
+    public boolean EliminarResponsabilidad(String id);
+    public boolean EliminarMotivo(String id);
+    public boolean EliminarTipoSalida(String id);
+    public boolean EliminarTipoIncidencia(String id);
+    public boolean EliminarTipoDocumento(String id);
     
 }

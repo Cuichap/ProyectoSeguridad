@@ -831,4 +831,274 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             return false;
         }
     }
+
+    @Override
+    public boolean EliminarObjeto(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE objeto SET estado=0 WHERE objeto_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarMenu(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE opciones SET estado=0 WHERE opciones_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarPerfil(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE perfil SET estado=0 WHERE perfil_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarArea(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE area SET estado=0 WHERE area_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarVehiculo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE vehiculo SET estado=0 WHERE vehiculo_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarTipoVehiculo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_vehiculo SET estado=0 WHERE tipo_vehiculo_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarMarca(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE marca SET estado=0 WHERE marca_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarTurno(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE turno SET estado=0 WHERE turno_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarDeber(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE deber SET estado=0 WHERE deber_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarTipoDeber(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_deber SET estado=0 WHERE tipo_deber_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarResponsabilidad(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarMotivo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE motivo SET estado=0 WHERE motivo_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarTipoSalida(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_permiso SET estado=0 WHERE tipo_permiso_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarTipoIncidencia(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_incidencia SET estado=0 WHERE tipo_incidencia_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean EliminarTipoDocumento(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_documento SET estado=0 WHERE tipo_documento_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
 }

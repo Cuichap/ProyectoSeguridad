@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.Responsabilidad"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -47,23 +51,40 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdDeber</th>
+                                        <th hidden>IdUsuario</th>
+                                        <th hidden>IdTurno</th>
                                         <th>Usuario</th>
                                         <th>Responsabilidad</th>
                                         <th>Fecha</th>
+                                        <th hidden>IdUsuarioReg</th>
                                         <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+
+                                        List<Responsabilidad> listarResponsabilidad = dao.listarResponsabilidad();
+                                        for (Responsabilidad resp : listarResponsabilidad) {
+                                            count++;
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=resp.getDeberid()%></td>
+                                        <td hidden><%=resp.getUsuarioid()%></td>
+                                        <td hidden><%=resp.getTurnoid()%></td>
+                                        <td><%=resp.getNomresponsab()%></td>
+                                        <td><%=resp.getNomdeber()%></td>
+                                        <td><%=resp.getFecha()%></td>
+                                        <td hidden><%=resp.getUsuarioidreg()%></td>
+                                        <td><%=resp.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar la Responsabilidad" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar la Responsabilidad" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

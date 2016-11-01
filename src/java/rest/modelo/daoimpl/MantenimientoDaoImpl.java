@@ -645,11 +645,17 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Responsabilidad> listarResponsabilidad() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Responsabilidad> listaResponsabilidad = new ArrayList<>();
-        String query = "Select d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id; ";
+        String query = "Select d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id; ";
         cx.execQuery(query);
         while (cx.getNext()) {
             Responsabilidad responsabilidad = new Responsabilidad();
-            responsabilidad.setDeberid(cx.getCol("id"));
+            responsabilidad.setDeberid(cx.getCol("id1"));
+            responsabilidad.setUsuarioid(cx.getCol("id2"));
+            responsabilidad.setTurnoid(cx.getCol("id3"));
+            responsabilidad.setNomresponsab(cx.getCol("usuario"));
+            responsabilidad.setNomdeber(cx.getCol("deber"));
+            responsabilidad.setFecha(cx.getCol("fecha"));
+            responsabilidad.setEstado(cx.getCol("estado"));
             listaResponsabilidad.add(responsabilidad);
         }
         return listaResponsabilidad;

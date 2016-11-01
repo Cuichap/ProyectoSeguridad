@@ -96,10 +96,12 @@
                         <form id="addtipoper" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input type="text" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona">
+                                        <input type="text" pattern="^[A-Za-z ][A-Za-z ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="AddTipoPersona">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -143,5 +145,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $("#addtipoper").validator({debug: true});
+            });
+        </script> 
     </body>
 </html>

@@ -138,10 +138,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="nombres">Nombres</label>
                                         <input type="text" class="form-control" id="nombres" placeholder="Nombres" name="nombres">
                                         <input type="hidden" name="personaId" value="1">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -304,5 +306,10 @@
                 </section>
             </div>
         </div>
+       <script type="text/javascript">
+            $().ready(function () {
+                $("#adduser").validator({debug: true});
+            });
+        </script> 
     </body>
 </html>

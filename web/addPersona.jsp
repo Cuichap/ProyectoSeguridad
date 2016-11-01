@@ -18,6 +18,10 @@
     <head>
     </head>
     <body>
+        <%
+       String documento =request.getParameter("documento");
+            documento = documento == null ? "" : documento; 
+        %>
         <div class="col-sm-12">
             <br>
             <section id="lista" class="col-sm-12 well well-sm backcolor" style="display: block; margin-bottom: -50px;">
@@ -114,29 +118,37 @@
                         <form id="addper" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="nombres">Nombres</label>
-                                        <input required type="text" class="form-control" id="nombres" placeholder="Nombres" name="nombres">
+                                        <input required type="text" pattern="^[A-Za-z ][A-Za-z ]*" maxlength="39" class="form-control" id="nombres" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="apellidos">Apellidos</label>
-                                        <input required type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos">
+                                        <input required type="text" pattern="^[A-Za-z ][A-Za-z ]*" maxlength="39" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="direccion">Dirección</label>
-                                        <input required type="text" class="form-control" id="direccion" placeholder="Dirección" name="direccion">
+                                        <input required type="text" maxlength="39" class="form-control" id="direccion" placeholder="Dirección" name="direccion">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="procedencia">Procedencia</label>
-                                        <input required type="text" class="form-control" id="procedencia" placeholder="Procedencia" name="procedencia">
+                                        <input required type="text" maxlength="39" class="form-control" id="procedencia" placeholder="Procedencia" name="procedencia" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -144,29 +156,69 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipo">Tipo de Documento</label>
-                                        <select required class="form-control" id="tipo" name="tipoDocumento">
+                                        <select required class="form-control" id="tipo" name="tipoDocumento&documento">
                                             <option hidden>Seleccionar Tipo de Documento</option>
                                             <%
                                                 List<TipoDocumento> lista = dao.listarTipoDocumentoAct();
                                                 for (TipoDocumento tipo : lista) {
+                                                    
+               
                                             %>
-                                            <option value="<%=tipo.getTipodocumentoid()%>"><%=tipo.getNombredocumento()%></option>
+                                            <option  value="<%=tipo.getTipodocumentoid()%>&<%=tipo.getNombredocumento()%>"><%=tipo.getNombredocumento()%></option>
+                                            
                                             <%}%>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="numeroDoc">N° Documento</label>
-                                        <input required type="number" class="form-control" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc">
+                                        <input required type="text" pattern="^[A-Za-z0-9]*" class="form-control"  data-minlength="8" maxlength="16" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc">
+                                        <div class="help-block">Minimo 8 números</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                        
+                                        <%
+                                            if (documento.equals("DNI")) { %>
+
+                                        <input required type="text" pattern="^[0-9]*" class="form-control" data-minlength="8" maxlength="16" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
+                                        <div class="help-block">Minimo 8 números</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+
+                                        <%}
+                                            if (IdSubMenu.equals("15")) { %>
+                                        <input required type="text" pattern="^[0-9]{4,6}$" class="form-control"  data-maxlength="8" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
+                                        <div class="help-block">Minimo 8 números</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                        <%}
+                                            if (IdSubMenu.equals("16")) { %>
+                                        <input required type="text" pattern="^[0-9]{4,6}$" class="form-control"  data-maxlength="8" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
+                                        <div class="help-block">Minimo 8 números</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                        <%}
+                                            if (IdSubMenu.equals("17")) { %>
+                                        ir17();
+                                        <%}
+                                            if (IdSubMenu.equals("18")) { %>
+                                        <input required type="text" pattern="^[0-9]{4,6}$" class="form-control"  data-maxlength="8" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
+                                        <div class="help-block">Minimo 8 números</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                        <%}%>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="telefono">Teléfono</label>
-                                        <input required type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+                                        <input  type="text" pattern="^[#*0-9]*" maxlength="15" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -231,5 +283,11 @@
                 </section>
             </section>
         </div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $("#addper").validator({debug: true});
+            });
+        </script>                                
     </body>
+
 </html>

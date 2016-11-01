@@ -14,7 +14,11 @@ public class Responsabilidad {
     private String deberid;
     private String usuarioid;
     private String turnoid;
+    private String nomresponsab;
     private String usuarioidreg;
+    private String nomdeber;
+    private String fecha;
+    private String estado;
 
     public Responsabilidad() {
     }
@@ -43,6 +47,16 @@ public class Responsabilidad {
         this.turnoid = turnoid;
     }
 
+    public String getNomresponsab() {
+        return nomresponsab;
+    }
+
+    public void setNomresponsab(String nomresponsab) {
+        this.nomresponsab = nomresponsab;
+    }
+
+   
+
     public String getUsuarioidreg() {
         return usuarioidreg;
     }
@@ -50,5 +64,29 @@ public class Responsabilidad {
     public void setUsuarioidreg(String usuarioidreg) {
         this.usuarioidreg = usuarioidreg;
     }
-    
+
+    public String getNomdeber() {
+        return nomdeber;
+    }
+
+    public void setNomdeber(String nomdeber) {
+        this.nomdeber = nomdeber;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 }

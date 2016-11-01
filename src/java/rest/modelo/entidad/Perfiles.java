@@ -13,6 +13,7 @@ public class Perfiles {
     
     private String perfilid;
     private String nombreperfil;
+    private String estado;
 
     public Perfiles() {
     }
@@ -31,6 +32,14 @@ public class Perfiles {
 
     public void setNombreperfil(String nombreperfil) {
         this.nombreperfil = nombreperfil;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

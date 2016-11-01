@@ -14,6 +14,7 @@ public class TipoIncidencia {
     private String tipoincidenciaid;
     private String nombretipoincidencia;
     private String descripcion;
+    private String estado;
 
     public TipoIncidencia() {
     }
@@ -40,6 +41,14 @@ public class TipoIncidencia {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

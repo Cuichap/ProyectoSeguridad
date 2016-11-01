@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.Motivo"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,32 +26,55 @@
                 </article>
             </section>
             <div id="listaMotivo" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">
-                <div data-brackets-id="733" class="panel panel-primary">
-                    <div data-brackets-id="734" class="panel-heading">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                            <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'motivos', '1')" type="text" class="form-control" placeholder="Buscar Motivos." aria-describedby="basic-addon1">
-                        </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <article class="col-sm-8" style="color: white;">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                                <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'motivos', '1')" type="text" class="form-control" placeholder="Buscar Motivos." aria-describedby="basic-addon1">
+                            </div>
+                        </article>
+                        <article align="right" class="col-sm-4">
+                            <div class="input-group col-sm-12">
+                                <select class="form-control">
+                                    <option hidden>Seleccionar el Estado</option>
+                                    <option value="1">Activos</option>
+                                    <option value="0">Inactivos</option>
+                                </select>
+                            </div>
+                        </article>
+                        <div class="row"></div>
                     </div>
-                    <div data-brackets-id="736" class="panel-body">
+                    <div class="panel-body">
                         <div class="col-md-12" style="overflow: auto; padding: 0px;">
                             <table style="margin-top: 0px;" id="motivos" class="table table-bordered table-condensed table-hover table-responsive">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdMotivo</th>
                                         <th>Motivo</th>
                                         <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+                                        List<Motivo> listarMot = dao.listarMotivos();
+                                        for(Motivo list : listarMot){
+                                            
+                                        count++;
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=list.getMotivoid()%></td>
+                                        <td><%=list.getNombremotivo()%></td>
+                                        <td><%=list.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Motivo" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Motivo" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

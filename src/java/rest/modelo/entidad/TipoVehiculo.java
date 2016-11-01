@@ -13,6 +13,7 @@ public class TipoVehiculo {
     
     private String tipovehiculoid;
     private String nombretipovehiculo;
+    private String estado;
     
     public TipoVehiculo() {
     }
@@ -32,6 +33,14 @@ public class TipoVehiculo {
 
     public void setNombretipovehiculo(String nombretipovehiculo) {
         this.nombretipovehiculo = nombretipovehiculo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

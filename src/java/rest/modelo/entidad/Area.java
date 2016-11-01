@@ -14,7 +14,9 @@ public class Area {
     private String areaid;
     private String subareaid;
     private String nombre;
+    private String subareanombre;
     private String descripcion;
+    private String estado;
 
     public Area() {
     }
@@ -49,6 +51,22 @@ public class Area {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getSubareanombre() {
+        return subareanombre;
+    }
+
+    public void setSubareanombre(String subareanombre) {
+        this.subareanombre = subareanombre;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
     

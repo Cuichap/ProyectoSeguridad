@@ -26,35 +26,69 @@
                 </article>
             </section>
             <div id="listaMenu" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">
-                <div data-brackets-id="733" class="panel panel-primary">
-                    <div data-brackets-id="734" class="panel-heading">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                            <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'menus', '1')" type="text" class="form-control" placeholder="Buscar Menú." aria-describedby="basic-addon1">
-                        </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <article class="col-sm-8" style="color: white;">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                                <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'menus', '1')" type="text" class="form-control" placeholder="Buscar Menú." aria-describedby="basic-addon1">
+                            </div>
+                        </article>
+                        <article align="right" class="col-sm-4">
+                            <div class="input-group col-sm-12">
+                                <select class="form-control">
+                                    <option hidden>Seleccionar el Estado</option>
+                                    <option value="1">Activos</option>
+                                    <option value="0">Inactivos</option>
+                                </select>
+                            </div>
+                        </article>
+                        <div class="row"></div>
                     </div>
-                    <div data-brackets-id="736" class="panel-body">
+                    <div class="panel-body">
                         <div class="col-md-12" style="overflow: auto; padding: 0px;">
                             <table style="margin-top: 0px;" id="menus" class="table table-bordered table-condensed table-hover table-responsive">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdMenu</th>
                                         <th>Menú</th>
+                                        <th hidden>IdSubMenu</th>
                                         <th>SubMenú</th>
                                         <th>Tipo</th>
                                         <th>Url</th>
+                                        <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+
+                                        List<Opcion> listMen = dao.listarMenus();
+                                        for (Opcion opc : listMen) {
+                                            count++;
+
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=opc.getOpcionesid()%></td>
+                                        <td><%=opc.getMenu()%></td>
+                                        <td hidden><%=opc.getSubopcionesid()%></td>
+                                        <td><%=opc.getSubmenu()%></td>
+                                        <td><%=opc.getTipo()%></td>
+                                        <td><%=opc.getUrl()%></td>
+                                        <td><%=opc.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Menú" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Menú" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Menú" align="center"><a onclick="eliminar<%=opc.getOpcionesid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                <script>
+                                        function eliminar<%=opc.getOpcionesid()%>() {
+                                            $("#menuDelete").val("<%=opc.getOpcionesid()%>");
+                                        }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -78,7 +112,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipoMenu">Tipo de Menú</label>
-                                        <select class="form-control" id="tipo" name="tipoMenu">
+                                        <select class="form-control" id="tipoMenu" name="tipoMenu">
                                             <option hidden>Seleccionar Tipo de Menú</option>
                                             <option value="nivel1">Menú</option>
                                             <option value="nivel2">SubMenú</option>
@@ -91,9 +125,8 @@
                                     <div class="form-group">
                                         <label for="tipoMenu">Seleccionar Menú</label>
                                         <select class="form-control" id="tipo" name="idSubMenu">
-                                            <option hidden>Seleccionar Menú</option>
+                                            <option value="null" hidden>Seleccionar Menú</option>
                                             <%
-                                                MantenimientoDao dao = new MantenimientoDaoImpl();
 
                                                 List<Opcion> listaOpcAct = dao.listarOpcionesAct();
                                                 for (Opcion opcionact : listaOpcAct) {
@@ -125,6 +158,32 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Menú?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="menuDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeleteMenu">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div> 
         </div>
     </body>
 </html>

@@ -60,13 +60,29 @@ public interface MantenimientoDao {
     public List<Perfiles> listarPerfilesAct();
     public List<TipoPersona> listarTipoPersonaAct();
     public List<Opcion> listarOpcionesAct();
+    public List<TipoVehiculo> listarTipoVehiculoAct();
+    public List<Marca> listarMarcaAct();
+    public List<TipoDeber> listarTipoDeberAct();
     
     /* MANTENIMIENTO -- LISTAS */
+    public List<TipoDocumento> listarTipoDocumento();
     public List<Persona> listarPersona();
-    public List<TipoPersona> listarTipoPersona();
+    public List<TipoPersona> listarTipoPersona(String estado);
     public List<Usuario> listarUsuario();
     public List<Objeto> listarObjeto();
     public List<Opcion> listarMenus();
+    public List<TipoIncidencia> listarTipoIncidencia();
+    public List<TipoPermiso> listarSalida();
+    public List<Motivo> listarMotivos();
+    public List<Responsabilidad> listarResponsabilidad();
+    public List<TipoDeber> listarTipoDeber();
+    public List<Deber> listarDeberes();
+    public List<Turno> listarTurnos();
+    public List<Marca> listarMarcas();
+    public List<TipoVehiculo> listarTipoVehiculo();
+    public List<Vehiculo> listarVehiculo();
+    public List<Area> listarArea();
+    public List<Perfiles> listarPerfiles();
     
     /* MANTENIMIENTO -- EXTRAS */
     public boolean RestablecerPassword(String id);
@@ -75,5 +91,20 @@ public interface MantenimientoDao {
     public boolean EliminarPersona(String id);
     public boolean EliminarTipoPersona(String id);
     public boolean EliminarUsuario(String id);
+    public boolean EliminarObjeto(String id);
+    public boolean EliminarMenu(String id);
+    public boolean EliminarPerfil(String id);
+    public boolean EliminarArea(String id);
+    public boolean EliminarVehiculo(String id);
+    public boolean EliminarTipoVehiculo(String id);
+    public boolean EliminarMarca(String id);
+    public boolean EliminarTurno(String id);
+    public boolean EliminarDeber(String id);
+    public boolean EliminarTipoDeber(String id);
+    public boolean EliminarResponsabilidad(String iddeber, String iduser);
+    public boolean EliminarMotivo(String id);
+    public boolean EliminarTipoSalida(String id);
+    public boolean EliminarTipoIncidencia(String id);
+    public boolean EliminarTipoDocumento(String id);
     
 }

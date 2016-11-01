@@ -13,6 +13,7 @@ public class Motivo {
     
     private String motivoid;
     private String nombremotivo;
+    private String estado;
 
     public Motivo() {
     }
@@ -31,6 +32,14 @@ public class Motivo {
 
     public void setNombremotivo(String nombremotivo) {
         this.nombremotivo = nombremotivo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

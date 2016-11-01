@@ -9,9 +9,11 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
     <head>
+        <%
+            String estadoFilter = request.getParameter("estadoFilter"); estadoFilter = estadoFilter == null?"": estadoFilter;
+        %>
     </head>
     <body>
         <div class="col-sm-12">
@@ -26,31 +28,43 @@
                 </article>
             </section>
             <div id="listaTipoPer" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">
-                <div data-brackets-id="733" class="panel panel-primary">
-                    <div data-brackets-id="734" class="panel-heading">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
                         <article class="col-sm-8" style="color: white;">
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'persona', '1')" type="text" class="form-control" placeholder="Buscar Tipo de Persona." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            function Filter(estado) {
+                                $.ajax({
+                                    type:"POST",
+                                    url: "addTipoPersona.jsp",
+                                    data: "estadoFilter="+estado,
+                                    success: function (data) {
+                                        $("#permisos").html(data);
+                                    }
+                                });
+                            }
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estado" class="form-control" name="estado" onchange="Filter()">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option value="0">Activos</option>
+                                    <option value="1">Inactivos</option>
                                 </select>
                             </div>
                         </article>
                         <div class="row"></div>
                     </div>
-                    <div data-brackets-id="736" class="panel-body">
+                    <div class="panel-body">
                         <div class="col-md-12" style="overflow: auto; padding: 0px;">
                             <table style="margin-top: 0px;" id="persona" class="table table-bordered table-condensed table-hover table-responsive">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th>#</th>
+                                        <th><%=estadoFilter%></th>
                                         <th hidden>Id Tipo Persona</th>
                                         <th>Tipo de Persona</th>
                                         <th>Estado</th>
@@ -60,10 +74,10 @@
                                 <tbody>
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
-
+                                        
                                         int count = 0;
 
-                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona();
+                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona(estadoFilter);
                                         for (TipoPersona tipoPersona : listaTipoPer) {
                                             count++;
                                     %>

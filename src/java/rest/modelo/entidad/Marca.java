@@ -13,6 +13,7 @@ public class Marca {
     
     private String marcaid;
     private String nombremarca;
+    private String estado;
 
     public Marca() {
     }
@@ -31,6 +32,14 @@ public class Marca {
 
     public void setNombremarca(String nombremarca) {
         this.nombremarca = nombremarca;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

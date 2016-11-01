@@ -13,9 +13,12 @@ public class Vehiculo {
     
     private String vehiculoid;
     private String tipovehiculoid;
+    private String nombre;
     private String marcaid;
+    private String nombremarca;
     private String numplaca;
     private String decripcion;
+    private String estado;
 
     public Vehiculo() {
     }
@@ -58,6 +61,30 @@ public class Vehiculo {
 
     public void setDecripcion(String decripcion) {
         this.decripcion = decripcion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombremarca() {
+        return nombremarca;
+    }
+
+    public void setNombremarca(String nombremarca) {
+        this.nombremarca = nombremarca;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

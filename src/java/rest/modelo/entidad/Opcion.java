@@ -14,8 +14,10 @@ public class Opcion {
     private String opcionesid;
     private String subopcionesid;
     private String menu;
+    private String submenu;
     private String tipo;
     private String url;
+    private String estado;
 
     public Opcion() {
     }
@@ -58,6 +60,22 @@ public class Opcion {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getSubmenu() {
+        return submenu;
+    }
+
+    public void setSubmenu(String submenu) {
+        this.submenu = submenu;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
 }

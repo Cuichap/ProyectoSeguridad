@@ -47,6 +47,36 @@
     <%}
         if (IdSubMenu.equals("18")) { %>
         ir18();
+    <%}
+        if (IdSubMenu.equals("19")) { %>
+        ir19();
+    <%}
+        if (IdSubMenu.equals("20")) { %>
+        ir20();
+    <%}
+        if (IdSubMenu.equals("21")) { %>
+        ir21();
+    <%}
+        if (IdSubMenu.equals("22")) { %>
+        ir22();
+    <%}
+        if (IdSubMenu.equals("23")) { %>
+        ir23();
+    <%}
+        if (IdSubMenu.equals("24")) { %>
+        ir24();
+    <%}
+        if (IdSubMenu.equals("25")) { %>
+        ir25();
+    <%}
+        if (IdSubMenu.equals("26")) { %>
+        ir26();
+    <%}
+            if (IdSubMenu.equals("27")) { %>
+        ir27();
+    <%}
+            if (IdSubMenu.equals("28")) { %>
+        ir28();
     <%}%>
     });
 </script>

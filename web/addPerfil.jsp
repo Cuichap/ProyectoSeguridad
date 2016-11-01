@@ -62,10 +62,9 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
                                         List<Perfiles> listarPerfiles = dao.listarPerfiles();
-                                        for(Perfiles perfiles : listarPerfiles)
-                                        {
+                                        for (Perfiles perfiles : listarPerfiles) {
                                             count++;
-                                        
+
                                     %>
                                     <tr>
                                         <td><%=count%></td>
@@ -73,9 +72,14 @@
                                         <td><%=perfiles.getNombreperfil()%></td>
                                         <td><%=perfiles.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Perfil" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Perfil" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Perfil" align="center"><a onclick="eliminar<%=perfiles.getPerfilid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                        function eliminar<%=perfiles.getPerfilid()%>() {
+                                            $("#perfilDelete").val("<%=perfiles.getPerfilid()%>");
+                                        }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -88,12 +92,13 @@
                         <h3 align="center"><span><b>Ingresar los Datos del Perfil</b></span></h3>
                     </div>
                     <div class="panel-body">
-                        <form id="addperfil" class="form-signin" role="form" method="post" action="">
+                        <form id="addperfil" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="perfil">Perfil</label>
-                                        <input type="text" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="menu">
+                                        <input type="text" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres">
+                                        <input type="hidden" name="opcion" value="AddPerfil">
                                     </div>
                                 </div>
                             </div>
@@ -110,6 +115,32 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Perfil de Usuario?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="perfilDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeletePerfil">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div> 
         </div>
     </body>
 </html>

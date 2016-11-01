@@ -60,6 +60,8 @@ public interface MantenimientoDao {
     public List<Perfiles> listarPerfilesAct();
     public List<TipoPersona> listarTipoPersonaAct();
     public List<Opcion> listarOpcionesAct();
+    public List<TipoVehiculo> listarTipoVehiculoAct();
+    public List<Marca> listarMarcaAct();
     
     /* MANTENIMIENTO -- LISTAS */
     public List<TipoDocumento> listarTipoDocumento();
@@ -98,7 +100,7 @@ public interface MantenimientoDao {
     public boolean EliminarTurno(String id);
     public boolean EliminarDeber(String id);
     public boolean EliminarTipoDeber(String id);
-    public boolean EliminarResponsabilidad(String id);
+    public boolean EliminarResponsabilidad(String iddeber, String iduser);
     public boolean EliminarMotivo(String id);
     public boolean EliminarTipoSalida(String id);
     public boolean EliminarTipoIncidencia(String id);

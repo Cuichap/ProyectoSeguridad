@@ -57,6 +57,7 @@
                                         <th>SubMenú</th>
                                         <th>Tipo</th>
                                         <th>Url</th>
+                                        <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
@@ -64,11 +65,11 @@
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
-                                        
+
                                         List<Opcion> listMen = dao.listarMenus();
-                                        for(Opcion opc : listMen){
+                                        for (Opcion opc : listMen) {
                                             count++;
-                                        
+
                                     %>
                                     <tr>
                                         <td><%=count%></td>
@@ -78,10 +79,16 @@
                                         <td><%=opc.getSubmenu()%></td>
                                         <td><%=opc.getTipo()%></td>
                                         <td><%=opc.getUrl()%></td>
+                                        <td><%=opc.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Menú" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Menú" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Menú" align="center"><a onclick="eliminar<%=opc.getOpcionesid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                        function eliminar<%=opc.getOpcionesid()%>() {
+                                            $("#menuDelete").val("<%=opc.getOpcionesid()%>");
+                                        }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -105,7 +112,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipoMenu">Tipo de Menú</label>
-                                        <select class="form-control" id="tipo" name="tipoMenu">
+                                        <select class="form-control" id="tipoMenu" name="tipoMenu">
                                             <option hidden>Seleccionar Tipo de Menú</option>
                                             <option value="nivel1">Menú</option>
                                             <option value="nivel2">SubMenú</option>
@@ -118,7 +125,7 @@
                                     <div class="form-group">
                                         <label for="tipoMenu">Seleccionar Menú</label>
                                         <select class="form-control" id="tipo" name="idSubMenu">
-                                            <option hidden>Seleccionar Menú</option>
+                                            <option value="null" hidden>Seleccionar Menú</option>
                                             <%
 
                                                 List<Opcion> listaOpcAct = dao.listarOpcionesAct();
@@ -151,6 +158,32 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Menú?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="menuDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeleteMenu">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div> 
         </div>
     </body>
 </html>

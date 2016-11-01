@@ -131,13 +131,13 @@
                     <section class="modal-content">
                         <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
-                            <h3 align="center"><span><b>¿Está seguro de Eliminar esta Persona?</b></span></h3>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Objeto?</b></span></h3>
                         </section>
                         <section class="modal-body">
                             <form class="form-signin" role="form" method="post" action="mantenimiento">
                                 <div class="row">
-                                    <input type="" id="objDelete" name="id">
-                                    <input type="" name="opcion" value="DeleteObjeto">
+                                    <input type="hidden" id="objDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeleteObjeto">
                                 </div>
                                 <h4 align="center">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">

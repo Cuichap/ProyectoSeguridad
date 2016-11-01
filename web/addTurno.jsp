@@ -63,11 +63,10 @@
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
-                                         List<Turno> listarTurnos = dao.listarTurnos();
-                                         for(Turno turn : listarTurnos)
-                                         {
-                                             count++;
-                                         
+                                        List<Turno> listarTurnos = dao.listarTurnos();
+                                        for (Turno turn : listarTurnos) {
+                                            count++;
+
                                     %>
                                     <tr>
                                         <td><%=count%></td>
@@ -77,9 +76,14 @@
                                         <td><%=turn.getHorafin()%></td>
                                         <td><%=turn.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Turno" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Turno" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Turno" align="center"><a onclick="eliminar<%=turn.getTurnoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                    function eliminar<%=turn.getTurnoid()%>() {
+                                        $("#turnoDelete").val("<%=turn.getTurnoid()%>");
+                                    }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -92,12 +96,12 @@
                         <h3 align="center"><span><b>Ingresar los Datos del Turno</b></span></h3>
                     </div>
                     <div class="panel-body">
-                        <form id="addturno" class="form-signin" role="form" method="post" action="">
+                        <form id="addturno" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="turno">Turno</label>
-                                        <input autofocus="true" type="text" class="form-control" id="turno" placeholder="Ingresar el Nombre del Turno" name="turno">
+                                        <input autofocus="true" type="text" class="form-control" id="turno" placeholder="Ingresar el Nombre del Turno" name="nombres">
                                     </div>
                                 </div>
                             </div>
@@ -112,6 +116,7 @@
                                     <div class="form-group">
                                         <label for="hoorafin">Hora de Fin</label>
                                         <input type="time" class="form-control" id="horafin" placeholder="Ingresar de Fin" name="horafin">
+                                        <input type="hidden" name="opcion" value="AddTurno">
                                     </div>
                                 </div>
                             </div>
@@ -127,6 +132,32 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar esta Marca?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="turnoDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeleteTurno">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
             </div>
         </div>
     </body>

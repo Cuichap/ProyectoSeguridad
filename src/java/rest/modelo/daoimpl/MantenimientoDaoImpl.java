@@ -529,7 +529,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Opcion> listarMenus() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Opcion> listaMenus = new ArrayList<>();
-        String query = "SELECT o.opciones_id as id, o.menu as menup, op.subopciones_id as idsub, op.menu as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN concat( CASE op.tipo WHEN op.subopciones_id=o.opciones_id THEN 'Subarea' END) END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id order by o.opciones_id";
+        String query = "SELECT o.opciones_id as id, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menup, op.subopciones_id as idsub, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, o.tipo FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id order by o.opciones_id";
         cx.execQuery(query);
         while (cx.getNext()) {
             Opcion opcion = new Opcion();
@@ -696,7 +696,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<TipoVehiculo> listarTipoVehiculo() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoVehiculo> listaTipoVeh = new ArrayList<>();
-        String query = "SELECT tipo_vehiculo_id as id, nombre_tipo_vehiculo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM marca";
+        String query = "SELECT tipo_vehiculo_id as id, nombre_tipo_vehiculo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_vehiculo";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoVehiculo tpvehiculo = new TipoVehiculo();
@@ -712,7 +712,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Vehiculo> listarVehiculo() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Vehiculo> listaVehiculo = new ArrayList<>();
-        String query = "SELECT v.vehiculo_id as id, tipo_vehiculo_id as idtipo, tp.nombre_tipo_vehiculo as nombre, m.marca_id as idmarca, m.nombre_marca as nombremarca, v.numplaca as placa, v.descripcion as descripcion, CASE v.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM vehiculo as v, tipovehiculo as tp, marca as m WHERE m.marca_id=v.marca_id and tp.tipo_vehiculo_id=v.tipo_vehiculo_id";
+        String query = "SELECT v.vehiculo_id as id, v.tipo_vehiculo_id as idtipo, tp.nombre_tipo_vehiculo as nombre, m.marca_id as idmarca, m.nombre_marca as nombremarca, v.numplaca as placa, v.descripcion as descripcion, CASE v.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM vehiculo as v, tipo_vehiculo as tp, marca as m WHERE m.marca_id=v.marca_id and tp.tipo_vehiculo_id=v.tipo_vehiculo_id";
         cx.execQuery(query);
         while (cx.getNext()) {
             Vehiculo vehiculo = new Vehiculo();
@@ -733,10 +733,16 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Area> listarArea() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Area> listaArea = new ArrayList<>();
-        String query = "SELECT v.vehiculo_id as id, tipo_vehiculo_id as idtipo, tp.nombre_tipo_vehiculo as nombre, m.marca_id as idmarca, m.nombre_marca as nombremarca, v.numplaca as placa, v.descripcion as descripcion, CASE ar.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM area a, area ar WHERE a.area_id=ar.area_id";
+        String query = "SELECT a.area_id as id, CASE a.nombre WHEN a.tipo='nivel2' THEN a.nombre END as area, ar.area_id as idsub, CASE ar.nombre WHEN a.tipo='nivel1' THEN a.nombre END as subarea, CASE ar.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, CASE ar.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, a.tipo, a.descripcion as descripcion FROM area as a, area as ar WHERE a.area_id=ar.area_id order by a.area_id";
         cx.execQuery(query);
         while (cx.getNext()) {
             Area area = new Area();
+            area.setAreaid(cx.getCol("id"));
+            area.setNombre(cx.getCol("area"));
+            area.setSubareaid(cx.getCol("idsub"));
+            area.setSubareanombre(cx.getCol("subarea"));
+            area.setDescripcion(cx.getCol("descripcion"));
+            area.setEstado(cx.getCol("estado"));
             listaArea.add(area);
         }
         return listaArea;

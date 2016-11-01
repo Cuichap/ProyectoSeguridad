@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.Area"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -47,7 +51,9 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IdArea</th>
                                         <th>Área</th>
+                                        <th hidden>IdSubArea</th>
                                         <th>AubÁrea</th>
                                         <th>Descripción</th>
                                         <th>Estado</th>
@@ -55,14 +61,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                            MantenimientoDao dao = new MantenimientoDaoImpl();
+                                            int count = 0;
+                                            
+                                            List<Area> listarAreas = dao.listarArea();
+                                            for(Area area: listarAreas){
+                                                count++;
+                                            
+                                            %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=area.getAreaid()%></td>
+                                        <td><%=area.getNombre()%></td>
+                                        <td hidden><%=area.getSubareaid()%></td>
+                                        <td><%=area.getSubareanombre()%></td>
+                                        <td><%=area.getDescripcion()%></td>
+                                        <td><%=area.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Área" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Área" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

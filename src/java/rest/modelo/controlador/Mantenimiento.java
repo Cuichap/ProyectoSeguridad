@@ -471,6 +471,35 @@ public class Mantenimiento extends HttpServlet {
                     request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
                 }
                 break;
+            case "AddTipoDeber":
+                tipoDeber.setNombretipodeber(nombres);
+                if (dao.AgregarTipoDeber(tipoDeber)) {
+                    request.setAttribute("IdSubMenu", "23");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "23");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
+                break;
+            case "EditTipoDeber":
+                break;
+            case "DeleteTipoDeber":
+                if (dao.EliminarTipoDeber(id)) {
+                    request.setAttribute("IdSubMenu", "23");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "23");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
+                break;
             default:
                 break;
         }

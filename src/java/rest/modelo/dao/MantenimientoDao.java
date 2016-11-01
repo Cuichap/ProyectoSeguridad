@@ -62,6 +62,7 @@ public interface MantenimientoDao {
     public List<Opcion> listarOpcionesAct();
     public List<TipoVehiculo> listarTipoVehiculoAct();
     public List<Marca> listarMarcaAct();
+    public List<TipoDeber> listarTipoDeberAct();
     
     /* MANTENIMIENTO -- LISTAS */
     public List<TipoDocumento> listarTipoDocumento();

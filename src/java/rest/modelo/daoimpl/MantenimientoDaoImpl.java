@@ -468,6 +468,21 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
         return listaMarcaAct;
     }
 
+    @Override
+    public List<TipoDeber> listarTipoDeberAct() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoDeber> listaTipoDeberAct = new ArrayList<>();
+        String query = "SELECT tipo_deber_id as id, nombre_tipo_deber as nombre FROM tipo_deber WHERE estado=1";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoDeber tipoDeber = new TipoDeber();
+            tipoDeber.setTipodeberid(cx.getCol("id"));
+            tipoDeber.setNombretipodeber(cx.getCol("nombre"));
+            listaTipoDeberAct.add(tipoDeber);
+        }
+        return listaTipoDeberAct;
+    }
+
     /* MANTENIMIENTO -- LISTAS */
     @Override
     public List<Persona> listarPersona() {

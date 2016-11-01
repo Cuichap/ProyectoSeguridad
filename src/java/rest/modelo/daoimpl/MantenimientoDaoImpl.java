@@ -509,10 +509,10 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public List<TipoPersona> listarTipoPersona() {
+    public List<TipoPersona> listarTipoPersona(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoPersona> listaTipoPer = new ArrayList<>();
-        String query = "SELECT tipo_persona_id as id, nombre_tipo_persona as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_persona";
+        String query = "SELECT tipo_persona_id as id, nombre_tipo_persona as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_persona WHERE estado='"+estado+"'";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoPersona tipoPersona = new TipoPersona();

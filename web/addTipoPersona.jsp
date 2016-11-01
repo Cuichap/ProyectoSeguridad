@@ -9,7 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<jsp:useBean id="filterestado" scope="page" class="java.lang.String" />
 <html>
     <head>
     </head>
@@ -34,12 +34,20 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'persona', '1')" type="text" class="form-control" placeholder="Buscar Tipo de Persona." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            function estado1(){
+                            $("#filterestado").val("0")
+                            };
+                            function estado2(){
+                            $("#filterestado").val("1")
+                            };
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select class="form-control" name="estado">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option onclick="estado1">Activos</option>
+                                    <option onclick="estado2()">Inactivos</option>
                                 </select>
                             </div>
                         </article>
@@ -63,7 +71,7 @@
 
                                         int count = 0;
 
-                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona();
+                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona(filterestado);
                                         for (TipoPersona tipoPersona : listaTipoPer) {
                                             count++;
                                     %>
@@ -77,7 +85,7 @@
                                     </tr>
                                 <script>
                                     function eliminar<%=tipoPersona.getTipoPersonaid()%>() {
-                                        $("#tipPerDelete").val("<%=tipoPersona.getTipoPersonaid()%>");
+                                    $("#tipPerDelete").val("<%=tipoPersona.getTipoPersonaid()%>");
                                     }
                                 </script>
                                 <%}%>
@@ -143,5 +151,6 @@
                 </section>
             </div>
         </div>
+
     </body>
 </html>

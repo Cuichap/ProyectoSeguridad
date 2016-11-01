@@ -67,7 +67,7 @@ public interface MantenimientoDao {
     /* MANTENIMIENTO -- LISTAS */
     public List<TipoDocumento> listarTipoDocumento();
     public List<Persona> listarPersona();
-    public List<TipoPersona> listarTipoPersona();
+    public List<TipoPersona> listarTipoPersona(String estado);
     public List<Usuario> listarUsuario();
     public List<Objeto> listarObjeto();
     public List<Opcion> listarMenus();

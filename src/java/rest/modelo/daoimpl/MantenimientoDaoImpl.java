@@ -1071,9 +1071,9 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public boolean EliminarResponsabilidad(String iddeber, String iduser) {
+    public boolean EliminarResponsabilidad(String iddeber, String iduser, String idturno) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE deber_usuario SET estado=0 WHERE deber_id='" + iddeber + "' and usuario_id='" + iduser + "'";
+        String COMANDO = "UPDATE deber_usuario SET estado=0 WHERE deber_id='"+ iddeber +"' and usuario_id='"+ iduser +"' and turno_id='"+ idturno +"'";
         try {
             cx.execC(COMANDO);
             cx.Commit();

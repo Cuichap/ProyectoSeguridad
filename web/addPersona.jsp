@@ -18,10 +18,6 @@
     <head>
     </head>
     <body>
-        <%
-       String documento =request.getParameter("documento");
-            documento = documento == null ? "" : documento; 
-        %>
         <div class="col-sm-12">
             <br>
             <section id="lista" class="col-sm-12 well well-sm backcolor" style="display: block; margin-bottom: -50px;">
@@ -156,16 +152,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipo">Tipo de Documento</label>
-                                        <select required class="form-control" id="tipo" name="tipoDocumento&documento">
+                                        <select required class="form-control" id="tipo" name="tipoDocumento">
                                             <option hidden>Seleccionar Tipo de Documento</option>
                                             <%
                                                 List<TipoDocumento> lista = dao.listarTipoDocumentoAct();
                                                 for (TipoDocumento tipo : lista) {
-                                                    
-               
                                             %>
-                                            <option  value="<%=tipo.getTipodocumentoid()%>&<%=tipo.getNombredocumento()%>"><%=tipo.getNombredocumento()%></option>
-                                            
+                                            <option  value="<%=tipo.getTipodocumentoid()%>"><%=tipo.getNombredocumento()%></option>
                                             <%}%>
                                         </select>
                                     </div>
@@ -177,38 +170,6 @@
                                         <div class="help-block">Minimo 8 números</div>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
-                                        
-                                        <%
-                                            if (documento.equals("DNI")) { %>
-
-                                        <input required type="text" pattern="^[0-9]*" class="form-control" data-minlength="8" maxlength="16" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
-                                        <div class="help-block">Minimo 8 números</div>
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
-
-                                        <%}
-                                            if (IdSubMenu.equals("15")) { %>
-                                        <input required type="text" pattern="^[0-9]{4,6}$" class="form-control"  data-maxlength="8" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
-                                        <div class="help-block">Minimo 8 números</div>
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
-                                        <%}
-                                            if (IdSubMenu.equals("16")) { %>
-                                        <input required type="text" pattern="^[0-9]{4,6}$" class="form-control"  data-maxlength="8" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
-                                        <div class="help-block">Minimo 8 números</div>
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
-                                        <%}
-                                            if (IdSubMenu.equals("17")) { %>
-                                        ir17();
-                                        <%}
-                                            if (IdSubMenu.equals("18")) { %>
-                                        <input required type="text" pattern="^[0-9]{4,6}$" class="form-control"  data-maxlength="8" id="numeroDoc" placeholder="numero de Documento" name="numeroDoc" data-error="Solo se permite números mas no letras">
-                                        <div class="help-block">Minimo 8 números</div>
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
-                                        <%}%>
-
                                     </div>
                                 </div>
                             </div>

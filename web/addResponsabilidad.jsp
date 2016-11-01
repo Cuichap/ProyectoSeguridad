@@ -8,6 +8,7 @@
 <%@page import="java.util.List"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -82,9 +83,16 @@
                                         <td hidden><%=resp.getUsuarioidreg()%></td>
                                         <td><%=resp.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar la Responsabilidad" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar la Responsabilidad" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar la Responsabilidad" align="center"><a onclick="eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                    function eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>() {
+                                        $("#TipoDeberDelete").val("<%=resp.getDeberid()%>");
+                                        $("#TipoDeberDelete").val("<%=resp.getUsuarioid()%>");
+                                        $("#TipoDeberDelete").val("<%=resp.getTurnoid()%>");
+                                    }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -127,7 +135,16 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="deber">Turno</label>
+                                        <select class="form-control" id="deber" name="deber">
+                                            <option hidden>Seleccionar el Turno</option>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fecha">Fecha</label>
                                         <input type="date" class="form-control" id="fecha" placeholder="Ingrese la Fecha" name="fechaDeber">
@@ -146,6 +163,34 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Deber?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="TipoDeberDelete" name="id">
+                                    <input type="hidden" id="TipoDeberDelete" name="iduser">
+                                    <input type="hidden" id="TipoDeberDelete" name="idturno">
+                                    <input type="hidden" name="opcion" value="DeleteResponsabilidad">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
             </div>
         </div>
     </body>

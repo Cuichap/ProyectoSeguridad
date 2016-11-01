@@ -8,6 +8,7 @@
 
 <%@include file="WEB-INF/jspf/top.jspf" %>
 
+
 <div class="bs-example">
     <ul class="breadcrumb" style="margin-bottom: 5px;">
         <li><a>Garita UPeU</a></li>
@@ -17,7 +18,7 @@
     </ul>
 </div>
 
-<div id="mantenimiento" style="margin-top: -10px;">
+<div id="mantenimiento"   style="margin-top: -10px;">
 
 </div>
 
@@ -79,6 +80,7 @@
     <%}%>
     });
 </script>
+
 
 <%@include file="WEB-INF/jspf/bottom.jspf" %>
 <%@include file="WEB-INF/jspf/perfil.jspf" %>

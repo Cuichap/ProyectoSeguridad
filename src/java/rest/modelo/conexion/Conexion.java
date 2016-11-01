@@ -18,8 +18,8 @@ public class Conexion {
     private static Conexion INSTANCE = null;
 
     public Conexion() {
-        // nombre de la base, el host, el puerto, usuario de la base de datos, nombre de la base de datos y contraseña
-        this.mConection("Mysql", "localhost", "3306", "root", "seguridad", "1234");
+        // nombre de la base, el host, el puerto, usuario de la base de datos, nombre de la base de datos y contraseña 1234
+        this.mConection("Mysql", "localhost", "3306", "root", "seguridad", "admin");
     }
 
     private static synchronized void createInstance() {

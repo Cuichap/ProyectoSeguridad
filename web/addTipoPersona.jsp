@@ -62,7 +62,6 @@
                                         <th hidden>Id Tipo Persona</th>
                                         <th>Tipo de Persona</th>
                                         <th>Estado</th>
-                                        <th hidden></th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>

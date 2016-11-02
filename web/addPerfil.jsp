@@ -97,7 +97,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group has-feedback">
                                         <label for="perfil">Perfil</label>
-                                        <input type="text" pattern="^[A-Za-z ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
+                                        <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="AddPerfil">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>

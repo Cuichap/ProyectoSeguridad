@@ -106,10 +106,12 @@
                         <form id="addarea" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="area">Área</label>
-                                        <input type="text" class="form-control" id="area" placeholder="Nombre del Área" name="objeto">
+                                        <input required type="text" maxlength="30" class="form-control" id="area" placeholder="Nombre del Área" name="objeto">
                                         <input type="hidden" name="opcion" value="AddArea">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -153,5 +155,10 @@
                 </section>
             </div> 
         </div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $("#addarea").validator({debug: true});
+            });
+        </script>
     </body>
 </html>

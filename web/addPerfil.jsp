@@ -75,9 +75,9 @@
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Perfil" align="center"><a onclick="eliminar<%=perfiles.getPerfilid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
                                 <script>
-                                        function eliminar<%=perfiles.getPerfilid()%>() {
-                                            $("#perfilDelete").val("<%=perfiles.getPerfilid()%>");
-                                        }
+                                    function eliminar<%=perfiles.getPerfilid()%>() {
+                                        $("#perfilDelete").val("<%=perfiles.getPerfilid()%>");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -95,10 +95,12 @@
                         <form id="addperfil" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="perfil">Perfil</label>
-                                        <input type="text" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres">
+                                        <input type="text" pattern="^[A-Za-z ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="AddPerfil">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -142,5 +144,10 @@
                 </section>
             </div> 
         </div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $("#addperfil").validator({debug: true});
+            });
+        </script>
     </body>
 </html>

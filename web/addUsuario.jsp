@@ -207,7 +207,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="usuario">Usuario</label>
-                                        <input type="text" maxlength="20" class="form-control" id="usuario" placeholder="Usuario" name="user">
+                                        <input required type="text" maxlength="20" class="form-control" id="usuario" placeholder="Usuario" name="user">
                                         <input type="hidden" name="opcion" value="AddUsuario">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
@@ -216,7 +216,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="contrasena">Contraseña</label>
-                                        <input type="password" data-minlength="6" maxlength="20" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
+                                        <input required type="password" data-minlength="6" maxlength="20" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
                                         <div class="help-block">Mínimo 6 digitos</div>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>

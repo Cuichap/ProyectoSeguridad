@@ -77,11 +77,12 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <% if(marca.getEstado().equals("Activo")){%>
+                                            <% if (marca.getEstado().equals("Activo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=marca.getMarcaid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Marca" class="glyphicon glyphicon-remove"></i>
                                             </a>
-                                            <%} if(marca.getEstado().equals("Inactivo")){%>
+                                            <%}
+                                                if (marca.getEstado().equals("Inactivo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=marca.getMarcaid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Marca" class="glyphicon glyphicon-ok"></i>
                                             </a>
@@ -158,10 +159,10 @@
                 </section>
             </div>
         </div>
-       <script type="text/javascript">
+        <script type="text/javascript">
             $().ready(function () {
                 $("#addmarca").validator({debug: true});
-        <script type="text/javascript">
+            });
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });

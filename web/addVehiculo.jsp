@@ -89,11 +89,12 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <% if(vehiculo.getEstado().equals("Activo")){%>
+                                            <% if (vehiculo.getEstado().equals("Activo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=vehiculo.getVehiculoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Vehículo" class="glyphicon glyphicon-remove"></i>
                                             </a>
-                                            <%} if(vehiculo.getEstado().equals("Inactivo")){%>
+                                            <%}
+                                                if (vehiculo.getEstado().equals("Inactivo")) {%>
                                             <a onclick="eliminar<%=vehiculo.getVehiculoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Vehículo" class="glyphicon glyphicon-ok"></i>
                                             </a>
@@ -216,7 +217,6 @@
             $().ready(function () {
                 $("#addvehiculo").validator({debug: true});
             });
-        </script>                                
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });

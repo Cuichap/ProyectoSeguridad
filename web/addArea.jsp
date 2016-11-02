@@ -169,7 +169,6 @@
             $().ready(function () {
                 $("#addarea").validator({debug: true});
             });
-        </script>
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();
             });

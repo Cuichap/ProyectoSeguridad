@@ -86,6 +86,8 @@ public interface MantenimientoDao {
     public List<Area> listarArea();
     public List<Perfiles> listarPerfiles();
     
+    public List<Usuario> listarUsuraioAuto(String var);
+    
     /* MANTENIMIENTO -- EXTRAS */
     public boolean RestablecerPassword(String id);
     

@@ -14,6 +14,8 @@ public class Usuario {
     private String usuarioid;
     private String personaid;
     private String nombres;
+    private String nombre;
+    private String apellidos;
     private String tipopersonaid;
     private String nombretipoper;
     private String areaid;
@@ -52,6 +54,22 @@ public class Usuario {
 
     public void setNombres(String nombres) {
         this.nombres = nombres;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getTipopersonaid() {

@@ -94,10 +94,12 @@
                         <form id="addtipovehiculo" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipo">Tipo de Vehículo</label>
-                                        <input type="text" class="form-control" id="tipo" placeholder="Nombre del Tipo de Vehículo" name="nombres">
+                                        <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="tipo" placeholder="Nombre del Tipo de Vehículo" name="nombres">
                                         <input type="hidden" name="opcion" value="AddTipoVehiculo">
+                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -141,5 +143,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $("#addtipovehiculo").validator({debug: true});
+            });
+        </script>
     </body>
 </html>

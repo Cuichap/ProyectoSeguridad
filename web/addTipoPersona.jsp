@@ -71,8 +71,22 @@
                                         <td hidden><%=tipoPersona.getTipoPersonaid()%></td>
                                         <td><%=tipoPersona.getNombreTipoPersona()%></td>
                                         <td><%=tipoPersona.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Tipo de Persona" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Tipo de Persona" align="center"><a onclick="eliminar<%=tipoPersona.getTipoPersonaid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Tipo de Persona" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <%if(tipoPersona.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=tipoPersona.getTipoPersonaid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Tipo de Persona" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(tipoPersona.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=tipoPersona.getTipoPersonaid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Tipo de Persona" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=tipoPersona.getTipoPersonaid()%>() {
@@ -97,7 +111,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input type="text" pattern="^[A-Za-z ][A-Za-z ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
+                                        <input type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="AddTipoPersona">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
@@ -147,6 +161,9 @@
         <script type="text/javascript">
             $().ready(function () {
                 $("#addtipoper").validator({debug: true});
+            });
+            $(document).ready(function (){
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script> 
     </body>

@@ -51,7 +51,7 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th hidden></th>
+                                        <th hidden>IdObjeto</th>
                                         <th>Objeto</th>
                                         <th>Descripción</th>
                                         <th>Estado</th>
@@ -89,7 +89,7 @@
                                             <a style="cursor: pointer;" onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Objeto" class="glyphicon glyphicon-ok"></i>
                                             </a>
-                                            <%{%>
+                                            <%}%>
                                         </td>
                                     </tr>
                                 <script>
@@ -173,9 +173,7 @@
             </div>                    
         </div>
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
+
             $().ready(function () {
                 $("# addobj").validator({debug: true});
             });

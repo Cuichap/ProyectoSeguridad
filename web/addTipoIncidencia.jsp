@@ -60,12 +60,12 @@
                                 <tbody>
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
-                                        int count=0;
-                                        
+                                        int count = 0;
+
                                         List<TipoIncidencia> listarTipoInc = dao.listarTipoIncidencia();
-                                        for(TipoIncidencia tipoinc : listarTipoInc){
+                                        for (TipoIncidencia tipoinc : listarTipoInc) {
                                             count++;
-                                            
+
                                     %>
                                     <tr>
                                         <td><%=count%></td>
@@ -74,9 +74,14 @@
                                         <td><%=tipoinc.getDescripcion()%></td>
                                         <td><%=tipoinc.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar el Tipo de Salida" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar el Tipo de Salida" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar el Tipo de Salida" align="center"><a onclick="eliminar<%=tipoinc.getTipoincidenciaid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                        function eliminar<%=tipoinc.getTipoincidenciaid()%>() {
+                                            $("#tipoIncidenciaDelete").val("<%=tipoinc.getTipoincidenciaid()%>");
+                                        }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -89,12 +94,12 @@
                         <h3 align="center"><span><b>Ingresar los Datos del Tipo de Incidencia</b></span></h3>
                     </div>
                     <div class="panel-body">
-                        <form id="addtipoincidencia" class="form-signin" role="form" method="post" action="">
+                        <form id="addtipoincidencia" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="tipoIncidencia">Tipo de incidencia</label>
-                                        <input type="text" class="form-control" id="tipoIncidencia" placeholder="Nombre del Tipo de Incidencia" name="tipoIncidencia">
+                                        <input type="text" class="form-control" id="tipoIncidencia" placeholder="Nombre del Tipo de Incidencia" name="nombres">
                                     </div>
                                 </div>
                             </div>
@@ -103,6 +108,7 @@
                                     <div class="form-group">
                                         <label for="descripcion">Descripción</label>
                                         <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Incidencia" name="descripcion"></textarea>
+                                        <input type="hidden" name="opcion" value="AddTipoIncidencia">
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +124,32 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Tipo de Incidencia?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="tipoIncidenciaDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeleteTipoIncidencia">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
             </div>
         </div>
     </body>

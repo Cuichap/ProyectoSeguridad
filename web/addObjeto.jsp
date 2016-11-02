@@ -76,7 +76,7 @@
                                         <td><%=obj.getEstado()%></td>
                                         <td align="center">
                                             <a style="cursor: pointer;">
-                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Objeto" class="glyphicon glyphicon-edit"></i>
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Objeto" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
                                         <td align="center">
@@ -173,9 +173,11 @@
             </div>                    
         </div>
         <script type="text/javascript">
-
             $().ready(function () {
-                $("# addobj").validator({debug: true});
+                $("#addobj").validator({debug: true});
+            });
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script> 
     </body>

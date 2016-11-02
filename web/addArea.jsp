@@ -22,7 +22,7 @@
                 </article>
                 <article align="right" class="col-sm-6">
                     <div class="col-sm-3"></div>
-                    <a class="btn btn-primary" onclick="agregarArea()">Nuevo &nbsp;<i class="glyphicon glyphicon-plus"></i></a><!--  data-toggle="modal" data-target="#addPersona" -->
+                    <a class="btn btn-primary" disabled onclick="agregarArea()">Nuevo &nbsp;<i class="glyphicon glyphicon-plus"></i></a><!--  data-toggle="modal" data-target="#addPersona" -->
                 </article>
             </section>
             <div id="listaArea" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">
@@ -62,14 +62,14 @@
                                 </thead>
                                 <tbody>
                                     <%
-                                            MantenimientoDao dao = new MantenimientoDaoImpl();
-                                            int count = 0;
-                                            
-                                            List<Area> listarAreas = dao.listarArea();
-                                            for(Area area: listarAreas){
-                                                count++;
-                                            
-                                            %>
+                                        MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        int count = 0;
+
+                                        List<Area> listarAreas = dao.listarArea();
+                                        for (Area area : listarAreas) {
+                                            count++;
+
+                                    %>
                                     <tr>
                                         <td><%=count%></td>
                                         <td hidden><%=area.getAreaid()%></td>
@@ -79,9 +79,14 @@
                                         <td><%=area.getDescripcion()%></td>
                                         <td><%=area.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Área" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Área" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Área" align="center"><a onclick="eliminar<%=area.getAreaid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
-                                    <%}%>
+                                <script>
+                                    function eliminar<%=area.getAreaid()%>() {
+                                        $("#areaDelete").val("<%=area.getAreaid()%>");
+                                    }
+                                </script>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -127,8 +132,8 @@
                         <section class="modal-body">
                             <form class="form-signin" role="form" method="post" action="mantenimiento">
                                 <div class="row">
-                                    <input type="" id="areaDelete" name="id">
-                                    <input type="" name="opcion" value="DeleteArea">
+                                    <input type="hidden" id="areaDelete" name="id">
+                                    <input type="hidden" name="opcion" value="DeleteArea">
                                 </div>
                                 <h4 align="center">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">

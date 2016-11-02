@@ -138,18 +138,16 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group has-feedback">
+                                    <div class="form-group">
                                         <label for="nombres">Nombres</label>
-                                        <input type="text" class="form-control" id="nombres" placeholder="Nombres" name="nombres">
+                                        <input type="text" disabled="" class="form-control" id="nombres" placeholder="Nombres" name="nombres">
                                         <input type="hidden" name="personaId" value="1">
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="apellidos">Apellidos</label>
-                                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos">
+                                        <input type="text" disabled="" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos">
                                     </div>
                                 </div>
                             </div>
@@ -207,36 +205,48 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="usuario">Usuario</label>
-                                        <input type="text" class="form-control" id="usuario" placeholder="Usuario" name="user">
+                                        <input type="text" maxlength="20" class="form-control" id="usuario" placeholder="Usuario" name="user">
                                         <input type="hidden" name="opcion" value="AddUsuario">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="contrasena">Contraseña</label>
-                                        <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
+                                        <input type="password" data-minlength="6" maxlength="20" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
+                                        <div class="help-block">Mínimo 6 digitos</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="codigo">Código</label>
-                                        <input type="text" class="form-control" id="codigo" placeholder="Código" name="codigo">
+                                        <input type="text" pattern="^[0-9][0-9]*" data-minlength="9" maxlength="10" class="form-control" id="codigo" placeholder="Código" name="codigo">
+                                         <div class="help-block">Mínimo 9 digitos</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="habitacion">N° de Habitación</label>
-                                        <input type="text" class="form-control" id="habitacion" placeholder="N° de Habitación" name="habitacion">
+                                        <input type="text" maxlength="8" class="form-control" id="habitacion" placeholder="N° de Habitación" name="habitacion">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="culto">N° de Culto</label>
-                                        <input type="text" class="form-control" id="culto" placeholder="N° de Culto" name="culto">
+                                        <input type="text" maxlength="4" class="form-control" id="culto" placeholder="N° de Culto" name="culto">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>

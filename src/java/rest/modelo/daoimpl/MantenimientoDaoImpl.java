@@ -273,7 +273,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarResponsabilidad(Responsabilidad responsabilidad) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO deber_usuario VALUES (null, " + responsabilidad.getDeberid() + ", " + responsabilidad.getUsuarioid() + ", " + responsabilidad.getTurnoid() + ", " + responsabilidad.getUsuarioidreg() + ")";
+        String COMANDO = "INSERT INTO deber_usuario VALUES ("+ responsabilidad.getDeberid() +", "+ responsabilidad.getUsuarioid() +", "+ responsabilidad.getTurnoid() +", '"+ responsabilidad.getFecha() +"', "+ responsabilidad.getUsuarioidreg() +", 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -483,6 +483,36 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
         return listaTipoDeberAct;
     }
 
+    @Override
+    public List<Turno> listarTurnoAct() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Turno> listaTurnoAct = new ArrayList<>();
+        String query = "SELECT turno_id as id, nombre_turno as nombre FROM turno WHERE estado=1";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Turno turno = new Turno();
+            turno.setTurnoid(cx.getCol("id"));
+            turno.setNombreturno(cx.getCol("nombre"));
+            listaTurnoAct.add(turno);
+        }
+        return listaTurnoAct;
+    }
+
+    @Override
+    public List<Deber> listarDeberAct() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Deber> listaDeberAct = new ArrayList<>();
+        String query = "SELECT deber_id as id, nombre_deber as nombre FROM deber WHERE estado=1";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Deber deber = new Deber();
+            deber.setDeberid(cx.getCol("id"));
+            deber.setNombredeber(cx.getCol("nombre"));
+            listaDeberAct.add(deber);
+        }
+        return listaDeberAct;
+    }
+
     /* MANTENIMIENTO -- LISTAS */
     @Override
     public List<Persona> listarPersona() {
@@ -509,10 +539,10 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public List<TipoPersona> listarTipoPersona(String estado) {
+    public List<TipoPersona> listarTipoPersona() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoPersona> listaTipoPer = new ArrayList<>();
-        String query = "SELECT tipo_persona_id as id, nombre_tipo_persona as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_persona WHERE estado='"+ estado +"'";
+        String query = "SELECT tipo_persona_id as id, nombre_tipo_persona as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_persona";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoPersona tipoPersona = new TipoPersona();
@@ -660,7 +690,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Responsabilidad> listarResponsabilidad() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Responsabilidad> listaResponsabilidad = new ArrayList<>();
-        String query = "Select d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id; ";
+        String query = "Select d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id";
         cx.execQuery(query);
         while (cx.getNext()) {
             Responsabilidad responsabilidad = new Responsabilidad();

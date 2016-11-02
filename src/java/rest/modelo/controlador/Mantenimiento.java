@@ -94,6 +94,7 @@ public class Mantenimiento extends HttpServlet {
         String placa = request.getParameter("placa"); placa = placa == null?"":placa;
         String horainicio = request.getParameter("horainicio"); horainicio = horainicio == null?"":horainicio;
         String horafin = request.getParameter("horafin"); horafin = horafin == null?"":horafin;
+        String fechaDeber = request.getParameter("fechaDeber"); fechaDeber = fechaDeber == null?"":fechaDeber;
         
         String personaid = request.getParameter("personaId"); personaid = personaid == null?"":personaid;
         String tipopersonaid = request.getParameter("tipoPersonaId"); tipopersonaid = tipopersonaid == null?"":tipopersonaid;
@@ -103,8 +104,14 @@ public class Mantenimiento extends HttpServlet {
         String MarcaId = request.getParameter("MarcaId"); MarcaId = MarcaId == null?"":MarcaId;
         String tipoVehiculoId = request.getParameter("tipoVehiculoId"); tipoVehiculoId = tipoVehiculoId == null?"":tipoVehiculoId;
         String tipoDeberId = request.getParameter("tipoDeberId"); tipoDeberId = tipoDeberId == null?"":tipoDeberId;
+        String deberId = request.getParameter("deberId"); deberId = deberId == null?"":deberId;
+        String usuarioId = request.getParameter("usuarioId"); usuarioId = usuarioId == null?"":usuarioId;
+        String turnoId = request.getParameter("turnoId"); turnoId = turnoId == null?"":turnoId;
+        String usuarioIdReg = request.getParameter("usuarioIdReg"); usuarioIdReg = usuarioIdReg == null?"":usuarioIdReg;
         
         String id = request.getParameter("id"); id = id == null?"":id;
+        String iduser = request.getParameter("iduser"); iduser = iduser == null?"":iduser;
+        String idturno = request.getParameter("idturno"); idturno = idturno == null?"":idturno;
 
         switch (opcion) {
             case "AddPersona":
@@ -495,6 +502,39 @@ public class Mantenimiento extends HttpServlet {
                     request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
                 } else {
                     request.setAttribute("IdSubMenu", "23");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
+                break;
+            case "AddResponsabilidad":
+                responsabilidad.setDeberid(deberId);
+                responsabilidad.setTurnoid(turnoId);
+                responsabilidad.setUsuarioid(usuarioId);
+                responsabilidad.setUsuarioidreg(usuarioIdReg);
+                responsabilidad.setFecha(fechaDeber);
+                if (dao.AgregarResponsabilidad(responsabilidad)) {
+                    request.setAttribute("IdSubMenu", "24");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "24");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
+                break;
+            case "EditResponsabilidad":
+                break;
+            case "DeleteResponsabilidad":
+                if (dao.EliminarResponsabilidad(id, iduser, idturno)) {
+                    request.setAttribute("IdSubMenu", "24");
+                    request.setAttribute("IdMenu", "10");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "24");
                     request.setAttribute("IdMenu", "10");
                     request.setAttribute("JSP", "Mantenimiento");
                     request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);

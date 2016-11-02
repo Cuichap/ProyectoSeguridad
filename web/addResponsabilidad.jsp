@@ -4,6 +4,8 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.Turno"%>
+<%@page import="rest.modelo.entidad.Deber"%>
 <%@page import="rest.modelo.entidad.Responsabilidad"%>
 <%@page import="java.util.List"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
@@ -87,9 +89,9 @@
                                     </tr>
                                 <script>
                                     function eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>() {
-                                        $("#TipoDeberDelete").val("<%=resp.getDeberid()%>");
-                                        $("#TipoDeberDelete").val("<%=resp.getUsuarioid()%>");
-                                        $("#TipoDeberDelete").val("<%=resp.getTurnoid()%>");
+                                        $("#TipoDeberIdDelete").val("<%=resp.getDeberid()%>");
+                                        $("#TipoUsuarioIdDelete").val("<%=resp.getUsuarioid()%>");
+                                        $("#TipoTurnoIdDelete").val("<%=resp.getTurnoid()%>");
                                     }
                                 </script>
                                 <%}%>
@@ -105,7 +107,7 @@
                         <h3 align="center"><span><b>Ingresar los Datos de la Responsabilidad</b></span></h3>
                     </div>
                     <div class="panel-body">
-                        <form id="addresponsabilidad" class="form-signin" role="form" method="post" action="">
+                        <form id="addresponsabilidad" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <article class="col-sm-12">
                                     <div class="form-group">
@@ -122,14 +124,23 @@
                                     <div class="form-group">
                                         <label for="usuario">Usuario</label>
                                         <input type="text" class="form-control" id="usuario" placeholder="Nombre del Usuario" name="usuario">
+                                        <input type="hidden" name="usuarioId" value="1">
+                                        <input type="hidden" name="usuarioIdReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="deber">Deber</label>
-                                        <select class="form-control" id="deber" name="deber">
+                                        <select class="form-control" id="deber" name="deberId">
                                             <option hidden>Seleccionar el Deber</option>
-                                            <option value=""></option>
+                                            <%
+
+                                                List<Deber> listaDeberAct = dao.listarDeberAct();
+                                                for (Deber deber : listaDeberAct) {
+
+                                            %>
+                                            <option value="<%=deber.getDeberid()%>"><%=deber.getNombredeber()%></option>
+                                            <%}%>
                                         </select>
                                     </div>
                                 </div>
@@ -138,9 +149,16 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="deber">Turno</label>
-                                        <select class="form-control" id="deber" name="deber">
+                                        <select class="form-control" id="deber" name="turnoId">
                                             <option hidden>Seleccionar el Turno</option>
-                                            <option value=""></option>
+                                            <%
+
+                                                List<Turno> listaTurnoAct = dao.listarTurnoAct();
+                                                for (Turno turno : listaTurnoAct) {
+
+                                            %>
+                                            <option value="<%=turno.getTurnoid()%>"><%=turno.getNombreturno()%></option>
+                                            <%}%>
                                         </select>
                                     </div>
                                 </div>
@@ -148,6 +166,7 @@
                                     <div class="form-group">
                                         <label for="fecha">Fecha</label>
                                         <input type="date" class="form-control" id="fecha" placeholder="Ingrese la Fecha" name="fechaDeber">
+                                        <input type="hidden" name="opcion" value="AddResponsabilidad">
                                     </div>
                                 </div>
                             </div>
@@ -174,9 +193,9 @@
                         <section class="modal-body">
                             <form class="form-signin" role="form" method="post" action="mantenimiento">
                                 <div class="row">
-                                    <input type="hidden" id="TipoDeberDelete" name="id">
-                                    <input type="hidden" id="TipoDeberDelete" name="iduser">
-                                    <input type="hidden" id="TipoDeberDelete" name="idturno">
+                                    <input type="hidden" id="TipoDeberIdDelete" name="id">
+                                    <input type="hidden" id="TipoUsuarioIdDelete" name="iduser">
+                                    <input type="hidden" id="TipoTurnoIdDelete" name="idturno">
                                     <input type="hidden" name="opcion" value="DeleteResponsabilidad">
                                 </div>
                                 <h4 align="center">

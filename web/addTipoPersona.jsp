@@ -11,9 +11,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
-        <%
-            String estadoFilter = request.getParameter("estadoFilter"); estadoFilter = estadoFilter == null?"": estadoFilter;
-        %>
     </head>
     <body>
         <div class="col-sm-12">
@@ -36,21 +33,9 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'persona', '1')" type="text" class="form-control" placeholder="Buscar Tipo de Persona." aria-describedby="basic-addon1">
                             </div>
                         </article>
-                        <script>
-                            function Filter(estado) {
-                                $.ajax({
-                                    type:"POST",
-                                    url: "addTipoPersona.jsp",
-                                    data: "estadoFilter="+estado,
-                                    success: function (data) {
-                                        $("#permisos").html(data);
-                                    }
-                                });
-                            }
-                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estado" class="form-control" name="estado" onchange="Filter()">
+                                <select id="estado" class="form-control" name="estado">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option value="0">Activos</option>
                                     <option value="1">Inactivos</option>
@@ -64,7 +49,7 @@
                             <table style="margin-top: 0px;" id="persona" class="table table-bordered table-condensed table-hover table-responsive">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th><%=estadoFilter%></th>
+                                        <th>#</th>
                                         <th hidden>Id Tipo Persona</th>
                                         <th>Tipo de Persona</th>
                                         <th>Estado</th>
@@ -77,7 +62,7 @@
                                         
                                         int count = 0;
 
-                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona(estadoFilter);
+                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona();
                                         for (TipoPersona tipoPersona : listaTipoPer) {
                                             count++;
                                     %>

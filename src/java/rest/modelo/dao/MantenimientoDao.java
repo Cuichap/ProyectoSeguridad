@@ -63,11 +63,13 @@ public interface MantenimientoDao {
     public List<TipoVehiculo> listarTipoVehiculoAct();
     public List<Marca> listarMarcaAct();
     public List<TipoDeber> listarTipoDeberAct();
+    public List<Turno> listarTurnoAct();
+    public List<Deber> listarDeberAct();
     
     /* MANTENIMIENTO -- LISTAS */
     public List<TipoDocumento> listarTipoDocumento();
     public List<Persona> listarPersona();
-    public List<TipoPersona> listarTipoPersona(String estado);
+    public List<TipoPersona> listarTipoPersona();
     public List<Usuario> listarUsuario();
     public List<Objeto> listarObjeto();
     public List<Opcion> listarMenus();

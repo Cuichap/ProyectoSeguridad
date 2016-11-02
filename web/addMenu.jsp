@@ -22,7 +22,7 @@
                 </article>
                 <article align="right" class="col-sm-6">
                     <div class="col-sm-3"></div>
-                    <a class="btn btn-primary" onclick="agregarMenu()">Nuevo &nbsp;<i class="glyphicon glyphicon-plus"></i></a><!--  data-toggle="modal" data-target="#addPersona" -->
+                    <a class="btn btn-primary" disabled onclick="agregarMenu()">Nuevo &nbsp;<i class="glyphicon glyphicon-plus"></i></a><!--  data-toggle="modal" data-target="#addPersona" -->
                 </article>
             </section>
             <div id="listaMenu" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">

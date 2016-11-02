@@ -188,7 +188,7 @@
                     <section class="modal-content">
                         <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
-                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Deber?</b></span></h3>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar la Responsabilidad de este Usuario?</b></span></h3>
                         </section>
                         <section class="modal-body">
                             <form class="form-signin" role="form" method="post" action="mantenimiento">

@@ -131,7 +131,7 @@
                                         <label for="tipo">Buscar Persona</label>
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                                            <input id="buscarpersona" autofocus type="text" class="form-control" placeholder="Buscar Persona" describedby="basic-addon1">
+                                            <input id="buscador" autofocus type="filt" onkeyup="filter(this, 'usuario', '1')" type="text" class="form-control" placeholder="Buscar Usuario" describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </article>

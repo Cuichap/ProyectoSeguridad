@@ -273,7 +273,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean AgregarResponsabilidad(Responsabilidad responsabilidad) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO deber_usuario VALUES ("+ responsabilidad.getDeberid() +", "+ responsabilidad.getUsuarioid() +", "+ responsabilidad.getTurnoid() +", '"+ responsabilidad.getFecha() +"', "+ responsabilidad.getUsuarioidreg() +", 1)";
+        String COMANDO = "INSERT INTO deber_usuario VALUES (" + responsabilidad.getDeberid() + ", " + responsabilidad.getUsuarioid() + ", " + responsabilidad.getTurnoid() + ", '" + responsabilidad.getFecha() + "', " + responsabilidad.getUsuarioidreg() + ", 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -361,7 +361,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     /* MANTENIMIENTO -- EDITAR */
-    /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
+ /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
     @Override
     public List<TipoDocumento> listarTipoDocumentoAct() {
         Conexion cx = Configuracion.GaritaUPeU();
@@ -846,6 +846,23 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
         return listaPerfiles;
     }
 
+    @Override
+    public List<Usuario> listarUsuraioAuto(String var) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Usuario> listaUser = new ArrayList<>();
+        String query = "SELECT us.usuario_id as idusuario, us.persona_id as personaid, per.nombre, per.apellidos FROM usuario as us, persona as per, tipo_persona as tper, area as ar, perfil as perf WHERE us.persona_id=per.persona_id AND us.area_id=ar.area_id AND us.perfil_id=perf.perfil_id AND us.tipo_persona_id=tper.tipo_persona_id  and concat(per.nombre,' ',per.apellidos) like '%"+var+"%' and us.estado=1 ORDER BY us.usuario_id";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Usuario usuario = new Usuario();
+            usuario.setUsuarioid(cx.getCol("idusuario"));
+            usuario.setPersonaid(cx.getCol("personaid"));
+            usuario.setNombre(cx.getCol("nombre"));
+            usuario.setApellidos(cx.getCol("apellidos"));
+            listaUser.add(usuario);
+        }
+        return listaUser;
+    }
+
     /* MANTENIMIENTO -- EXTRAS */
     @Override
     public boolean RestablecerPassword(String id) {
@@ -1103,7 +1120,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     @Override
     public boolean EliminarResponsabilidad(String iddeber, String iduser, String idturno) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE deber_usuario SET estado=0 WHERE deber_id='"+ iddeber +"' and usuario_id='"+ iduser +"' and turno_id='"+ idturno +"'";
+        String COMANDO = "UPDATE deber_usuario SET estado=0 WHERE deber_id='" + iddeber + "' and usuario_id='" + iduser + "' and turno_id='" + idturno + "'";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -1189,4 +1206,5 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             return false;
         }
     }
+
 }

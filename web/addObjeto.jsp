@@ -76,7 +76,7 @@
                                         <td><%=obj.getEstado()%></td>
                                         <td align="center">
                                             <a style="cursor: pointer;">
-                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Objeto" class="glyphicon glyphicon-edit"></i>
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Objeto" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
                                         <td align="center">
@@ -89,7 +89,7 @@
                                             <a style="cursor: pointer;" onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Objeto" class="glyphicon glyphicon-ok"></i>
                                             </a>
-                                            <%{%>
+                                            <%}%>
                                         </td>
                                     </tr>
                                 <script>
@@ -173,11 +173,11 @@
             </div>                    
         </div>
         <script type="text/javascript">
+            $().ready(function () {
+                $("#addobj").validator({debug: true});
+            });
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
-            });
-            $().ready(function () {
-                $("# addobj").validator({debug: true});
             });
         </script> 
     </body>

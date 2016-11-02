@@ -72,12 +72,14 @@
         if (IdSubMenu.equals("26")) { %>
         ir26();
     <%}
-            if (IdSubMenu.equals("27")) { %>
+        if (IdSubMenu.equals("27")) { %>
         ir27();
     <%}
-            if (IdSubMenu.equals("28")) { %>
+        if (IdSubMenu.equals("28")) { %>
         ir28();
     <%}%>
+
+        $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
 

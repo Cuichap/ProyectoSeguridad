@@ -149,7 +149,7 @@
                                         <label for="tipo">Buscar Persona</label>
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                                            <input id="buscarpersona" autofocus type="text" class="form-control" placeholder="Buscar Persona" describedby="basic-addon1">
+                                            <input id="buscador" autofocus type="filt" onkeyup="filter(this, 'usuario', '1')" type="text" class="form-control" placeholder="Buscar Usuario" describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </article>
@@ -225,7 +225,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="usuario">Usuario</label>
-                                        <input type="text" maxlength="20" class="form-control" id="usuario" placeholder="Usuario" name="user">
+                                        <input required type="text" maxlength="20" class="form-control" id="usuario" placeholder="Usuario" name="user">
                                         <input type="hidden" name="opcion" value="AddUsuario">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
@@ -234,7 +234,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="contrasena">Contraseña</label>
-                                        <input type="password" data-minlength="6" maxlength="20" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
+                                        <input required type="password" data-minlength="6" maxlength="20" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
                                         <div class="help-block">Mínimo 6 digitos</div>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>

@@ -77,11 +77,12 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <% if(perfiles.getEstado().equals("Activo")){%>
+                                            <% if (perfiles.getEstado().equals("Activo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=perfiles.getPerfilid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Perfil" class="glyphicon glyphicon-remove"></i>
                                             </a>
-                                            <%} if(perfiles.getEstado().equals("Inactivo")){%>
+                                            <%}
+                                                if (perfiles.getEstado().equals("Inactivo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=perfiles.getPerfilid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Perfil" class="glyphicon glyphicon-ok"></i>
                                             </a>
@@ -89,9 +90,9 @@
                                         </td>
                                     </tr>
                                 <script>
-                                        function eliminar<%=perfiles.getPerfilid()%>() {
-                                            $("#perfilDelete").val("<%=perfiles.getPerfilid()%>");
-                                        }
+                                    function eliminar<%=perfiles.getPerfilid()%>() {
+                                        $("#perfilDelete").val("<%=perfiles.getPerfilid()%>");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -109,10 +110,12 @@
                         <form id="addperfil" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="perfil">Perfil</label>
-                                        <input type="text" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres">
+                                        <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="AddPerfil">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -159,6 +162,9 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+            $().ready(function () {
+                $("#addperfil").validator({debug: true});
             });
         </script>
     </body>

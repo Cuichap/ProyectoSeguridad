@@ -80,11 +80,12 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <%if(obj.getEstado().equals("Activo")){%>
+                                            <%if (obj.getEstado().equals("Activo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Objeto" class="glyphicon glyphicon-remove"></i>
                                             </a>
-                                            <%} if(obj.getEstado().equals("Inactivo")){%>
+                                            <%}
+                                                if (obj.getEstado().equals("Inactivo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Objeto" class="glyphicon glyphicon-ok"></i>
                                             </a>
@@ -112,9 +113,11 @@
                         <form id="addobj" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="objeto">Objeto</label>
-                                        <input type="text" class="form-control" id="objeto" placeholder="Nombre del Objeto" name="nombres">
+                                        <input required type="text" maxlength="30" class="form-control" id="objeto" placeholder="Nombre del Objeto" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -122,8 +125,10 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="descripcion">Descripción</label>
-                                        <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Objeto" name="descripcion"></textarea>
+                                        <textarea maxlength="300" class="form-control" rows="4" id="descripcion" placeholder="Descripción del Objeto" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddObjeto">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -168,8 +173,11 @@
             </div>                    
         </div>
         <script type="text/javascript">
-            $(document).ready(function (){
+            $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+            $().ready(function () {
+                $("# addobj").validator({debug: true});
             });
         </script> 
     </body>

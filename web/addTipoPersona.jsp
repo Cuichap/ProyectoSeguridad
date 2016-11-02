@@ -111,7 +111,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input type="text" pattern="^[A-Za-z ][A-Za-z ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
+                                        <input type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="AddTipoPersona">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>

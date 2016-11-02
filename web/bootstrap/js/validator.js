@@ -61,7 +61,7 @@
     custom: {},
     errors: {
       match: 'No coincide con el tipo de valor',
-      minlength: 'No coincide con la cantidad mínima'
+      minlength: 'No coincide con la cantidad minima'
     },
     feedback: {
       success: 'glyphicon-ok',

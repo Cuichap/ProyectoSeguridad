@@ -81,11 +81,12 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <% if(turn.getEstado().equals("Activo")){%>
+                                            <% if (turn.getEstado().equals("Activo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=turn.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Turno" class="glyphicon glyphicon-remove"></i>
                                             </a>
-                                            <%} if(turn.getEstado().equals("Inactivo")){%>
+                                            <%}
+                                                if (turn.getEstado().equals("Inactivo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=turn.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Turno" class="glyphicon glyphicon-ok"></i>
                                             </a>
@@ -113,9 +114,11 @@
                         <form id="addturno" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="turno">Turno</label>
-                                        <input autofocus="true" type="text" class="form-control" id="turno" placeholder="Ingresar el Nombre del Turno" name="nombres">
+                                        <input maxlength="10" autofocus="true" pattern="^[A-Za-záéíóúñ ]*" type="text" class="form-control" id="turno" placeholder="Ingresar el Nombre del Turno" name="nombres" required>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -123,13 +126,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horainicio">Hora de Inicio</label>
-                                        <input type="time" class="form-control" id="horainicio" placeholder="Ingresar de Inicio" name="horainicio">
+                                        <input type="time" class="form-control" id="horainicio" placeholder="Ingresar de Inicio" name="horainicio" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="hoorafin">Hora de Fin</label>
-                                        <input type="time" class="form-control" id="horafin" placeholder="Ingresar de Fin" name="horafin">
+                                        <input type="time" class="form-control" id="horafin" placeholder="Ingresar de Fin" name="horafin" required>
                                         <input type="hidden" name="opcion" value="AddTurno">
                                     </div>
                                 </div>
@@ -177,6 +180,9 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+            $().ready(function () {
+                $("#addturno").validator({debug: true});
             });
         </script>
     </body>

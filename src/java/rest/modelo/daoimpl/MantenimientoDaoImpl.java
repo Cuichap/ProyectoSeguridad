@@ -518,7 +518,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Persona> listarPersona() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Persona> listaPer = new ArrayList<>();
-        String query = "SELECT per.persona_id as id, per.nombre, per.apellidos, per.direccion, per.procedencia, per.tipo_documento_id as idtipo, tp.nombre_documento as nombdoc, per.ndocumento, per.telefono, per.genero, CASE per.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM persona as per, tipo_documento as tp WHERE per.tipo_documento_id=tp.tipo_documento_id";
+        String query = "SELECT per.persona_id as id, per.nombre, per.apellidos, per.direccion, per.procedencia, per.tipo_documento_id as idtipo, tp.nombre_documento as nombdoc, per.ndocumento, per.telefono, per.genero, CASE per.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM persona as per, tipo_documento as tp WHERE per.tipo_documento_id=tp.tipo_documento_id ORDER BY per.persona_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Persona persona = new Persona();
@@ -542,7 +542,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<TipoPersona> listarTipoPersona() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoPersona> listaTipoPer = new ArrayList<>();
-        String query = "SELECT tipo_persona_id as id, nombre_tipo_persona as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_persona";
+        String query = "SELECT tipo_persona_id as id, nombre_tipo_persona as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_persona ORDER BY tipo_persona_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoPersona tipoPersona = new TipoPersona();
@@ -559,7 +559,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Usuario> listaUser = new ArrayList<>();
         String query = "SELECT us.usuario_id as idusuario, us.persona_id as personaid, concat(per.nombre, ' ', per.apellidos) as nombres, us.tipo_persona_id as tipoperid, tper.nombre_tipo_persona as nombretipopersona, us.area_id as areaid, ar.nombre as nombrearea, us.perfil_id as idperfil, perf.nombre_perfil as nombreperfil, us.usuario, us.contrasena, us.codigo, us.numhabitacion as habitacion, us.numculto as culto, CASE us.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM usuario as us, persona as per, tipo_persona as tper, area as ar, perfil \n"
-                + "as perf WHERE us.persona_id=per.persona_id AND us.area_id=ar.area_id AND us.perfil_id=perf.perfil_id AND us.tipo_persona_id=tper.tipo_persona_id ORDER BY us.usuario_id";
+                + "as perf WHERE us.persona_id=per.persona_id AND us.area_id=ar.area_id AND us.perfil_id=perf.perfil_id AND us.tipo_persona_id=tper.tipo_persona_id ORDER BY us.usuario_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Usuario usuario = new Usuario();
@@ -587,7 +587,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Objeto> listarObjeto() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Objeto> listaObjeto = new ArrayList<>();
-        String query = "SELECT objeto_id as id, nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado FROM objeto";
+        String query = "SELECT objeto_id as id, nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado FROM objeto ORDER BY objeto_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Objeto objeto = new Objeto();
@@ -604,7 +604,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Opcion> listarMenus() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Opcion> listaMenus = new ArrayList<>();
-        String query = "SELECT o.opciones_id as id, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menup, op.subopciones_id as idsub, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, o.tipo FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id order by o.opciones_id";
+        String query = "SELECT o.opciones_id as id, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menup, op.subopciones_id as idsub, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, o.tipo FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id order by o.opciones_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Opcion opcion = new Opcion();
@@ -624,7 +624,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<TipoDocumento> listarTipoDocumento() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoDocumento> listaTipoDoc = new ArrayList<>();
-        String query = "SELECT tipo_documento_id as id, nombre_documento as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_documento";
+        String query = "SELECT tipo_documento_id as id, nombre_documento as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_documento ORDER BY tipo_documento_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoDocumento tipoDocumento = new TipoDocumento();
@@ -640,7 +640,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<TipoIncidencia> listarTipoIncidencia() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoIncidencia> listaTipoIncidencia = new ArrayList<>();
-        String query = "SELECT tipo_incidencia_id as id, nombre_tipo_incidencia as nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_incidencia";
+        String query = "SELECT tipo_incidencia_id as id, nombre_tipo_incidencia as nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_incidencia ORDER BY tipo_incidencia_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoIncidencia tipoincidencia = new TipoIncidencia();
@@ -657,7 +657,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<TipoPermiso> listarSalida() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoPermiso> listaPermiso = new ArrayList<>();
-        String query = "SELECT tipo_permiso_id as id, nombre_tipo_permiso as nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_permiso";
+        String query = "SELECT tipo_permiso_id as id, nombre_tipo_permiso as nombre, descripcion, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_permiso ORDER BY tipo_permiso_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoPermiso tipopermiso = new TipoPermiso();
@@ -674,7 +674,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Motivo> listarMotivos() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Motivo> listaMotivo = new ArrayList<>();
-        String query = "SELECT motivo_id as id, nombre_motivo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM motivo";
+        String query = "SELECT motivo_id as id, nombre_motivo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM motivo ORDER BY motivo_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Motivo motivo = new Motivo();
@@ -690,7 +690,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Responsabilidad> listarResponsabilidad() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Responsabilidad> listaResponsabilidad = new ArrayList<>();
-        String query = "Select d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id";
+        String query = "Select d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id ORDER BY d.deber_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Responsabilidad responsabilidad = new Responsabilidad();
@@ -710,7 +710,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<TipoDeber> listarTipoDeber() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoDeber> listarTipoDeber = new ArrayList<>();
-        String query = "SELECT tipo_deber_id as id, nombre_tipo_deber as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_deber";
+        String query = "SELECT tipo_deber_id as id, nombre_tipo_deber as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_deber ORDER BY tipo_deber_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoDeber tipodeb = new TipoDeber();
@@ -726,7 +726,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Deber> listarDeberes() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Deber> listaDeber = new ArrayList<>();
-        String query = "SELECT d.deber_id as id, d.nombre_deber as nombre, td.tipo_deber_id as tipoid, td.nombre_tipo_deber as tipo, CASE d.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber as d, tipo_deber as td WHERE td.tipo_deber_id=d.tipo_deber_id";
+        String query = "SELECT d.deber_id as id, d.nombre_deber as nombre, td.tipo_deber_id as tipoid, td.nombre_tipo_deber as tipo, CASE d.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber as d, tipo_deber as td WHERE td.tipo_deber_id=d.tipo_deber_id ORDER BY d.deber_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Deber deb = new Deber();
@@ -744,7 +744,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Turno> listarTurnos() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Turno> listaTurno = new ArrayList<>();
-        String query = "SELECT turno_id as id, nombre_turno as nombre, horainicio as inicio, horafin as fin, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM turno";
+        String query = "SELECT turno_id as id, nombre_turno as nombre, horainicio as inicio, horafin as fin, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM turno ORDER BY turno_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Turno turno = new Turno();
@@ -762,7 +762,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Marca> listarMarcas() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Marca> listaMarca = new ArrayList<>();
-        String query = "SELECT marca_id as id, nombre_marca as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM marca";
+        String query = "SELECT marca_id as id, nombre_marca as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM marca ORDER BY marca_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Marca marca = new Marca();
@@ -778,7 +778,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<TipoVehiculo> listarTipoVehiculo() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<TipoVehiculo> listaTipoVeh = new ArrayList<>();
-        String query = "SELECT tipo_vehiculo_id as id, nombre_tipo_vehiculo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_vehiculo";
+        String query = "SELECT tipo_vehiculo_id as id, nombre_tipo_vehiculo as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM tipo_vehiculo ORDER BY tipo_vehiculo_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             TipoVehiculo tpvehiculo = new TipoVehiculo();
@@ -794,7 +794,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Vehiculo> listarVehiculo() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Vehiculo> listaVehiculo = new ArrayList<>();
-        String query = "SELECT v.vehiculo_id as id, v.tipo_vehiculo_id as idtipo, tp.nombre_tipo_vehiculo as nombre, m.marca_id as idmarca, m.nombre_marca as nombremarca, v.numplaca as placa, v.descripcion as descripcion, CASE v.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM vehiculo as v, tipo_vehiculo as tp, marca as m WHERE m.marca_id=v.marca_id and v.tipo_vehiculo_id=tp.tipo_vehiculo_id";
+        String query = "SELECT v.vehiculo_id as id, v.tipo_vehiculo_id as idtipo, tp.nombre_tipo_vehiculo as nombre, m.marca_id as idmarca, m.nombre_marca as nombremarca, v.numplaca as placa, v.descripcion as descripcion, CASE v.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM vehiculo as v, tipo_vehiculo as tp, marca as m WHERE m.marca_id=v.marca_id and v.tipo_vehiculo_id=tp.tipo_vehiculo_id ORDER BY v.vehiculo_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Vehiculo vehiculo = new Vehiculo();
@@ -815,7 +815,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Area> listarArea() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Area> listaArea = new ArrayList<>();
-        String query = "SELECT a.area_id as id, CASE a.nombre WHEN a.tipo='nivel2' THEN a.nombre END as area, ar.area_id as idsub, CASE ar.nombre WHEN a.tipo='nivel1' THEN a.nombre END as subarea, CASE ar.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, CASE ar.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, a.tipo, a.descripcion as descripcion FROM area as a, area as ar WHERE a.area_id=ar.area_id order by a.area_id";
+        String query = "SELECT a.area_id as id, CASE a.nombre WHEN a.tipo='nivel2' THEN a.nombre END as area, ar.area_id as idsub, CASE ar.nombre WHEN a.tipo='nivel1' THEN a.nombre END as subarea, CASE ar.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, CASE ar.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, a.tipo, a.descripcion as descripcion FROM area as a, area as ar WHERE a.area_id=ar.area_id ORDER BY a.area_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Area area = new Area();
@@ -834,7 +834,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Perfiles> listarPerfiles() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Perfiles> listaPerfiles = new ArrayList<>();
-        String query = "SELECT perfil_id as id, nombre_perfil as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM perfil";
+        String query = "SELECT perfil_id as id, nombre_perfil as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM perfil ORDER BY perfil_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Perfiles perfiles = new Perfiles();

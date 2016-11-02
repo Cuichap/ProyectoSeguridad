@@ -101,9 +101,9 @@
                                         </td>
                                     </tr>
                                 <script>
-                                        function eliminar<%=vehiculo.getVehiculoid()%>() {
-                                            $("#vehiculoDelete").val("<%=vehiculo.getVehiculoid()%>");
-                                        }
+                                    function eliminar<%=vehiculo.getVehiculoid()%>() {
+                                        $("#vehiculoDelete").val("<%=vehiculo.getVehiculoid()%>");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -155,16 +155,20 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="placa">Placa</label>
-                                        <input type="text" class="form-control" id="placa" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <input required type="text" maxlength="10" class="form-control" id="placa" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="descripcion">Descrippción</label>
-                                        <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Vehiculo" name="descripcion"></textarea>
+                                        <textarea maxlength="300" class="form-control" rows="4" id="descripcion" placeholder="Descripción del Vehiculo" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddVehiculo">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -209,6 +213,10 @@
             </div>
         </div>
         <script type="text/javascript">
+            $().ready(function () {
+                $("#addvehiculo").validator({debug: true});
+            });
+        </script>                                
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });

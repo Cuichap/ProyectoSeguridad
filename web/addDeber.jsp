@@ -78,8 +78,22 @@
                                         <td hidden><%=deb.getTipodeberid()%></td>
                                         <td><%=deb.getNombretipodeber()%></td>
                                         <td><%=deb.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Deber" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Deber" align="center"><a onclick="eliminar<%=deb.getDeberid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Deber" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(deb.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=deb.getDeberid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Deber" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(deb.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=deb.getDeberid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Deber" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=deb.getDeberid()%>() {
@@ -165,5 +179,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>

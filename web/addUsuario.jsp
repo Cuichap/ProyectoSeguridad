@@ -99,9 +99,27 @@
                                         <td><%=usuario.getHabitacion()%></td>
                                         <td><%=usuario.getCulto()%></td>
                                         <td><%=usuario.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Restablecer Contraseña" align="center"><a onclick="restabelcer<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#restPassUser"><i class="glyphicon glyphicon-refresh"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Usuario" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Usuario" align="center"><a onclick="eliminar<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;" onclick="restabelcer<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#restPassUser">
+                                                <i data-toggle="tooltip" data-placement="top" title="Restablecer Contraseña" class="glyphicon glyphicon-refresh"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Modificar Usuario">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(usuario.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Usuario" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(usuario.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Usuario" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=usuario.getUsuarioid()%>() {
@@ -319,6 +337,9 @@
        <script type="text/javascript">
             $().ready(function () {
                 $("#adduser").validator({debug: true});
+            });
+            $(document).ready(function (){
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script> 
     </body>

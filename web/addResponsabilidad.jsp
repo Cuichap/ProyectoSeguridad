@@ -84,8 +84,22 @@
                                         <td><%=resp.getFecha()%></td>
                                         <td hidden><%=resp.getUsuarioidreg()%></td>
                                         <td><%=resp.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar la Responsabilidad" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar la Responsabilidad" align="center"><a onclick="eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar la Responsabilidad" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(resp.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar la Responsabilidad" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(resp.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar la Responsabilidad" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>() {
@@ -212,5 +226,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function (){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script> 
     </body>
 </html>

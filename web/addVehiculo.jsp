@@ -83,8 +83,22 @@
                                         <td><%=vehiculo.getNumplaca()%></td>
                                         <td><%=vehiculo.getDecripcion()%></td>
                                         <td><%=vehiculo.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Vehículo" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Vehículo" align="center"><a onclick="eliminar<%=vehiculo.getVehiculoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Vehículo" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(vehiculo.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=vehiculo.getVehiculoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Vehículo" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(vehiculo.getEstado().equals("Inactivo")){%>
+                                            <a onclick="eliminar<%=vehiculo.getVehiculoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Vehículo" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                         function eliminar<%=vehiculo.getVehiculoid()%>() {
@@ -194,5 +208,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>

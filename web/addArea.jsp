@@ -78,11 +78,21 @@
                                         <td><%=area.getSubareanombre()%></td>
                                         <td><%=area.getDescripcion()%></td>
                                         <td><%=area.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Área" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Área" align="center">
-                                            <a onclick="eliminar<%=area.getAreaid()%>()" data-toggle="modal" data-target="#delete">
-                                                <i class="glyphicon glyphicon-trash"></i>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Área" class="glyphicon glyphicon-pencil"></i>
                                             </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(area.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=area.getAreaid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Área" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(area.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=area.getAreaid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Área" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
                                         </td>
                                     </tr>
                                 <script>
@@ -153,5 +163,10 @@
                 </section>
             </div> 
         </div>
+        <script type="text/javascript">
+            $(document).ready(function (){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script> 
     </body>
 </html>

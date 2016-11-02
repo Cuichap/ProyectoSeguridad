@@ -80,13 +80,27 @@
                                         <td><%=opc.getTipo()%></td>
                                         <td><%=opc.getUrl()%></td>
                                         <td><%=opc.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Menú" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Menú" align="center"><a onclick="eliminar<%=opc.getOpcionesid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Menú" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(opc.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=opc.getOpcionesid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Menú" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(opc.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=opc.getOpcionesid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Menú" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
-                                        function eliminar<%=opc.getOpcionesid()%>() {
-                                            $("#menuDelete").val("<%=opc.getOpcionesid()%>");
-                                        }
+                                    function eliminar<%=opc.getOpcionesid()%>() {
+                                        $("#menuDelete").val("<%=opc.getOpcionesid()%>");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -185,5 +199,10 @@
                 </section>
             </div> 
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>

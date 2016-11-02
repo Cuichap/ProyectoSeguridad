@@ -71,8 +71,22 @@
                                         <td hidden><%=perfiles.getPerfilid()%></td>
                                         <td><%=perfiles.getNombreperfil()%></td>
                                         <td><%=perfiles.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Perfil" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Perfil" align="center"><a onclick="eliminar<%=perfiles.getPerfilid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Perfil" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(perfiles.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=perfiles.getPerfilid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Perfil" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(perfiles.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=perfiles.getPerfilid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Perfil" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                         function eliminar<%=perfiles.getPerfilid()%>() {
@@ -142,5 +156,10 @@
                 </section>
             </div> 
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>

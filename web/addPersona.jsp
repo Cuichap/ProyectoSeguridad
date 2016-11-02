@@ -90,8 +90,22 @@
                                         <td><%=per.getTelefono()%></td>
                                         <td><%=per.getGenero()%></td>
                                         <td><%=per.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Persona" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Persona" align="center"><a onclick="eliminar<%=per.getPersonaid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Persona" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(per.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=per.getPersonaid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Persona" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(per.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=per.getPersonaid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Persona" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=per.getPersonaid()%>() {
@@ -247,6 +261,9 @@
         <script type="text/javascript">
             $().ready(function () {
                 $("#addper").validator({debug: true});
+            });
+            $(document).ready(function (){
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script>                                
     </body>

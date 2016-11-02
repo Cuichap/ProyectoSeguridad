@@ -70,8 +70,22 @@
                                         <td hidden><%=tpvehiculo.getTipovehiculoid()%></td>
                                         <td><%=tpvehiculo.getNombretipovehiculo()%></td>
                                         <td><%=tpvehiculo.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Tipo de Vehículo" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Tipo de Vehículo" align="center"><a onclick="eliminar<%=tpvehiculo.getTipovehiculoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Tipo de Vehículo" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(tpvehiculo.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=tpvehiculo.getTipovehiculoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Tipo de Vehículo" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(tpvehiculo.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=tpvehiculo.getTipovehiculoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Tipo de Vehículo" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=tpvehiculo.getTipovehiculoid()%>() {
@@ -141,5 +155,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>

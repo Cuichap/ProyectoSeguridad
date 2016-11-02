@@ -75,8 +75,22 @@
                                         <td><%=turn.getHorainicio()%></td>
                                         <td><%=turn.getHorafin()%></td>
                                         <td><%=turn.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Turno" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Turno" align="center"><a onclick="eliminar<%=turn.getTurnoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Turno" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(turn.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=turn.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Turno" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(turn.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=turn.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Turno" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=turn.getTurnoid()%>() {
@@ -160,5 +174,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>

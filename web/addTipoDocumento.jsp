@@ -71,8 +71,22 @@
                                         <td hidden><%=tipodoc.getTipodocumentoid()%></td>
                                         <td><%=tipodoc.getNombredocumento()%></td>
                                         <td><%=tipodoc.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar el Tipo de Documento" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar el Tipo de Documento" align="center"><a onclick="eliminar<%=tipodoc.getTipodocumentoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar el Tipo de Documento" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <% if(tipodoc.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=tipodoc.getTipodocumentoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar el Tipo de Documento" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(tipodoc.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=tipodoc.getTipodocumentoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar el Tipo de Documento" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=tipodoc.getTipodocumentoid()%>() {
@@ -142,5 +156,10 @@
                 </section>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function (){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script> 
     </body>
 </html>

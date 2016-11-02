@@ -74,8 +74,22 @@
                                         <td><%=obj.getNombreobjeto()%></td>
                                         <td><%=obj.getDescripcion()%></td>
                                         <td><%=obj.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Objeto" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Objeto" align="center"><a onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td align="center">
+                                            <a style="cursor: pointer;">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Objeto" class="glyphicon glyphicon-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <%if(obj.getEstado().equals("Activo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Objeto" class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                            <%} if(obj.getEstado().equals("Inactivo")){%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=obj.getObjetoid()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Objeto" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%{%>
+                                        </td>
                                     </tr>
                                 <script>
                                     function eliminar<%=obj.getObjetoid()%>() {
@@ -153,5 +167,10 @@
                 </section>
             </div>                    
         </div>
+        <script type="text/javascript">
+            $(document).ready(function (){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script> 
     </body>
 </html>

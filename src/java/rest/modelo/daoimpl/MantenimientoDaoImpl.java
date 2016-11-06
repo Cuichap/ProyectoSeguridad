@@ -291,6 +291,29 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     /* MANTENIMIENTO -- EDITAR */
     
     
+    /* MANTENIMIENTO -- LISTAS -- ID */
+    @Override
+    public List<Persona> listarEditPersona(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Persona> listaPer = new ArrayList<>();
+        String query = "SELECT per.nombre, per.apellidos, per.direccion, per.procedencia, per.tipo_documento_id as idtipo, per.ndocumento, per.telefono, per.genero FROM persona as per, tipo_documento as tp WHERE per.tipo_documento_id=tp.tipo_documento_id AND persona_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Persona persona = new Persona();
+            persona.setNombres(cx.getCol("nombre"));
+            persona.setApellidos(cx.getCol("apellidos"));
+            persona.setDireccion(cx.getCol("direccion"));
+            persona.setProcedencia(cx.getCol("procedencia"));
+            persona.setTipoducumentoid(cx.getCol("idtipo"));
+            persona.setNumdocumento(cx.getCol("ndocumento"));
+            persona.setTelefono(cx.getCol("telefono"));
+            persona.setGenero(cx.getCol("genero"));
+            listaPer.add(persona);
+        }
+        return listaPer;
+    }
+    
+    
     /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
     @Override
     public List<TipoDocumento> listarTipoDocumentoAct() {

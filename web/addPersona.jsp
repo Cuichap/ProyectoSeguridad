@@ -12,7 +12,12 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="IdSubMenu" scope="request" class="java.lang.String" />
-
+<%
+    String idPersonaEdit = request.getParameter("idPersonaEdit");
+    idPersonaEdit = idPersonaEdit == null ? "" : idPersonaEdit;
+    String estado = request.getParameter("estado");
+    estado = estado == null ? "" : estado;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,7 +70,7 @@
                                         <th>N° Documento</th>
                                         <th>Teléfono</th>
                                         <th>Género</th>
-                                        <th>Estado</th>
+                                        <th><%=estado%></th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
@@ -92,7 +97,7 @@
                                         <td><%=per.getGenero()%></td>
                                         <td><%=per.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;" onclick="Editar<%=per.getPersonaid()%>()">
+                                            <a style="cursor: pointer;" onclick="Editar<%=per.getPersonaid()%>(<%=per.getPersonaid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Persona" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -116,22 +121,21 @@
                                     function Activar<%=per.getPersonaid()%>() {
                                         $("#perActive").val("<%=per.getPersonaid()%>");
                                     }
-                                    function Editar<%=per.getPersonaid()%>() {
-                                        $("#perEdit").val("<%=per.getPersonaid()%>");
-                                        $("#nombresEdit").val("<%=per.getNombres()%>");
-                                        $("#apellidosEdit").val("<%=per.getApellidos()%>");
-                                        $("#direccionEdit").val("<%=per.getDireccion()%>");
-                                        $("#procedenciaEdit").val("<%=per.getProcedencia()%>");
-                                        $("#numeroDocEdit").val("<%=per.getNumdocumento()%>");
-                                        $("#telefonoEdit").val("<%=per.getTelefono()%>");
-                                        $("#generoEdit").val("<%=per.getGenero()%>");
-
-                                        document.getElementById('lista').style.display = 'none';
-                                        document.getElementById('listaPer').style.display = 'none';
-                                        document.getElementById('agregarPer').style.display = 'none';
-                                        document.getElementById('editarPer').style.display = 'block';
-                                        document.getElementById("nombresEdit").focus();
-                                        $("#aciones").html("Modificar Persona");
+                                    function Editar<%=per.getPersonaid()%>(persona) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addPersona.jsp",
+                                            data: "idPersonaEdit=" + persona,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaPer').style.display = 'none';
+                                                document.getElementById('agregarPer').style.display = 'none';
+                                                document.getElementById('editarPer').style.display = 'block';
+                                                document.getElementById("nombresEdit").focus();
+                                                $("#aciones").html("Modificar Persona");
+                                            }
+                                        });
                                     }
                                     function cancelarEditPer() {
                                         document.getElementById("editper").reset();
@@ -265,13 +269,17 @@
                     <div data-brackets-id="734" class="panel-heading">
                         <h4><b>Modificar los Datos de la Persona</b></h4>
                     </div>
+                    <%
+                        List<Persona> listaEditPer = dao.listarEditPersona(idPersonaEdit);
+                        for (Persona perEdit : listaEditPer) {
+                    %>
                     <div data-brackets-id="736" class="panel-body">
                         <form id="editper" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="nombres">Nombres</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="nombresEdit" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=perEdit.getNombres()%>" required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="nombresEdit" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -279,7 +287,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="apellidos">Apellidos</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="apellidosEdit" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=perEdit.getApellidos()%>" required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="apellidosEdit" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -289,7 +297,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="direccion">Dirección</label>
-                                        <input required type="text" maxlength="39" class="form-control" id="direccionEdit" placeholder="Dirección" name="direccion">
+                                        <input value="<%=perEdit.getDireccion()%>" required type="text" maxlength="39" class="form-control" id="direccionEdit" placeholder="Dirección" name="direccion">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -297,7 +305,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="procedencia">Procedencia</label>
-                                        <input required type="text" maxlength="39" class="form-control" id="procedenciaEdit" placeholder="Procedencia" name="procedencia" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=perEdit.getProcedencia()%>" required type="text" maxlength="39" class="form-control" id="procedenciaEdit" placeholder="Procedencia" name="procedencia" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -306,13 +314,13 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="tipo">Tipo de Documento</label>
-                                        <select required class="form-control" id="tipo" name="tipoDocumento">
+                                        <label for="tipoEdit">Tipo de Documento</label>
+                                        <select required class="form-control" id="tipoEdit" name="tipoDocumento">
                                             <option hidden>Seleccionar Tipo de Documento</option>
                                             <%
                                                 for (TipoDocumento tipo : lista) {
                                             %>
-                                            <option  value="<%=tipo.getTipodocumentoid()%>"><%=tipo.getNombredocumento()%></option>
+                                            <option <% if (perEdit.getTipoducumentoid().equals(tipo.getTipodocumentoid())) {%>selected<%}%> value="<%=tipo.getTipodocumentoid()%>"><%=tipo.getNombredocumento()%></option>
                                             <%}%>
                                         </select>
                                     </div>
@@ -320,7 +328,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="numeroDoc">N° Documento</label>
-                                        <input required type="text" pattern="^[A-Za-z0-9]*" class="form-control"  data-minlength="8" maxlength="16" id="numeroDocEdit" placeholder="numero de Documento" name="numeroDoc">
+                                        <input value="<%=perEdit.getNumdocumento()%>" required type="text" pattern="^[A-Za-z0-9]*" class="form-control"  data-minlength="8" maxlength="16" id="numeroDocEdit" placeholder="numero de Documento" name="numeroDoc">
                                         <div class="help-block">Minimo 8 números</div>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
@@ -331,7 +339,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="telefono">Teléfono</label>
-                                        <input  type="text" pattern="^[#*0-9]*" maxlength="15" class="form-control" id="telefonoEdit" placeholder="Teléfono" name="telefono">
+                                        <input value="<%=perEdit.getTelefono()%>" type="text" pattern="^[#*0-9]*" maxlength="15" class="form-control" id="telefonoEdit" placeholder="Teléfono" name="telefono">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -341,8 +349,8 @@
                                         <label for="genero">Género</label>
                                         <select required class="form-control" id="genero" name="genero">
                                             <option hidden>Seleccionar su Género</option>
-                                            <option value="F">Mujer</option>
-                                            <option value="M">Varón</option>
+                                            <option <% if (perEdit.getGenero().equals("F")) {%>selected<%}%> value="F">Mujer</option>
+                                            <option <% if (perEdit.getGenero().equals("M")) {%>selected<%}%> value="M">Varón</option>
                                         </select>
                                     </div>
                                 </div>
@@ -368,6 +376,7 @@
                             </h4>
                         </form>
                     </div>
+                    <%}%>
                 </div>
             </div>
         </div>

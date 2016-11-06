@@ -49,6 +49,9 @@ public interface MantenimientoDao {
     /* MANTENIMIENTO -- EDITAR */
     
     
+    /* MANTENIMIENTO -- LISTAS -- ID */
+    public List<Persona> listarEditPersona(String id);
+    
     /* MANTENIMIENTO -- LISTAS -- ACTIVOS */
     public List<TipoDocumento> listarTipoDocumentoAct();
     public List<Area> listarAreasAct();

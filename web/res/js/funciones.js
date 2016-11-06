@@ -963,3 +963,5 @@ function cancelarResponsabilidad() {
     document.getElementById("buscador").focus();
     $("#aciones").html("Lista de Responsabilidades");
 }
+
+/* Filtrar */

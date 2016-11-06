@@ -52,7 +52,7 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th hidden></th>
+                                        <th hidden>IdObjeto</th>
                                         <th>Objeto</th>
                                         <th>Descripción</th>
                                         <th>Estado</th>

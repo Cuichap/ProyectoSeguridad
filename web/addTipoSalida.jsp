@@ -12,6 +12,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     </head>
     <body>
         <div class="col-sm-12">
@@ -84,7 +85,7 @@
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar el Tipo de Salida" class="glyphicon glyphicon-remove"></i>
                                             </a>
                                             <%} if(tipoper.getEstado().equals("Inactivo")){%>
-                                            <a style="cursor: pointer;" onclick="eliminar<%=tipoper.getTipopermisoid()%>()" data-toggle="modal" data-target="#delete">
+                                            <a style="cursor: pointer;" onclick="activar<%=tipoper.getTipopermisoid()%>()" data-toggle="modal" data-target="#activar">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar el Tipo de Salida" class="glyphicon glyphicon-ok"></i>
                                             </a>
                                             <%}%>
@@ -94,6 +95,9 @@
                                         function eliminar<%=tipoper.getTipopermisoid()%>() {
                                             $("#tipoSalidaDelete").val("<%=tipoper.getTipopermisoid()%>");
                                         }
+                                        function activar<%=tipoper.getTipopermisoid()%>() {
+                                            $("#tipoSalidaActive").val("<%=tipoper.getTipopermisoid()%>");
+                                        }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -102,23 +106,21 @@
                     </div>
                 </div>
             </div>
-            <div id="agregarTipoSalida" class="col-md-10 col-xs-offset-1" style="padding: 0px; display: none;">
+            <div id="agregarTipoSalida" class="col-md-12" style="padding: 0px; display: none;">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 align="center"><span><b>Ingresar los Datos del Tipo de Salida</b></span></h3>
+                        <h4><b>Ingresar los Datos del Tipo de Salida</b></h4>
                     </div>
                     <div class="panel-body">
                         <form id="addtiposalida" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipoSalida">Tipo de Salida</label>
                                         <input type="text" class="form-control" id="tipoSalida" placeholder="Nombre del Tipo de Salida" name="nombres">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="descripcion">Descripción</label>
                                         <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Salida" name="descripcion"></textarea>
@@ -126,6 +128,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-default" onclick="cancelarTipoSalida()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
@@ -134,7 +137,6 @@
                                     Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
-                            <h1></h1>
                         </form>
                     </div>
                 </div>
@@ -158,6 +160,32 @@
                                     </button>
                                     <button class="btn btn-danger" type="submit">
                                         Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div>
+            <div class="modal fade" id="activar">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #3b5998; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Activar este Tipo de Salida?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="tipoSalidaActive" name="id">
+                                    <input type="hidden" name="opcion" value="ActivarTipoSalida">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-primary" type="submit">
+                                        Activar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                     </button>
                                 </h4>
                             </form>

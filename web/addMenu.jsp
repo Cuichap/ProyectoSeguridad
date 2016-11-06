@@ -4,6 +4,8 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.daoimpl.SeguridadDaoImpl"%>
+<%@page import="rest.modelo.dao.SeguridadDao"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page import="rest.modelo.entidad.Opcion"%>
@@ -12,6 +14,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     </head>
     <body>
         <div class="col-sm-12">
@@ -64,9 +67,11 @@
                                 <tbody>
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        SeguridadDao sdaoDao = new SeguridadDaoImpl();
+                                        
                                         int count = 0;
 
-                                        List<Opcion> listMen = dao.listarMenus();
+                                        List<Opcion> listMen = sdaoDao.listarMenus();
                                         for (Opcion opc : listMen) {
                                             count++;
 
@@ -91,7 +96,7 @@
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Menú" class="glyphicon glyphicon-remove"></i>
                                             </a>
                                             <%} if(opc.getEstado().equals("Inactivo")){%>
-                                            <a style="cursor: pointer;" onclick="eliminar<%=opc.getOpcionesid()%>()" data-toggle="modal" data-target="#delete">
+                                            <a style="cursor: pointer;" onclick="activar<%=opc.getOpcionesid()%>()" data-toggle="modal" data-target="#activar">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Menú" class="glyphicon glyphicon-ok"></i>
                                             </a>
                                             <%}%>
@@ -101,6 +106,9 @@
                                     function eliminar<%=opc.getOpcionesid()%>() {
                                         $("#menuDelete").val("<%=opc.getOpcionesid()%>");
                                     }
+                                    function activar<%=opc.getOpcionesid()%>() {
+                                        $("#menuActive").val("<%=opc.getOpcionesid()%>");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -109,13 +117,13 @@
                     </div>
                 </div>
             </div>
-            <div id="agregarMenu" class="col-md-10 col-xs-offset-1" style="padding: 0px; display: none;">
+            <div id="agregarMenu" class="col-md-12" style="padding: 0px; display: none;">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 align="center"><span><b>Ingresar los Datos del Menú</b></span></h3>
+                        <h4><b>Ingresar los Datos del Menú</b></h4>
                     </div>
                     <div class="panel-body">
-                        <form id="addmenu" class="form-signin" role="form" method="post" action="mantenimiento">
+                        <form id="addmenu" class="form-signin" role="form" method="post" action="seguridad">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -159,6 +167,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-default" onclick="cancelarMenu()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
@@ -167,7 +176,6 @@
                                     Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
-                            <h1></h1>
                         </form>
                     </div>
                 </div>
@@ -180,7 +188,7 @@
                             <h3 align="center"><span><b>¿Está seguro de Eliminar este Menú?</b></span></h3>
                         </section>
                         <section class="modal-body">
-                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                            <form class="form-signin" role="form" method="post" action="seguridad">
                                 <div class="row">
                                     <input type="hidden" id="menuDelete" name="id">
                                     <input type="hidden" name="opcion" value="DeleteMenu">
@@ -191,6 +199,32 @@
                                     </button>
                                     <button class="btn btn-danger" type="submit">
                                         Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div> 
+            <div class="modal fade" id="activar">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #3b5998; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Activar este Menú?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="seguridad">
+                                <div class="row">
+                                    <input type="hidden" id="menuActive" name="id">
+                                    <input type="hidden" name="opcion" value="ActivarMenu">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-primary" type="submit">
+                                        Activar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                     </button>
                                 </h4>
                             </form>

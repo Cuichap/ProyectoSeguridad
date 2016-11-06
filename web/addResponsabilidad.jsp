@@ -4,6 +4,8 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.daoimpl.SeguridadDaoImpl"%>
+<%@page import="rest.modelo.dao.SeguridadDao"%>
 <%@page import="rest.modelo.entidad.Turno"%>
 <%@page import="rest.modelo.entidad.Deber"%>
 <%@page import="rest.modelo.entidad.Responsabilidad"%>
@@ -15,6 +17,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     </head>
     <body>
         <div class="col-sm-12">
@@ -68,9 +71,11 @@
                                 <tbody>
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        SeguridadDao sdaoDao = new SeguridadDaoImpl();
+                                        
                                         int count = 0;
 
-                                        List<Responsabilidad> listarResponsabilidad = dao.listarResponsabilidad();
+                                        List<Responsabilidad> listarResponsabilidad = sdaoDao.listarResponsabilidad();
                                         for (Responsabilidad resp : listarResponsabilidad) {
                                             count++;
                                     %>
@@ -90,11 +95,12 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <% if(resp.getEstado().equals("Activo")){%>
+                                            <% if (resp.getEstado().equals("Activo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar la Responsabilidad" class="glyphicon glyphicon-remove"></i>
                                             </a>
-                                            <%} if(resp.getEstado().equals("Inactivo")){%>
+                                            <%}
+                                                if (resp.getEstado().equals("Inactivo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar la Responsabilidad" class="glyphicon glyphicon-ok"></i>
                                             </a>
@@ -115,13 +121,13 @@
                     </div>
                 </div>
             </div>
-            <div id="agregarResponsabilidad" class="col-md-10 col-xs-offset-1" style="padding: 0px; display: none;">
+            <div id="agregarResponsabilidad" class="col-md-12" style="padding: 0px; display: none;">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 align="center"><span><b>Ingresar los Datos de la Responsabilidad</b></span></h3>
+                        <h4><b>Ingresar los Datos de la Responsabilidad</b></h4>
                     </div>
                     <div class="panel-body">
-                        <form id="addresponsabilidad" class="form-signin" role="form" method="post" action="mantenimiento">
+                        <form id="addresponsabilidad" class="form-signin" role="form" method="post" action="seguridad">
                             <div class="row">
                                 <article class="col-sm-12">
                                     <div class="form-group">
@@ -184,6 +190,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-default" onclick="cancelarResponsabilidad()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
@@ -192,7 +199,6 @@
                                     Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
-                            <h1></h1>
                         </form>
                     </div>
                 </div>
@@ -205,7 +211,7 @@
                             <h3 align="center"><span><b>¿Está seguro de Eliminar la Responsabilidad de este Usuario?</b></span></h3>
                         </section>
                         <section class="modal-body">
-                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                            <form class="form-signin" role="form" method="post" action="seguridad">
                                 <div class="row">
                                     <input type="hidden" id="TipoDeberIdDelete" name="id">
                                     <input type="hidden" id="TipoUsuarioIdDelete" name="iduser">
@@ -227,7 +233,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            $(document).ready(function (){
+            $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });
         </script> 

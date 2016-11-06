@@ -34,6 +34,8 @@ public class Restaurar extends HttpServlet {
         
         UsuarioDao dao = new UsuarioDaoImpl();
 
+        request.setCharacterEncoding("UTF-8");
+        
         String nombre = request.getParameter("nombre"); nombre = nombre == null ? "" : nombre;
         String apellidos = request.getParameter("apellidos"); apellidos = apellidos == null ? "" : apellidos;
         String dni = request.getParameter("dni"); dni = dni == null ? "" : dni;

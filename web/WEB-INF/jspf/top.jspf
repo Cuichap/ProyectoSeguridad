@@ -1,6 +1,5 @@
 <%-- any content can be specified here e.g.: --%>
 <%@page import="rest.modelo.entidad.SubMenu"%>
-<%@ page pageEncoding="UTF-8" %>
 <%-- 
     Document   : principal
     Created on : 20/10/2016, 08:00:35 PM
@@ -30,6 +29,8 @@
 
 %>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -41,14 +42,14 @@
         <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="css/local.css" />
         <link rel="stylesheet" type="text/css" href="res/css/estilos.css" />
-        
+
         <!--<script type="text/javascript" src="validador/js/validator.js"></script>-->
         <script type="text/javascript" src="res/js/funciones.js"></script>
 
         <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-         <script type="text/javascript" src="bootstrap/js/validator.min.js"></script>
-         <script type="text/javascript" src="bootstrap/js/validator.js"></script>
+        <script type="text/javascript" src="bootstrap/js/validator.min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/validator.js"></script>
         <!-- <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
         <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
         <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script> -->
@@ -94,6 +95,11 @@
                             <input type="hidden" name="url" value="<%=men.getUrl()%>">
                             <input type="hidden" name="idmenu" value="<%=men.getIdmenu()%>">
                         </form>
+                        <script>
+                            function ir<%=men.getIdmenu()%>() {
+                                document.<%=men.getNombreMenu()%>.submit();
+                            }
+                        </script>
                         <%}%>
                     </ul>
                     <ul class="nav navbar-nav navbar-right navbar-user">

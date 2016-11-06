@@ -1,20 +1,3 @@
-/* Principales */
-function ir1() {
-    document.Inicio.submit();
-}
-function ir2() {
-    document.Permisos.submit();
-}
-function ir6() {
-    document.Visitas.submit();
-}
-function ir7() {
-    document.Incidencias.submit();
-}
-function ir10() {
-    document.Mantenimiento.submit();
-}
-
 /* Permisos */
 /* Permisos de los Residentes */
 function ir3() {
@@ -119,10 +102,6 @@ function ir11() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
@@ -150,23 +129,19 @@ function ir12() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Usuario */
+/* AgregarObjeto */
 function ir13() {
     $.ajax({
         type: "POST",
-        url: "addUsuario.jsp",
+        url: "addObjeto.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#13").val());
-            $("#aciones").html("Lista de Usuarios");
+            $("#aciones").html("Lista de Objetos");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": "#000000"});
@@ -181,23 +156,19 @@ function ir13() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* AgregarObjeto */
+/* Agregar Área */
 function ir14() {
     $.ajax({
         type: "POST",
-        url: "addObjeto.jsp",
+        url: "addArea.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#14").val());
-            $("#aciones").html("Lista de Objetos");
+            $("#aciones").html("Lista de Áreas");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -212,23 +183,19 @@ function ir14() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Menús */
+/* Agregar Vehículo */
 function ir15() {
     $.ajax({
         type: "POST",
-        url: "addMenu.jsp",
+        url: "addVehiculo.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#15").val());
-            $("#aciones").html("Lista de Menús");
+            $("#aciones").html("Lista de Vehículos");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -243,23 +210,19 @@ function ir15() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Perfil */
+/* Agregar Tipo de Vehículo */
 function ir16() {
     $.ajax({
         type: "POST",
-        url: "addPerfil.jsp",
+        url: "addTipoVehiculo.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#16").val());
-            $("#aciones").html("Lista de Perfiles");
+            $("#aciones").html("Lista de Tipos de Vehículos");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -274,23 +237,19 @@ function ir16() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Área */
+/* Agregar Marca */
 function ir17() {
     $.ajax({
         type: "POST",
-        url: "addArea.jsp",
+        url: "addMarca.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#17").val());
-            $("#aciones").html("Lista de Áreas");
+            $("#aciones").html("Lista de Marcas");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -305,23 +264,19 @@ function ir17() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Vehículo */
+/* Agregar Turno */
 function ir18() {
     $.ajax({
         type: "POST",
-        url: "addVehiculo.jsp",
+        url: "addTurno.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#18").val());
-            $("#aciones").html("Lista de Vehículos");
+            $("#aciones").html("Lista de Turnos");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -336,23 +291,19 @@ function ir18() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Tipo de Vehículo */
+/* Agregar Deber */
 function ir19() {
     $.ajax({
         type: "POST",
-        url: "addTipoVehiculo.jsp",
+        url: "addDeber.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#19").val());
-            $("#aciones").html("Lista de Tipos de Vehículos");
+            $("#aciones").html("Lista de Deberes");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -367,23 +318,19 @@ function ir19() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Marca */
+/* Agregar Tipo Deber */
 function ir20() {
     $.ajax({
         type: "POST",
-        url: "addMarca.jsp",
+        url: "addTipoDeber.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#20").val());
-            $("#aciones").html("Lista de Marcas");
+            $("#aciones").html("Lista de Tipos de Deberes");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -398,23 +345,19 @@ function ir20() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Turno */
+/* Agregar Motivos */
 function ir21() {
     $.ajax({
         type: "POST",
-        url: "addTurno.jsp",
+        url: "addMotivos.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#21").val());
-            $("#aciones").html("Lista de Turnos");
+            $("#aciones").html("Lista de Motivos");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -429,23 +372,19 @@ function ir21() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Deber */
+/* Agregar Tipo de Salida */
 function ir22() {
     $.ajax({
         type: "POST",
-        url: "addDeber.jsp",
+        url: "addTipoSalida.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#22").val());
-            $("#aciones").html("Lista de Deberes");
+            $("#aciones").html("Lista de Tipos de Salidas");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -460,23 +399,19 @@ function ir22() {
             $('#submenu22').css({"background": "#000000"});
             $('#submenu23').css({"background": ""});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
-/* Agregar Tipo Deber */
+/* Agregar Tipo de Incidencia */
 function ir23() {
     $.ajax({
         type: "POST",
-        url: "addTipoDeber.jsp",
+        url: "addTipoIncidencia.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
             $("#breadseg").html($("#23").val());
-            $("#aciones").html("Lista de Tipos de Deberes");
+            $("#aciones").html("Lista de Tipos de Incidencias");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
             $('#submenu13').css({"background": ""});
@@ -491,146 +426,18 @@ function ir23() {
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": "#000000"});
             $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
-        }
-    });
-}
-
-/* Agregar Responsabilidades */
-function ir24() {
-    $.ajax({
-        type: "POST",
-        url: "addResponsabilidad.jsp",
-        success: function (data) {
-            $("#mantenimiento").html(data);
-            $("#breadseg").html($("#24").val());
-            $("#aciones").html("Lista de Responsabilidades");
-            $('#submenu11').css({"background": ""});
-            $('#submenu12').css({"background": ""});
-            $('#submenu13').css({"background": ""});
-            $('#submenu14').css({"background": ""});
-            $('#submenu15').css({"background": ""});
-            $('#submenu16').css({"background": ""});
-            $('#submenu17').css({"background": ""});
-            $('#submenu18').css({"background": ""});
-            $('#submenu19').css({"background": ""});
-            $('#submenu20').css({"background": ""});
-            $('#submenu21').css({"background": ""});
-            $('#submenu22').css({"background": ""});
-            $('#submenu23').css({"background": ""});
-            $('#submenu24').css({"background": "#000000"});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
-        }
-    });
-}
-
-/* Agregar Motivos */
-function ir25() {
-    $.ajax({
-        type: "POST",
-        url: "addMotivos.jsp",
-        success: function (data) {
-            $("#mantenimiento").html(data);
-            $("#breadseg").html($("#25").val());
-            $("#aciones").html("Lista de Motivos");
-            $('#submenu11').css({"background": ""});
-            $('#submenu12').css({"background": ""});
-            $('#submenu13').css({"background": ""});
-            $('#submenu14').css({"background": ""});
-            $('#submenu15').css({"background": ""});
-            $('#submenu16').css({"background": ""});
-            $('#submenu17').css({"background": ""});
-            $('#submenu18').css({"background": ""});
-            $('#submenu19').css({"background": ""});
-            $('#submenu20').css({"background": ""});
-            $('#submenu21').css({"background": ""});
-            $('#submenu22').css({"background": ""});
-            $('#submenu23').css({"background": ""});
-            $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": "#000000"});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
-        }
-    });
-}
-
-/* Agregar Tipo de Salida */
-function ir26() {
-    $.ajax({
-        type: "POST",
-        url: "addTipoSalida.jsp",
-        success: function (data) {
-            $("#mantenimiento").html(data);
-            $("#breadseg").html($("#26").val());
-            $("#aciones").html("Lista de Tipos de Salidas");
-            $('#submenu11').css({"background": ""});
-            $('#submenu12').css({"background": ""});
-            $('#submenu13').css({"background": ""});
-            $('#submenu14').css({"background": ""});
-            $('#submenu15').css({"background": ""});
-            $('#submenu16').css({"background": ""});
-            $('#submenu17').css({"background": ""});
-            $('#submenu18').css({"background": ""});
-            $('#submenu19').css({"background": ""});
-            $('#submenu20').css({"background": ""});
-            $('#submenu21').css({"background": ""});
-            $('#submenu22').css({"background": ""});
-            $('#submenu23').css({"background": ""});
-            $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": "#000000"});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": ""});
-        }
-    });
-}
-
-/* Agregar Tipo de Incidencia */
-function ir27() {
-    $.ajax({
-        type: "POST",
-        url: "addTipoIncidencia.jsp",
-        success: function (data) {
-            $("#mantenimiento").html(data);
-            $("#breadseg").html($("#27").val());
-            $("#aciones").html("Lista de Tipos de Incidencias");
-            $('#submenu11').css({"background": ""});
-            $('#submenu12').css({"background": ""});
-            $('#submenu13').css({"background": ""});
-            $('#submenu14').css({"background": ""});
-            $('#submenu15').css({"background": ""});
-            $('#submenu16').css({"background": ""});
-            $('#submenu17').css({"background": ""});
-            $('#submenu18').css({"background": ""});
-            $('#submenu19').css({"background": ""});
-            $('#submenu20').css({"background": ""});
-            $('#submenu21').css({"background": ""});
-            $('#submenu22').css({"background": ""});
-            $('#submenu23').css({"background": ""});
-            $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": "#000000"});
-            $('#submenu28').css({"background": ""});
         }
     });
 }
 
 /* Agregar Tipo de Documento */
-function ir28() {
+function ir24() {
     $.ajax({
         type: "POST",
         url: "addTipoDocumento.jsp",
         success: function (data) {
             $("#mantenimiento").html(data);
-            $("#breadseg").html($("#28").val());
+            $("#breadseg").html($("#24").val());
             $("#aciones").html("Lista de Tipos de Documentos");
             $('#submenu11').css({"background": ""});
             $('#submenu12').css({"background": ""});
@@ -645,14 +452,101 @@ function ir28() {
             $('#submenu21').css({"background": ""});
             $('#submenu22').css({"background": ""});
             $('#submenu23').css({"background": ""});
-            $('#submenu24').css({"background": ""});
-            $('#submenu25').css({"background": ""});
-            $('#submenu26').css({"background": ""});
-            $('#submenu27').css({"background": ""});
-            $('#submenu28').css({"background": "#000000"});
+            $('#submenu24').css({"background": "#000000"});
         }
     });
 }
+
+
+/* Seguridad */
+/* Agregar Usuario */
+function ir26() {
+    $.ajax({
+        type: "POST",
+        url: "addUsuario.jsp",
+        success: function (data) {
+            $("#seguridad").html(data);
+            $("#breadseg").html($("#26").val());
+            $("#aciones").html("Lista de Usuarios");
+            $('#submenu26').css({"background": "#000000"});
+            $('#submenu27').css({"background": ""});
+            $('#submenu28').css({"background": ""});
+            $('#submenu29').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Perfil */
+function ir27() {
+    $.ajax({
+        type: "POST",
+        url: "addPerfil.jsp",
+        success: function (data) {
+            $("#seguridad").html(data);
+            $("#breadseg").html($("#27").val());
+            $("#aciones").html("Lista de Perfiles");
+            $('#submenu26').css({"background": ""});
+            $('#submenu27').css({"background": "#000000"});
+            $('#submenu28').css({"background": ""});
+            $('#submenu29').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Perfil */
+function ir28() {
+    $.ajax({
+        type: "POST",
+        url: "addAccesos.jsp",
+        success: function (data) {
+            $("#seguridad").html(data);
+            $("#breadseg").html($("#28").val());
+            $("#aciones").html("Lista de Accesos");
+            $('#submenu26').css({"background": ""});
+            $('#submenu27').css({"background": ""});
+            $('#submenu28').css({"background": "#000000"});
+            $('#submenu29').css({"background": ""});
+            $('#submenu30').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Menús */
+function ir29() {
+    $.ajax({
+        type: "POST",
+        url: "addMenu.jsp",
+        success: function (data) {
+            $("#seguridad").html(data);
+            $("#breadseg").html($("#29").val());
+            $("#aciones").html("Lista de Menús");
+            $('#submenu26').css({"background": ""});
+            $('#submenu27').css({"background": ""});
+            $('#submenu28').css({"background": ""});
+            $('#submenu29').css({"background": "#000000"});
+            $('#submenu30').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Responsabilidades */
+function ir30() {
+    $.ajax({
+        type: "POST",
+        url: "addResponsabilidad.jsp",
+        success: function (data) {
+            $("#seguridad").html(data);
+            $("#breadseg").html($("#30").val());
+            $("#aciones").html("Lista de Responsabilidades");
+            $('#submenu26').css({"background": ""});
+            $('#submenu27').css({"background": ""});
+            $('#submenu28').css({"background": ""});
+            $('#submenu29').css({"background": ""});
+            $('#submenu30').css({"background": "#000000"});
+        }
+    });
+}
+
 
 /* Funcion para filtrar */
 function filter(phrase, _id) {
@@ -780,23 +674,6 @@ function cancelarTipoPer() {
     $("#aciones").html("Lista de Tipos de Personas");
 }
 
-/* Agregar Usuario */
-function agregarUsuario() {
-    document.getElementById('lista').style.display = 'none';
-    document.getElementById('listaUsuario').style.display = 'none';
-    document.getElementById('agregarUsuario').style.display = 'block';
-    document.getElementById("buscarpersona").focus();
-    $("#aciones").html("Agregar Usuario");
-}
-function cancelarUsuario() {
-    document.getElementById("adduser").reset();
-    document.getElementById('lista').style.display = 'block';
-    document.getElementById('listaUsuario').style.display = 'block';
-    document.getElementById('agregarUsuario').style.display = 'none';
-    document.getElementById("buscador").focus();
-    $("#aciones").html("Lista de Usuarios");
-}
-
 /* AgregarObjeto */
 function agregarObjeto() {
     document.getElementById('lista').style.display = 'none';
@@ -812,40 +689,6 @@ function cancelarObjeto() {
     document.getElementById('agregarObjeto').style.display = 'none';
     document.getElementById("buscador").focus();
     $("#aciones").html("Lista de Objetos");
-}
-
-/* Agregar Menús*/
-function agregarMenu() {
-    document.getElementById('lista').style.display = 'none';
-    document.getElementById('listaMenu').style.display = 'none';
-    document.getElementById('agregarMenu').style.display = 'block';
-    document.getElementById("menu").focus();
-    $("#aciones").html("Agregar Menú");
-}
-function cancelarMenu() {
-    document.getElementById("addmenu").reset();
-    document.getElementById('lista').style.display = 'block';
-    document.getElementById('listaMenu').style.display = 'block';
-    document.getElementById('agregarMenu').style.display = 'none';
-    document.getElementById("buscador").focus();
-    $("#aciones").html("Lista de Menús");
-}
-
-/* Agregar Perfil */
-function agregarPerfil() {
-    document.getElementById('lista').style.display = 'none';
-    document.getElementById('listaPerfil').style.display = 'none';
-    document.getElementById('agregarPerfil').style.display = 'block';
-    document.getElementById("perfil").focus();
-    $("#aciones").html("Agregar Perfil");
-}
-function cancelarPerfil() {
-    document.getElementById("addperfil").reset();
-    document.getElementById('lista').style.display = 'block';
-    document.getElementById('listaPerfil').style.display = 'block';
-    document.getElementById('agregarPerfil').style.display = 'none';
-    document.getElementById("buscador").focus();
-    $("#aciones").html("Lista de Perfiles");
 }
 
 /* Agregar Área */
@@ -967,23 +810,6 @@ function cancelarTipoDeber() {
     $("#aciones").html("Lista de Tipos de Deberes");
 }
 
-/* Agregar Responsabilidades */
-function agregarResponsabilidad() {
-    document.getElementById('lista').style.display = 'none';
-    document.getElementById('listaResponsabilidad').style.display = 'none';
-    document.getElementById('agregarResponsabilidad').style.display = 'block';
-    document.getElementById('buscarusuario').focus();
-    $("#aciones").html("Agregar Responsabilidad");
-}
-function cancelarResponsabilidad() {
-    document.getElementById('addresponsabilidad').reset();
-    document.getElementById('lista').style.display = 'block';
-    document.getElementById('listaResponsabilidad').style.display = 'block';
-    document.getElementById('agregarResponsabilidad').style.display = 'none';
-    document.getElementById("buscador").focus();
-    $("#aciones").html("Lista de Responsabilidades");
-}
-
 /* Agregar Motivos */
 function agregarMotivo() {
     document.getElementById('lista').style.display = 'none';
@@ -1050,4 +876,90 @@ function cancelarTipoDocumento() {
     document.getElementById('agregarTipoDocumento').style.display = 'none';
     document.getElementById("buscador").focus();
     $("#aciones").html("Lista de Tipos de Documentos");
+}
+
+/* SEGURIDAD */
+/* Agregar Usuario */
+function agregarUsuario() {
+    document.getElementById('lista').style.display = 'none';
+    document.getElementById('listaUsuario').style.display = 'none';
+    document.getElementById('agregarUsuario').style.display = 'block';
+    document.getElementById("buscarpersona").focus();
+    $("#aciones").html("Agregar Usuario");
+}
+function cancelarUsuario() {
+    document.getElementById("adduser").reset();
+    document.getElementById('lista').style.display = 'block';
+    document.getElementById('listaUsuario').style.display = 'block';
+    document.getElementById('agregarUsuario').style.display = 'none';
+    document.getElementById("buscador").focus();
+    $("#aciones").html("Lista de Usuarios");
+}
+
+/* Agregar Perfil */
+function agregarPerfil() {
+    document.getElementById('lista').style.display = 'none';
+    document.getElementById('listaPerfil').style.display = 'none';
+    document.getElementById('agregarPerfil').style.display = 'block';
+    document.getElementById("perfil").focus();
+    $("#aciones").html("Agregar Perfil");
+}
+function cancelarPerfil() {
+    document.getElementById("addperfil").reset();
+    document.getElementById('lista').style.display = 'block';
+    document.getElementById('listaPerfil').style.display = 'block';
+    document.getElementById('agregarPerfil').style.display = 'none';
+    document.getElementById("buscador").focus();
+    $("#aciones").html("Lista de Perfiles");
+}
+
+/* Agregar Perfil */
+function agregarMenuPerfil() {
+    document.getElementById('lista').style.display = 'none';
+    document.getElementById('listaMenuPerfil').style.display = 'none';
+    document.getElementById('agregarMenuPerfil').style.display = 'block';
+    document.getElementById("perfil").focus();
+    $("#aciones").html("Añadir Acceso");
+}
+function cancelarMenuPerfil() {
+    document.getElementById("addMenuperfil").reset();
+    document.getElementById('lista').style.display = 'block';
+    document.getElementById('listaMenuPerfil').style.display = 'block';
+    document.getElementById('agregarMenuPerfil').style.display = 'none';
+    document.getElementById("buscador").focus();
+    $("#aciones").html("Lista de Accesos");
+}
+
+/* Agregar Menús*/
+function agregarMenu() {
+    document.getElementById('lista').style.display = 'none';
+    document.getElementById('listaMenu').style.display = 'none';
+    document.getElementById('agregarMenu').style.display = 'block';
+    document.getElementById("menu").focus();
+    $("#aciones").html("Agregar Menú");
+}
+function cancelarMenu() {
+    document.getElementById("addmenu").reset();
+    document.getElementById('lista').style.display = 'block';
+    document.getElementById('listaMenu').style.display = 'block';
+    document.getElementById('agregarMenu').style.display = 'none';
+    document.getElementById("buscador").focus();
+    $("#aciones").html("Lista de Menús");
+}
+
+/* Agregar Responsabilidades */
+function agregarResponsabilidad() {
+    document.getElementById('lista').style.display = 'none';
+    document.getElementById('listaResponsabilidad').style.display = 'none';
+    document.getElementById('agregarResponsabilidad').style.display = 'block';
+    document.getElementById('buscarusuario').focus();
+    $("#aciones").html("Agregar Responsabilidad");
+}
+function cancelarResponsabilidad() {
+    document.getElementById('addresponsabilidad').reset();
+    document.getElementById('lista').style.display = 'block';
+    document.getElementById('listaResponsabilidad').style.display = 'block';
+    document.getElementById('agregarResponsabilidad').style.display = 'none';
+    document.getElementById("buscador").focus();
+    $("#aciones").html("Lista de Responsabilidades");
 }

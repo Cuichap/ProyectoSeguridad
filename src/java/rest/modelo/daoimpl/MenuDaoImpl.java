@@ -26,7 +26,7 @@ public class MenuDaoImpl implements MenuDao{
         
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Menu> listaM = new ArrayList<Menu>();
-        String query = "select opc.opciones_id as id, opc.menu as nombre, opc.url as url from seguridad.acceso_perfil as acp, seguridad.opciones as opc where acp.opciones_id=opc.opciones_id and acp.perfil_id='"+ perfil_id +"' and opc.tipo='nivel1'";
+        String query = "SELECT opc.opciones_id as id, opc.menu as nombre, opc.url as url FROM acceso_perfil as acp, opciones as opc WHERE acp.opciones_id=opc.opciones_id AND acp.perfil_id='"+ perfil_id +"' AND opc.tipo='nivel1' AND estado=1 AND acp.activo='si'";
         cx.execQuery(query);
         while(cx.getNext()){
             Menu menu = new Menu();
@@ -68,7 +68,7 @@ public class MenuDaoImpl implements MenuDao{
         
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<SubMenu> listaSM = new ArrayList<SubMenu>();
-        String query = "select opc.opciones_id as id, opc.menu as nombre from seguridad.acceso_perfil as acp, seguridad.opciones as opc where opc.opciones_id=acp.opciones_id and opc.subopciones_id='"+ subopciones_id +"' and acp.perfil_id='"+ perfil_id +"' and opc.tipo='nivel2' order by opc.opciones_id ";
+        String query = "SELECT opc.opciones_id as id, opc.menu as nombre FROM acceso_perfil as acp, opciones as opc WHERE opc.opciones_id=acp.opciones_id AND opc.subopciones_id='"+ subopciones_id +"' AND acp.perfil_id='"+ perfil_id +"' AND opc.tipo='nivel2' AND estado=1 AND acp.activo='si' order by opc.opciones_id";
         cx.execQuery(query);
         while(cx.getNext()){
             SubMenu submenu = new SubMenu();

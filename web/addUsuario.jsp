@@ -4,6 +4,8 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.daoimpl.SeguridadDaoImpl"%>
+<%@page import="rest.modelo.dao.SeguridadDao"%>
 <%@page import="rest.modelo.entidad.Area"%>
 <%@page import="rest.modelo.entidad.Perfiles"%>
 <%@page import="rest.modelo.entidad.TipoPersona"%>
@@ -15,6 +17,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     </head>
     <body>
         <div class="col-sm-12">
@@ -75,10 +78,11 @@
                                 <tbody>
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
+                                        SeguridadDao sdaoDao = new SeguridadDaoImpl();
 
                                         int count = 0;
 
-                                        List<Usuario> listaUser = dao.listarUsuario();
+                                        List<Usuario> listaUser = sdaoDao.listarUsuario();
                                         for (Usuario usuario : listaUser) {
                                             count++;
                                     %>
@@ -115,7 +119,7 @@
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Usuario" class="glyphicon glyphicon-remove"></i>
                                             </a>
                                             <%} if(usuario.getEstado().equals("Inactivo")){%>
-                                            <a style="cursor: pointer;" onclick="eliminar<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#delete">
+                                            <a style="cursor: pointer;" onclick="activar<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#activar">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Usuario" class="glyphicon glyphicon-ok"></i>
                                             </a>
                                             <%}%>
@@ -124,6 +128,9 @@
                                 <script>
                                     function eliminar<%=usuario.getUsuarioid()%>() {
                                         $("#userDelete").val("<%=usuario.getUsuarioid()%>");
+                                    }
+                                    function activar<%=usuario.getUsuarioid()%>() {
+                                        $("#userActive").val("<%=usuario.getUsuarioid()%>");
                                     }
                                     function restabelcer<%=usuario.getUsuarioid()%>() {
                                         $("#restPass").val("<%=usuario.getUsuarioid()%>");
@@ -136,13 +143,13 @@
                     </div>
                 </div>
             </div>
-            <div id="agregarUsuario" class="col-md-10 col-xs-offset-1" style="padding: 0px; display: none;">
+            <div id="agregarUsuario" class="col-md-12" style="padding: 0px; display: none;">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 align="center"><span><b>Ingresar los Datos del Usuario</b></span></h3>
+                        <h4><b>Ingresar los Datos del Usuario</b></h4>
                     </div>
                     <div class="panel-body">
-                        <form id="adduser" class="form-signin" role="form" method="post" action="mantenimiento">
+                        <form id="adduser" class="form-signin" role="form" method="post" action="seguridad">
                             <div class="row">
                                 <article class="col-sm-12">
                                     <div class="form-group">
@@ -268,6 +275,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-default" onclick="cancelarUsuario()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
@@ -276,7 +284,6 @@
                                     Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
-                            <h1></h1>
                         </form>
                     </div>
                 </div>
@@ -286,10 +293,10 @@
                     <section class="modal-content">
                         <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #dd5600; color: white;">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
-                            <h3 align="center"><span><b>¿Está seguro de restablecer la contraceña de este Usuario?</b></span></h3>
+                            <h3 align="center"><span><b>¿Está seguro de restablecer la contraseña de este Usuario?</b></span></h3>
                         </section>
                         <section class="modal-body">
-                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                            <form class="form-signin" role="form" method="post" action="seguridad">
                                 <div class="row">
                                     <input type="hidden" id="restPass" name="id">
                                     <input type="hidden" name="opcion" value="RestablecerPassword">
@@ -315,7 +322,7 @@
                             <h3 align="center"><span><b>¿Está seguro de Eliminar este Usuario?</b></span></h3>
                         </section>
                         <section class="modal-body">
-                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                            <form class="form-signin" role="form" method="post" action="seguridad">
                                 <div class="row">
                                     <input type="hidden" id="userDelete" name="id">
                                     <input type="hidden" name="opcion" value="DeleteUsuario">
@@ -326,6 +333,32 @@
                                     </button>
                                     <button class="btn btn-danger" type="submit">
                                         Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div>
+            <div class="modal fade" id="activar">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #3b5998; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Activar este Usuario?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="seguridad">
+                                <div class="row">
+                                    <input type="hidden" id="userActive" name="id">
+                                    <input type="hidden" name="opcion" value="ActivarUsuario">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-primary" type="submit">
+                                        Activar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                     </button>
                                 </h4>
                             </form>

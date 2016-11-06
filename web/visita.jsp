@@ -9,10 +9,10 @@
 <%@include file="WEB-INF/jspf/top.jspf" %>
 
 <div class="bs-example">
-    <ul class="breadcrumb" style="margin-bottom: 5px;">
-        <li><a>Garita UPeU</a></li>
-        <li><a><%=JSP%></a></li>
-        <li><a id="aciones">Lista de Visitas</a></li>
+    <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
+        <li>Garita UPeU</li>
+        <li><%=JSP%></li>
+        <li id="aciones">Lista de Visitas</li>
     </ul>
 </div>
 

@@ -73,63 +73,9 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public boolean AgregarUsuario(Usuario usuario) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO usuario VALUES (null, " + usuario.getPersonaid() + ", " + usuario.getTipopersonaid() + ", " + usuario.getAreaid() + ", " + usuario.getPerfilid() + ", '" + usuario.getUsuario() + "', '" + usuario.getContrasena() + "', '" + usuario.getCodigo() + "', '" + usuario.getHabitacion() + "', '" + usuario.getCulto() + "', 1)";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
     public boolean AgregarObjeto(Objeto objeto) {
         Conexion cx = Configuracion.GaritaUPeU();
         String COMANDO = "INSERT INTO objeto VALUES (null, '" + objeto.getNombreobjeto() + "', '" + objeto.getDescripcion() + "', 1)";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean AgregarOpciones(Opcion opcion) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO opciones VALUES (null, " + opcion.getSubopcionesid() + ", '" + opcion.getMenu() + "', '" + opcion.getTipo() + "', '" + opcion.getUrl() + "', 1)";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean AgregarPerfil(Perfiles perfiles) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO perfil VALUES (null, '" + perfiles.getNombreperfil() + "', 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -271,24 +217,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public boolean AgregarResponsabilidad(Responsabilidad responsabilidad) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO deber_usuario VALUES (" + responsabilidad.getDeberid() + ", " + responsabilidad.getUsuarioid() + ", " + responsabilidad.getTurnoid() + ", '" + responsabilidad.getFecha() + "', " + responsabilidad.getUsuarioidreg() + ", 1)";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
     public boolean AgregarMotivo(Motivo motivo) {
         Conexion cx = Configuracion.GaritaUPeU();
         String COMANDO = "INSERT INTO motivo VALUES (null, '" + motivo.getNombremotivo() + "', 1)";
@@ -361,7 +289,9 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     /* MANTENIMIENTO -- EDITAR */
- /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
+    
+    
+    /* MANTENIMIENTO -- LISTAS -- ACTIVAS */
     @Override
     public List<TipoDocumento> listarTipoDocumentoAct() {
         Conexion cx = Configuracion.GaritaUPeU();
@@ -555,35 +485,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public List<Usuario> listarUsuario() {
-        Conexion cx = Configuracion.GaritaUPeU();
-        ArrayList<Usuario> listaUser = new ArrayList<>();
-        String query = "SELECT us.usuario_id as idusuario, us.persona_id as personaid, concat(per.nombre, ' ', per.apellidos) as nombres, us.tipo_persona_id as tipoperid, tper.nombre_tipo_persona as nombretipopersona, us.area_id as areaid, ar.nombre as nombrearea, us.perfil_id as idperfil, perf.nombre_perfil as nombreperfil, us.usuario, us.contrasena, us.codigo, us.numhabitacion as habitacion, us.numculto as culto, CASE us.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM usuario as us, persona as per, tipo_persona as tper, area as ar, perfil \n"
-                + "as perf WHERE us.persona_id=per.persona_id AND us.area_id=ar.area_id AND us.perfil_id=perf.perfil_id AND us.tipo_persona_id=tper.tipo_persona_id ORDER BY us.usuario_id DESC";
-        cx.execQuery(query);
-        while (cx.getNext()) {
-            Usuario usuario = new Usuario();
-            usuario.setUsuarioid(cx.getCol("idusuario"));
-            usuario.setPersonaid(cx.getCol("personaid"));
-            usuario.setNombres(cx.getCol("nombres"));
-            usuario.setTipopersonaid(cx.getCol("tipoperid"));
-            usuario.setNombretipoper(cx.getCol("nombretipopersona"));
-            usuario.setAreaid(cx.getCol("areaid"));
-            usuario.setNombrearea(cx.getCol("nombrearea"));
-            usuario.setPerfilid(cx.getCol("idperfil"));
-            usuario.setNombreperfil(cx.getCol("nombreperfil"));
-            usuario.setUsuario(cx.getCol("usuario"));
-            usuario.setContrasena(cx.getCol("contrasena"));
-            usuario.setCodigo(cx.getCol("codigo"));
-            usuario.setHabitacion(cx.getCol("habitacion"));
-            usuario.setCulto(cx.getCol("culto"));
-            usuario.setEstado(cx.getCol("estado"));
-            listaUser.add(usuario);
-        }
-        return listaUser;
-    }
-
-    @Override
     public List<Objeto> listarObjeto() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Objeto> listaObjeto = new ArrayList<>();
@@ -598,26 +499,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             listaObjeto.add(objeto);
         }
         return listaObjeto;
-    }
-
-    @Override
-    public List<Opcion> listarMenus() {
-        Conexion cx = Configuracion.GaritaUPeU();
-        ArrayList<Opcion> listaMenus = new ArrayList<>();
-        String query = "SELECT o.opciones_id as id, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menup, op.subopciones_id as idsub, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, o.tipo FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id order by o.opciones_id DESC";
-        cx.execQuery(query);
-        while (cx.getNext()) {
-            Opcion opcion = new Opcion();
-            opcion.setOpcionesid(cx.getCol("id"));
-            opcion.setMenu(cx.getCol("menup"));
-            opcion.setSubopcionesid(cx.getCol("idsub"));
-            opcion.setSubmenu(cx.getCol("menu_s"));
-            opcion.setTipo(cx.getCol("tipo"));
-            opcion.setUrl(cx.getCol("url"));
-            opcion.setEstado(cx.getCol("estado"));
-            listaMenus.add(opcion);
-        }
-        return listaMenus;
     }
 
     @Override
@@ -684,26 +565,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             listaMotivo.add(motivo);
         }
         return listaMotivo;
-    }
-
-    @Override
-    public List<Responsabilidad> listarResponsabilidad() {
-        Conexion cx = Configuracion.GaritaUPeU();
-        ArrayList<Responsabilidad> listaResponsabilidad = new ArrayList<>();
-        String query = "Select d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id ORDER BY d.deber_id DESC";
-        cx.execQuery(query);
-        while (cx.getNext()) {
-            Responsabilidad responsabilidad = new Responsabilidad();
-            responsabilidad.setDeberid(cx.getCol("id1"));
-            responsabilidad.setUsuarioid(cx.getCol("id2"));
-            responsabilidad.setTurnoid(cx.getCol("id3"));
-            responsabilidad.setNomresponsab(cx.getCol("usuario"));
-            responsabilidad.setNomdeber(cx.getCol("deber"));
-            responsabilidad.setFecha(cx.getCol("fecha"));
-            responsabilidad.setEstado(cx.getCol("estado"));
-            listaResponsabilidad.add(responsabilidad);
-        }
-        return listaResponsabilidad;
     }
 
     @Override
@@ -831,22 +692,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public List<Perfiles> listarPerfiles() {
-        Conexion cx = Configuracion.GaritaUPeU();
-        ArrayList<Perfiles> listaPerfiles = new ArrayList<>();
-        String query = "SELECT perfil_id as id, nombre_perfil as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM perfil ORDER BY perfil_id DESC";
-        cx.execQuery(query);
-        while (cx.getNext()) {
-            Perfiles perfiles = new Perfiles();
-            perfiles.setPerfilid(cx.getCol("id"));
-            perfiles.setNombreperfil(cx.getCol("nombre"));
-            perfiles.setEstado(cx.getCol("estado"));
-            listaPerfiles.add(perfiles);
-        }
-        return listaPerfiles;
-    }
-
-    @Override
     public List<Usuario> listarUsuraioAuto(String var) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Usuario> listaUser = new ArrayList<>();
@@ -861,25 +706,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             listaUser.add(usuario);
         }
         return listaUser;
-    }
-
-    /* MANTENIMIENTO -- EXTRAS */
-    @Override
-    public boolean RestablecerPassword(String id) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE usuario SET contrasena='1234567890' WHERE usuario_id='" + id + "'";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
     }
 
     /* MANTENIMIENTO -- ELIMINAR */
@@ -920,63 +746,9 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public boolean EliminarUsuario(String id) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE usuario SET estado=0 WHERE usuario_id='" + id + "'";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
     public boolean EliminarObjeto(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
         String COMANDO = "UPDATE objeto SET estado=0 WHERE objeto_id='" + id + "'";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean EliminarMenu(String id) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE opciones SET estado=0 WHERE opciones_id='" + id + "'";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean EliminarPerfil(String id) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE perfil SET estado=0 WHERE perfil_id='" + id + "'";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -1118,24 +890,6 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     }
 
     @Override
-    public boolean EliminarResponsabilidad(String iddeber, String iduser, String idturno) {
-        Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE deber_usuario SET estado=0 WHERE deber_id='" + iddeber + "' and usuario_id='" + iduser + "' and turno_id='" + idturno + "'";
-        try {
-            cx.execC(COMANDO);
-            cx.Commit();
-            cx.Close(1, 1, 1);
-            return true;
-        } catch (Exception EX) {
-            cx.RollBack();
-            cx.Close(1, 1, 1);
-            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
-            System.out.println(COMANDO);
-            return false;
-        }
-    }
-
-    @Override
     public boolean EliminarMotivo(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
         String COMANDO = "UPDATE motivo SET estado=0 WHERE motivo_id='" + id + "'";
@@ -1193,6 +947,259 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public boolean EliminarTipoDocumento(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
         String COMANDO = "UPDATE tipo_documento SET estado=0 WHERE tipo_documento_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    /* MANTENIMIENTO -- ACTIVAR */
+    @Override
+    public boolean ActivarPersona(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE persona SET estado=1 WHERE persona_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarTipoPersona(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_persona SET estado=1 WHERE tipo_persona_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarObjeto(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE objeto SET estado=1 WHERE objeto_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarArea(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE area SET estado=1 WHERE area_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarVehiculo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE vehiculo SET estado=1 WHERE vehiculo_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarTipoVehiculo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_vehiculo SET estado=1 WHERE tipo_vehiculo_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarMarca(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE marca SET estado=1 WHERE marca_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarTurno(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE turno SET estado=1 WHERE turno_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarDeber(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE deber SET estado=1 WHERE deber_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarTipoDeber(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_deber SET estado=1 WHERE tipo_deber_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarMotivo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE motivo SET estado=1 WHERE motivo_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarTipoSalida(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_permiso SET estado=1 WHERE tipo_permiso_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarTipoIncidencia(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_incidencia SET estado=1 WHERE tipo_incidencia_id='" + id + "'";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean ActivarTipoDocumento(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE tipo_documento SET estado=1 WHERE tipo_documento_id='" + id + "'";
         try {
             cx.execC(COMANDO);
             cx.Commit();

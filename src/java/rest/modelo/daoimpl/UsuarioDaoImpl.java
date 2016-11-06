@@ -48,7 +48,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
          return per; */
         Perfil per = null;
         Conexion cx = Configuracion.GaritaUPeU();
-        String query = "select usuario_id, tipo_persona_id, perfil_id from usuario where usuario='" + usuario.toUpperCase() + "' and contrasena='" + contrasena + "' and estado='1'";
+        String query = "SELECT usuario_id, tipo_persona_id, perfil_id FROM usuario WHERE usuario='" + usuario.toUpperCase() + "' AND contrasena='" + contrasena + "' AND estado='1'";
         cx.execQuery(query);
 
         while (cx.getNext()) {

@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     </head>
     <body>
         <div class="col-sm-12">

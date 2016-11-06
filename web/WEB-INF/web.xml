@@ -35,6 +35,10 @@
         <servlet-name>Incidencias</servlet-name>
         <servlet-class>rest.modelo.controlador.Incidencias</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Seguridad</servlet-name>
+        <servlet-class>rest.modelo.controlador.Seguridad</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Validar</servlet-name>
         <url-pattern>/validar</url-pattern>
@@ -66,6 +70,10 @@
     <servlet-mapping>
         <servlet-name>Incidencias</servlet-name>
         <url-pattern>/incidencias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Seguridad</servlet-name>
+        <url-pattern>/seguridad</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

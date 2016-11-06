@@ -82,7 +82,7 @@
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Tipo de Persona" class="glyphicon glyphicon-remove"></i>
                                             </a>
                                             <%} if(tipoPersona.getEstado().equals("Inactivo")){%>
-                                            <a style="cursor: pointer;" onclick="eliminar<%=tipoPersona.getTipoPersonaid()%>()" data-toggle="modal" data-target="#delete">
+                                            <a style="cursor: pointer;" onclick="activar<%=tipoPersona.getTipoPersonaid()%>()" data-toggle="modal" data-target="#activar">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Tipo de Persona" class="glyphicon glyphicon-ok"></i>
                                             </a>
                                             <%}%>
@@ -92,6 +92,9 @@
                                     function eliminar<%=tipoPersona.getTipoPersonaid()%>() {
                                         $("#tipPerDelete").val("<%=tipoPersona.getTipoPersonaid()%>");
                                     }
+                                    function activar<%=tipoPersona.getTipoPersonaid()%>() {
+                                        $("#tipPerActive").val("<%=tipoPersona.getTipoPersonaid()%>");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -100,15 +103,15 @@
                     </div>
                 </div>
             </div>
-            <div id="agregarTipoPer" class="col-md-10 col-xs-offset-1" style="padding: 0px; display: none;">
+            <div id="agregarTipoPer" class="col-md-12" style="padding: 0px; display: none;">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 align="center"><span><b>Ingresar el Tipo de Persona</b></span></h3>
+                        <h4><span><b>Ingresar el Tipo de Persona</b></span></h4>
                     </div>
                     <div class="panel-body">
                         <form id="addtipoper" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
                                         <input type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
@@ -118,6 +121,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-default" onclick="cancelarTipoPer()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
@@ -126,7 +130,6 @@
                                     Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
-                            <h1></h1>
                         </form>
                     </div>
                 </div>
@@ -150,6 +153,32 @@
                                     </button>
                                     <button class="btn btn-danger" type="submit">
                                         Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div>
+            <div class="modal fade" id="activar">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #3b5998; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Activar este Tipo de Persona?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="mantenimiento">
+                                <div class="row">
+                                    <input type="hidden" id="tipPerActive" name="id">
+                                    <input type="hidden" name="opcion" value="ActivarTipoPersona">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-primary" type="submit">
+                                        Activar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                     </button>
                                 </h4>
                             </form>

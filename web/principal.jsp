@@ -1,12 +1,12 @@
 <%@include file="WEB-INF/jspf/top.jspf" %>
 
 <div class="bs-example">
-    <ul class="breadcrumb" style="margin-bottom: 5px;">
-        <li><a>Garita UPeU</a></li>
+    <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
+        <li>Garita UPeU</li>
             <%if (!JSP.equals("")) {%>
-        <li class="active"><a><%=JSP%></a></li>
-                <%} else {%>
-        <li class="active"><a>Inicio</a></li>
+        <li><%=JSP%></li>
+            <%} else {%>
+        <li>Inicio</li>
             <%}%>
     </ul>
 </div>

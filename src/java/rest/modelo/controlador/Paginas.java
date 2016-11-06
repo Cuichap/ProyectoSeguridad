@@ -30,6 +30,8 @@ public class Paginas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
+        
         String opcion = request.getParameter("opcion"); opcion = opcion == null ? "" : opcion;
         String idmenu = request.getParameter("idmenu"); idmenu = idmenu == null ? "" : idmenu;
         String url = request.getParameter("url"); url = url == null ? "" : url;
@@ -56,6 +58,16 @@ public class Paginas extends HttpServlet {
                 request.getRequestDispatcher(url).forward(request, response);
                 break;
             case "Mantenimiento":
+                request.setAttribute("IdMenu", idmenu);
+                request.setAttribute("JSP", opcion);
+                request.getRequestDispatcher(url).forward(request, response);
+                break;
+            case "Seguridad":
+                request.setAttribute("IdMenu", idmenu);
+                request.setAttribute("JSP", opcion);
+                request.getRequestDispatcher(url).forward(request, response);
+                break;
+            case "Reportes":
                 request.setAttribute("IdMenu", idmenu);
                 request.setAttribute("JSP", opcion);
                 request.getRequestDispatcher(url).forward(request, response);

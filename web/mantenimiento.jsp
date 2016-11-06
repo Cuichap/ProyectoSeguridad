@@ -10,11 +10,11 @@
 
 
 <div class="bs-example">
-    <ul class="breadcrumb" style="margin-bottom: 5px;">
-        <li><a>Garita UPeU</a></li>
-        <li><a><%=JSP%></a></li>
-        <li><a id="breadseg"></a></li>
-        <li><a id="aciones"></a></li>
+    <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
+        <li>Garita UPeU</li>
+        <li><%=JSP%></li>
+        <li id="breadseg"></li>
+        <li id="aciones"></li>
     </ul>
 </div>
 
@@ -65,18 +65,6 @@
     <%}
         if (IdSubMenu.equals("24")) { %>
         ir24();
-    <%}
-        if (IdSubMenu.equals("25")) { %>
-        ir25();
-    <%}
-        if (IdSubMenu.equals("26")) { %>
-        ir26();
-    <%}
-        if (IdSubMenu.equals("27")) { %>
-        ir27();
-    <%}
-        if (IdSubMenu.equals("28")) { %>
-        ir28();
     <%}%>
 
         $('[data-toggle="tooltip"]').tooltip();

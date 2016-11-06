@@ -14,7 +14,6 @@ import rest.modelo.entidad.Objeto;
 import rest.modelo.entidad.Opcion;
 import rest.modelo.entidad.Perfiles;
 import rest.modelo.entidad.Persona;
-import rest.modelo.entidad.Responsabilidad;
 import rest.modelo.entidad.TipoDeber;
 import rest.modelo.entidad.TipoDocumento;
 import rest.modelo.entidad.TipoIncidencia;
@@ -34,10 +33,7 @@ public interface MantenimientoDao {
     /* MANTENIMIENTO -- AGREGAR */
     public boolean AgregarPersona(Persona persona);
     public boolean AgregarTipoPersona(TipoPersona tipoPersona);
-    public boolean AgregarUsuario(Usuario usuario);
     public boolean AgregarObjeto(Objeto objeto);
-    public boolean AgregarOpciones(Opcion opcion);
-    public boolean AgregarPerfil(Perfiles perfiles);
     public boolean AgregarArea(Area area);
     public boolean AgregarVehiculo(Vehiculo vehiculo);
     public boolean AgregarTipoVehiculo(TipoVehiculo tipoVehiculo);
@@ -45,7 +41,6 @@ public interface MantenimientoDao {
     public boolean AgregarTurno(Turno turno);
     public boolean AgregarDeber(Deber deber);
     public boolean AgregarTipoDeber(TipoDeber tipoDeber);
-    public boolean AgregarResponsabilidad(Responsabilidad responsabilidad);
     public boolean AgregarMotivo(Motivo motivo);
     public boolean AgregarTipoSalida(TipoPermiso tipoPermiso);
     public boolean AgregarTipoIncidencia(TipoIncidencia tipoIncidencia);
@@ -70,13 +65,10 @@ public interface MantenimientoDao {
     public List<TipoDocumento> listarTipoDocumento();
     public List<Persona> listarPersona();
     public List<TipoPersona> listarTipoPersona();
-    public List<Usuario> listarUsuario();
     public List<Objeto> listarObjeto();
-    public List<Opcion> listarMenus();
     public List<TipoIncidencia> listarTipoIncidencia();
     public List<TipoPermiso> listarSalida();
     public List<Motivo> listarMotivos();
-    public List<Responsabilidad> listarResponsabilidad();
     public List<TipoDeber> listarTipoDeber();
     public List<Deber> listarDeberes();
     public List<Turno> listarTurnos();
@@ -84,20 +76,13 @@ public interface MantenimientoDao {
     public List<TipoVehiculo> listarTipoVehiculo();
     public List<Vehiculo> listarVehiculo();
     public List<Area> listarArea();
-    public List<Perfiles> listarPerfiles();
     
     public List<Usuario> listarUsuraioAuto(String var);
-    
-    /* MANTENIMIENTO -- EXTRAS */
-    public boolean RestablecerPassword(String id);
     
     /* MANTENIMIENTO -- ELIMINAR */
     public boolean EliminarPersona(String id);
     public boolean EliminarTipoPersona(String id);
-    public boolean EliminarUsuario(String id);
     public boolean EliminarObjeto(String id);
-    public boolean EliminarMenu(String id);
-    public boolean EliminarPerfil(String id);
     public boolean EliminarArea(String id);
     public boolean EliminarVehiculo(String id);
     public boolean EliminarTipoVehiculo(String id);
@@ -105,10 +90,25 @@ public interface MantenimientoDao {
     public boolean EliminarTurno(String id);
     public boolean EliminarDeber(String id);
     public boolean EliminarTipoDeber(String id);
-    public boolean EliminarResponsabilidad(String iddeber, String iduser, String idturno);
     public boolean EliminarMotivo(String id);
     public boolean EliminarTipoSalida(String id);
     public boolean EliminarTipoIncidencia(String id);
     public boolean EliminarTipoDocumento(String id);
+    
+    /* MANTENIMIENTO -- ACTIVAR */
+    public boolean ActivarPersona(String id);
+    public boolean ActivarTipoPersona(String id);
+    public boolean ActivarObjeto(String id);
+    public boolean ActivarArea(String id);
+    public boolean ActivarVehiculo(String id);
+    public boolean ActivarTipoVehiculo(String id);
+    public boolean ActivarMarca(String id);
+    public boolean ActivarTurno(String id);
+    public boolean ActivarDeber(String id);
+    public boolean ActivarTipoDeber(String id);
+    public boolean ActivarMotivo(String id);
+    public boolean ActivarTipoSalida(String id);
+    public boolean ActivarTipoIncidencia(String id);
+    public boolean ActivarTipoDocumento(String id);
     
 }

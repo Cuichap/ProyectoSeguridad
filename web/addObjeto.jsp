@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idObjetoEdit = request.getParameter("idObjetoEdit"); idObjetoEdit = idObjetoEdit == null ? "" : idObjetoEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -76,7 +79,7 @@
                                         <td><%=obj.getDescripcion()%></td>
                                         <td><%=obj.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=obj.getObjetoid()%>(<%=obj.getObjetoid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Objeto" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -99,6 +102,30 @@
                                     }
                                     function activar<%=obj.getObjetoid()%>() {
                                         $("#objActive").val("<%=obj.getObjetoid()%>");
+                                    }
+                                    function Editar<%=obj.getObjetoid()%>(objeto) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addObjeto.jsp",
+                                            data: "idObjetoEdit=" + objeto,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaObjeto').style.display = 'none';
+                                                document.getElementById('agregarObjeto').style.display = 'none';
+                                                document.getElementById('editarObjeto').style.display = 'block';
+                                                document.getElementById("objetoEdit").focus();
+                                                $("#aciones").html("Modificar Objeto");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditObjeto() {
+                                        document.getElementById("editobj").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaObjeto').style.display = 'block';
+                                        document.getElementById('editarObjeto').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Objetos");
                                     }
                                 </script>
                                 <%}%>
@@ -145,6 +172,51 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarObjeto" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 align="center"><b>Modificar los Datos del Objeto</b></h4>
+                    </div>
+                    <%
+                        List<Objeto> listaEditObj = dao.listarEditObjeto(idObjetoEdit);
+                        for (Objeto objeto : listaEditObj) {
+                    %>
+                    <div class="panel-body">
+                        <form id="editobj" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="objeto">Objeto</label>
+                                        <input value="<%=objeto.getNombreobjeto()%>" required type="text" maxlength="30" class="form-control" id="objetoEdit" placeholder="Nombre del Objeto" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripción</label>
+                                        <input value="<%=objeto.getDescripcion()%>" type="text" maxlength="300" class="form-control" id="descripcion" placeholder="Descripción del Objeto" name="descripcion">
+                                        <input type="hidden" name="opcion" value="EditObjeto">
+                                        <input type="hidden" name="id" value="<%=idObjetoEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditObjeto()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -203,6 +275,7 @@
         <script type="text/javascript">
             $().ready(function () {
                 $("#addobj").validator({debug: true});
+                $("#editobj").validator({debug: true});
             });
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();

@@ -35,6 +35,13 @@ public interface SeguridadDao {
     /* SEGURIDAD -- EXTRAS */
     public boolean RestablecerPassword(String id);
     
+    /* SEGURIDAD -- LISTAS -- ID */
+    public List<Usuario> listarEditUsuario(String id);
+    public List<Perfiles> listarEditPerfil(String id);
+    public List<Acceso> listarEditAccesos(String id);
+    public List<Opcion> listarEditMenus(String id);
+    public List<Responsabilidad> listarEditResponsabilidad(String iddeb, String iduser, String idtur);
+    
     /* SEGURIDAD -- EDITAR */
     
     

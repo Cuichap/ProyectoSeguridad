@@ -24,16 +24,7 @@
 
 <script>
     $(document).ready(function () {
-    <% if (IdSubMenu.equals("11") || IdSubMenu.equals("")) { %>
-        ir11();
-    <%}
-        if (IdSubMenu.equals("12")) { %>
-        ir12();
-    <%}
-        if (IdSubMenu.equals("13")) { %>
-        ir13();
-    <%}
-        if (IdSubMenu.equals("14")) { %>
+    <% if (IdSubMenu.equals("14") || IdSubMenu.equals("")) { %>
         ir14();
     <%}
         if (IdSubMenu.equals("15")) { %>
@@ -65,6 +56,15 @@
     <%}
         if (IdSubMenu.equals("24")) { %>
         ir24();
+    <%}
+        if (IdSubMenu.equals("25")) { %>
+        ir25();
+    <%}
+        if (IdSubMenu.equals("26")) { %>
+        ir26();
+    <%}
+        if (IdSubMenu.equals("27")) { %>
+        ir27();
     <%}%>
 
         $('[data-toggle="tooltip"]').tooltip();

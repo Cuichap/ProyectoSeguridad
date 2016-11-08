@@ -4,6 +4,7 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.Perfiles"%>
 <%@page import="rest.modelo.entidad.Acceso"%>
 <%@page import="rest.modelo.daoimpl.SeguridadDaoImpl"%>
 <%@page import="rest.modelo.dao.SeguridadDao"%>
@@ -11,6 +12,9 @@
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idAccesoEdit = request.getParameter("idAccesoEdit"); idAccesoEdit = idAccesoEdit == null ? "" : idAccesoEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -90,7 +94,7 @@
                                         <td><%=acceso.getUrl()%></td>
                                         <td><%=acceso.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=acceso.getPerfilId()%>(<%=acceso.getPerfilId()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Menú" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -116,6 +120,30 @@
                                         $("#perfilActive").val("<%=acceso.getPerfilId()%>");
                                         $("#menuActive").val("<%=acceso.getMenuId()%>");
                                     }
+                                    function Editar<%=acceso.getPerfilId()%>(acceso) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addAccesos.jsp",
+                                            data: "idAccesoEdit=" + acceso,
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaMenuPerfil').style.display = 'none';
+                                                document.getElementById('agregarMenuPerfil').style.display = 'none';
+                                                document.getElementById('editarMenuPerfil').style.display = 'block';
+                                                //document.getElementById("perfilEdit").focus();
+                                                $("#aciones").html("Modificar Perfil");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditMenuPerfil() {
+                                        document.getElementById("editMenuperfil").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaMenuPerfil').style.display = 'block';
+                                        document.getElementById('editarMenuPerfil').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Perfiles");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -134,10 +162,17 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="tipo">Perfiles</label>
+                                        <label for="tipo">Perfil</label>
                                         <select class="form-control" id="tipo" name="perfilId">
                                             <option hidden>Seleccionar perfil</option>
-                                            <option value=""></option>
+                                            <%
+
+                                                List<Perfiles> listaPerfi = dao.listarPerfilesAct();
+                                                for (Perfiles perfiles : listaPerfi) {
+
+                                            %>
+                                            <option value="<%=perfiles.getPerfilid()%>"><%=perfiles.getNombreperfil()%></option>
+                                            <%}%>
                                         </select>
                                     </div>
                                 </div>
@@ -152,6 +187,47 @@
                                 </button>
                                 <button class="btn btn-primary" type="submit">
                                     Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="editarMenuPerfil" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos</b></h4>
+                    </div>
+                    <div class="panel-body">
+                        <form id="editMenuperfil" class="form-signin" role="form" method="post" action="seguridad">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoEdit">Perfiles</label>
+                                        <select class="form-control" id="tipoEdit" name="perfilId">
+                                            <option hidden>Seleccionar perfil</option>
+                                            <%
+
+                                                List<Perfiles> listaPerfiEdit = dao.listarPerfilesAct();
+                                                for (Perfiles perfEdit : listaPerfiEdit) {
+
+                                            %>
+                                            <option value="<%=perfEdit.getPerfilid()%>"><%=perfEdit.getNombreperfil()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditMenuPerfil()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
                         </form>

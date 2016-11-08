@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idTipoIncidenciaEdit = request.getParameter("idTipoIncidenciaEdit"); idTipoIncidenciaEdit = idTipoIncidenciaEdit == null ? "" : idTipoIncidenciaEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,7 +78,7 @@
                                         <td><%=tipoinc.getDescripcion()%></td>
                                         <td><%=tipoinc.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=tipoinc.getTipoincidenciaid()%>(<%=tipoinc.getTipoincidenciaid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar el Tipo de Salida" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -92,12 +95,36 @@
                                         </td>
                                     </tr>
                                 <script>
-                                        function eliminar<%=tipoinc.getTipoincidenciaid()%>() {
-                                            $("#tipoIncidenciaDelete").val("<%=tipoinc.getTipoincidenciaid()%>");
-                                        }
-                                        function activar<%=tipoinc.getTipoincidenciaid()%>() {
-                                            $("#tipoIncidenciaActive").val("<%=tipoinc.getTipoincidenciaid()%>");
-                                        }
+                                    function eliminar<%=tipoinc.getTipoincidenciaid()%>() {
+                                        $("#tipoIncidenciaDelete").val("<%=tipoinc.getTipoincidenciaid()%>");
+                                    }
+                                    function activar<%=tipoinc.getTipoincidenciaid()%>() {
+                                        $("#tipoIncidenciaActive").val("<%=tipoinc.getTipoincidenciaid()%>");
+                                    }
+                                    function Editar<%=tipoinc.getTipoincidenciaid()%>(tipoincidencia) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addTipoIncidencia.jsp",
+                                            data: "idTipoIncidenciaEdit=" + tipoincidencia,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaTipoIncidencia').style.display = 'none';
+                                                document.getElementById('agregarTipoIncidencia').style.display = 'none';
+                                                document.getElementById('editarTipoIncidencia').style.display = 'block';
+                                                document.getElementById("tipoIncidenciaEdit").focus();
+                                                $("#aciones").html("Modificar Tipo de Incidencia");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditTipoIncidencia() {
+                                        document.getElementById("edittipoincidencia").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaTipoIncidencia').style.display = 'block';
+                                        document.getElementById('editarTipoIncidencia').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Tipos de Incidencias");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -139,6 +166,47 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarTipoIncidencia" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Tipo de Incidencia</b></h4>
+                    </div>
+                    <%
+                        List<TipoIncidencia> listaTipoIncidenciaEdit = dao.listarEditTipoIncidencia(idTipoIncidenciaEdit);
+                        for (TipoIncidencia tiEditar : listaTipoIncidenciaEdit) {
+                    %>
+                    <div class="panel-body">
+                        <form id="edittipoincidencia" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoIncidenciaEdit">Nombre del Tipo de incidencia</label>
+                                        <input value="<%=tiEditar.getNombretipoincidencia()%>" type="text" class="form-control" id="tipoIncidenciaEdit" placeholder="Nombre del Tipo de Incidencia" name="nombres">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="descripcionEdit">Descripción</label>
+                                        <input value="<%=tiEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Incidencia" name="descripcion">
+                                        <input type="hidden" name="opcion" value="EditTipoIncidencia">
+                                        <input type="hidden" name="id" value="<%=idTipoIncidenciaEdit%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditTipoIncidencia()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">

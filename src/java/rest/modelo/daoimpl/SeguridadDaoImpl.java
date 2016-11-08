@@ -240,7 +240,88 @@ public class SeguridadDaoImpl implements SeguridadDao{
         }
     }
     
-    /* SEGURIDAD -- AGREGAR */
+    /* SEGURIDAD -- LISTAS -- ID */
+    @Override
+    public List<Usuario> listarEditUsuario(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Usuario> listaEditUser = new ArrayList<>();
+        String query = "SELECT per.nombre as nombre, per.apellidos as apellidos, us.persona_id as perid, us.tipo_persona_id as tpid, us.area_id as areaid, us.perfil_id as perfid, us.usuario, us.contrasena, us.codigo, us.numhabitacion, us.numculto FROM usuario as us, persona as per WHERE us.usuario_id=per.persona_id AND us.usuario_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Usuario usuario = new Usuario();
+            usuario.setNombre(cx.getCol("nombre"));
+            usuario.setApellidos(cx.getCol("apellidos"));
+            usuario.setPersonaid(cx.getCol("perid"));
+            usuario.setTipopersonaid(cx.getCol("tpid"));
+            usuario.setAreaid(cx.getCol("areaid"));
+            usuario.setPerfilid(cx.getCol("perfid"));
+            usuario.setUsuario(cx.getCol("usuario"));
+            usuario.setContrasena(cx.getCol("contrasena"));
+            usuario.setCodigo(cx.getCol("codigo"));
+            usuario.setHabitacion(cx.getCol("numhabitacion"));
+            usuario.setCulto(cx.getCol("numculto"));
+            listaEditUser.add(usuario);
+        }
+        return listaEditUser;
+    }
+
+    @Override
+    public List<Perfiles> listarEditPerfil(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Perfiles> listaEditPerfiles = new ArrayList<>();
+        String query = "SELECT nombre_perfil as nombre FROM perfil WHERE perfil_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Perfiles perfiles = new Perfiles();
+            perfiles.setNombreperfil(cx.getCol("nombre"));
+            listaEditPerfiles.add(perfiles);
+        }
+        return listaEditPerfiles;
+    }
+
+    @Override
+    public List<Acceso> listarEditAccesos(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Opcion> listarEditMenus(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Opcion> listaEditMenus = new ArrayList<>();
+        String query = "SELECT subopciones_id as subid, menu as nombre, tipo, url FROM opciones WHERE opciones_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Opcion opcion = new Opcion();
+            opcion.setSubopcionesid(cx.getCol("subid"));
+            opcion.setMenu(cx.getCol("nombre"));
+            opcion.setTipo(cx.getCol("tipo"));
+            opcion.setUrl(cx.getCol("url"));
+            listaEditMenus.add(opcion);
+        }
+        return listaEditMenus;
+    }
+
+    @Override
+    public List<Responsabilidad> listarEditResponsabilidad(String iddeb, String iduser, String idtur) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Responsabilidad> listaEditResponsabilidad = new ArrayList<>();
+        String query = "SELECT usuario_id as usid, turno_id as turid, fecha, usuario_id_reg FROM deber_usuario WHERE deber_id='"+ iddeb +"' and usuario_id='"+ iduser +"' and turno_id='"+ idtur +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Responsabilidad responsabilidad = new Responsabilidad();
+            responsabilidad.setDeberid(cx.getCol("id1"));
+            responsabilidad.setUsuarioid(cx.getCol("id2"));
+            responsabilidad.setTurnoid(cx.getCol("id3"));
+            responsabilidad.setFecha(cx.getCol("fecha"));
+            listaEditResponsabilidad.add(responsabilidad);
+        }
+        return listaEditResponsabilidad;
+    }
+    
+    /* SEGURIDAD -- EDITAR */
+    
+    
+    /* SEGURIDAD -- ELIMINAR */
     @Override
     public boolean EliminarUsuario(String id) {
         Conexion cx = Configuracion.GaritaUPeU();

@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.entidad.TipoPermiso"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idTippoSalidaEdit = request.getParameter("idTippoSalidaEdit"); idTippoSalidaEdit = idTippoSalidaEdit == null ? "" : idTippoSalidaEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,7 +78,7 @@
                                         <td><%=tipoper.getDescripcion()%></td>
                                         <td><%=tipoper.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=tipoper.getTipopermisoid()%>(<%=tipoper.getTipopermisoid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar el Tipo de Salida" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -92,12 +95,36 @@
                                         </td>
                                     </tr>
                                 <script>
-                                        function eliminar<%=tipoper.getTipopermisoid()%>() {
-                                            $("#tipoSalidaDelete").val("<%=tipoper.getTipopermisoid()%>");
-                                        }
-                                        function activar<%=tipoper.getTipopermisoid()%>() {
-                                            $("#tipoSalidaActive").val("<%=tipoper.getTipopermisoid()%>");
-                                        }
+                                    function eliminar<%=tipoper.getTipopermisoid()%>() {
+                                        $("#tipoSalidaDelete").val("<%=tipoper.getTipopermisoid()%>");
+                                    }
+                                    function activar<%=tipoper.getTipopermisoid()%>() {
+                                        $("#tipoSalidaActive").val("<%=tipoper.getTipopermisoid()%>");
+                                    }
+                                    function Editar<%=tipoper.getTipopermisoid()%>(tiposalida) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addTipoSalida.jsp",
+                                            data: "idTippoSalidaEdit=" + tiposalida,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaTipoSalida').style.display = 'none';
+                                                document.getElementById('agregarTipoSalida').style.display = 'none';
+                                                document.getElementById('editarTipoSalida').style.display = 'block';
+                                                document.getElementById("tipoSalidaEdit").focus();
+                                                $("#aciones").html("Modificar Tipo de Salida");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditTipoSalida() {
+                                        document.getElementById("edittiposalida").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaTipoSalida').style.display = 'block';
+                                        document.getElementById('editarTipoSalida').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Tipos de Salidas");
+                                    }
                                 </script>
                                 <%}%>
                                 </tbody>
@@ -139,6 +166,47 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarTipoSalida" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Tipo de Salida</b></h4>
+                    </div>
+                    <%
+                        List<TipoPermiso> listaTipoSalidaEdit = dao.listarEditSalida(idTippoSalidaEdit);
+                        for (TipoPermiso tpEditar : listaTipoSalidaEdit) {
+                    %>
+                    <div class="panel-body">
+                        <form id="edittiposalida" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoSalidaEdit">Nombre del Tipo de Salida</label>
+                                        <input value="<%=tpEditar.getNombretipopermiso()%>" type="text" class="form-control" id="tipoSalidaEdit" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="descripcionEdit">Descripción</label>
+                                        <input value="<%=tpEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Salida" name="descripcion">
+                                        <input type="hidden" name="opcion" value="EditTipoSalida">
+                                        <input type="hidden" name="id" value="<%=idTippoSalidaEdit%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditTipoSalida()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">

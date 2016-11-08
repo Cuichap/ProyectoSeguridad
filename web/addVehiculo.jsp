@@ -11,6 +11,9 @@
 <%@page import="rest.modelo.entidad.Vehiculo"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idVehiculoEdit = request.getParameter("idVehiculoEdit"); idVehiculoEdit = idVehiculoEdit == null?"":idVehiculoEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -85,7 +88,7 @@
                                         <td><%=vehiculo.getDecripcion()%></td>
                                         <td><%=vehiculo.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=vehiculo.getVehiculoid()%>(<%=vehiculo.getVehiculoid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Vehículo" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -108,6 +111,30 @@
                                     }
                                     function activar<%=vehiculo.getVehiculoid()%>() {
                                         $("#vehiculoActive").val("<%=vehiculo.getVehiculoid()%>");
+                                    }
+                                    function Editar<%=vehiculo.getVehiculoid()%>(vehiculo) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addVehiculo.jsp",
+                                            data: "idVehiculoEdit=" + vehiculo,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaVehiculo').style.display = 'none';
+                                                document.getElementById('agregarVehiculo').style.display = 'none';
+                                                document.getElementById('editarVehiculo').style.display = 'block';
+                                                document.getElementById("placaEdit").focus();
+                                                $("#aciones").html("Modificar Vehículo");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditVehiculo() {
+                                        document.getElementById("editvehiculo").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaVehiculo').style.display = 'block';
+                                        document.getElementById('editarVehiculo').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Vehículos");
                                     }
                                 </script>
                                 <%}%>
@@ -161,8 +188,8 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
-                                        <label for="placa">Placa</label>
-                                        <input required type="text" maxlength="10" class="form-control" id="placa" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <label for="placaEdit">Placa</label>
+                                        <input required type="text" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -188,6 +215,81 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarVehiculo" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Vehículo</b></h4>
+                    </div>
+                    <%
+                        List<Vehiculo> listaVehiculoEdit = dao.listarEditVehiculo(idVehiculoEdit);
+                        for(Vehiculo vehiculoEditar : listaVehiculoEdit){
+                    %>
+                    <div class="panel-body">
+                        <form id="editvehiculo" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoEdit">Tipo de Vehiculo</label>
+                                        <select class="form-control" id="tipoEdit" name="tipoVehiculoId">
+                                            <option hidden>Seleccionar el Tipo de Vehiculo</option>
+                                            <%
+                                                List<TipoVehiculo> listaTipoVehiculoActEdit = dao.listarTipoVehiculoAct();
+                                                for (TipoVehiculo tipoVehiculoEdit : listaTipoVehiculoActEdit) {
+                                            %>
+                                            <option <% if(vehiculoEditar.getTipovehiculoid().equals(tipoVehiculoEdit.getTipovehiculoid())){%>selected<%}%> value="<%=tipoVehiculoEdit.getTipovehiculoid()%>"><%=tipoVehiculoEdit.getNombretipovehiculo()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="marcaEdit">Marca</label>
+                                        <select class="form-control" id="marcaEdit" name="MarcaId">
+                                            <option hidden>Seleccionar la Marca del Vehiculo</option>
+                                            <%
+                                                List<Marca> listaMarcaActEdit = dao.listarMarcaAct();
+                                                for (Marca marcaEdit : listaMarcaActEdit) {
+                                            %>
+                                            <option <% if(vehiculoEditar.getMarcaid().equals(marcaEdit.getMarcaid())){%>selected<%}%> value="<%=marcaEdit.getMarcaid()%>"><%=marcaEdit.getNombremarca()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="placaEdit">Placa</label>
+                                        <input value="<%=vehiculoEditar.getNumplaca()%>" required type="text" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="descripcionEdit">Descrippción</label>
+                                        <input value="<%=vehiculoEditar.getDecripcion()%>" maxlength="300" class="form-control" id="descripcionEdit" placeholder="Descripción del Vehiculo" name="descripcion">
+                                        <input type="hidden" name="opcion" value="EditVehiculo">
+                                        <input type="hidden" name="id" value="<%=idVehiculoEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditVehiculo()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -246,6 +348,7 @@
         <script type="text/javascript">
             $().ready(function () {
                 $("#addvehiculo").validator({debug: true});
+                $("#editvehiculo").validator({debug: true});
             });
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();

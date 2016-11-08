@@ -296,7 +296,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Persona> listarEditPersona(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Persona> listaPer = new ArrayList<>();
-        String query = "SELECT per.nombre, per.apellidos, per.direccion, per.procedencia, per.tipo_documento_id as idtipo, per.ndocumento, per.telefono, per.genero FROM persona as per, tipo_documento as tp WHERE per.tipo_documento_id=tp.tipo_documento_id AND persona_id='"+ id +"'";
+        String query = "SELECT nombre, apellidos, direccion, procedencia, tipo_documento_id as idtipo, ndocumento, telefono, genero FROM persona WHERE  persona_id='"+ id +"'";
         cx.execQuery(query);
         while (cx.getNext()) {
             Persona persona = new Persona();
@@ -311,6 +311,200 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             listaPer.add(persona);
         }
         return listaPer;
+    }
+
+    @Override
+    public List<TipoPersona> listarEditTipoPersona(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoPersona> listaTipoPer = new ArrayList<>();
+        String query = "SELECT nombre_tipo_persona as nombre FROM tipo_persona WHERE tipo_persona_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoPersona tipoPersona = new TipoPersona();
+            tipoPersona.setNombreTipoPersona(cx.getCol("nombre"));
+            listaTipoPer.add(tipoPersona);
+        }
+        return listaTipoPer;
+    }
+
+    @Override
+    public List<Objeto> listarEditObjeto(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Objeto> listaObjeto = new ArrayList<>();
+        String query = "SELECT nombre, descripcion FROM objeto WHERE objeto_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Objeto objeto = new Objeto();
+            objeto.setNombreobjeto(cx.getCol("nombre"));
+            objeto.setDescripcion(cx.getCol("descripcion"));
+            listaObjeto.add(objeto);
+        }
+        return listaObjeto;
+    }
+
+    @Override
+    public List<Area> listarEditArea(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Area> listaArea = new ArrayList<>();
+        String query = "SELECT subarea_id as idsub, nombre, tipo, descripcion FROM area WHERE area_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Area area = new Area();
+            area.setSubareaid(cx.getCol("idsub"));
+            area.setNombre(cx.getCol("nombre"));
+            area.setTipo(cx.getCol("tipo"));
+            area.setDescripcion(cx.getCol("descripcion"));
+            listaArea.add(area);
+        }
+        return listaArea;
+    }
+
+    @Override
+    public List<Vehiculo> listarEditVehiculo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Vehiculo> listaVehiculo = new ArrayList<>();
+        String query = "SELECT tipo_vehiculo_id as idtipo, marca_id as idmarca, numplaca as placa, descripcion as descripcion FROM vehiculo WHERE vehiculo_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Vehiculo vehiculo = new Vehiculo();
+            vehiculo.setTipovehiculoid(cx.getCol("idtipo"));
+            vehiculo.setMarcaid(cx.getCol("idmarca"));
+            vehiculo.setNumplaca(cx.getCol("placa"));
+            vehiculo.setDecripcion(cx.getCol("descripcion"));
+            listaVehiculo.add(vehiculo);
+        }
+        return listaVehiculo;
+    }
+
+    @Override
+    public List<TipoVehiculo> listarEditTipoVehiculo(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoVehiculo> listaTipoVeh = new ArrayList<>();
+        String query = "SELECT nombre_tipo_vehiculo as nombre FROM tipo_vehiculo WHERE tipo_vehiculo_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoVehiculo tpvehiculo = new TipoVehiculo();
+            tpvehiculo.setNombretipovehiculo(cx.getCol("nombre"));
+            listaTipoVeh.add(tpvehiculo);
+        }
+        return listaTipoVeh;
+    }
+
+    @Override
+    public List<Marca> listarEditMarcas(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Marca> listaMarca = new ArrayList<>();
+        String query = "SELECT  nombre_marca as nombre FROM marca WHERE marca_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Marca marca = new Marca();
+            marca.setNombremarca(cx.getCol("nombre"));
+            listaMarca.add(marca);
+        }
+        return listaMarca;
+    }
+
+    @Override
+    public List<Turno> listarEditTurnos(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Turno> listaTurno = new ArrayList<>();
+        String query = "SELECT nombre_turno as nombre, horainicio as inicio, horafin as fin FROM turno WHERE turno_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Turno turno = new Turno();
+            turno.setNombreturno(cx.getCol("nombre"));
+            turno.setHorainicio(cx.getCol("inicio"));
+            turno.setHorafin(cx.getCol("fin"));
+            listaTurno.add(turno);
+        }
+        return listaTurno;
+    }
+
+    @Override
+    public List<Deber> listarEditDeberes(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Deber> listaDeber = new ArrayList<>();
+        String query = "SELECT nombre_deber as nombre, tipo_deber_id as tipoid FROM deber WHERE deber_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Deber deb = new Deber();
+            deb.setNombredeber(cx.getCol("nombre"));
+            deb.setTipodeberid(cx.getCol("tipoid"));
+            listaDeber.add(deb);
+        }
+        return listaDeber;
+    }
+
+    @Override
+    public List<TipoDeber> listarEditTipoDeber(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoDeber> listarTipoDeber = new ArrayList<>();
+        String query = "SELECT nombre_tipo_deber as nombre FROM tipo_deber WHERE tipo_deber_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoDeber tipodeb = new TipoDeber();
+            tipodeb.setNombretipodeber(cx.getCol("nombre"));
+            listarTipoDeber.add(tipodeb);
+        }
+        return listarTipoDeber;
+    }
+
+    @Override
+    public List<Motivo> listarEditMotivos(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Motivo> listaMotivo = new ArrayList<>();
+        String query = "SELECT nombre_motivo as nombre FROM motivo WHERE motivo_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Motivo motivo = new Motivo();
+            motivo.setNombremotivo(cx.getCol("nombre"));
+            listaMotivo.add(motivo);
+        }
+        return listaMotivo;
+    }
+
+    @Override
+    public List<TipoPermiso> listarEditSalida(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoPermiso> listaPermiso = new ArrayList<>();
+        String query = "SELECT nombre_tipo_permiso as nombre, descripcion FROM tipo_permiso WHERE tipo_permiso_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoPermiso tipopermiso = new TipoPermiso();
+            tipopermiso.setNombretipopermiso(cx.getCol("nombre"));
+            tipopermiso.setDescripcion(cx.getCol("descripcion"));
+            listaPermiso.add(tipopermiso);
+        }
+        return listaPermiso;
+    }
+
+    @Override
+    public List<TipoIncidencia> listarEditTipoIncidencia(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoIncidencia> listaTipoIncidencia = new ArrayList<>();
+        String query = "SELECT nombre_tipo_incidencia as nombre, descripcion FROM tipo_incidencia WHERE tipo_incidencia_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoIncidencia tipoincidencia = new TipoIncidencia();
+            tipoincidencia.setNombretipoincidencia(cx.getCol("nombre"));
+            tipoincidencia.setDescripcion(cx.getCol("descripcion"));
+            listaTipoIncidencia.add(tipoincidencia);
+        }
+        return listaTipoIncidencia;
+    }
+
+    @Override
+    public List<TipoDocumento> listarEditTipoDocumento(String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoDocumento> listaTipoDoc = new ArrayList<>();
+        String query = "SELECT nombre_documento as nombre FROM tipo_documento WHERE tipo_documento_id='"+ id +"'";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoDocumento tipoDocumento = new TipoDocumento();
+            tipoDocumento.setNombredocumento(cx.getCol("nombre"));
+            listaTipoDoc.add(tipoDocumento);
+        }
+        return listaTipoDoc;
     }
     
     
@@ -713,7 +907,8 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
         }
         return listaArea;
     }
-
+    
+    /* MANTENIMIENTO -- BUSCAR */
     @Override
     public List<Usuario> listarUsuraioAuto(String var) {
         Conexion cx = Configuracion.GaritaUPeU();

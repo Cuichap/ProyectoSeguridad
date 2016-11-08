@@ -10,7 +10,11 @@
 <%@page import="rest.modelo.entidad.Perfiles"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idPerfilEdit = request.getParameter("idPerfilEdit"); idPerfilEdit = idPerfilEdit == null ? "" : idPerfilEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -78,7 +82,7 @@
                                         <td><%=perfiles.getNombreperfil()%></td>
                                         <td><%=perfiles.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=perfiles.getPerfilid()%>(<%=perfiles.getPerfilid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Perfil" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -101,6 +105,30 @@
                                     }
                                     function activar<%=perfiles.getPerfilid()%>() {
                                         $("#perfilActive").val("<%=perfiles.getPerfilid()%>");
+                                    }
+                                    function Editar<%=perfiles.getPerfilid()%>(perfil) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addPerfil.jsp",
+                                            data: "idPerfilEdit=" + perfil,
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaPerfil').style.display = 'none';
+                                                document.getElementById('agregarPerfil').style.display = 'none';
+                                                document.getElementById('editarPerfil').style.display = 'block';
+                                                document.getElementById("perfilEdit").focus();
+                                                $("#aciones").html("Modificar Perfil");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditperfil() {
+                                        document.getElementById("editperfil").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaPerfil').style.display = 'block';
+                                        document.getElementById('editarPerfil').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Perfiles");
                                     }
                                 </script>
                                 <%}%>
@@ -139,6 +167,43 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarPerfil" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Perfil</b></h4>
+                    </div>
+                    <%  
+                        List<Perfiles> listaEditPerfiles = sdaoDao.listarEditPerfil(idPerfilEdit);
+                        for (Perfiles perfilesEdit : listaEditPerfiles) {
+                    %>
+                    <div class="panel-body">
+                        <form id="editperfil" class="form-signin" role="form" method="post" action="seguridad">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="perfilEdit">Nombre del Perfil</label>
+                                        <input value="<%=perfilesEdit.getNombreperfil()%>" type="text" pattern="^[A-Za-záéíóú ]*" maxlength="50" class="form-control" id="perfilEdit" placeholder="Nombre del Perfil" name="nombres"  required>
+                                        <input type="hidden" name="opcion" value="EditPerfil">
+                                        <input type="hidden" name="id" value="<%=idPerfilEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditperfil()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -200,6 +265,7 @@
             });
             $().ready(function () {
                 $("#addperfil").validator({debug: true});
+                $("#editperfil").validator({debug: true});
             });
         </script>
     </body>

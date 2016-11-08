@@ -25,6 +25,16 @@
     $(document).ready(function () {
     <% if (IdSubMenu.equals("3") || IdSubMenu.equals("")) { %>
         ir3();
+    <% if (IdSubMenu.equals("4")) { %>
+        ir4();
+    <% if (IdSubMenu.equals("5")) { %>
+        ir5();
+    <% if (IdSubMenu.equals("6")) { %>
+        ir6();
+    <% if (IdSubMenu.equals("7")) { %>
+        ir7();
+    <% if (IdSubMenu.equals("8")) { %>
+        ir8();
     <%}%>
     });
 </script>

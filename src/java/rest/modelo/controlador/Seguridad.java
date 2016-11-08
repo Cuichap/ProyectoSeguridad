@@ -60,7 +60,7 @@ public class Seguridad extends HttpServlet {
         String personaid = request.getParameter("personaId"); personaid = personaid == null?"":personaid;
         String tipopersonaid = request.getParameter("tipoPersonaId"); tipopersonaid = tipopersonaid == null?"":tipopersonaid;
         String perfilid = request.getParameter("perfilId"); perfilid = perfilid == null?"":perfilid;
-        String areaid = request.getParameter("areaId"); areaid = areaid == null?"":areaid;
+        String areaid = request.getParameter("areaId"); areaid = areaid == null?"0":areaid;
         String idsubmenu = request.getParameter("idSubMenu"); idsubmenu = idsubmenu == null?"":idsubmenu;
         String deberId = request.getParameter("deberId"); deberId = deberId == null?"":deberId;
         String usuarioId = request.getParameter("usuarioId"); usuarioId = usuarioId == null?"":usuarioId;
@@ -83,13 +83,13 @@ public class Seguridad extends HttpServlet {
                 usuario.setHabitacion(habitacion);
                 usuario.setCulto(culto);
                 if (dao.AgregarUsuario(usuario)) {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -98,39 +98,39 @@ public class Seguridad extends HttpServlet {
                 break;
             case "RestablecerPassword":
                 if (dao.RestablecerPassword(id)) {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
                 break;
             case "DeleteUsuario":
                 if (dao.EliminarUsuario(id)) {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
                 break;
             case "ActivarUsuario":
                 if (dao.ActivarUsuario(id)) {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "26");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "29");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -138,13 +138,13 @@ public class Seguridad extends HttpServlet {
             case "AddPerfil":
                 perfiles.setNombreperfil(nombres);
                 if (dao.AgregarPerfil(perfiles)) {
-                    request.setAttribute("IdSubMenu", "27");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "30");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "27");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "30");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -153,39 +153,39 @@ public class Seguridad extends HttpServlet {
                 break;
             case "DeletePerfil": 
                 if (dao.EliminarPerfil(id)) {
-                    request.setAttribute("IdSubMenu", "27");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "30");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "27");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "30");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
                 break;
             case "ActivarPerfil": 
                 if (dao.ActivarPerfil(id)) {
-                    request.setAttribute("IdSubMenu", "27");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "30");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "27");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "30");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
                 break;
             case "AddAcceso":
                 if (dao.AgregarAccesos(acceso)) {
-                    request.setAttribute("IdSubMenu", "28");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "31");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "28");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "31");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -194,26 +194,26 @@ public class Seguridad extends HttpServlet {
                 break;
             case "DeleteAcceso":
                 if (dao.EliminarAcceso(id, iduser)) {
-                    request.setAttribute("IdSubMenu", "28");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "31");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "28");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "31");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
                 break;
             case "ActivarAcceso":
                 if (dao.ActivarAcceso(id, iduser)) {
-                    request.setAttribute("IdSubMenu", "28");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "31");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "28");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "31");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -224,13 +224,13 @@ public class Seguridad extends HttpServlet {
                 opciones.setTipo(tipomenu);
                 opciones.setUrl(url);
                 if (dao.AgregarOpciones(opciones)) {
-                    request.setAttribute("IdSubMenu", "29");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "32");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "29");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "32");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -239,26 +239,26 @@ public class Seguridad extends HttpServlet {
                 break;
             case "DeleteMenu": 
                 if (dao.EliminarMenu(id)) {
-                    request.setAttribute("IdSubMenu", "29");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "32");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "29");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "32");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
                 break;
             case "ActivarMenu":
                 if (dao.ActivarMenu(id)) {
-                    request.setAttribute("IdSubMenu", "29");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "32");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "29");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "32");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -270,13 +270,13 @@ public class Seguridad extends HttpServlet {
                 responsabilidad.setUsuarioidreg(usuarioIdReg);
                 responsabilidad.setFecha(fechaDeber);
                 if (dao.AgregarResponsabilidad(responsabilidad)) {
-                    request.setAttribute("IdSubMenu", "30");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "33");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "30");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "33");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }
@@ -285,13 +285,13 @@ public class Seguridad extends HttpServlet {
                 break;
             case "DeleteResponsabilidad":
                 if (dao.EliminarResponsabilidad(id, iduser, idturno)) {
-                    request.setAttribute("IdSubMenu", "30");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "33");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "30");
-                    request.setAttribute("IdMenu", "25");
+                    request.setAttribute("IdSubMenu", "33");
+                    request.setAttribute("IdMenu", "28");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);
                 }

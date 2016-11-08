@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idTipoPersonaEdit = request.getParameter("idTipoPersonaEdit"); idTipoPersonaEdit = idTipoPersonaEdit == null ? "" : idTipoPersonaEdit;
+%>
 <html>
     <head>
     </head>
@@ -72,7 +75,7 @@
                                         <td><%=tipoPersona.getNombreTipoPersona()%></td>
                                         <td><%=tipoPersona.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=tipoPersona.getTipoPersonaid()%>(<%=tipoPersona.getTipoPersonaid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Tipo de Persona" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -94,6 +97,30 @@
                                     }
                                     function activar<%=tipoPersona.getTipoPersonaid()%>() {
                                         $("#tipPerActive").val("<%=tipoPersona.getTipoPersonaid()%>");
+                                    }
+                                    function Editar<%=tipoPersona.getTipoPersonaid()%>(tipoPersona) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addTipoPersona.jsp",
+                                            data: "idTipoPersonaEdit=" + tipoPersona,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaTipoPer').style.display = 'none';
+                                                document.getElementById('agregarTipoPer').style.display = 'none';
+                                                document.getElementById('editarTipoPer').style.display = 'block';
+                                                document.getElementById("tipoPerEdit").focus();
+                                                $("#aciones").html("Modificar Tipo de Persona");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditTipoPer() {
+                                        document.getElementById("edittipoper").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaTipoPer').style.display = 'block';
+                                        document.getElementById('editarTipoPer').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Tipos de Personas");
                                     }
                                 </script>
                                 <%}%>
@@ -132,6 +159,43 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarTipoPer" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><span><b>Modificar el Tipo de Persona</b></span></h4>
+                    </div>
+                    <%
+                        List<TipoPersona> listaEditTipoPer = dao.listarEditTipoPersona(idTipoPersonaEdit);
+                        for (TipoPersona tp : listaEditTipoPer) {
+                    %>
+                    <div class="panel-body">
+                        <form id="edittipoper" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="tipo">Tipo Persona</label>
+                                        <input value="<%=tp.getNombreTipoPersona()%>" type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipoPerEdit" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
+                                        <input type="hidden" name="opcion" value="EditTipoPersona">
+                                        <input type="hidden" name="id" value="<%=idTipoPersonaEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditTipoPer()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -190,6 +254,7 @@
         <script type="text/javascript">
             $().ready(function () {
                 $("#addtipoper").validator({debug: true});
+                $("#editarTipoPer").validator({debug: true});
             });
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();

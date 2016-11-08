@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page import="rest.modelo.entidad.Turno"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idTurnoEdit = request.getParameter("idTurnoEdit"); idTurnoEdit = idTurnoEdit == null?"":idTurnoEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -77,7 +80,7 @@
                                         <td><%=turn.getHorafin()%></td>
                                         <td><%=turn.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=turn.getTurnoid()%>(<%=turn.getTurnoid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Turno" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -100,6 +103,30 @@
                                     }
                                     function activar<%=turn.getTurnoid()%>() {
                                         $("#turnoActive").val("<%=turn.getTurnoid()%>");
+                                    }
+                                    function Editar<%=turn.getTurnoid()%>(turno) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addTurno.jsp",
+                                            data: "idTurnoEdit=" + turno,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaTurno').style.display = 'none';
+                                                document.getElementById('agregarTurno').style.display = 'none';
+                                                document.getElementById('editarTurno').style.display = 'block';
+                                                document.getElementById("turnoEdit").focus();
+                                                $("#aciones").html("Modificar Turno");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditTurno() {
+                                        document.getElementById("editturno").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaTurno').style.display = 'block';
+                                        document.getElementById('editarTurno').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Turnos");
                                     }
                                 </script>
                                 <%}%>
@@ -152,6 +179,57 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarTurno" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Turno</b></h4>
+                    </div>
+                    <%
+                        List<Turno> listaTurnoEdit = dao.listarEditTurnos(idTurnoEdit);
+                        for(Turno turnoEditar : listaTurnoEdit){
+                    %>
+                    <div class="panel-body">
+                        <form id="editturno" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="turnoEdit">Turno</label>
+                                        <input value="<%=turnoEditar.getNombreturno()%>" maxlength="10" autofocus="true" pattern="^[A-Za-záéíóúñ ]*" type="text" class="form-control" id="turnoEdit" placeholder="Ingresar el Nombre del Turno" name="nombres" required>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="horainicioEdit">Hora de Inicio</label>
+                                        <input value="<%=turnoEditar.getHorainicio()%>" type="time" class="form-control" id="horainicioEdit" placeholder="Ingresar de Inicio" name="horainicio" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="horafinEdit">Hora de Fin</label>
+                                        <input value="<%=turnoEditar.getHorafin()%>" type="time" class="form-control" id="horafinEdit" placeholder="Ingresar de Fin" name="horafin" required>
+                                        <input type="hidden" name="opcion" value="EditTurno">
+                                        <input type="hidden" name="id" value="<%=idTurnoEdit%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditTurno()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -213,6 +291,7 @@
             });
             $().ready(function () {
                 $("#addturno").validator({debug: true});
+                $("#editturno").validator({debug: true});
             });
         </script>
     </body>

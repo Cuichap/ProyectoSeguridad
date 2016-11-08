@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idTipoVehiculoEdit = request.getParameter("idTipoVehiculoEdit"); idTipoVehiculoEdit = idTipoVehiculoEdit == null?"":idTipoVehiculoEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,7 +75,7 @@
                                         <td><%=tpvehiculo.getNombretipovehiculo()%></td>
                                         <td><%=tpvehiculo.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=tpvehiculo.getTipovehiculoid()%>(<%=tpvehiculo.getTipovehiculoid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Tipo de Vehículo" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -95,6 +98,30 @@
                                     }
                                     function activar<%=tpvehiculo.getTipovehiculoid()%>() {
                                         $("#tipoVehiculoActive").val("<%=tpvehiculo.getTipovehiculoid()%>");
+                                    }
+                                    function Editar<%=tpvehiculo.getTipovehiculoid()%>(tipovehiculo) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addTipoVehiculo.jsp",
+                                            data: "idTipoVehiculoEdit=" + tipovehiculo,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaTipoVehiculo').style.display = 'none';
+                                                document.getElementById('agregarTipoVehiculo').style.display = 'none';
+                                                document.getElementById('editarTipoVehiculo').style.display = 'block';
+                                                document.getElementById("nombreTipoVehiculoEdit").focus();
+                                                $("#aciones").html("Modificar Tipo de Vehículo");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditTipoVehiculo() {
+                                        document.getElementById("edittipovehiculo").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaTipoVehiculo').style.display = 'block';
+                                        document.getElementById('editarTipoVehiculo').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Tipos de Vehículo");
                                     }
                                 </script>
                                 <%}%>
@@ -133,6 +160,43 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarTipoVehiculo" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Tipo de Vehículo</b></h4>
+                    </div>
+                    <%
+                        List<TipoVehiculo> listaTipoVehiculoEdit = dao.listarEditTipoVehiculo(idTipoVehiculoEdit);
+                        for(TipoVehiculo tvEditar : listaTipoVehiculoEdit){
+                    %>
+                    <div class="panel-body">
+                        <form id="edittipovehiculo" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="nombreTipoVehiculoEdit">Nombre del Tipo de Vehículo</label>
+                                        <input value="<%=tvEditar.getNombretipovehiculo()%>" type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="nombreTipoVehiculoEdit" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
+                                        <input type="hidden" name="opcion" value="EditTipoVehiculo">
+                                        <input type="hidden" name="id" value="<%=idTipoVehiculoEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditTipoVehiculo()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -194,6 +258,7 @@
             });
             $().ready(function () {
                 $("#addtipovehiculo").validator({debug: true});
+                $("#edittipovehiculoEdit").validator({debug: true});
             });
         </script>
     </body>

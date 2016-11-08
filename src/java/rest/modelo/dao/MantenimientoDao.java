@@ -51,6 +51,19 @@ public interface MantenimientoDao {
     
     /* MANTENIMIENTO -- LISTAS -- ID */
     public List<Persona> listarEditPersona(String id);
+    public List<TipoPersona> listarEditTipoPersona(String id);
+    public List<Objeto> listarEditObjeto(String id);
+    public List<Area> listarEditArea(String id);
+    public List<Vehiculo> listarEditVehiculo(String id);
+    public List<TipoVehiculo> listarEditTipoVehiculo(String id);
+    public List<Marca> listarEditMarcas(String id);
+    public List<Turno> listarEditTurnos(String id);
+    public List<Deber> listarEditDeberes(String id);
+    public List<TipoDeber> listarEditTipoDeber(String id);
+    public List<Motivo> listarEditMotivos(String id);
+    public List<TipoPermiso> listarEditSalida(String id);
+    public List<TipoIncidencia> listarEditTipoIncidencia(String id);
+    public List<TipoDocumento> listarEditTipoDocumento(String id);
     
     /* MANTENIMIENTO -- LISTAS -- ACTIVOS */
     public List<TipoDocumento> listarTipoDocumentoAct();
@@ -79,7 +92,8 @@ public interface MantenimientoDao {
     public List<TipoVehiculo> listarTipoVehiculo();
     public List<Vehiculo> listarVehiculo();
     public List<Area> listarArea();
-    
+     
+    /* MANTENIMIENTO -- BUSCAR */
     public List<Usuario> listarUsuraioAuto(String var);
     
     /* MANTENIMIENTO -- ELIMINAR */

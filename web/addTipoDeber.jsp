@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idTipoDeberEdit = request.getParameter("idTipoDeberEdit"); idTipoDeberEdit = idTipoDeberEdit == null?"":idTipoDeberEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -74,7 +77,7 @@
                                         <td><%=tipdeb.getNombretipodeber()%></td>
                                         <td><%=tipdeb.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=tipdeb.getTipodeberid()%>(<%=tipdeb.getTipodeberid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Tipo de Deber" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -96,6 +99,30 @@
                                     }
                                     function activar<%=tipdeb.getTipodeberid()%>() {
                                         $("#TipoDeberActive").val("<%=tipdeb.getTipodeberid()%>");
+                                    }
+                                    function Editar<%=tipdeb.getTipodeberid()%>(tipodeber) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addTipoDeber.jsp",
+                                            data: "idTipoDeberEdit=" + tipodeber,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaTipoDeber').style.display = 'none';
+                                                document.getElementById('agregarTipoDeber').style.display = 'none';
+                                                document.getElementById('editarTipoDeber').style.display = 'block';
+                                                document.getElementById("tipoEdit").focus();
+                                                $("#aciones").html("Modificar Tipo de Deber");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditDeber() {
+                                        document.getElementById("edittipodeber").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaTipoDeber').style.display = 'block';
+                                        document.getElementById('editarTipoDeber').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Tipos de Deber");
                                     }
                                 </script>
                                 <%}%>
@@ -132,6 +159,41 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarTipoDeber" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Tipo de Deber</b></h4>
+                    </div>
+                    <%
+                        List<TipoDeber> listaTipoDeberEdit = dao.listarEditTipoDeber(idTipoDeberEdit);
+                        for(TipoDeber tdEditar : listaTipoDeberEdit){
+                    %>
+                    <div class="panel-body">
+                        <form id="edittipodeber" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoEdit">Tipo de Deber</label>
+                                        <input value="<%=tdEditar.getNombretipodeber()%>" type="text" class="form-control" id="tipoEdit" placeholder="Nombre del Tipo de Deber" name="nombres">
+                                        <input type="hidden" name="opcion" value="EditTipoDeber">
+                                        <input type="hidden" name="id" value="<%=idTipoDeberEdit%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditDeber()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">

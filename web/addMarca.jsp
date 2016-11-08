@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idMarcaEdit = request.getParameter("idMarcaEdit"); idMarcaEdit = idMarcaEdit == null?"":idMarcaEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -73,7 +76,7 @@
                                         <td><%=marca.getNombremarca()%></td>
                                         <td><%=marca.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=marca.getMarcaid()%>(<%=marca.getMarcaid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Marca" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -96,6 +99,30 @@
                                     }
                                     function activar<%=marca.getMarcaid()%>() {
                                         $("#marcaActive").val("<%=marca.getMarcaid()%>");
+                                    }
+                                    function Editar<%=marca.getMarcaid()%>(marca) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addMarca.jsp",
+                                            data: "idMarcaEdit=" + marca,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaMarca').style.display = 'none';
+                                                document.getElementById('agregarMarca').style.display = 'none';
+                                                document.getElementById('editarMarca').style.display = 'block';
+                                                document.getElementById("marcaEdit").focus();
+                                                $("#aciones").html("Modificar Marca");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditMarca() {
+                                        document.getElementById("editmarca").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaMarca').style.display = 'block';
+                                        document.getElementById('editarMarca').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Marcas");
                                     }
                                 </script>
                                 <%}%>
@@ -134,6 +161,43 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarMarca" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos de la Marca</b></h4>
+                    </div>
+                    <%
+                        List<Marca> listaMarcaEdit = dao.listarEditMarcas(idMarcaEdit);
+                        for(Marca marcaEditar : listaMarcaEdit){
+                    %>
+                    <div class="panel-body">
+                        <form id="editmarca" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="marcaEdit">Marca</label>
+                                        <input value="<%=marcaEditar.getNombremarca()%>" required maxlength="20" autofocus="true" type="text" class="form-control" id="marcaEdit" placeholder="Ingresar la Marca" name="nombres">
+                                        <input type="hidden" name="opcion" value="EditMarca">
+                                        <input type="hidden" name="id" value="<%=idMarcaEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditMarca()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -192,6 +256,7 @@
         <script type="text/javascript">
             $().ready(function () {
                 $("#addmarca").validator({debug: true});
+                $("#editmarca").validator({debug: true});
             });
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();

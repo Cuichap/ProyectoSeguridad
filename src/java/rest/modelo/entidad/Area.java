@@ -15,6 +15,7 @@ public class Area {
     private String subareaid;
     private String nombre;
     private String subareanombre;
+    private String tipo;
     private String descripcion;
     private String estado;
 
@@ -45,20 +46,28 @@ public class Area {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public String getSubareanombre() {
         return subareanombre;
     }
 
     public void setSubareanombre(String subareanombre) {
         this.subareanombre = subareanombre;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getEstado() {
@@ -68,6 +77,5 @@ public class Area {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
     
 }

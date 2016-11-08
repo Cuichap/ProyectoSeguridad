@@ -23,8 +23,10 @@
 
 <script>
     $(document).ready(function () {
-    <% if (IdSubMenu.equals("8") || IdSubMenu.equals("")) { %>
-        ir8();
+    <% if (IdSubMenu.equals("11") || IdSubMenu.equals("")) { %>
+        ir11();
+    <% if (IdSubMenu.equals("12")) { %>
+        ir12();
     <%}%>
     });
 </script>

@@ -13,7 +13,11 @@
 <%@page import="java.util.List"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idUsuarioEdit = request.getParameter("idUsuarioEdit"); idUsuarioEdit = idUsuarioEdit == null ? "" : idUsuarioEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -109,8 +113,8 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <a style="cursor: pointer;" data-toggle="tooltip" data-placement="top" title="Modificar Usuario">
-                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            <a style="cursor: pointer;" onclick="Editar<%=usuario.getUsuarioid()%>(<%=usuario.getUsuarioid()%>)">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Usuario" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
                                         <td align="center">
@@ -134,6 +138,30 @@
                                     }
                                     function restabelcer<%=usuario.getUsuarioid()%>() {
                                         $("#restPass").val("<%=usuario.getUsuarioid()%>");
+                                    }
+                                    function Editar<%=usuario.getUsuarioid()%>(usuario) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addUsuario.jsp",
+                                            data: "idUsuarioEdit=" + usuario,
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaUsuario').style.display = 'none';
+                                                document.getElementById('agregarUsuario').style.display = 'none';
+                                                document.getElementById('editarUsuario').style.display = 'block';
+                                                document.getElementById("usuarioEd").focus();
+                                                $("#aciones").html("Modificar Usuario");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditUsuario() {
+                                        document.getElementById("edituser").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaUsuario').style.display = 'block';
+                                        document.getElementById('editarUsuario').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Usuarios");
                                     }
                                 </script>
                                 <%}%>
@@ -252,7 +280,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback">
                                         <label for="codigo">Código</label>
-                                        <input type="text" pattern="^[0-9][0-9]*" data-minlength="9" maxlength="10" class="form-control" id="codigo" placeholder="Código" name="codigo">
+                                        <input type="text" pattern="^[0-9][0-9]*" data-minlength="9" maxlength="10" class="form-control" id="codigo" placeholder="Código" name="codigo" required>
                                          <div class="help-block">Mínimo 9 digitos</div>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
@@ -261,7 +289,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback">
                                         <label for="habitacion">N° de Habitación</label>
-                                        <input type="text" maxlength="8" class="form-control" id="habitacion" placeholder="N° de Habitación" name="habitacion">
+                                        <input type="text" maxlength="8" class="form-control" id="habitacion" placeholder="N° de Habitación" name="habitacion" required>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -269,7 +297,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback">
                                         <label for="culto">N° de Culto</label>
-                                        <input type="text" maxlength="4" class="form-control" id="culto" placeholder="N° de Culto" name="culto">
+                                        <input type="text" maxlength="4" class="form-control" id="culto" placeholder="N° de Culto" name="culto" required>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -286,6 +314,150 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarUsuario" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Usuario</b></h4>
+                    </div>
+                    <%  
+                        List<Usuario> listaEditUsuario = sdaoDao.listarEditUsuario(idUsuarioEdit);
+                        for (Usuario usuarioEdit : listaEditUsuario) {
+                    %>
+                    <div class="panel-body">
+                        <form id="edituser" class="form-signin" role="form" method="post" action="seguridad">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombresEdit">Nombres</label>
+                                        <input value="<%=usuarioEdit.getNombre()%>" type="text" disabled="" class="form-control" id="nombresEdit" placeholder="Nombres" name="nombres">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="apellidosEdit">Apellidos</label>
+                                        <input value="<%=usuarioEdit.getApellidos()%>" type="text" disabled="" class="form-control" id="apellidosEdit" placeholder="Apellidos" name="apellidos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipo">Tipo de Usuario</label>
+                                        <select class="form-control" id="tipo" name="tipoPersonaId">
+                                            <option hidden>Seleccionar Tipo de Usuario</option>
+                                            <%
+
+                                                List<TipoPersona> listaTipoPerEdit = dao.listarTipoPersonaAct();
+                                                for (TipoPersona tipoPerEdit : listaTipoPerEdit) {
+
+                                            %>
+                                            <option <% if(usuarioEdit.getTipopersonaid().equals(tipoPerEdit.getTipoPersonaid())){%>selected<%}%> value="<%=tipoPerEdit.getTipoPersonaid()%>"><%=tipoPerEdit.getNombreTipoPersona()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipo">Perfil</label>
+                                        <select class="form-control" id="tipo" name="perfilId">
+                                            <option hidden>Seleccionar el Perfil</option>
+                                            <%
+
+                                                List<Perfiles> listaPerfiEdit = dao.listarPerfilesAct();
+                                                for (Perfiles perfilesEdit : listaPerfiEdit) {
+
+                                            %>
+                                            <option <% if(usuarioEdit.getPerfilid().equals(perfilesEdit.getPerfilid())){%>selected<%}%> value="<%=perfilesEdit.getPerfilid()%>"><%=perfilesEdit.getNombreperfil()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if(!usuarioEdit.getAreaid().equals("")){%>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="tipo">Área de Trabajo</label>
+                                        <select class="form-control" id="tipo" name="areaId">
+                                            <option hidden>Seleccionar el Área de Trabajo</option>
+                                            <%
+
+                                                List<Area> listaAreaEdit = dao.listarAreasAct();
+                                                for (Area areaEdit : listaAreaEdit) {
+
+                                            %>
+                                            <option <% if(usuarioEdit.getAreaid().equals(areaEdit.getAreaid())){%>selected<%}%> value="<%=areaEdit.getAreaid()%>" data-toggle="tooltip" data-placement="top" title="<%=areaEdit.getDescripcion()%>"><%=areaEdit.getNombre()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="usuarioEd">Usuario</label>
+                                        <input value="<%=usuarioEdit.getUsuario()%>" required type="text" maxlength="20" class="form-control" id="usuarioEd" placeholder="Usuario" name="user">
+                                        <input type="hidden" name="opcion" value="EditUsuario">
+                                        <input type="hidden" name="id" value="<%=idUsuarioEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="contrasenaEdit">Contraseña</label>
+                                        <input value="<%=usuarioEdit.getContrasena()%>" disabled required type="password" data-minlength="6" maxlength="20" class="form-control" id="contrasenaEdit" placeholder="Contraseña" name="contrasena">
+                                        <div class="help-block">Mínimo 6 digitos</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if(!usuarioEdit.getCodigo().equals("") && !usuarioEdit.getHabitacion().equals("") && !usuarioEdit.getCulto().equals("")){%>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group has-feedback">
+                                        <label for="codigoEdit">Código</label>
+                                        <input value="<%=usuarioEdit.getCodigo()%>" type="text" pattern="^[0-9][0-9]*" data-minlength="9" maxlength="10" class="form-control" id="codigoEdit" placeholder="Código" name="codigo" required>
+                                        <div class="help-block">Mínimo 9 digitos</div>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-4">
+                                    <div class="form-group has-feedback">
+                                        <label for="habitacionEdit">N° de Habitación</label>
+                                        <input value="<%=usuarioEdit.getHabitacion()%>" type="text" maxlength="8" class="form-control" id="habitacionEdit" placeholder="N° de Habitación" name="habitacion" required>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group has-feedback">
+                                        <label for="cultoEdit">N° de Culto</label>
+                                        <input value="<%=usuarioEdit.getCulto()%>" type="text" maxlength="4" class="form-control" id="cultoEdit" placeholder="N° de Culto" name="culto" required>
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditUsuario()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="restPassUser">
@@ -370,6 +542,7 @@
        <script type="text/javascript">
             $().ready(function () {
                 $("#adduser").validator({debug: true});
+                $("#edituser").validator({debug: true});
             });
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();

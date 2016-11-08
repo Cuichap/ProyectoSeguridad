@@ -11,6 +11,9 @@
 <%@page import="rest.modelo.entidad.Opcion"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idMenuEdit = request.getParameter("idMenuEdit"); idMenuEdit = idMenuEdit == null ? "" : idMenuEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -86,7 +89,7 @@
                                         <td><%=opc.getUrl()%></td>
                                         <td><%=opc.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=opc.getOpcionesid()%>(<%=opc.getOpcionesid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Menú" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -108,6 +111,30 @@
                                     }
                                     function activar<%=opc.getOpcionesid()%>() {
                                         $("#menuActive").val("<%=opc.getOpcionesid()%>");
+                                    }
+                                    function Editar<%=opc.getOpcionesid()%>(menu) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addMenu.jsp",
+                                            data: "idMenuEdit=" + menu,
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaMenu').style.display = 'none';
+                                                document.getElementById('agregarMenu').style.display = 'none';
+                                                document.getElementById('editarMenu').style.display = 'block';
+                                                document.getElementById("menuEd").focus();
+                                                $("#aciones").html("Modificar Menú");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditMenu() {
+                                        document.getElementById("editmenu").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaMenu').style.display = 'block';
+                                        document.getElementById('editarMenu').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Menús");
                                     }
                                 </script>
                                 <%}%>
@@ -178,6 +205,78 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarMenu" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Menú</b></h4>
+                    </div>
+                    <%  
+                        List<Opcion> listaEditPerfilesEdit = sdaoDao.listarEditMenus(idMenuEdit);
+                        for (Opcion opcEdit : listaEditPerfilesEdit) {
+                    %>
+                    <div class="panel-body">
+                        <form id="editmenu" class="form-signin" role="form" method="post" action="seguridad">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="menuEd">Menú</label>
+                                        <input value="<%=opcEdit.getMenu()%>" type="text" class="form-control" id="menuEd" placeholder="Nombre del Menú" name="nombres">
+                                        <input type="hidden" name="opcion" value="EditMenu">
+                                        <input type="hidden" name="id" value="<%=idMenuEdit%>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoMenuEd">Tipo de Menú</label>
+                                        <select class="form-control" id="tipoMenuEd" name="tipoMenu">
+                                            <option hidden>Seleccionar Tipo de Menú</option>
+                                            <option <% if(opcEdit.getTipo().equals("nivel1")){%>selected<%}%> value="nivel1">Menú</option>
+                                            <option <% if(opcEdit.getTipo().equals("nivel2")){%>selected<%}%> value="nivel2">SubMenú</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <% if(opcEdit.getTipo().equals("nivel2")){%>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="menuEd">Seleccionar Menú</label>
+                                        <select class="form-control" id="menuEd" name="idSubMenu">
+                                            <option value="null" hidden>Seleccionar Menú</option>
+                                            <%
+
+                                                List<Opcion> listaOpcActEdit = dao.listarOpcionesAct();
+                                                for (Opcion opcactEdit : listaOpcActEdit) {
+
+                                            %>
+                                            <option <% if(opcEdit.getSubopcionesid().equals(opcactEdit.getOpcionesid())){%>selected<%}%> value="<%=opcactEdit.getOpcionesid()%>"><%=opcactEdit.getMenu()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <%} if(opcEdit.getTipo().equals("nivel1")){%>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="urlEd">Url</label>
+                                        <input value="<%=opcEdit.getUrl()%>" type="text" class="form-control" id="urlEd" placeholder="Url del Menú" name="url">
+                                    </div>
+                                </div>
+                                <%}%>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditMenu()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">

@@ -13,10 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="IdSubMenu" scope="request" class="java.lang.String" />
 <%
-    String idPersonaEdit = request.getParameter("idPersonaEdit");
-    idPersonaEdit = idPersonaEdit == null ? "" : idPersonaEdit;
-    String estado = request.getParameter("estado");
-    estado = estado == null ? "" : estado;
+    String idPersonaEdit = request.getParameter("idPersonaEdit"); idPersonaEdit = idPersonaEdit == null ? "" : idPersonaEdit;
 %>
 <!DOCTYPE html>
 <html>
@@ -70,7 +67,7 @@
                                         <th>N° Documento</th>
                                         <th>Teléfono</th>
                                         <th>Género</th>
-                                        <th><%=estado%></th>
+                                        <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
@@ -355,6 +352,10 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <input type="hidden" name="opcion" value="EditPersona">
+                            <input type="hidden" name="id" value="<%=idPersonaEdit%>">
+                                        
                             <div class="row hidden">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -362,7 +363,6 @@
                                         <input type="file" disabled id="imagen" name="img">
                                         <p class="help-block">Vayase a la ...</p>
                                     </div>
-                                    <input type="hidden" name="opcion" value="AddPersona">
                                 </div>
                             </div>
                             <hr style="border-color: #3b5998;">

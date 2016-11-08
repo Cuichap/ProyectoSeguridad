@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idTipoDocumentoEdit = request.getParameter("idTipoDocumentoEdit"); idTipoDocumentoEdit = idTipoDocumentoEdit == null ? "" : idTipoDocumentoEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -73,7 +76,7 @@
                                         <td><%=tipodoc.getNombredocumento()%></td>
                                         <td><%=tipodoc.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=tipodoc.getTipodocumentoid()%>(<%=tipodoc.getTipodocumentoid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar el Tipo de Documento" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -95,6 +98,30 @@
                                     }
                                     function activar<%=tipodoc.getTipodocumentoid()%>() {
                                         $("#tipoDocumentoActive").val("<%=tipodoc.getTipodocumentoid()%>");
+                                    }
+                                    function Editar<%=tipodoc.getTipodocumentoid()%>(tipodocumento) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addTipoDocumento.jsp",
+                                            data: "idTipoDocumentoEdit=" + tipodocumento,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaTipoDocumento').style.display = 'none';
+                                                document.getElementById('agregarTipoDocumento').style.display = 'none';
+                                                document.getElementById('editarTipoDocumento').style.display = 'block';
+                                                document.getElementById("tipoDocumentoEdit").focus();
+                                                $("#aciones").html("Modificar Tipo de Incidencia");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditTipoDocumento() {
+                                        document.getElementById("edittipodocumento").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaTipoDocumento').style.display = 'block';
+                                        document.getElementById('editarTipoDocumento').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Tipos de Incidencias");
                                     }
                                 </script>
                                 <%}%>
@@ -131,6 +158,41 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarTipoDocumento" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Ingresar los Datos del Tipo de Documento</b></h4>
+                    </div>
+                    <%
+                        List<TipoDocumento> listaTipoDocumentoEdit = dao.listarEditTipoDocumento(idTipoDocumentoEdit);
+                        for (TipoDocumento tdEditar : listaTipoDocumentoEdit) {
+                    %>
+                    <div class="panel-body">
+                        <form id="edittipodocumento" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoDocumentoEdit">Nombre del Tipo de Documento</label>
+                                        <input value="<%=tdEditar.getNombredocumento()%>" type="text" class="form-control" id="tipoDocumentoEdit" placeholder="Nombre del Tipo de Documento" name="nombres">
+                                        <input type="hidden" name="opcion" value="EditTipoDocumento">
+                                        <input type="hidden" name="id" value="<%=idTipoDocumentoEdit%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditTipoDocumento()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">

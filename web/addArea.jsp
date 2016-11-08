@@ -9,6 +9,9 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idAreaEdit = request.getParameter("idAreaEdit"); idAreaEdit = idAreaEdit == null?"":idAreaEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -80,7 +83,7 @@
                                         <td><%=area.getDescripcion()%></td>
                                         <td><%=area.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=area.getAreaid()%>(<%=area.getAreaid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Área" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -102,6 +105,30 @@
                                     }
                                     function activar<%=area.getAreaid()%>() {
                                         $("#areaActive").val("<%=area.getAreaid()%>");
+                                    }
+                                    function Editar<%=area.getAreaid()%>(area) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addArea.jsp",
+                                            data: "idAreaEdit=" + area,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaArea').style.display = 'none';
+                                                document.getElementById('agregarArea').style.display = 'none';
+                                                document.getElementById('editarArea').style.display = 'block';
+                                                document.getElementById("areaEdit").focus();
+                                                $("#aciones").html("Modificar Área");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditArea() {
+                                        document.getElementById("editarea").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaArea').style.display = 'block';
+                                        document.getElementById('editarArea').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Áreas");
                                     }
                                 </script>
                                 <%}%>
@@ -140,6 +167,83 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarArea" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Área</b></h4>
+                    </div>
+                    <%
+                        List<Area> listaAreaEdit = dao.listarEditArea(idAreaEdit);
+                        for(Area areaEditar : listaAreaEdit){
+                    %>
+                    <div class="panel-body">
+                        <form id="editarea" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <% if(!areaEditar.getSubareaid().equals("")){%>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="tipo">Área</label>
+                                        <select class="form-control" id="tipo" name="subAreaId">
+                                            <option hidden>Seleccionar el Área</option>
+                                            <%
+
+                                                List<Area> listaAreaAct = dao.listarAreasAct();
+                                                for (Area areaAct : listaAreaAct) {
+
+                                            %>
+                                            <option <% if(areaEditar.getSubareaid().equals(areaAct.getAreaid())){%>selected<%}%> value="<%=areaAct.getAreaid()%>" data-toggle="tooltip" data-placement="bottom" title="<%=areaAct.getDescripcion()%>"><%=areaAct.getNombre()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="area">Nombre Área</label>
+                                        <input value="<%=areaEditar.getNombre()%>" required type="text" maxlength="30" class="form-control" id="areaEdit" placeholder="Nombre del Área" name="nombres">
+                                        <input type="hidden" name="opcion" value="EditArea">
+                                        <input type="hidden" name="id" value="<%=idAreaEdit%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipo">Tipo</label>
+                                        <select <% if(areaEditar.getTipo().equals("nivel1")){%>disabled<%}%> class="form-control" id="tipo" name="tipo">
+                                            <option hidden>Seleccionar el Tipo</option>
+                                            <option <% if(areaEditar.getTipo().equals("nivel1")){%>selected<%}%> value="nivel1">Área</option>
+                                            <option <% if(areaEditar.getTipo().equals("nivel2")){%>selected<%}%> value="nivel2">SubÁrea</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group has-feedback">
+                                        <label for="area">Descripción</label>
+                                        <input value="<%=areaEditar.getDescripcion()%>" required type="text" maxlength="300" class="form-control" id="descripcion" placeholder="Descripción del Área" name="descripcion">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditArea()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">
@@ -198,6 +302,7 @@
         <script type="text/javascript">
             $().ready(function () {
                 $("#addarea").validator({debug: true});
+                $("#editarea").validator({debug: true});
             });
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();

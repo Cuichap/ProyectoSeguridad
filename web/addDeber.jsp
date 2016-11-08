@@ -11,6 +11,9 @@
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idDeberEdit = request.getParameter("idDeberEdit"); idDeberEdit = idDeberEdit == null?"":idDeberEdit;
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -80,7 +83,7 @@
                                         <td><%=deb.getNombretipodeber()%></td>
                                         <td><%=deb.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=deb.getDeberid()%>(<%=deb.getDeberid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Deber" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -102,6 +105,30 @@
                                     }
                                     function activar<%=deb.getDeberid()%>() {
                                         $("#deberActive").val("<%=deb.getDeberid()%>");
+                                    }
+                                    function Editar<%=deb.getDeberid()%>(deber) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addDeber.jsp",
+                                            data: "idDeberEdit=" + deber,
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaDeber').style.display = 'none';
+                                                document.getElementById('agregarDeber').style.display = 'none';
+                                                document.getElementById('editarDeber').style.display = 'block';
+                                                document.getElementById("deberEdit").focus();
+                                                $("#aciones").html("Modificar Deber");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditDeber() {
+                                        document.getElementById("editdeber").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaDeber').style.display = 'block';
+                                        document.getElementById('editarDeber').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Deberes");
                                     }
                                 </script>
                                 <%}%>
@@ -154,6 +181,57 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarDeber" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos del Deber</b></h4>
+                    </div>
+                    <%
+                        List<Deber> listaDeberEdit = dao.listarEditDeberes(idDeberEdit);
+                        for(Deber deberEditar : listaDeberEdit){
+                    %>
+                    <div class="panel-body">
+                        <form id="editdeber" class="form-signin" role="form" method="post" action="mantenimiento">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="deberEdit">Deber</label>
+                                        <input value="<%=deberEditar.getNombredeber()%>" type="text" class="form-control" id="deberEdit" placeholder="Nombre del Deber" name="nombres">
+                                        <input type="hidden" name="opcion" value="EditDeber">
+                                        <input type="hidden" name="id" value="<%=idDeberEdit%>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipo">Tipo de Deber</label>
+                                        <select class="form-control" id="tipo" name="tipoDeberId">
+                                            <option hidden>Seleccionar el Tipo de Deber</option>
+                                            <%
+
+                                                List<TipoDeber> listaTipoDeberEditAct = dao.listarTipoDeberAct();
+                                                for (TipoDeber tipoDeberEdit : listaTipoDeberEditAct) {
+
+                                            %>
+                                            <option <% if(deberEditar.getTipodeberid().equals(tipoDeberEdit.getTipodeberid())){%>selected<%}%> value="<%=tipoDeberEdit.getTipodeberid()%>"><%=tipoDeberEdit.getNombretipodeber()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditDeber()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Moficar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">

@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.PermisosDaoImpl"%>
+<%@page import="rest.modelo.dao.PermisosDao"%>
+<%@page import="rest.modelo.entidad.Permiso"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,29 +36,70 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>PermisoId</th>
+                                        <th hidden>PersonaId</th>
+                                        <th hidden>UsuarioId</th>
                                         <th>Nombres</th>
-                                        <th>Procedencia</th>
-                                        <th>Direccion</th>
-                                        <th>Documento</th>
-                                        <th>N° Documento</th>
-                                        <th>Teléfono</th>
-                                        <th>Género</th>
-                                        <th colspan="2">Opciones</th>
+                                        <th>Lugar</th>
+                                        <th hidden>MotivoId</th>
+                                        <th>Motivo</th>
+                                        <th>Salida Programada</th>
+                                        <th>Ingreso Programado</th>
+                                        <th>Salida Real</th>
+                                        <th>Ingreso Real</th>
+                                        <th>Observacion</th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        PermisosDao pdao = new PermisosDaoImpl();
+                                        int count = 0;
+                                        
+                                        List<Permiso> listarPermiso = pdao.listarPermisosResidentes();
+                                        for(Permiso permiso : listarPermiso){
+                                            count++;
+                                        
+                                     %>  
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Registrar Entrada" align="center"><a><i class="glyphicon glyphicon-arrow-right"></i></a></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Permiso" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=permiso.getPermisoid()%></td>
+                                        <td hidden><%=permiso.getPersonaid()%></td>
+                                        <td hidden><%=permiso.getUsuarioid()%></td>
+                                        <td><%=permiso.getNombres()%></td>
+                                        <td><%=permiso.getLugar()%></td>
+                                        <td hidden><%=permiso.getMotivoid()%></td>
+                                        <td><%=permiso.getMotivo()%></td>
+                                        <td><%=permiso.getFechasalida()%> <%=permiso.getHoraingreso()%></td>
+                                        <td><%=permiso.getFechaingreso()%> <%=permiso.getHoraingreso() %></td>
+                                        <td><%=permiso.getFechasalidareal()%> <%=permiso.getHorasalidareal()%></td>
+                                        <td><%=permiso.getFechaingresoreal()%> <%=permiso.getHoraingresoreal()%></td>
+                                        <td><%=permiso.getObservacion()%></td>
+                                        <td align="center">
+                                            <%if(permiso.getFechaingresoreal().equals("") && permiso.getHoraingresoreal().equals("")){ %>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a>
+                                            <i data-toggle="tooltip" data-placement="top" title="Registrar Salida" class="glyphicon glyphicon-arrow-left"></i>
+                                            </a>
+                                            <%} if(!permiso.getFechaingresoreal().equals("") && !permiso.getHoraingresoreal().equals("")){%>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a>
+                                                <i data-toggle="tooltip" data-placement="top" title="Editar Permiso" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                            <%} if(permiso.getEstado().equals("Inactivo")){%>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a>
+                                                <i data-toggle="tooltip" data-placement="top" title="Activar Permiso" class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                            <%} if(permiso.getEstado().equals("Activo")){%>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a>
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar Permiso" class="glyphicon glyphicon-trash"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

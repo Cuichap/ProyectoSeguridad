@@ -16,6 +16,7 @@ public class Turno {
     private String horainicio;
     private String horafin;
     private String estado;
+    private String userIdReg;
 
     public Turno() {
     }
@@ -58,6 +59,14 @@ public class Turno {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

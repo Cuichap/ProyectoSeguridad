@@ -19,6 +19,7 @@ public class Vehiculo {
     private String numplaca;
     private String decripcion;
     private String estado;
+    private String userIdReg;
 
     public Vehiculo() {
     }
@@ -85,6 +86,14 @@ public class Vehiculo {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

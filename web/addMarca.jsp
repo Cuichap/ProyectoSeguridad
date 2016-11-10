@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idMarcaEdit = request.getParameter("idMarcaEdit"); idMarcaEdit = idMarcaEdit == null?"":idMarcaEdit;
 %>
@@ -145,6 +146,7 @@
                                         <label for="marca">Marca</label>
                                         <input required maxlength="20" autofocus="true" type="text" class="form-control" id="marca" placeholder="Ingresar la Marca" name="nombres">
                                         <input type="hidden" name="opcion" value="AddMarca">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -181,6 +183,7 @@
                                         <input value="<%=marcaEditar.getNombremarca()%>" required maxlength="20" autofocus="true" type="text" class="form-control" id="marcaEdit" placeholder="Ingresar la Marca" name="nombres">
                                         <input type="hidden" name="opcion" value="EditMarca">
                                         <input type="hidden" name="id" value="<%=idMarcaEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idMotivoEdit = request.getParameter("idMotivoEdit"); idMotivoEdit = idMotivoEdit == null ? "" : idMotivoEdit;
 %>
@@ -145,6 +146,7 @@
                                         <label for="motivo">Motivo</label>
                                         <input type="text" class="form-control" id="motivo" placeholder="Nombre del Motivo" name="nombres">
                                         <input type="hidden" name="opcion" value="AddMotivo">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>
@@ -179,6 +181,7 @@
                                         <input value="<%=motivoEditar.getNombremotivo()%>" type="text" class="form-control" id="motivoEdit" placeholder="Nombre del Motivo" name="nombres">
                                         <input type="hidden" name="opcion" value="EditMotivo">
                                         <input type="hidden" name="id" value="<%=idMotivoEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>

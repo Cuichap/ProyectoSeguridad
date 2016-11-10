@@ -332,7 +332,7 @@ function ir23() {
             $("#breadseg").html($("#23").val());
             $("#aciones").html("Lista de Tipos de Deberes");
             $('#submenu14').css({"background": ""});
-            $('#submenu15').css({"background": "#000000"});
+            $('#submenu15').css({"background": ""});
             $('#submenu16').css({"background": ""});
             $('#submenu17').css({"background": ""});
             $('#submenu18').css({"background": ""});
@@ -359,7 +359,7 @@ function ir24() {
             $("#breadseg").html($("#24").val());
             $("#aciones").html("Lista de Motivos");
             $('#submenu14').css({"background": ""});
-            $('#submenu15').css({"background": "#000000"});
+            $('#submenu15').css({"background": ""});
             $('#submenu16').css({"background": ""});
             $('#submenu17').css({"background": ""});
             $('#submenu18').css({"background": ""});

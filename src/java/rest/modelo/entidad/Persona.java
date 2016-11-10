@@ -23,6 +23,7 @@ public class Persona {
     private String genero;
     private String img;
     private String estado;
+    private String userIdReg;
 
     public Persona() {
     }
@@ -121,6 +122,14 @@ public class Persona {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

@@ -380,7 +380,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="tipo">Área de Trabajo</label>
-                                        <select class="form-control" id="tipo" name="areaId">
+                                        <select class="form-control" id="tipo" name="areaIdEdit">
                                             <option hidden>Seleccionar el Área de Trabajo</option>
                                             <%
 

@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.entidad.TipoPermiso"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTippoSalidaEdit = request.getParameter("idTippoSalidaEdit"); idTippoSalidaEdit = idTippoSalidaEdit == null ? "" : idTippoSalidaEdit;
 %>
@@ -152,6 +153,7 @@
                                         <label for="descripcion">Descripción</label>
                                         <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Salida" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddTipoSalida">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>
@@ -192,6 +194,7 @@
                                         <input value="<%=tpEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Salida" name="descripcion">
                                         <input type="hidden" name="opcion" value="EditTipoSalida">
                                         <input type="hidden" name="id" value="<%=idTippoSalidaEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>

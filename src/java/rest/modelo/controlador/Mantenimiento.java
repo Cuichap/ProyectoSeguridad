@@ -59,7 +59,7 @@ public class Mantenimiento extends HttpServlet {
         Motivo motivo = new Motivo();
         TipoPermiso tipoPermiso = new TipoPermiso();
         TipoIncidencia tipoIncidencia = new TipoIncidencia();
-        TipoDocumento tipoDoc = new TipoDocumento();
+        TipoDocumento tipoDocumento = new TipoDocumento();
         
         request.setCharacterEncoding("UTF-8");
        
@@ -69,7 +69,6 @@ public class Mantenimiento extends HttpServlet {
         String apellidos = request.getParameter("apellidos"); apellidos = apellidos == null?"":apellidos;
         String direccion = request.getParameter("direccion"); direccion = direccion == null?"":direccion;
         String procedencia = request.getParameter("procedencia"); procedencia = procedencia == null?"":procedencia;
-        String tipoDocumento = request.getParameter("tipoDocumento"); tipoDocumento = tipoDocumento == null?"":tipoDocumento;
         String numeroDoc = request.getParameter("numeroDoc"); numeroDoc = numeroDoc == null?"":numeroDoc;
         String telefono = request.getParameter("telefono"); telefono = telefono == null?"":telefono;
         String genero = request.getParameter("genero"); genero = genero == null?"":genero;
@@ -79,10 +78,14 @@ public class Mantenimiento extends HttpServlet {
         String placa = request.getParameter("placa"); placa = placa == null?"":placa;
         String horainicio = request.getParameter("horainicio"); horainicio = horainicio == null?"":horainicio;
         String horafin = request.getParameter("horafin"); horafin = horafin == null?"":horafin;
+        String tipo = request.getParameter("tipo"); tipo = tipo == null?"":tipo;
         
         String MarcaId = request.getParameter("MarcaId"); MarcaId = MarcaId == null?"":MarcaId;
+        String tipoDocumentoId = request.getParameter("tipoDocumentoId"); tipoDocumentoId = tipoDocumentoId == null?"":tipoDocumentoId;
         String tipoVehiculoId = request.getParameter("tipoVehiculoId"); tipoVehiculoId = tipoVehiculoId == null?"":tipoVehiculoId;
         String tipoDeberId = request.getParameter("tipoDeberId"); tipoDeberId = tipoDeberId == null?"":tipoDeberId;
+        String subAreaId = request.getParameter("subAreaId"); subAreaId = subAreaId == null?"null":subAreaId;
+        String idUserReg = request.getParameter("idUserReg"); idUserReg = idUserReg == null?"":idUserReg;
         
         String id = request.getParameter("id"); id = id == null?"":id;
 
@@ -92,11 +95,12 @@ public class Mantenimiento extends HttpServlet {
                 persona.setApellidos(apellidos);
                 persona.setDireccion(direccion);
                 persona.setProcedencia(procedencia);
-                persona.setTipoducumentoid(tipoDocumento);
+                persona.setTipoducumentoid(tipoDocumentoId);
                 persona.setNumdocumento(numeroDoc);
                 persona.setTelefono(telefono);
                 persona.setGenero(genero);
                 persona.setImg(img);
+                persona.setUserIdReg(idUserReg);
                 if (dao.AgregarPersona(persona)) {
                     request.setAttribute("IdSubMenu", "14");
                     request.setAttribute("IdMenu", "13");
@@ -110,6 +114,26 @@ public class Mantenimiento extends HttpServlet {
                 } 
                 break;
             case "EditPersona":
+                persona.setNombres(nombres);
+                persona.setApellidos(apellidos);
+                persona.setDireccion(direccion);
+                persona.setProcedencia(procedencia);
+                persona.setTipoducumentoid(tipoDocumentoId);
+                persona.setNumdocumento(numeroDoc);
+                persona.setTelefono(telefono);
+                persona.setGenero(genero);
+                persona.setUserIdReg(idUserReg);
+                if (dao.EditarPersona(persona, id)) {
+                    request.setAttribute("IdSubMenu", "14");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "14");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } 
                 break;
             case "DeletePersona":
                 if (dao.EliminarPersona(id)) {
@@ -139,6 +163,7 @@ public class Mantenimiento extends HttpServlet {
                 break;
             case "AddTipoPersona":
                 tipoPersona.setNombreTipoPersona(nombretipopersona);
+                tipoPersona.setUserIdReg(idUserReg);
                 if (dao.AgregarTipoPersona(tipoPersona)) {
                     request.setAttribute("IdSubMenu", "15");
                     request.setAttribute("IdMenu", "13");
@@ -152,6 +177,19 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditTipoPersona":
+                tipoPersona.setNombreTipoPersona(nombretipopersona);
+                tipoPersona.setUserIdReg(idUserReg);
+                if (dao.EditarTipoPersona(tipoPersona, id)) {
+                    request.setAttribute("IdSubMenu", "15");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "15");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteTipoPersona":
                 if (dao.EliminarTipoPersona(id)) {
@@ -182,6 +220,7 @@ public class Mantenimiento extends HttpServlet {
             case "AddObjeto":
                 objeto.setNombreobjeto(nombres);
                 objeto.setDescripcion(descripcion);
+                objeto.setUserIdReg(idUserReg);
                 if (dao.AgregarObjeto(objeto)) {
                     request.setAttribute("IdSubMenu", "16");
                     request.setAttribute("IdMenu", "13");
@@ -195,6 +234,20 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditObjeto": 
+                objeto.setNombreobjeto(nombres);
+                objeto.setDescripcion(descripcion);
+                objeto.setUserIdReg(idUserReg);
+                if (dao.EditarObjeto(objeto, id)) {
+                    request.setAttribute("IdSubMenu", "16");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "16");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteObjeto": 
                 if (dao.EliminarObjeto(id)) {
@@ -225,6 +278,21 @@ public class Mantenimiento extends HttpServlet {
             case "AddArea":
                 break;
             case "EditArea": 
+                area.setSubareaid(subAreaId);
+                area.setNombre(nombres);
+                area.setDescripcion(descripcion);
+                area.setUserIdReg(idUserReg);
+                if (dao.EditarArea(area, id)) {
+                    request.setAttribute("IdSubMenu", "17");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "17");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteArea":
                 if (dao.EliminarArea(id)) {
@@ -256,6 +324,7 @@ public class Mantenimiento extends HttpServlet {
                 vehiculo.setTipovehiculoid(tipoVehiculoId);
                 vehiculo.setMarcaid(MarcaId);
                 vehiculo.setNumplaca(placa);
+                vehiculo.setUserIdReg(idUserReg);
                 vehiculo.setDecripcion(descripcion);
                 if (dao.AgregarVehiculo(vehiculo)) {
                     request.setAttribute("IdSubMenu", "18");
@@ -269,7 +338,23 @@ public class Mantenimiento extends HttpServlet {
                     request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
                 }
                 break;
-            case "EditVehiculo": 
+            case "EditVehiculo":
+                vehiculo.setTipovehiculoid(tipoVehiculoId);
+                vehiculo.setMarcaid(MarcaId);
+                vehiculo.setNumplaca(placa);
+                vehiculo.setDecripcion(descripcion);
+                vehiculo.setUserIdReg(idUserReg);
+                if (dao.EditarVehiculo(vehiculo, id)) {
+                    request.setAttribute("IdSubMenu", "18");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "18");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteVehiculo": 
                 if (dao.EliminarVehiculo(id)) {
@@ -299,6 +384,7 @@ public class Mantenimiento extends HttpServlet {
                 break;
             case "AddTipoVehiculo":
                 tipoVehiculo.setNombretipovehiculo(nombres);
+                tipoVehiculo.setUserIdReg(idUserReg);
                 if (dao.AgregarTipoVehiculo(tipoVehiculo)) {
                     request.setAttribute("IdSubMenu", "19");
                     request.setAttribute("IdMenu", "13");
@@ -312,6 +398,19 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditTipoVehiculo":
+                tipoVehiculo.setNombretipovehiculo(nombres);
+                tipoVehiculo.setUserIdReg(idUserReg);
+                if (dao.EditarTipoVehiculo(tipoVehiculo, id)) {
+                    request.setAttribute("IdSubMenu", "19");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "19");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteTipoVehiculo":
                 if (dao.EliminarTipoVehiculo(id)) {
@@ -341,6 +440,7 @@ public class Mantenimiento extends HttpServlet {
                 break;
             case "AddMarca":
                 marca.setNombremarca(nombres);
+                marca.setUserIdReg(idUserReg);
                 if (dao.AgregarMarca(marca)) {
                     request.setAttribute("IdSubMenu", "20");
                     request.setAttribute("IdMenu", "13");
@@ -354,6 +454,19 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditMarca":
+                marca.setNombremarca(nombres);
+                marca.setUserIdReg(idUserReg);
+                if (dao.EditarMarca(marca, id)) {
+                    request.setAttribute("IdSubMenu", "20");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "20");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteMarca":
                 if (dao.EliminarMarca(id)) {
@@ -385,6 +498,7 @@ public class Mantenimiento extends HttpServlet {
                 turno.setNombreturno(nombres);
                 turno.setHorainicio(horainicio);
                 turno.setHorafin(horafin);
+                turno.setUserIdReg(idUserReg);
                 if (dao.AgregarTurno(turno)) {
                     request.setAttribute("IdSubMenu", "21");
                     request.setAttribute("IdMenu", "13");
@@ -398,6 +512,21 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditTurno":
+                turno.setNombreturno(nombres);
+                turno.setHorainicio(horainicio);
+                turno.setHorafin(horafin);
+                turno.setUserIdReg(idUserReg);
+                if (dao.EditarTurno(turno, id)) {
+                    request.setAttribute("IdSubMenu", "21");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "21");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteTurno":
                 if (dao.EliminarTurno(id)) {
@@ -428,6 +557,7 @@ public class Mantenimiento extends HttpServlet {
             case "AddDeber":
                 deber.setNombredeber(nombres);
                 deber.setTipodeberid(tipoDeberId);
+                deber.setUserIdReg(idUserReg);
                 if (dao.AgregarDeber(deber)) {
                     request.setAttribute("IdSubMenu", "22");
                     request.setAttribute("IdMenu", "13");
@@ -441,6 +571,20 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditDeber":
+                deber.setNombredeber(nombres);
+                deber.setTipodeberid(tipoDeberId);
+                deber.setUserIdReg(idUserReg);
+                if (dao.EditarDeber(deber, id)) {
+                    request.setAttribute("IdSubMenu", "22");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "22");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteDeber":
                 if (dao.EliminarDeber(id)) {
@@ -470,6 +614,7 @@ public class Mantenimiento extends HttpServlet {
                 break;
             case "AddTipoDeber":
                 tipoDeber.setNombretipodeber(nombres);
+                tipoDeber.setUserIdReg(idUserReg);
                 if (dao.AgregarTipoDeber(tipoDeber)) {
                     request.setAttribute("IdSubMenu", "23");
                     request.setAttribute("IdMenu", "13");
@@ -483,6 +628,19 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditTipoDeber":
+                tipoDeber.setNombretipodeber(nombres);
+                tipoDeber.setUserIdReg(idUserReg);
+                if (dao.EditarTipoDeber(tipoDeber, id)) {
+                    request.setAttribute("IdSubMenu", "23");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "23");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteTipoDeber":
                 if (dao.EliminarTipoDeber(id)) {
@@ -512,6 +670,7 @@ public class Mantenimiento extends HttpServlet {
                 break;
             case "AddMotivo":
                 motivo.setNombremotivo(nombres);
+                motivo.setUserIdReg(idUserReg);
                 if (dao.AgregarMotivo(motivo)) {
                     request.setAttribute("IdSubMenu", "24");
                     request.setAttribute("IdMenu", "13");
@@ -525,6 +684,19 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditMotivo":
+                motivo.setNombremotivo(nombres);
+                motivo.setUserIdReg(idUserReg);
+                if (dao.EditarMotivo(motivo, id)) {
+                    request.setAttribute("IdSubMenu", "24");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "24");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteMotivo":
                 if (dao.EliminarMotivo(id)) {
@@ -555,6 +727,7 @@ public class Mantenimiento extends HttpServlet {
             case "AddTipoSalida":
                 tipoPermiso.setNombretipopermiso(nombres);
                 tipoPermiso.setDescripcion(descripcion);
+                tipoPermiso.setUserIdReg(idUserReg);
                 if (dao.AgregarTipoSalida(tipoPermiso)) {
                     request.setAttribute("IdSubMenu", "25");
                     request.setAttribute("IdMenu", "13");
@@ -568,6 +741,20 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditTipoSalida":
+                tipoPermiso.setNombretipopermiso(nombres);
+                tipoPermiso.setDescripcion(descripcion);
+                tipoPermiso.setUserIdReg(idUserReg);
+                if (dao.EditarTipoSalida(tipoPermiso, id)) {
+                    request.setAttribute("IdSubMenu", "25");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "25");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteTipoSalida":
                 if (dao.EliminarTipoSalida(id)) {
@@ -598,6 +785,7 @@ public class Mantenimiento extends HttpServlet {
             case "AddTipoIncidencia":
                 tipoIncidencia.setNombretipoincidencia(nombres);
                 tipoIncidencia.setDescripcion(descripcion);
+                tipoIncidencia.setUserIdReg(idUserReg);
                 if (dao.AgregarTipoIncidencia(tipoIncidencia)) {
                     request.setAttribute("IdSubMenu", "26");
                     request.setAttribute("IdMenu", "13");
@@ -611,6 +799,20 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditTipoIncidencia":
+                tipoIncidencia.setNombretipoincidencia(nombres);
+                tipoIncidencia.setDescripcion(descripcion);
+                tipoIncidencia.setUserIdReg(idUserReg);
+                if (dao.EditarTipoIncidencia(tipoIncidencia, id)) {
+                    request.setAttribute("IdSubMenu", "26");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "26");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteTipoIncidencia":
                 if (dao.EliminarTipoIncidencia(id)) {
@@ -639,8 +841,9 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "AddTipoDocumento":
-                tipoDoc.setNombredocumento(nombres);
-                if (dao.AgregarTipoDocumento(tipoDoc)) {
+                tipoDocumento.setNombredocumento(nombres);
+                tipoDocumento.setUserIdReg(idUserReg);
+                if (dao.AgregarTipoDocumento(tipoDocumento)) {
                     request.setAttribute("IdSubMenu", "27");
                     request.setAttribute("IdMenu", "13");
                     request.setAttribute("JSP", "Mantenimiento");
@@ -653,6 +856,19 @@ public class Mantenimiento extends HttpServlet {
                 }
                 break;
             case "EditTipoDocumento":
+                tipoDocumento.setNombredocumento(nombres);
+                tipoDocumento.setUserIdReg(idUserReg);
+                if (dao.EditarTipoDocumento(tipoDocumento, id)) {
+                    request.setAttribute("IdSubMenu", "27");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "27");
+                    request.setAttribute("IdMenu", "13");
+                    request.setAttribute("JSP", "Mantenimiento");
+                    request.getRequestDispatcher("mantenimiento.jsp").forward(request, response);
+                }
                 break;
             case "DeleteTipoDocumento":
                 if (dao.EliminarTipoDocumento(id)) {

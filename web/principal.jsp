@@ -13,7 +13,7 @@
 
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
                     <div class="col-xs-5">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
                     <div class="col-xs-5">
@@ -35,6 +35,32 @@
                     <div class="col-xs-5 text-right">
                         <p class="alerts-heading">1453</p>
                         <p class="alerts-text">Downloads</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default ">
+                <div class="panel-body alert-info">
+                    <div class="col-xs-5">
+                        <i class="fa fa-money fa-5x"></i>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <p class="alerts-heading">173</p>
+                        <p class="alerts-text">Income</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default ">
+                <div class="panel-body alert-info">
+                    <div class="col-xs-5">
+                        <i class="fa fa-twitter fa-5x"></i>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <p class="alerts-heading">743</p>
+                        <p class="alerts-text">Mentions</p>
                     </div>
                 </div>
             </div>
@@ -59,35 +85,6 @@
                 </div>
                 <div class="panel-body">
                     <div id="shieldui-chart2"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="panel panel-default ">
-                <div class="panel-body alert-info">
-                    <div class="col-xs-5">
-                        <i class="fa fa-money fa-5x"></i>
-                    </div>
-                    <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">173</p>
-                        <p class="alerts-text">Income</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-default ">
-                <div class="panel-body alert-info">
-                    <div class="col-xs-5">
-                        <i class="fa fa-twitter fa-5x"></i>
-                    </div>
-                    <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">743</p>
-                        <p class="alerts-text">Mentions</p>
-                    </div>
                 </div>
             </div>
         </div>

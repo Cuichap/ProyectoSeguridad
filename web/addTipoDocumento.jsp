@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoDocumentoEdit = request.getParameter("idTipoDocumentoEdit"); idTipoDocumentoEdit = idTipoDocumentoEdit == null ? "" : idTipoDocumentoEdit;
 %>
@@ -144,6 +145,7 @@
                                         <label for="tipoDocumento">Tipo de Documento</label>
                                         <input type="text" class="form-control" id="tipoDocumento" placeholder="Nombre del Tipo de Documento" name="nombres">
                                         <input type="hidden" name="opcion" value="AddTipoDocumento">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>
@@ -178,6 +180,7 @@
                                         <input value="<%=tdEditar.getNombredocumento()%>" type="text" class="form-control" id="tipoDocumentoEdit" placeholder="Nombre del Tipo de Documento" name="nombres">
                                         <input type="hidden" name="opcion" value="EditTipoDocumento">
                                         <input type="hidden" name="id" value="<%=idTipoDocumentoEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>

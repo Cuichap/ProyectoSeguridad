@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idObjetoEdit = request.getParameter("idObjetoEdit"); idObjetoEdit = idObjetoEdit == null ? "" : idObjetoEdit;
 %>
@@ -156,6 +157,7 @@
                                         <label for="descripcion">Descripción</label>
                                         <textarea maxlength="300" class="form-control" rows="4" id="descripcion" placeholder="Descripción del Objeto" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddObjeto">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -200,6 +202,7 @@
                                         <input value="<%=objeto.getDescripcion()%>" type="text" maxlength="300" class="form-control" id="descripcion" placeholder="Descripción del Objeto" name="descripcion">
                                         <input type="hidden" name="opcion" value="EditObjeto">
                                         <input type="hidden" name="id" value="<%=idObjetoEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

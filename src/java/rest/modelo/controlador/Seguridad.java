@@ -61,6 +61,7 @@ public class Seguridad extends HttpServlet {
         String tipopersonaid = request.getParameter("tipoPersonaId"); tipopersonaid = tipopersonaid == null?"":tipopersonaid;
         String perfilid = request.getParameter("perfilId"); perfilid = perfilid == null?"":perfilid;
         String areaid = request.getParameter("areaId"); areaid = areaid == null?"0":areaid;
+        String areaIdEdit = request.getParameter("areaIdEdit"); areaIdEdit = areaIdEdit == null?"":areaIdEdit;
         String idsubmenu = request.getParameter("idSubMenu"); idsubmenu = idsubmenu == null?"":idsubmenu;
         String deberId = request.getParameter("deberId"); deberId = deberId == null?"":deberId;
         String usuarioId = request.getParameter("usuarioId"); usuarioId = usuarioId == null?"":usuarioId;

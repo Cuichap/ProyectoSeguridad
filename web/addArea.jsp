@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idAreaEdit = request.getParameter("idAreaEdit"); idAreaEdit = idAreaEdit == null?"":idAreaEdit;
 %>
@@ -151,6 +152,7 @@
                                         <label for="area">Área</label>
                                         <input required type="text" maxlength="30" class="form-control" id="area" placeholder="Nombre del Área" name="objeto">
                                         <input type="hidden" name="opcion" value="AddArea">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -184,8 +186,8 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="tipo">Área</label>
-                                        <select class="form-control" id="tipo" name="subAreaId">
+                                        <label for="tipo">Área a la que Pertenece</label>
+                                        <select class="form-control" disabled id="tipo" name="subAreaId">
                                             <option hidden>Seleccionar el Área</option>
                                             <%
 
@@ -207,6 +209,7 @@
                                         <input value="<%=areaEditar.getNombre()%>" required type="text" maxlength="30" class="form-control" id="areaEdit" placeholder="Nombre del Área" name="nombres">
                                         <input type="hidden" name="opcion" value="EditArea">
                                         <input type="hidden" name="id" value="<%=idAreaEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -214,7 +217,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipo">Tipo</label>
-                                        <select <% if(areaEditar.getTipo().equals("nivel1")){%>disabled<%}%> class="form-control" id="tipo" name="tipo">
+                                        <select disabled class="form-control" id="tipo" name="tipoEdit">
                                             <option hidden>Seleccionar el Tipo</option>
                                             <option <% if(areaEditar.getTipo().equals("nivel1")){%>selected<%}%> value="nivel1">Área</option>
                                             <option <% if(areaEditar.getTipo().equals("nivel2")){%>selected<%}%> value="nivel2">SubÁrea</option>

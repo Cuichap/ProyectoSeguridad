@@ -47,7 +47,20 @@ public interface MantenimientoDao {
     public boolean AgregarTipoDocumento(TipoDocumento tipoDocumento);
     
     /* MANTENIMIENTO -- EDITAR */
-    
+    public boolean EditarPersona(Persona persona, String id);
+    public boolean EditarTipoPersona(TipoPersona tipoPersona, String id);
+    public boolean EditarObjeto(Objeto objeto, String id);
+    public boolean EditarArea(Area area, String id);
+    public boolean EditarVehiculo(Vehiculo vehiculo, String id);
+    public boolean EditarTipoVehiculo(TipoVehiculo tipoVehiculo, String id);
+    public boolean EditarMarca(Marca marca, String id);
+    public boolean EditarTurno(Turno turno, String id);
+    public boolean EditarDeber(Deber deber, String id);
+    public boolean EditarTipoDeber(TipoDeber tipoDeber, String id);
+    public boolean EditarMotivo(Motivo motivo, String id);
+    public boolean EditarTipoSalida(TipoPermiso tipoPermiso, String id);
+    public boolean EditarTipoIncidencia(TipoIncidencia tipoIncidencia, String id);
+    public boolean EditarTipoDocumento(TipoDocumento tipoDocumento, String id);
     
     /* MANTENIMIENTO -- LISTAS -- ID */
     public List<Persona> listarEditPersona(String id);

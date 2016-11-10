@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoVehiculoEdit = request.getParameter("idTipoVehiculoEdit"); idTipoVehiculoEdit = idTipoVehiculoEdit == null?"":idTipoVehiculoEdit;
 %>
@@ -144,6 +145,7 @@
                                         <label for="tipo">Tipo de Vehículo</label>
                                         <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="tipo" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
                                         <input type="hidden" name="opcion" value="AddTipoVehiculo">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -180,6 +182,7 @@
                                         <input value="<%=tvEditar.getNombretipovehiculo()%>" type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="nombreTipoVehiculoEdit" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
                                         <input type="hidden" name="opcion" value="EditTipoVehiculo">
                                         <input type="hidden" name="id" value="<%=idTipoVehiculoEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

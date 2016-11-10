@@ -13,6 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idMenuEdit = request.getParameter("idMenuEdit"); idMenuEdit = idMenuEdit == null ? "" : idMenuEdit;
+    String estadoMenu = request.getParameter("estadoMenu"); estadoMenu = estadoMenu == null ? "1" : estadoMenu;
 %>
 <!DOCTYPE html>
 <html>
@@ -40,12 +41,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'menus', '1')" type="text" class="form-control" placeholder="Buscar Menú." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoMenu]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addMenu.jsp",
+                                            data: "estadoMenu="+ $('select[name=estadoMenu]').val(),
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoMenu" class="form-control" name="estadoMenu">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoMenu.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoMenu.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -74,7 +89,7 @@
                                         
                                         int count = 0;
 
-                                        List<Opcion> listMen = sdaoDao.listarMenus();
+                                        List<Opcion> listMen = sdaoDao.listarMenus(estadoMenu);
                                         for (Opcion opc : listMen) {
                                             count++;
 

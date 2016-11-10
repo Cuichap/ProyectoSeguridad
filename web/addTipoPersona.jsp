@@ -157,7 +157,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
+                                        <input type="text" required pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="AddTipoPersona">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -193,7 +193,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input value="<%=tp.getNombreTipoPersona()%>" type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipoPerEdit" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
+                                        <input value="<%=tp.getNombreTipoPersona()%>" type="text" required pattern="^[A-Za-záéíóúÑñ ][A-Za-záéíóúÑñ ]*" maxlength="30" class="form-control" id="tipoPerEdit" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="EditTipoPersona">
                                         <input type="hidden" name="id" value="<%=idTipoPersonaEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">

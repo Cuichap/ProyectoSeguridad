@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.Incidencia"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.IncidenciaDaoImpl"%>
+<%@page import="rest.modelo.dao.IncidenciaDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -36,25 +40,50 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th hidden>IncidenciaId</th>
+                                        <th hidden>UsuarioId</th>
+                                        <th>Persona</th>
+                                        <th hidden>TipoPersonaId</th>
+                                        <th>Tipo Persona</th>
+                                        <th hidden>TipoIncidenciaId</th>
                                         <th>Incidencia</th>
-                                        <th>Campo 1</th>
-                                        <th>Campo 2</th>
-                                        <th>Campo 3</th>
-                                        <th>Campo 4</th>
+                                        <th>Descripcion</th>
+                                        <th>Lugar</th>
+                                        <th hidden>ObjetoId</th>
+                                        <th>Objeto</th>
+                                        <th>Fecha/Hora</th>
+                                        <th hidden>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        IncidenciaDao idao = new IncidenciaDaoImpl();
+                                        int count = 0;
+                                        
+                                        List<Incidencia> listarIncidencias = idao.listarIncidencia();
+                                        for(Incidencia incidencia : listarIncidencias){
+                                            count++;
+                                        %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=incidencia.getIncidenciaid()%></td>
+                                        <td hidden><%=incidencia.getUsuarioid()%></td>
+                                        <td><%=incidencia.getNombres()%></td>
+                                        <td hidden><%=incidencia.getTipopersonaid()%></td>
+                                        <td><%=incidencia.getNombretipopersona()%></td>
+                                        <td hidden><%=incidencia.getTipoincidenciaid()%></td>
+                                        <td><%=incidencia.getNombretipoincidencia()%></td>
+                                        <td><%=incidencia.getDescripcion()%></td>
+                                        <td><%=incidencia.getLugar()%></td>
+                                        <td hidden><%=incidencia.getObjetoid()%></td>
+                                        <td><%=incidencia.getObjeto()%></td>
+                                        <td><%=incidencia.getFecha()%></td>
+                                        <td><%=incidencia.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Incidencia" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Incidencia" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

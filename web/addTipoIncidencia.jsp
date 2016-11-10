@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoIncidenciaEdit = request.getParameter("idTipoIncidenciaEdit"); idTipoIncidenciaEdit = idTipoIncidenciaEdit == null ? "" : idTipoIncidenciaEdit;
     String estadoTipoIncidencia = request.getParameter("estadoTipoIncidencia"); estadoTipoIncidencia = estadoTipoIncidencia == null ? "1" : estadoTipoIncidencia;
@@ -167,6 +168,7 @@
                                         <label for="descripcion">Descripción</label>
                                         <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Incidencia" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddTipoIncidencia">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>
@@ -207,6 +209,7 @@
                                         <input value="<%=tiEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Incidencia" name="descripcion">
                                         <input type="hidden" name="opcion" value="EditTipoIncidencia">
                                         <input type="hidden" name="id" value="<%=idTipoIncidenciaEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>

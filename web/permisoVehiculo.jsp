@@ -4,6 +4,10 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.Permiso"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.PermisosDaoImpl"%>
+<%@page import="rest.modelo.dao.PermisosDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,29 +36,48 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Nombres</th>
-                                        <th>Procedencia</th>
-                                        <th>Direccion</th>
-                                        <th>Documento</th>
-                                        <th>N° Documento</th>
-                                        <th>Teléfono</th>
-                                        <th>Género</th>
+                                        <th hidden>PermisoId</th>
+                                        <th hidden>AreaId</th>
+                                        <th>Area</th>
+                                        <th>Conductor</th>
+                                        <th>Autorizó</th>
+                                        <th hidden>VehiculoId</th>
+                                        <th>Vehículo</th>
+                                        <th>N° Placa</th>
+                                        <th>Kilometraje inicial</th>
+                                        <th>Descripcion Salida</th>
+                                        <th>Kilometraje final</th>
+                                        <th>Descripcion Entrada</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+                                        PermisosDao pdao = new PermisosDaoImpl();
+                                        int count = 0;
+                                        
+                                        List<Permiso> listarPermisoVehiculo = pdao.listarPermisosVehiculo();
+                                        for(Permiso pVehiculo : listarPermisoVehiculo){
+                                            count++;
+                                        %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td hidden><%=pVehiculo.getPermisoid()%></td>
+                                        <td hidden><%=pVehiculo.getAreaid()%></td>
+                                        <td><%=pVehiculo.getArea()%></td>
+                                        <td><%=pVehiculo.getNombres()%></td>
+                                        <td><%=pVehiculo.getUsuarioautid()%></td>
+                                        <td hidden><%=pVehiculo.getTipovehiculoid()%></td>
+                                        <td><%=pVehiculo.getTipovehiculo()%></td>
+                                        <td><%=pVehiculo.getPlaca()%></td>
+                                        <td><%=pVehiculo.getKilometrajesalida()%></td>
+                                        <td><%=pVehiculo.getDescripcionSalida()%></td>
+                                        <td><%=pVehiculo.getKilometrajeingreso()%></td>
+                                        <td><%=pVehiculo.getDescripcionIngreso()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Registrar Entrada" align="center"><a><i class="glyphicon glyphicon-arrow-right"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Permiso" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

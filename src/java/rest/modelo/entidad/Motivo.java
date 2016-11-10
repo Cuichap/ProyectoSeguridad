@@ -14,6 +14,7 @@ public class Motivo {
     private String motivoid;
     private String nombremotivo;
     private String estado;
+    private String userIdReg;
 
     public Motivo() {
     }
@@ -40,6 +41,14 @@ public class Motivo {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

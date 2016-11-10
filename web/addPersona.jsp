@@ -12,6 +12,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="IdSubMenu" scope="request" class="java.lang.String" />
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idPersonaEdit = request.getParameter("idPersonaEdit"); idPersonaEdit = idPersonaEdit == null ? "" : idPersonaEdit;
     String estadoPersona = request.getParameter("estadoPersona"); estadoPersona = estadoPersona == null ? "1" : estadoPersona;
@@ -212,7 +213,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipo">Tipo de Documento</label>
-                                        <select required class="form-control" id="tipo" name="tipoDocumento">
+                                        <select required class="form-control" id="tipo" name="tipoDocumentoId">
                                             <option hidden>Seleccionar Tipo de Documento</option>
                                             <%
                                                 List<TipoDocumento> lista = dao.listarTipoDocumentoAct();
@@ -253,6 +254,10 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <input type="hidden" name="opcion" value="AddPersona">
+                            <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+
                             <div class="row hidden">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -260,7 +265,6 @@
                                         <input type="file" disabled id="imagen" name="img">
                                         <p class="help-block">Vayase a la ...</p>
                                     </div>
-                                    <input type="hidden" name="opcion" value="AddPersona">
                                 </div>
                             </div>
                             <hr style="border-color: #3b5998;">
@@ -327,7 +331,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipoEdit">Tipo de Documento</label>
-                                        <select required class="form-control" id="tipoEdit" name="tipoDocumento">
+                                        <select required class="form-control" id="tipoEdit" name="tipoDocumentoId">
                                             <option hidden>Seleccionar Tipo de Documento</option>
                                             <%
                                                 for (TipoDocumento tipo : lista) {
@@ -367,16 +371,17 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <input type="hidden" name="opcion" value="EditPersona">
                             <input type="hidden" name="id" value="<%=idPersonaEdit%>">
-                                        
+                            <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+
                             <div class="row hidden">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="imagen">Seleccione su Imagen</label>
                                         <input type="file" disabled id="imagen" name="img">
-                                        <p class="help-block">Vayase a la ...</p>
+                                        <p class="help-block">Vayase a la ... jajaja</p>
                                     </div>
                                 </div>
                             </div>

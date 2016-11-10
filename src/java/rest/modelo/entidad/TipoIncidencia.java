@@ -15,6 +15,7 @@ public class TipoIncidencia {
     private String nombretipoincidencia;
     private String descripcion;
     private String estado;
+    private String userIdReg;
 
     public TipoIncidencia() {
     }
@@ -49,6 +50,14 @@ public class TipoIncidencia {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

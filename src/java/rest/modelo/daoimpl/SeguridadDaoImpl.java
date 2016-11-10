@@ -113,6 +113,32 @@ public class SeguridadDaoImpl implements SeguridadDao{
         }
     }
     
+    /* SEGURIDAD -- EDITAR */
+    @Override
+    public boolean EditarUsuario(Usuario usuario, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean EditarPerfil(Perfiles perfiles, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean EditarAccesos(Acceso acceso, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean EditarOpciones(Opcion opcion, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean EditarResponsabilidad(Responsabilidad responsabilidad, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     /* SEGURIDAD -- LISTAS */
     @Override
     public List<Usuario> listarUsuario(String estado) {
@@ -317,9 +343,6 @@ public class SeguridadDaoImpl implements SeguridadDao{
         }
         return listaEditResponsabilidad;
     }
-    
-    /* SEGURIDAD -- EDITAR */
-    
     
     /* SEGURIDAD -- ELIMINAR */
     @Override

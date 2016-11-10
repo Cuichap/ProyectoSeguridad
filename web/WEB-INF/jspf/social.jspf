@@ -4,10 +4,10 @@
 <!-- Social -->
 <section class="contenido">
     <ul class="social">
-        <li><a href="#" class="facebook">Facebook &nbsp;<img src="res/img/facebook.png"></a></li>
-        <li><a href="#" class="youtube">Youtube &nbsp;<img src="res/img/youtube.png"></a></li>
-        <li><a href="#" class="twitter">Twitter &nbsp;<img src="res/img/twitter.png"></a></li>
-        <li><a href="#" class="google">Google + &nbsp;<img src="res/img/google_plus.png"></a></li>
-        <li><a href="#" class="linkedin">LinkedIn &nbsp;<img src="res/img/linkedin.png"></a></li>
+        <li><a target="_blank" href="https://www.facebook.com/upeu.campustarapoto/" class="facebook">Facebook &nbsp;<img src="res/img/facebook.png"></a></li>
+        <li><a target="_blank" href="https://www.youtube.com/user/UPeUTarapoto" class="youtube">Youtube &nbsp;<img src="res/img/youtube.png"></a></li>
+        <li><a target="_blank" href="https://twitter.com/upeu_tarapoto" class="twitter">Twitter &nbsp;<img src="res/img/twitter.png"></a></li>
+        <li><a target="_blank" href="https://plus.google.com/+UPeUCampusTarapoto" class="google">Google + &nbsp;<img src="res/img/google_plus.png"></a></li>
+        <li><a target="_blank" href="https://www.linkedin.com/company/universidad-peruana-uni-n" class="linkedin">LinkedIn &nbsp;<img src="res/img/linkedin.png"></a></li>
     </ul>
 </section>

@@ -14,6 +14,7 @@ public class Marca {
     private String marcaid;
     private String nombremarca;
     private String estado;
+    private String userIdReg;
 
     public Marca() {
     }
@@ -40,6 +41,14 @@ public class Marca {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

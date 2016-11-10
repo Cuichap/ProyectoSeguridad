@@ -20,7 +20,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">343</p>
+                        <p class="alerts-heading">34</p>
                         <p class="alerts-text">Permisos</p>
                     </div>
                 </div>
@@ -33,13 +33,12 @@
                         <i class="fa fa-map fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">453</p>
+                        <p class="alerts-heading">14</p>
                         <p class="alerts-text">Visitas</p>
                     </div>
                 </div>
             </div>
         </div>
-        
         <div class="col-lg-3">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
@@ -66,7 +65,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
 
     <div class="row">

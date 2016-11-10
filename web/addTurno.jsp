@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page import="rest.modelo.entidad.Turno"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTurnoEdit = request.getParameter("idTurnoEdit"); idTurnoEdit = idTurnoEdit == null?"":idTurnoEdit;
     String estadoTurno = request.getParameter("estadoTurno"); estadoTurno = estadoTurno == null?"1":estadoTurno;
@@ -180,6 +181,7 @@
                                         <label for="hoorafin">Hora de Fin</label>
                                         <input type="time" class="form-control" id="horafin" placeholder="Ingresar de Fin" name="horafin" required>
                                         <input type="hidden" name="opcion" value="AddTurno">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>
@@ -230,6 +232,7 @@
                                         <input value="<%=turnoEditar.getHorafin()%>" type="time" class="form-control" id="horafinEdit" placeholder="Ingresar de Fin" name="horafin" required>
                                         <input type="hidden" name="opcion" value="EditTurno">
                                         <input type="hidden" name="id" value="<%=idTurnoEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>

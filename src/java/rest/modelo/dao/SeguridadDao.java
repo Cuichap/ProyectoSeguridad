@@ -25,6 +25,13 @@ public interface SeguridadDao {
     public boolean AgregarOpciones(Opcion opcion);
     public boolean AgregarResponsabilidad(Responsabilidad responsabilidad);
     
+    /* SEGURIDAD -- EDITAR */
+    public boolean EditarUsuario(Usuario usuario, String id);
+    public boolean EditarPerfil(Perfiles perfiles, String id);
+    public boolean EditarAccesos(Acceso acceso, String id);
+    public boolean EditarOpciones(Opcion opcion, String id);
+    public boolean EditarResponsabilidad(Responsabilidad responsabilidad, String id);
+    
     /* SEGURIDAD -- LISTAS */
     public List<Usuario> listarUsuario(String estado);
     public List<Perfiles> listarPerfiles();
@@ -41,9 +48,6 @@ public interface SeguridadDao {
     public List<Acceso> listarEditAccesos(String id);
     public List<Opcion> listarEditMenus(String id);
     public List<Responsabilidad> listarEditResponsabilidad(String iddeb, String iduser, String idtur);
-    
-    /* SEGURIDAD -- EDITAR */
-    
     
     /* SEGURIDAD -- ELIMINAR */
     public boolean EliminarUsuario(String id);

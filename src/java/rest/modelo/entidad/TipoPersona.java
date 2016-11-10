@@ -14,6 +14,7 @@ public class TipoPersona {
     private String TipoPersonaid;
     private String nombreTipoPersona;
     private String estado;
+    private String userIdReg;
 
     public TipoPersona() {
     }
@@ -40,6 +41,14 @@ public class TipoPersona {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

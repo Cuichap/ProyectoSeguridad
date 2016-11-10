@@ -11,6 +11,7 @@
 <%@page import="rest.modelo.entidad.Vehiculo"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idVehiculoEdit = request.getParameter("idVehiculoEdit"); idVehiculoEdit = idVehiculoEdit == null?"":idVehiculoEdit;
     String estadoVehiculo = request.getParameter("estadoVehiculo"); estadoVehiculo = estadoVehiculo == null?"1":estadoVehiculo;
@@ -211,9 +212,10 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
-                                        <label for="descripcion">Descrippción</label>
+                                        <label for="descripcion">Descripción</label>
                                         <textarea maxlength="300" class="form-control" rows="4" id="descripcion" placeholder="Descripción del Vehiculo" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddVehiculo">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -288,6 +290,7 @@
                                         <input value="<%=vehiculoEditar.getDecripcion()%>" maxlength="300" class="form-control" id="descripcionEdit" placeholder="Descripción del Vehiculo" name="descripcion">
                                         <input type="hidden" name="opcion" value="EditVehiculo">
                                         <input type="hidden" name="id" value="<%=idVehiculoEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

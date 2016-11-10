@@ -25,7 +25,7 @@
     $(document).ready(function () {
     <% if (IdSubMenu.equals("11") || IdSubMenu.equals("")) { %>
         ir11();
-    <% if (IdSubMenu.equals("12")) { %>
+    <%} if (IdSubMenu.equals("12")) { %>
         ir12();
     <%}%>
     });

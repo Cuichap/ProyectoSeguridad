@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoPersonaEdit = request.getParameter("idTipoPersonaEdit"); idTipoPersonaEdit = idTipoPersonaEdit == null ? "" : idTipoPersonaEdit;
     String estadoTipoPersona = request.getParameter("estadoTipoPersona"); estadoTipoPersona = estadoTipoPersona == null ? "1" : estadoTipoPersona;
@@ -158,6 +159,7 @@
                                         <label for="tipo">Tipo Persona</label>
                                         <input type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="AddTipoPersona">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -194,6 +196,7 @@
                                         <input value="<%=tp.getNombreTipoPersona()%>" type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipoPerEdit" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="EditTipoPersona">
                                         <input type="hidden" name="id" value="<%=idTipoPersonaEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

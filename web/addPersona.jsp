@@ -177,7 +177,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="nombres">Nombres</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="nombres" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
+                                        <input required type="text" pattern="^[A-Za-záéíóúÑñ ][A-Za-záéíóúÑñ ]*" maxlength="39" class="form-control" id="nombres" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -185,7 +185,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="apellidos">Apellidos</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
+                                        <input required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -295,7 +295,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="nombres">Nombres</label>
-                                        <input value="<%=perEdit.getNombres()%>" required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="nombresEdit" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=perEdit.getNombres()%>" required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="nombresEdit" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -303,7 +303,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="apellidos">Apellidos</label>
-                                        <input value="<%=perEdit.getApellidos()%>" required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="apellidosEdit" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=perEdit.getApellidos()%>" required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="apellidosEdit" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

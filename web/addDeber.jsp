@@ -163,11 +163,13 @@
                         <form id="adddeber" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="deber">Deber</label>
-                                        <input type="text" class="form-control" id="deber" placeholder="Nombre del Deber" name="nombres">
+                                        <input required type="text" class="form-control" id="deber" maxlength="30" placeholder="Nombre del Deber" name="nombres">
                                         <input type="hidden" name="opcion" value="AddDeber">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -213,12 +215,14 @@
                         <form id="editdeber" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="deberEdit">Deber</label>
-                                        <input value="<%=deberEditar.getNombredeber()%>" type="text" class="form-control" id="deberEdit" placeholder="Nombre del Deber" name="nombres">
+                                        <input required maxlength="30" value="<%=deberEditar.getNombredeber()%>" type="text" class="form-control" id="deberEdit" placeholder="Nombre del Deber" name="nombres">
                                         <input type="hidden" name="opcion" value="EditDeber">
                                         <input type="hidden" name="id" value="<%=idDeberEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -308,6 +312,10 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+             $().ready(function () {
+                $("#adddeber").validator({debug: true});
+                $("#editdeber").validator({debug: true});
             });
         </script>
     </body>

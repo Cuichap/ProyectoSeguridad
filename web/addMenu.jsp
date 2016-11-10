@@ -11,6 +11,7 @@
 <%@page import="rest.modelo.entidad.Opcion"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idMenuEdit = request.getParameter("idMenuEdit"); idMenuEdit = idMenuEdit == null ? "" : idMenuEdit;
 %>
@@ -156,6 +157,8 @@
                                     <div class="form-group">
                                         <label for="menu">Menú</label>
                                         <input type="text" class="form-control" id="menu" placeholder="Nombre del Menú" name="nombres">
+                                        <input type="hidden" name="opcion" value="AddMenu">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -190,7 +193,6 @@
                                     <div class="form-group">
                                         <label for="url">Url</label>
                                         <input type="text" class="form-control" id="url" placeholder="Url del Menú" name="url">
-                                        <input type="hidden" name="opcion" value="AddMenu">
                                     </div>
                                 </div>
                             </div>
@@ -225,12 +227,13 @@
                                         <input value="<%=opcEdit.getMenu()%>" type="text" class="form-control" id="menuEd" placeholder="Nombre del Menú" name="nombres">
                                         <input type="hidden" name="opcion" value="EditMenu">
                                         <input type="hidden" name="id" value="<%=idMenuEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipoMenuEd">Tipo de Menú</label>
-                                        <select class="form-control" id="tipoMenuEd" name="tipoMenu">
+                                        <select class="form-control" disabled id="tipoMenuEd" name="tipoMenu">
                                             <option hidden>Seleccionar Tipo de Menú</option>
                                             <option <% if(opcEdit.getTipo().equals("nivel1")){%>selected<%}%> value="nivel1">Menú</option>
                                             <option <% if(opcEdit.getTipo().equals("nivel2")){%>selected<%}%> value="nivel2">SubMenú</option>
@@ -242,8 +245,8 @@
                                 <% if(opcEdit.getTipo().equals("nivel2")){%>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="menuEd">Seleccionar Menú</label>
-                                        <select class="form-control" id="menuEd" name="idSubMenu">
+                                        <label for="menuEd">Pertenece al Menú</label>
+                                        <select class="form-control" disabled id="menuEd" name="idSubMenu">
                                             <option value="null" hidden>Seleccionar Menú</option>
                                             <%
 
@@ -260,7 +263,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="urlEd">Url</label>
-                                        <input value="<%=opcEdit.getUrl()%>" type="text" class="form-control" id="urlEd" placeholder="Url del Menú" name="url">
+                                        <input value="<%=opcEdit.getUrl()%>" disabled type="text" class="form-control" id="urlEd" placeholder="Url del Menú" name="url">
                                     </div>
                                 </div>
                                 <%}%>

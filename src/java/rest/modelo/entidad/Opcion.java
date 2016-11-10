@@ -18,6 +18,7 @@ public class Opcion {
     private String tipo;
     private String url;
     private String estado;
+    private String userIdReg;
 
     public Opcion() {
     }
@@ -76,6 +77,14 @@ public class Opcion {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

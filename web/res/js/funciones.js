@@ -598,7 +598,7 @@ function agregarVisita() {
     $("#aciones").html("Agregar Visita");
 }
 function cancelarVisita() {
-    document.getElementById("addvis").reset();
+    document.getElementById("addVisit").reset();
     document.getElementById('lista').style.display = 'block';
     document.getElementById('listaVis').style.display = 'block';
     document.getElementById('agregarVis').style.display = 'none';

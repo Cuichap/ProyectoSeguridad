@@ -26,7 +26,7 @@ public interface SeguridadDao {
     public boolean AgregarResponsabilidad(Responsabilidad responsabilidad);
     
     /* SEGURIDAD -- LISTAS */
-    public List<Usuario> listarUsuario();
+    public List<Usuario> listarUsuario(String estado);
     public List<Perfiles> listarPerfiles();
     public List<Acceso> listarAccesos();
     public List<Opcion> listarMenus();

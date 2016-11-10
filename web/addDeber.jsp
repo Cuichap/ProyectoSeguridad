@@ -13,6 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idDeberEdit = request.getParameter("idDeberEdit"); idDeberEdit = idDeberEdit == null?"":idDeberEdit;
+    String estadoDeber = request.getParameter("estadoDeber"); estadoDeber = estadoDeber == null?"1":estadoDeber;
 %>
 <!DOCTYPE html>
 <html>
@@ -40,12 +41,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'deberes', '1')" type="text" class="form-control" placeholder="Buscar Deber." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoDeber]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addDeber.jsp",
+                                            data: "estadoDeber="+ $('select[name=estadoDeber]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoDeber" class="form-control" name="estadoDeber">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoDeber.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoDeber.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -70,7 +85,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<Deber> listarDeber = dao.listarDeberes();
+                                        List<Deber> listarDeber = dao.listarDeberes(estadoDeber);
                                         for (Deber deb : listarDeber) {
                                             count++;
 

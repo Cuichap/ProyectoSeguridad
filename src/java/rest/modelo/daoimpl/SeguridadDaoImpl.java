@@ -115,11 +115,11 @@ public class SeguridadDaoImpl implements SeguridadDao{
     
     /* SEGURIDAD -- LISTAS */
     @Override
-    public List<Usuario> listarUsuario() {
+    public List<Usuario> listarUsuario(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Usuario> listaUser = new ArrayList<>();
         String query = "SELECT us.usuario_id as idusuario, us.persona_id as personaid, concat(per.nombre, ' ', per.apellidos) as nombres, us.tipo_persona_id as tipoperid, tper.nombre_tipo_persona as nombretipopersona, us.area_id as areaid, ar.nombre as nombrearea, us.perfil_id as idperfil, perf.nombre_perfil as nombreperfil, us.usuario, us.contrasena, us.codigo, us.numhabitacion as habitacion, us.numculto as culto, CASE us.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM usuario as us, persona as per, tipo_persona as tper, area as ar, perfil \n"
-                + "as perf WHERE us.persona_id=per.persona_id AND us.area_id=ar.area_id AND us.perfil_id=perf.perfil_id AND us.tipo_persona_id=tper.tipo_persona_id ORDER BY us.usuario_id DESC";
+                + "as perf WHERE us.persona_id=per.persona_id AND us.area_id=ar.area_id AND us.perfil_id=perf.perfil_id AND us.tipo_persona_id=tper.tipo_persona_id AND us.estado="+estado+" ORDER BY us.usuario_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Usuario usuario = new Usuario();

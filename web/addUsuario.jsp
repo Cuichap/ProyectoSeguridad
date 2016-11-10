@@ -16,7 +16,8 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    String idUsuarioEdit = request.getParameter("idUsuarioEdit"); idUsuarioEdit = idUsuarioEdit == null ? "" : idUsuarioEdit;
+    String idUsuarioEdit = request.getParameter("idUsuarioEdit"); idUsuarioEdit = idUsuarioEdit == null ? "" :idUsuarioEdit;
+    String estadoUsuario = request.getParameter("estadoUsuario"); estadoUsuario = estadoUsuario == null ? "1" :estadoUsuario;
 %>
 <!DOCTYPE html>
 <html>
@@ -44,12 +45,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'usuario', '1')" type="text" class="form-control" placeholder="Buscar Usuario." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoUsuario]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addUsuario.jsp",
+                                            data: "estadoUsuario="+ $('select[name=estadoUsuario]').val(),
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoUsuario" class="form-control" name="estadoUsuario">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoUsuario.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoUsuario.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -86,7 +101,7 @@
 
                                         int count = 0;
 
-                                        List<Usuario> listaUser = sdaoDao.listarUsuario();
+                                        List<Usuario> listaUser = sdaoDao.listarUsuario(estadoUsuario);
                                         for (Usuario usuario : listaUser) {
                                             count++;
                                     %>

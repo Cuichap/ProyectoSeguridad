@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idAreaEdit = request.getParameter("idAreaEdit"); idAreaEdit = idAreaEdit == null?"":idAreaEdit;
+    String estadoArea = request.getParameter("estadoArea"); estadoArea = estadoArea == null?"1":estadoArea;
 %>
 <!DOCTYPE html>
 <html>
@@ -38,12 +39,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'areas', '1')" type="text" class="form-control" placeholder="Buscar Área." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoArea]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addArea.jsp",
+                                            data: "estadoArea="+ $('select[name=estadoArea]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoArea" class="form-control" name="estadoArea">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoArea.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoArea.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -69,7 +84,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<Area> listarAreas = dao.listarArea();
+                                        List<Area> listarAreas = dao.listarArea(estadoArea);
                                         for (Area area : listarAreas) {
                                             count++;
 

@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idTipoVehiculoEdit = request.getParameter("idTipoVehiculoEdit"); idTipoVehiculoEdit = idTipoVehiculoEdit == null?"":idTipoVehiculoEdit;
+    String estadoTipoVehiculo = request.getParameter("estadoTipoVehiculo"); estadoTipoVehiculo = estadoTipoVehiculo == null?"1":estadoTipoVehiculo;
 %>
 <!DOCTYPE html>
 <html>
@@ -38,12 +39,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tipoVehiculo', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Vehículo." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoVehiculo]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoVehiculo.jsp",
+                                            data: "estadoTipoVehiculo="+ $('select[name=estadoTipoVehiculo]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoTipoVehiculo" class="form-control" name="estadoTipoVehiculo">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoVehiculo.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoVehiculo.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -65,7 +80,7 @@
                                     MantenimientoDao dao = new MantenimientoDaoImpl();
 
                                     int count = 0;
-                                    List<TipoVehiculo> listaTipoVehiculo = dao.listarTipoVehiculo();
+                                    List<TipoVehiculo> listaTipoVehiculo = dao.listarTipoVehiculo(estadoTipoVehiculo);
                                     for (TipoVehiculo tpvehiculo : listaTipoVehiculo) {
                                         count++;
                                     %>

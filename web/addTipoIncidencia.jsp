@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idTipoIncidenciaEdit = request.getParameter("idTipoIncidenciaEdit"); idTipoIncidenciaEdit = idTipoIncidenciaEdit == null ? "" : idTipoIncidenciaEdit;
+    String estadoTipoIncidencia = request.getParameter("estadoTipoIncidencia"); estadoTipoIncidencia = estadoTipoIncidencia == null ? "1" : estadoTipoIncidencia;
 %>
 <!DOCTYPE html>
 <html>
@@ -38,12 +39,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tipoincidencias', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Incidencias." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoIncidencia]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoIncidencia.jsp",
+                                            data: "estadoTipoIncidencia="+ $('select[name=estadoTipoIncidencia]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoObjeto" class="form-control" name="estadoObjeto">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoIncidencia.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoIncidencia.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -66,7 +81,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<TipoIncidencia> listarTipoInc = dao.listarTipoIncidencia();
+                                        List<TipoIncidencia> listarTipoInc = dao.listarTipoIncidencia(estadoTipoIncidencia);
                                         for (TipoIncidencia tipoinc : listarTipoInc) {
                                             count++;
 

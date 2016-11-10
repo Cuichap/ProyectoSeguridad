@@ -11,6 +11,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idTipoDocumentoEdit = request.getParameter("idTipoDocumentoEdit"); idTipoDocumentoEdit = idTipoDocumentoEdit == null ? "" : idTipoDocumentoEdit;
+    String estadoTipoDocumento = request.getParameter("estadoTipoDocumento"); estadoTipoDocumento = estadoTipoDocumento == null?"1": estadoTipoDocumento;
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -38,12 +40,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tipodocumentos', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Documentos." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoDocumento]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoDocumento.jsp",
+                                            data: "estadoTipoDocumento="+ $('select[name=estadoTipoDocumento]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoTipoDocumento" class="form-control" name="estadoTipoDocumento">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoDocumento.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoDocumento.equals("0")){%>selected<%}%> value="0">Inactivos</option>
                                 </select>
                             </div>
                         </article>
@@ -66,7 +82,7 @@
 
                                         int count = 0;
 
-                                        List<TipoDocumento> listaTipoDoc = dao.listarTipoDocumento();
+                                        List<TipoDocumento> listaTipoDoc = dao.listarTipoDocumento(estadoTipoDocumento);
                                         for (TipoDocumento tipodoc : listaTipoDoc) {
                                             count++;
                                     %>

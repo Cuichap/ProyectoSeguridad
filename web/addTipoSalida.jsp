@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idTippoSalidaEdit = request.getParameter("idTippoSalidaEdit"); idTippoSalidaEdit = idTippoSalidaEdit == null ? "" : idTippoSalidaEdit;
+    String estadoTipoSalida = request.getParameter("estadoTipoSalida"); estadoTipoSalida = estadoTipoSalida == null ? "1" : estadoTipoSalida;
 %>
 <!DOCTYPE html>
 <html>
@@ -38,12 +39,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tiposalidas', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Salidas." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoSalida]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoSalida.jsp",
+                                            data: "estadoTipoSalida="+ $('select[name=estadoTipoSalida]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                 <select id="estadoTipoSalida" class="form-control" name="estadoTipoSalida">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoSalida.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoSalida.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -66,7 +81,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<TipoPermiso> listarPermiso = dao.listarSalida();
+                                        List<TipoPermiso> listarPermiso = dao.listarSalida(estadoTipoSalida);
                                         for (TipoPermiso tipoper : listarPermiso) {
                                             count++;
 

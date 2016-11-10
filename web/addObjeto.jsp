@@ -11,6 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idObjetoEdit = request.getParameter("idObjetoEdit"); idObjetoEdit = idObjetoEdit == null ? "" : idObjetoEdit;
+    String estadoObjeto = request.getParameter("estadoObjeto"); estadoObjeto = estadoObjeto == null ? "1" : estadoObjeto;
 %>
 <!DOCTYPE html>
 <html>
@@ -38,12 +39,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'objetos', '1')" type="text" class="form-control" placeholder="Buscar Objeto." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoObjeto]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addObjeto.jsp",
+                                            data: "estadoObjeto="+ $('select[name=estadoObjeto]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoObjeto" class="form-control" name="estadoObjeto">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoObjeto.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoObjeto.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -67,7 +82,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<Objeto> listarObjeto = dao.listarObjeto();
+                                        List<Objeto> listarObjeto = dao.listarObjeto(estadoObjeto);
                                         for (Objeto obj : listarObjeto) {
 
                                             count++;

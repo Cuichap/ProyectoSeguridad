@@ -13,39 +13,67 @@
 
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
                     <div class="col-xs-5">
-                        <i class="fa fa-truck fa-5x"></i>
+                        <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
                         <p class="alerts-heading">343</p>
-                        <p class="alerts-text">Orders</p>
+                        <p class="alerts-text">Permisos</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
                     <div class="col-xs-5">
-                        <i class="fa fa-download fa-5x"></i>
+                        <i class="fa fa-map fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">1453</p>
-                        <p class="alerts-text">Downloads</p>
+                        <p class="alerts-heading">453</p>
+                        <p class="alerts-text">Visitas</p>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="col-lg-3">
+            <div class="panel panel-default ">
+                <div class="panel-body alert-info">
+                    <div class="col-xs-5">
+                        <i class="fa fa-bicycle fa-5x"></i>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <p class="alerts-heading">78</p>
+                        <p class="alerts-text">Incidencias</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default ">
+                <div class="panel-body alert-info">
+                    <div class="col-xs-5">
+                        <i class="fa fa-steam fa-5x"></i>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <p class="alerts-heading">28</p>
+                        <p class="alerts-text">Mantenimiento</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <div class="row">
         <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Sales personnel Data</h3>
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Reporte Diario</h3>
                 </div>
                 <div class="panel-body">
                     <div id="shieldui-grid1"></div>
@@ -55,7 +83,7 @@
         <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Logins per week</h3>
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Reporte Semanal</h3>
                 </div>
                 <div class="panel-body">
                     <div id="shieldui-chart2"></div>
@@ -65,39 +93,10 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6">
-            <div class="panel panel-default ">
-                <div class="panel-body alert-info">
-                    <div class="col-xs-5">
-                        <i class="fa fa-money fa-5x"></i>
-                    </div>
-                    <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">173</p>
-                        <p class="alerts-text">Income</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-default ">
-                <div class="panel-body alert-info">
-                    <div class="col-xs-5">
-                        <i class="fa fa-twitter fa-5x"></i>
-                    </div>
-                    <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">743</p>
-                        <p class="alerts-text">Mentions</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Sales Data</h3>
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Reporte Mensual</h3>
                 </div>
                 <div class="panel-body">
                     <div id="shieldui-chart3"></div>

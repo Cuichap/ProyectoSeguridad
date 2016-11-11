@@ -30,7 +30,7 @@ public interface SeguridadDao {
     public boolean EditarPerfil(Perfiles perfiles, String id);
     public boolean EditarAccesos(Acceso acceso, String id);
     public boolean EditarOpciones(Opcion opcion, String id);
-    public boolean EditarResponsabilidad(Responsabilidad responsabilidad, String id);
+    public boolean EditarResponsabilidad(Responsabilidad responsabilidad, String iddeb, String iduser, String idturn);
     
     /* SEGURIDAD -- LISTAS */
     public List<Usuario> listarUsuario(String estado);

@@ -26,7 +26,7 @@ public class SeguridadDaoImpl implements SeguridadDao{
     @Override
     public boolean AgregarUsuario(Usuario usuario) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO usuario VALUES (null, " + usuario.getPersonaid() + ", " + usuario.getTipopersonaid() + ", " + usuario.getAreaid() + ", " + usuario.getPerfilid() + ", '" + usuario.getUsuario() + "', '" + usuario.getContrasena() + "', '" + usuario.getCodigo() + "', '" + usuario.getHabitacion() + "', '" + usuario.getCulto() + "', 1)";
+        String COMANDO = "INSERT INTO usuario VALUES (null, " + usuario.getPersonaid() + ", " + usuario.getTipopersonaid() + ", " + usuario.getAreaid() + ", " + usuario.getPerfilid() + ", '" + usuario.getUsuario() + "', '" + usuario.getContrasena() + "', '" + usuario.getCodigo() + "', '" + usuario.getHabitacion() + "', '" + usuario.getCulto() + "', 1, '"+ usuario.getUserIdReg() +"')";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -44,7 +44,7 @@ public class SeguridadDaoImpl implements SeguridadDao{
     @Override
     public boolean AgregarPerfil(Perfiles perfiles) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO perfil VALUES (null, '" + perfiles.getNombreperfil() + "', 1)";
+        String COMANDO = "INSERT INTO perfil VALUES (null, '" + perfiles.getNombreperfil() + "', 1, '"+ perfiles.getUserIdReg() +"')";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -98,7 +98,7 @@ public class SeguridadDaoImpl implements SeguridadDao{
     @Override
     public boolean AgregarResponsabilidad(Responsabilidad responsabilidad) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "INSERT INTO deber_usuario VALUES (" + responsabilidad.getDeberid() + ", " + responsabilidad.getUsuarioid() + ", " + responsabilidad.getTurnoid() + ", '" + responsabilidad.getFecha() + "', " + responsabilidad.getUsuarioidreg() + ", 1)";
+        String COMANDO = "INSERT INTO deber_usuario VALUES (" + responsabilidad.getDeberid() + ", " + responsabilidad.getUsuarioid() + ", " + responsabilidad.getTurnoid() + ", '" + responsabilidad.getFecha() + "', " + responsabilidad.getUserIdReg() + ", 1)";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -116,27 +116,97 @@ public class SeguridadDaoImpl implements SeguridadDao{
     /* SEGURIDAD -- EDITAR */
     @Override
     public boolean EditarUsuario(Usuario usuario, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE usuario SET tipo_persona_id='"+ usuario.getTipopersonaid() +"', area_id='"+ usuario.getAreaid() +"', perfil_id='"+ usuario.getPerfilid() +"', usuario='"+ usuario.getUsuario() +"', codigo='"+ usuario.getCodigo() +"', numhabitacion='"+ usuario.getHabitacion() +"', numculto='"+ usuario.getCulto() +"', usuario_id_reg='"+ usuario.getUserIdReg() +"' WHERE usuario_id='"+ id +"' ";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
     }
 
     @Override
     public boolean EditarPerfil(Perfiles perfiles, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE perfil SET nombre_perfil='"+ perfiles.getNombreperfil() +"', usuario_id_reg='"+ perfiles.getUserIdReg() +"' WHERE perfil_id='"+ id +"' ";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
     }
 
     @Override
     public boolean EditarAccesos(Acceso acceso, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = " ";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
     }
 
     @Override
     public boolean EditarOpciones(Opcion opcion, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE opciones SET menu='"+ opcion.getMenu() +"', usuario_id_reg='"+ opcion.getUserIdReg() +"' WHERE opciones_id='"+ id +"' ";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
     }
 
     @Override
-    public boolean EditarResponsabilidad(Responsabilidad responsabilidad, String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean EditarResponsabilidad(Responsabilidad responsabilidad, String iddeb, String iduser, String idturn) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE deber_usuario SET fecha='"+ responsabilidad.getFecha() +"', usuario_id_reg='"+ responsabilidad.getUserIdReg() +"' WHERE deber_id='"+ iddeb +"' and usuario_id='"+ iduser +"' and turno_id='"+ idturn +"' ";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        }
+        catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
     }
     
     /* SEGURIDAD -- LISTAS */
@@ -331,13 +401,14 @@ public class SeguridadDaoImpl implements SeguridadDao{
     public List<Responsabilidad> listarEditResponsabilidad(String iddeb, String iduser, String idtur) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Responsabilidad> listaEditResponsabilidad = new ArrayList<>();
-        String query = "SELECT usuario_id as usid, turno_id as turid, fecha, usuario_id_reg FROM deber_usuario WHERE deber_id='"+ iddeb +"' and usuario_id='"+ iduser +"' and turno_id='"+ idtur +"'";
+        String query = "SELECT us.usuario as usuario, du.deber_id as id1, du.usuario_id as id2, du.turno_id as id3, du.fecha as fecha FROM deber_usuario as du, usuario as us WHERE du.deber_id='"+ iddeb +"' AND du.usuario_id='"+ iduser +"' AND du.turno_id='"+ idtur +"' AND du.usuario_id=us.usuario_id";
         cx.execQuery(query);
         while (cx.getNext()) {
             Responsabilidad responsabilidad = new Responsabilidad();
             responsabilidad.setDeberid(cx.getCol("id1"));
             responsabilidad.setUsuarioid(cx.getCol("id2"));
             responsabilidad.setTurnoid(cx.getCol("id3"));
+            responsabilidad.setNomresponsab(cx.getCol("usuario"));
             responsabilidad.setFecha(cx.getCol("fecha"));
             listaEditResponsabilidad.add(responsabilidad);
         }

@@ -86,7 +86,7 @@
                                         <th hidden>Perfil Id</th>
                                         <th>Perfil</th>
                                         <th>Usuario</th>
-                                        <th>Contraseña</th>
+                                        <th hidden>Contraseña</th>
                                         <th>Codigo</th>
                                         <th>Habitación</th>
                                         <th>Culto</th>
@@ -117,7 +117,7 @@
                                         <td hidden><%=usuario.getPerfilid()%></td>
                                         <td><%=usuario.getNombreperfil()%></td>
                                         <td><%=usuario.getUsuario()%></td>
-                                        <td><%=usuario.getContrasena()%></td>
+                                        <td hidden><%=usuario.getContrasena()%></td>
                                         <td><%=usuario.getCodigo()%></td>
                                         <td><%=usuario.getHabitacion()%></td>
                                         <td><%=usuario.getCulto()%></td>
@@ -277,6 +277,7 @@
                                         <label for="usuario">Usuario</label>
                                         <input required type="text" maxlength="20" class="form-control" id="usuario" placeholder="Usuario" name="user">
                                         <input type="hidden" name="opcion" value="AddUsuario">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -417,6 +418,7 @@
                                         <input value="<%=usuarioEdit.getUsuario()%>" required type="text" maxlength="20" class="form-control" id="usuarioEd" placeholder="Usuario" name="user">
                                         <input type="hidden" name="opcion" value="EditUsuario">
                                         <input type="hidden" name="id" value="<%=idUsuarioEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

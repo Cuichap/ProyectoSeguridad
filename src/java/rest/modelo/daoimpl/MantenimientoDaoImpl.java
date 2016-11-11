@@ -18,7 +18,6 @@ import rest.modelo.entidad.Objeto;
 import rest.modelo.entidad.Opcion;
 import rest.modelo.entidad.Perfiles;
 import rest.modelo.entidad.Persona;
-import rest.modelo.entidad.Responsabilidad;
 import rest.modelo.entidad.TipoDeber;
 import rest.modelo.entidad.TipoDocumento;
 import rest.modelo.entidad.TipoIncidencia;

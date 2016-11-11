@@ -14,6 +14,7 @@ public class Perfiles {
     private String perfilid;
     private String nombreperfil;
     private String estado;
+    private String userIdReg;
 
     public Perfiles() {
     }
@@ -40,6 +41,14 @@ public class Perfiles {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

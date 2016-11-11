@@ -166,6 +166,7 @@
                                         <label for="perfil">Perfil</label>
                                         <input type="text" pattern="^[A-Za-záéíóúñÑ ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="AddPerfil">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -202,6 +203,7 @@
                                         <input value="<%=perfilesEdit.getNombreperfil()%>" type="text" pattern="^[A-Za-záéíóúÑñ ]*" maxlength="50" class="form-control" id="perfilEdit" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="EditPerfil">
                                         <input type="hidden" name="id" value="<%=idPerfilEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

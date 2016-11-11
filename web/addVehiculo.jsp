@@ -205,7 +205,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="placaEdit">Placa</label>
-                                        <input required type="text" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <input required type="text" pattern="^[-*&#%A-Za-záéíóú0-9][A-Za-záéíóú0-9]*" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -279,7 +279,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="placaEdit">Placa</label>
-                                        <input value="<%=vehiculoEditar.getNumplaca()%>" required type="text" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <input  value="<%=vehiculoEditar.getNumplaca()%>" required type="text" pattern="^[A-Za-záéíóúÑñ][A-Za-záéíóúÑñ]*" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

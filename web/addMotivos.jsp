@@ -157,11 +157,13 @@
                         <form id="addmotivo" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="motivo">Motivo</label>
-                                        <input type="text" class="form-control" id="motivo" placeholder="Nombre del Motivo" name="nombres">
+                                        <input required maxlength="30" type="text" class="form-control" id="motivo" placeholder="Nombre del Motivo" name="nombres">
                                         <input type="hidden" name="opcion" value="AddMotivo">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -191,12 +193,14 @@
                         <form id="editmotivo" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="motivoEdit">Motivo</label>
-                                        <input value="<%=motivoEditar.getNombremotivo()%>" type="text" class="form-control" id="motivoEdit" placeholder="Nombre del Motivo" name="nombres">
+                                        <input required maxlength="30" value="<%=motivoEditar.getNombremotivo()%>" type="text" class="form-control" id="motivoEdit" placeholder="Nombre del Motivo" name="nombres">
                                         <input type="hidden" name="opcion" value="EditMotivo">
                                         <input type="hidden" name="id" value="<%=idMotivoEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -270,6 +274,10 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+           $().ready(function () {
+                $("#addmotivo").validator({debug: true});
+                $("#editmotivo").validator({debug: true});
             });
         </script> 
     </body>

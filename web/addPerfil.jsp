@@ -149,7 +149,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="perfil">Perfil</label>
-                                        <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
+                                        <input type="text" pattern="^[A-Za-záéíóúñÑ ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="AddPerfil">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
@@ -184,7 +184,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="perfilEdit">Nombre del Perfil</label>
-                                        <input value="<%=perfilesEdit.getNombreperfil()%>" type="text" pattern="^[A-Za-záéíóú ]*" maxlength="50" class="form-control" id="perfilEdit" placeholder="Nombre del Perfil" name="nombres"  required>
+                                        <input value="<%=perfilesEdit.getNombreperfil()%>" type="text" pattern="^[A-Za-záéíóúÑñ ]*" maxlength="50" class="form-control" id="perfilEdit" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="EditPerfil">
                                         <input type="hidden" name="id" value="<%=idPerfilEdit%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>

@@ -648,7 +648,7 @@ function ir35() {
         type: "POST",
         url: "reporteVisitas.jsp",
         success: function (data) {
-            $("#seguridad").html(data);
+            $("#reportes").html(data);
             $("#breadseg").html($("#35").val());
             $("#aciones").html("Reporte de Visitas");
             $('#submenu35').css({"background": "#000000"});
@@ -664,7 +664,7 @@ function ir36() {
         type: "POST",
         url: "reporteIncidencias.jsp",
         success: function (data) {
-            $("#seguridad").html(data);
+            $("#reportes").html(data);
             $("#breadseg").html($("#36").val());
             $("#aciones").html("Reporte de Incidencias");
             $('#submenu35').css({"background": ""});
@@ -680,7 +680,7 @@ function ir37() {
         type: "POST",
         url: "reportePermisos.jsp",
         success: function (data) {
-            $("#seguridad").html(data);
+            $("#reportes").html(data);
             $("#breadseg").html($("#37").val());
             $("#aciones").html("Reporte de Permisos");
             $('#submenu35').css({"background": ""});

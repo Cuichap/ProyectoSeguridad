@@ -24,17 +24,14 @@
 
 <script>
     $(document).ready(function () {
-    <% if (IdSubMenu.equals("31") || IdSubMenu.equals("")) { %>
-        //ir31();
+    <% if (IdSubMenu.equals("35") || IdSubMenu.equals("")) { %>
+        ir35();
     <%}
-        if (IdSubMenu.equals("32")) { %>
-        //ir32();
+        if (IdSubMenu.equals("36")) { %>
+        ir36();
     <%}
-        if (IdSubMenu.equals("33")) { %>
-        //ir33();
-    <%}
-        if (IdSubMenu.equals("34")) { %>
-        //ir34();
+        if (IdSubMenu.equals("37")) { %>
+        ir37();
     <%}%>
 
         $('[data-toggle="tooltip"]').tooltip();

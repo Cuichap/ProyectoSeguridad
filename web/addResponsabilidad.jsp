@@ -20,6 +20,9 @@
     String idTurnoEdit = request.getParameter("idTurnoEdit"); idTurnoEdit = idTurnoEdit == null ? "" : idTurnoEdit;
 %>
 <!DOCTYPE html>
+<%
+    String estadoResponsabilidad = request.getParameter("estadoResponsabilidad"); estadoResponsabilidad = estadoResponsabilidad == null ? "1" : estadoResponsabilidad;
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
@@ -45,12 +48,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'responsabilidades', '1')" type="text" class="form-control" placeholder="Buscar Responsabilidades." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoResponsabilidad]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addResponsabilidad.jsp",
+                                            data: "estadoResponsabilidad="+ $('select[name=estadoResponsabilidad]').val(),
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoResponsabilidad" class="form-control" name="estadoResponsabilidad">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoResponsabilidad.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoResponsabilidad.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -80,7 +97,7 @@
                                         
                                         int count = 0;
 
-                                        List<Responsabilidad> listarResponsabilidad = sdaoDao.listarResponsabilidad();
+                                        List<Responsabilidad> listarResponsabilidad = sdaoDao.listarResponsabilidad(estadoResponsabilidad);
                                         for (Responsabilidad resp : listarResponsabilidad) {
                                             count++;
                                     %>

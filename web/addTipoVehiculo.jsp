@@ -158,7 +158,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo de Vehículo</label>
-                                        <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="tipo" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
+                                        <input type="text" pattern="^[A-Za-záéíóúÑñ ]*" maxlength="20" class="form-control" id="tipo" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
                                         <input type="hidden" name="opcion" value="AddTipoVehiculo">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -194,7 +194,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="nombreTipoVehiculoEdit">Nombre del Tipo de Vehículo</label>
-                                        <input value="<%=tvEditar.getNombretipovehiculo()%>" type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="nombreTipoVehiculoEdit" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
+                                        <input value="<%=tvEditar.getNombretipovehiculo()%>" type="text" pattern="^[A-Za-záéíóúñÑ ]*" maxlength="20" class="form-control" id="nombreTipoVehiculoEdit" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
                                         <input type="hidden" name="opcion" value="EditTipoVehiculo">
                                         <input type="hidden" name="id" value="<%=idTipoVehiculoEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
@@ -276,7 +276,7 @@
             });
             $().ready(function () {
                 $("#addtipovehiculo").validator({debug: true});
-                $("#edittipovehiculoEdit").validator({debug: true});
+                $("#edittipovehiculo").validator({debug: true});
             });
         </script>
     </body>

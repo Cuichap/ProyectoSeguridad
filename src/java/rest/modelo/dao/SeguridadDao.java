@@ -34,10 +34,10 @@ public interface SeguridadDao {
     
     /* SEGURIDAD -- LISTAS */
     public List<Usuario> listarUsuario(String estado);
-    public List<Perfiles> listarPerfiles();
-    public List<Acceso> listarAccesos();
-    public List<Opcion> listarMenus();
-    public List<Responsabilidad> listarResponsabilidad();
+    public List<Perfiles> listarPerfiles(String estado);
+    public List<Acceso> listarAccesos(String estado);
+    public List<Opcion> listarMenus(String estado);
+    public List<Responsabilidad> listarResponsabilidad(String estado);
     
     /* SEGURIDAD -- EXTRAS */
     public boolean RestablecerPassword(String id);

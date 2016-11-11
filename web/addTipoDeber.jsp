@@ -157,7 +157,7 @@
                         <form id="addtipodeber" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipo">Tipo de Deber</label>
                                         <input required maxlength="30" type="text" class="form-control" id="tipo" placeholder="Nombre del Tipo de Deber" name="nombres">
                                         <input type="hidden" name="opcion" value="AddTipoDeber">

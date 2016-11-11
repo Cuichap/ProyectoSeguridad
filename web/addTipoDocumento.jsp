@@ -157,11 +157,14 @@
                         <form id="addtipodocumento" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoDocumento">Tipo de Documento</label>
-                                        <input type="text" class="form-control" id="tipoDocumento" placeholder="Nombre del Tipo de Documento" name="nombres">
+                                        <input required pattern="^[A-Za-záéíóúñÑ,. ]*" type="text" maxlength="30" class="form-control" id="tipoDocumento" placeholder="Nombre del Tipo de Documento" name="nombres">
                                         <input type="hidden" name="opcion" value="AddTipoDocumento">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -191,12 +194,14 @@
                         <form id="edittipodocumento" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoDocumentoEdit">Nombre del Tipo de Documento</label>
-                                        <input value="<%=tdEditar.getNombredocumento()%>" type="text" class="form-control" id="tipoDocumentoEdit" placeholder="Nombre del Tipo de Documento" name="nombres">
+                                        <input required pattern="^[A-Za-záéíóúñÑ,. ]*" value="<%=tdEditar.getNombredocumento()%>" type="text" class="form-control" id="tipoDocumentoEdit" placeholder="Nombre del Tipo de Documento" name="nombres">
                                         <input type="hidden" name="opcion" value="EditTipoDocumento">
                                         <input type="hidden" name="id" value="<%=idTipoDocumentoEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -270,6 +275,10 @@
         <script type="text/javascript">
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+               $().ready(function () {
+                $("#addtipodocumento").validator({debug: true});
+                $("#edittipodocumento").validator({debug: true});
             });
         </script> 
     </body>

@@ -158,17 +158,21 @@
                         <form id="addtiposalida" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoSalida">Tipo de Salida</label>
-                                        <input type="text" class="form-control" id="tipoSalida" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <input required maxlength="30" pattern="^[A-Za-záéíóúñÑ,. ]*" type="text" class="form-control" id="tipoSalida" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="descripcion">Descripción</label>
-                                        <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Salida" name="descripcion"></textarea>
+                                        <textarea  maxlength="300" class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Salida" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddTipoSalida">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -198,15 +202,17 @@
                         <form id="edittiposalida" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoSalidaEdit">Nombre del Tipo de Salida</label>
-                                        <input value="<%=tpEditar.getNombretipopermiso()%>" type="text" class="form-control" id="tipoSalidaEdit" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <input required maxlength="30" pattern="^[A-Za-záéíóúñÑ,. ]*" value="<%=tpEditar.getNombretipopermiso()%>" type="text" class="form-control" id="tipoSalidaEdit" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="descripcionEdit">Descripción</label>
-                                        <input value="<%=tpEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Salida" name="descripcion">
+                                        <input maxlength="300" value="<%=tpEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Salida" name="descripcion">
                                         <input type="hidden" name="opcion" value="EditTipoSalida">
                                         <input type="hidden" name="id" value="<%=idTippoSalidaEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
@@ -283,6 +289,10 @@
         <script type="text/javascript">
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+               $().ready(function () {
+                $("#addtiposalida").validator({debug: true});
+                $("#edittiposalida").validator({debug: true});
             });
         </script> 
     </body>

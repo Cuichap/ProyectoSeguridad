@@ -29,6 +29,31 @@ public class ReporteDaoImpl implements ReporteDao{
         int cantidad=Integer.parseInt(cx.getCol("cantidadP"));        
         return cantidad; 
         }
+
+    @Override
+    public List<Visita> ListaVisitas() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Visita> listaVisi = new ArrayList<>();
+        String query = "SELECT v.visita_id as idv, p.persona_id idp, concat(p.nombre,' ', p.apellidos) as nombres, v.fechaentrada as fecha1, v.horaentrada as hora1, v.destino as destino, ifnull(v.visitado,'----') as visitado, ifnull(v.descripcion,'----') as descripcion, v.fechasalida as fecha2,  v.horasalida as hora2, CASE v.estado WHEN 0 THEN 'Inactivo' WHEN 1 THEN 'Activo' END as estado \n" +
+                        "FROM visita v, persona_visita as pv, persona as p, tipo_documento as td, usuario as us WHERE v.visita_id=pv.visita_id and pv.persona_id=p.persona_id and p.tipo_documento_id=td.tipo_documento_id and us.usuario_id=v.usuario_id_reg";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Visita visita = new Visita();
+            visita.setVisitaid(cx.getCol("idv"));
+            visita.setPersonaid(cx.getCol("idp"));
+            visita.setNombres(cx.getCol("nombres"));
+            visita.setFechaentrada(cx.getCol("fecha1"));
+            visita.setHoraentrada(cx.getCol("hora1"));
+            visita.setDestino(cx.getCol("destino"));
+            visita.setVisitado(cx.getCol("visitado"));
+            visita.setDescripcion(cx.getCol("descripción"));
+            visita.setFechasalida(cx.getCol("fecha2"));
+            visita.setHorasalida(cx.getCol("hora2"));
+            visita.setEstado(cx.getCol("estado"));
+            listaVisi.add(visita);
+        }
+        return listaVisi;
+    }
 }
     
     

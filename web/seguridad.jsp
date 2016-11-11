@@ -24,20 +24,23 @@
 
 <script>
     $(document).ready(function () {
-    <% if (IdSubMenu.equals("29") || IdSubMenu.equals("")) { %>
-        ir29();
-    <%}
-        if (IdSubMenu.equals("30")) { %>
-        ir30();
-    <%}
-        if (IdSubMenu.equals("31")) { %>
-        ir31();
-    <%}
-        if (IdSubMenu.equals("32")) { %>
-        ir32();
-    <%}
-        if (IdSubMenu.equals("33")) { %>
-        ir33();
+    <% if (!Perfil.equals("3")) {%>
+        <% if (IdSubMenu.equals("29") || IdSubMenu.equals("")) { %>
+            ir29();
+        <%} if (IdSubMenu.equals("30")) { %>
+            ir30();
+        <%} if (IdSubMenu.equals("31")) { %>
+            ir31();
+        <%} if (IdSubMenu.equals("32")) { %>
+            ir32();
+        <%} if (IdSubMenu.equals("33")) { %>
+            ir33();
+        <%}%>
+    <%}%>
+    <% if(Perfil.equals("3")){ %>
+        <% if (IdSubMenu.equals("33") || IdSubMenu.equals("")) { %>
+            ir33();
+        <%}%>
     <%}%>
 
         $('[data-toggle="tooltip"]').tooltip();

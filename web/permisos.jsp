@@ -35,6 +35,8 @@
         ir7();
     <%} if (IdSubMenu.equals("8")) { %>
         ir8();
+    <%} if (IdSubMenu.equals("38")) { %>
+        ir38(); 
     <%}%>
     });
 </script>

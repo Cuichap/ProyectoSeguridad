@@ -28,6 +28,7 @@ public class Usuario {
     private String habitacion;
     private String culto;
     private String estado;
+    private String userIdReg;
 
     public Usuario() {
     }
@@ -166,6 +167,14 @@ public class Usuario {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUserIdReg() {
+        return userIdReg;
+    }
+
+    public void setUserIdReg(String userIdReg) {
+        this.userIdReg = userIdReg;
     }
     
 }

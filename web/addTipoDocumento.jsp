@@ -12,6 +12,8 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoDocumentoEdit = request.getParameter("idTipoDocumentoEdit"); idTipoDocumentoEdit = idTipoDocumentoEdit == null ? "" : idTipoDocumentoEdit;
+    String estadoTipoDocumento = request.getParameter("estadoTipoDocumento"); estadoTipoDocumento = estadoTipoDocumento == null?"1": estadoTipoDocumento;
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -39,12 +41,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tipodocumentos', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Documentos." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoDocumento]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoDocumento.jsp",
+                                            data: "estadoTipoDocumento="+ $('select[name=estadoTipoDocumento]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoTipoDocumento" class="form-control" name="estadoTipoDocumento">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoDocumento.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoDocumento.equals("0")){%>selected<%}%> value="0">Inactivos</option>
                                 </select>
                             </div>
                         </article>
@@ -67,7 +83,7 @@
 
                                         int count = 0;
 
-                                        List<TipoDocumento> listaTipoDoc = dao.listarTipoDocumento();
+                                        List<TipoDocumento> listaTipoDoc = dao.listarTipoDocumento(estadoTipoDocumento);
                                         for (TipoDocumento tipodoc : listaTipoDoc) {
                                             count++;
                                     %>
@@ -141,11 +157,14 @@
                         <form id="addtipodocumento" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoDocumento">Tipo de Documento</label>
-                                        <input type="text" class="form-control" id="tipoDocumento" placeholder="Nombre del Tipo de Documento" name="nombres">
+                                        <input required pattern="^[A-Za-záéíóúñÑ,. ]*" type="text" maxlength="30" class="form-control" id="tipoDocumento" placeholder="Nombre del Tipo de Documento" name="nombres">
                                         <input type="hidden" name="opcion" value="AddTipoDocumento">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -175,12 +194,14 @@
                         <form id="edittipodocumento" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoDocumentoEdit">Nombre del Tipo de Documento</label>
-                                        <input value="<%=tdEditar.getNombredocumento()%>" type="text" class="form-control" id="tipoDocumentoEdit" placeholder="Nombre del Tipo de Documento" name="nombres">
+                                        <input required pattern="^[A-Za-záéíóúñÑ,. ]*" value="<%=tdEditar.getNombredocumento()%>" type="text" class="form-control" id="tipoDocumentoEdit" placeholder="Nombre del Tipo de Documento" name="nombres">
                                         <input type="hidden" name="opcion" value="EditTipoDocumento">
                                         <input type="hidden" name="id" value="<%=idTipoDocumentoEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -254,6 +275,10 @@
         <script type="text/javascript">
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+               $().ready(function () {
+                $("#addtipodocumento").validator({debug: true});
+                $("#edittipodocumento").validator({debug: true});
             });
         </script> 
     </body>

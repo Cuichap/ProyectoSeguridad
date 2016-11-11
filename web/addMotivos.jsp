@@ -12,6 +12,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idMotivoEdit = request.getParameter("idMotivoEdit"); idMotivoEdit = idMotivoEdit == null ? "" : idMotivoEdit;
+    String estadoMotivo = request.getParameter("estadoMotivo"); estadoMotivo = estadoMotivo == null ? "1" : estadoMotivo;
 %>
 <!DOCTYPE html>
 <html>
@@ -39,12 +40,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'motivos', '1')" type="text" class="form-control" placeholder="Buscar Motivos." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoMotivo]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addMotivos.jsp",
+                                            data: "estadoMotivo="+ $('select[name=estadoMotivo]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoMotivo" class="form-control" name="estadoMotivo">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoMotivo.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoMotivo.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -66,7 +81,7 @@
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
-                                        List<Motivo> listarMot = dao.listarMotivos();
+                                        List<Motivo> listarMot = dao.listarMotivos(estadoMotivo);
                                         for (Motivo list : listarMot) {
 
                                             count++;
@@ -142,11 +157,13 @@
                         <form id="addmotivo" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="motivo">Motivo</label>
-                                        <input type="text" class="form-control" id="motivo" placeholder="Nombre del Motivo" name="nombres">
+                                        <input required maxlength="30" type="text" class="form-control" id="motivo" placeholder="Nombre del Motivo" name="nombres">
                                         <input type="hidden" name="opcion" value="AddMotivo">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -176,12 +193,14 @@
                         <form id="editmotivo" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="motivoEdit">Motivo</label>
-                                        <input value="<%=motivoEditar.getNombremotivo()%>" type="text" class="form-control" id="motivoEdit" placeholder="Nombre del Motivo" name="nombres">
+                                        <input required maxlength="30" value="<%=motivoEditar.getNombremotivo()%>" type="text" class="form-control" id="motivoEdit" placeholder="Nombre del Motivo" name="nombres">
                                         <input type="hidden" name="opcion" value="EditMotivo">
                                         <input type="hidden" name="id" value="<%=idMotivoEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -255,6 +274,10 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+           $().ready(function () {
+                $("#addmotivo").validator({debug: true});
+                $("#editmotivo").validator({debug: true});
             });
         </script> 
     </body>

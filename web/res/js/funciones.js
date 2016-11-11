@@ -11,6 +11,10 @@ function ir3() {
             $('#submenu3').css({"background": "#000000"});
             $('#submenu4').css({"background": ""});
             $('#submenu5').css({"background": ""});
+            $('#submenu6').css({"background": ""});
+            $('#submenu7').css({"background": ""});
+            $('#submenu8').css({"background": ""});
+            $('#submenu38').css({"background": ""});
         }
     });
 }
@@ -27,6 +31,10 @@ function ir4() {
             $('#submenu3').css({"background": ""});
             $('#submenu4').css({"background": "#000000"});
             $('#submenu5').css({"background": ""});
+            $('#submenu6').css({"background": ""});
+            $('#submenu7').css({"background": ""});
+            $('#submenu8').css({"background": ""});
+            $('#submenu38').css({"background": ""});
         }
     });
 }
@@ -43,6 +51,90 @@ function ir5() {
             $('#submenu3').css({"background": ""});
             $('#submenu4').css({"background": ""});
             $('#submenu5').css({"background": "#000000"});
+            $('#submenu6').css({"background": ""});
+            $('#submenu7').css({"background": ""});
+            $('#submenu8').css({"background": ""});
+            $('#submenu38').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Permiso Residente */
+function ir6() {
+    $.ajax({
+        type: "POST",
+        url: "addPermisoResidente.jsp",
+        success: function (data) {
+            $("#permisos").html(data);
+            $("#breadseg").html($("#6").val());
+            $("#aciones").html("Permisos Solicitados");
+            $('#submenu3').css({"background": ""});
+            $('#submenu4').css({"background": ""});
+            $('#submenu5').css({"background": ""});
+            $('#submenu6').css({"background": "#000000"});
+            $('#submenu7').css({"background": ""});
+            $('#submenu8').css({"background": ""});
+            $('#submenu38').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Permiso Preseptor */
+function ir7() {
+    $.ajax({
+        type: "POST",
+        url: "addPermisoPreceptor.jsp",
+        success: function (data) {
+            $("#permisos").html(data);
+            $("#breadseg").html($("#7").val());
+            $("#aciones").html("Permisos Solicitados");
+            $('#submenu3').css({"background": ""});
+            $('#submenu4').css({"background": ""});
+            $('#submenu5').css({"background": ""});
+            $('#submenu6').css({"background": ""});
+            $('#submenu7').css({"background": "#000000"});
+            $('#submenu8').css({"background": ""});
+            $('#submenu38').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Permiso Personal */
+function ir8() {
+    $.ajax({
+        type: "POST",
+        url: "addPermisoPersonal.jsp",
+        success: function (data) {
+            $("#permisos").html(data);
+            $("#breadseg").html($("#8").val());
+            $("#aciones").html("Permisos Solicitados");
+            $('#submenu3').css({"background": ""});
+            $('#submenu4').css({"background": ""});
+            $('#submenu5').css({"background": ""});
+            $('#submenu6').css({"background": ""});
+            $('#submenu7').css({"background": ""});
+            $('#submenu8').css({"background": "#000000"});
+            $('#submenu38').css({"background": ""});
+        }
+    });
+}
+
+/* Agregar Permiso Vehículo */
+function ir38() {
+    $.ajax({
+        type: "POST",
+        url: "addPermisoVehiculo.jsp",
+        success: function (data) {
+            $("#permisos").html(data);
+            $("#breadseg").html($("#38").val());
+            $("#aciones").html("Permisos Solicitados");
+            $('#submenu3').css({"background": ""});
+            $('#submenu4').css({"background": ""});
+            $('#submenu5').css({"background": ""});
+            $('#submenu6').css({"background": ""});
+            $('#submenu7').css({"background": ""});
+            $('#submenu8').css({"background": ""});
+            $('#submenu38').css({"background": "#000000"});
         }
     });
 }
@@ -549,6 +641,54 @@ function ir33() {
     });
 }
 
+/* Reportes */
+/* Reporte de Visitas */
+function ir35() {
+    $.ajax({
+        type: "POST",
+        url: "reporteVisitas.jsp",
+        success: function (data) {
+            $("#reportes").html(data);
+            $("#breadseg").html($("#35").val());
+            $("#aciones").html("Reporte de Visitas");
+            $('#submenu35').css({"background": "#000000"});
+            $('#submenu36').css({"background": ""});
+            $('#submenu37').css({"background": ""});
+        }
+    });
+}
+
+/* Reporte de Incidencias */
+function ir36() {
+    $.ajax({
+        type: "POST",
+        url: "reporteIncidencias.jsp",
+        success: function (data) {
+            $("#reportes").html(data);
+            $("#breadseg").html($("#36").val());
+            $("#aciones").html("Reporte de Incidencias");
+            $('#submenu35').css({"background": ""});
+            $('#submenu36').css({"background": "#000000"});
+            $('#submenu37').css({"background": ""});
+        }
+    });
+}
+
+/* Reporte de Permisos */
+function ir37() {
+    $.ajax({
+        type: "POST",
+        url: "reportePermisos.jsp",
+        success: function (data) {
+            $("#reportes").html(data);
+            $("#breadseg").html($("#37").val());
+            $("#aciones").html("Reporte de Permisos");
+            $('#submenu35').css({"background": ""});
+            $('#submenu36').css({"background": ""});
+            $('#submenu37').css({"background": "#000000"});
+        }
+    });
+}
 
 /* Funcion para filtrar */
 function filter(phrase, _id) {

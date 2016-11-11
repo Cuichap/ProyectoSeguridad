@@ -91,20 +91,20 @@ public interface MantenimientoDao {
     public List<Deber> listarDeberAct();
     
     /* MANTENIMIENTO -- LISTAS */
-    public List<TipoDocumento> listarTipoDocumento();
-    public List<Persona> listarPersona();
-    public List<TipoPersona> listarTipoPersona();
-    public List<Objeto> listarObjeto();
-    public List<TipoIncidencia> listarTipoIncidencia();
-    public List<TipoPermiso> listarSalida();
-    public List<Motivo> listarMotivos();
-    public List<TipoDeber> listarTipoDeber();
-    public List<Deber> listarDeberes();
-    public List<Turno> listarTurnos();
-    public List<Marca> listarMarcas();
-    public List<TipoVehiculo> listarTipoVehiculo();
-    public List<Vehiculo> listarVehiculo();
-    public List<Area> listarArea();
+    public List<TipoDocumento> listarTipoDocumento(String estado);
+    public List<Persona> listarPersona(String estado);
+    public List<TipoPersona> listarTipoPersona(String estado);
+    public List<Objeto> listarObjeto(String estado);
+    public List<TipoIncidencia> listarTipoIncidencia(String estado);
+    public List<TipoPermiso> listarSalida(String estado);
+    public List<Motivo> listarMotivos(String estado);
+    public List<TipoDeber> listarTipoDeber(String estado);
+    public List<Deber> listarDeberes(String estado);
+    public List<Turno> listarTurnos(String estado);
+    public List<Marca> listarMarcas(String estado);
+    public List<TipoVehiculo> listarTipoVehiculo(String estado);
+    public List<Vehiculo> listarVehiculo(String estado);
+    public List<Area> listarArea(String estado);
      
     /* MANTENIMIENTO -- BUSCAR */
     

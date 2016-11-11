@@ -12,6 +12,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoIncidenciaEdit = request.getParameter("idTipoIncidenciaEdit"); idTipoIncidenciaEdit = idTipoIncidenciaEdit == null ? "" : idTipoIncidenciaEdit;
+    String estadoTipoIncidencia = request.getParameter("estadoTipoIncidencia"); estadoTipoIncidencia = estadoTipoIncidencia == null ? "1" : estadoTipoIncidencia;
 %>
 <!DOCTYPE html>
 <html>
@@ -39,12 +40,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tipoincidencias', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Incidencias." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoIncidencia]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoIncidencia.jsp",
+                                            data: "estadoTipoIncidencia="+ $('select[name=estadoTipoIncidencia]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoObjeto" class="form-control" name="estadoObjeto">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoIncidencia.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoIncidencia.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -67,7 +82,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<TipoIncidencia> listarTipoInc = dao.listarTipoIncidencia();
+                                        List<TipoIncidencia> listarTipoInc = dao.listarTipoIncidencia(estadoTipoIncidencia);
                                         for (TipoIncidencia tipoinc : listarTipoInc) {
                                             count++;
 
@@ -143,17 +158,21 @@
                         <form id="addtipoincidencia" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoIncidencia">Tipo de incidencia</label>
-                                        <input type="text" class="form-control" id="tipoIncidencia" placeholder="Nombre del Tipo de Incidencia" name="nombres">
+                                        <input required maxlength="50" pattern="^[A-Za-záéíóúñÑ,. ]*" type="text" class="form-control" id="tipoIncidencia" placeholder="Nombre del Tipo de Incidencia" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="descripcion">Descripción</label>
-                                        <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Incidencia" name="descripcion"></textarea>
+                                        <textarea maxlength="300" class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Incidencia" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddTipoIncidencia">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -183,18 +202,22 @@
                         <form id="edittipoincidencia" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoIncidenciaEdit">Nombre del Tipo de incidencia</label>
-                                        <input value="<%=tiEditar.getNombretipoincidencia()%>" type="text" class="form-control" id="tipoIncidenciaEdit" placeholder="Nombre del Tipo de Incidencia" name="nombres">
+                                        <input required maxlength="50" pattern="^[A-Za-záéíóúñÑ,. ]*" value="<%=tiEditar.getNombretipoincidencia()%>" type="text" class="form-control" id="tipoIncidenciaEdit" placeholder="Nombre del Tipo de Incidencia" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="descripcionEdit">Descripción</label>
-                                        <input value="<%=tiEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Incidencia" name="descripcion">
+                                        <input maxlength="300" value="<%=tiEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Incidencia" name="descripcion">
                                         <input type="hidden" name="opcion" value="EditTipoIncidencia">
                                         <input type="hidden" name="id" value="<%=idTipoIncidenciaEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -268,6 +291,11 @@
         <script type="text/javascript">
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+            
+                $().ready(function () {
+                $("#addtipoincidencia").validator({debug: true});
+                $("#edittipoincidencia").validator({debug: true});
             });
         </script> 
     </body>

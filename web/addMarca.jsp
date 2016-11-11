@@ -12,6 +12,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idMarcaEdit = request.getParameter("idMarcaEdit"); idMarcaEdit = idMarcaEdit == null?"":idMarcaEdit;
+    String estadoMarca=request.getParameter("estadoMarca"); estadoMarca = estadoMarca == null?"1":estadoMarca;
 %>
 <!DOCTYPE html>
 <html>
@@ -39,12 +40,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'marcas', '1')" type="text" class="form-control" placeholder="Buscar Marcas." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoMarca]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addMarca.jsp",
+                                            data: "estadoMarca="+ $('select[name=estadoMarca]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoMarca" class="form-control" name="estadoMarca">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoMarca.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoMarca.equals("0")){%>selected<%}%> value="0">Inactivos</option>
                                 </select>
                             </div>
                         </article>
@@ -66,7 +81,7 @@
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
-                                        List<Marca> listaMarcas = dao.listarMarcas();
+                                        List<Marca> listaMarcas = dao.listarMarcas(estadoMarca);
                                         for (Marca marca : listaMarcas) {
                                             count++;
 
@@ -125,6 +140,8 @@
                                         document.getElementById("buscador").focus();
                                         $("#aciones").html("Lista de Marcas");
                                     }
+                                     
+                              
                                 </script>
                                 <%}%>
                                 </tbody>

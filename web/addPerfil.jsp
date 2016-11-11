@@ -14,6 +14,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idPerfilEdit = request.getParameter("idPerfilEdit"); idPerfilEdit = idPerfilEdit == null ? "" : idPerfilEdit;
+    String estadoPerfil = request.getParameter("estadoPerfil"); estadoPerfil = estadoPerfil == null ? "1" : estadoPerfil;
 %>
 <!DOCTYPE html>
 <html>
@@ -41,12 +42,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'perfiles', '1')" type="text" class="form-control" placeholder="Buscar Perfil." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoPerfil]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addPerfil.jsp",
+                                            data: "estadoPerfil="+ $('select[name=estadoPerfil]').val(),
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoPerfil" class="form-control" name="estadoPerfil">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoPerfil.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoPerfil.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -71,7 +86,7 @@
                                         
                                         int count = 0;
                                         
-                                        List<Perfiles> listarPerfiles = sdaoDao.listarPerfiles();
+                                        List<Perfiles> listarPerfiles = sdaoDao.listarPerfiles(estadoPerfil);
                                         for (Perfiles perfiles : listarPerfiles) {
                                             count++;
 
@@ -149,8 +164,9 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="perfil">Perfil</label>
-                                        <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
+                                        <input type="text" pattern="^[A-Za-záéíóúñÑ ]*" maxlength="50" class="form-control" id="perfil" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="AddPerfil">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -184,9 +200,10 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="perfilEdit">Nombre del Perfil</label>
-                                        <input value="<%=perfilesEdit.getNombreperfil()%>" type="text" pattern="^[A-Za-záéíóú ]*" maxlength="50" class="form-control" id="perfilEdit" placeholder="Nombre del Perfil" name="nombres"  required>
+                                        <input value="<%=perfilesEdit.getNombreperfil()%>" type="text" pattern="^[A-Za-záéíóúÑñ ]*" maxlength="50" class="form-control" id="perfilEdit" placeholder="Nombre del Perfil" name="nombres"  required>
                                         <input type="hidden" name="opcion" value="EditPerfil">
                                         <input type="hidden" name="id" value="<%=idPerfilEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

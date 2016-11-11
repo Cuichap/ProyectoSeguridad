@@ -14,6 +14,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idVehiculoEdit = request.getParameter("idVehiculoEdit"); idVehiculoEdit = idVehiculoEdit == null?"":idVehiculoEdit;
+    String estadoVehiculo = request.getParameter("estadoVehiculo"); estadoVehiculo = estadoVehiculo == null?"1":estadoVehiculo;
 %>
 <!DOCTYPE html>
 <html>
@@ -41,12 +42,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'vehiculos', '1')" type="text" class="form-control" placeholder="Buscar Vehículo." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoVehiculo]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addVehiculo.jsp",
+                                            data: "estadoVehiculo="+ $('select[name=estadoVehiculo]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoVehiculo" class="form-control" name="estadoVehiculo">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoVehiculo.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoVehiculo.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -73,7 +88,7 @@
                                     <%
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
-                                        List<Vehiculo> listaVehiculo = dao.listarVehiculo();
+                                        List<Vehiculo> listaVehiculo = dao.listarVehiculo(estadoVehiculo);
                                         for (Vehiculo vehiculo : listaVehiculo) {
                                             count++;
 
@@ -190,7 +205,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="placaEdit">Placa</label>
-                                        <input required type="text" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <input required type="text" pattern="^[-*&#%A-Za-záéíóú0-9][A-Za-záéíóú0-9]*" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -264,7 +279,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="placaEdit">Placa</label>
-                                        <input value="<%=vehiculoEditar.getNumplaca()%>" required type="text" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
+                                        <input  value="<%=vehiculoEditar.getNumplaca()%>" required type="text" pattern="^[A-Za-záéíóúÑñ][A-Za-záéíóúÑñ]*" maxlength="10" class="form-control" id="placaEdit" placeholder="Ingresar la Placa del Vehiculo" name="placa">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

@@ -12,6 +12,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoDeberEdit = request.getParameter("idTipoDeberEdit"); idTipoDeberEdit = idTipoDeberEdit == null?"":idTipoDeberEdit;
+    String estadoTipoDeber = request.getParameter("estadoTipoDeber"); estadoTipoDeber = estadoTipoDeber == null?"1":estadoTipoDeber;
 %>
 <!DOCTYPE html>
 <html>
@@ -39,12 +40,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tipodeber', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Deber." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoDeber]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoDeber.jsp",
+                                            data: "estadoTipoDeber="+ $('select[name=estadoTipoDeber]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoTipoDeber" class="form-control" name="estadoTipoDeber">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoDeber.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoDeber.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -67,7 +82,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<TipoDeber> listarTipod = dao.listarTipoDeber();
+                                        List<TipoDeber> listarTipod = dao.listarTipoDeber(estadoTipoDeber);
                                         for (TipoDeber tipdeb : listarTipod) {
                                             count++;
 
@@ -142,11 +157,13 @@
                         <form id="addtipodeber" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipo">Tipo de Deber</label>
-                                        <input type="text" class="form-control" id="tipo" placeholder="Nombre del Tipo de Deber" name="nombres">
+                                        <input required maxlength="30" type="text" class="form-control" id="tipo" placeholder="Nombre del Tipo de Deber" name="nombres">
                                         <input type="hidden" name="opcion" value="AddTipoDeber">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -176,12 +193,14 @@
                         <form id="edittipodeber" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoEdit">Tipo de Deber</label>
-                                        <input value="<%=tdEditar.getNombretipodeber()%>" type="text" class="form-control" id="tipoEdit" placeholder="Nombre del Tipo de Deber" name="nombres">
+                                        <input required maxlength="30" value="<%=tdEditar.getNombretipodeber()%>" type="text" class="form-control" id="tipoEdit" placeholder="Nombre del Tipo de Deber" name="nombres">
                                         <input type="hidden" name="opcion" value="EditTipoDeber">
                                         <input type="hidden" name="id" value="<%=idTipoDeberEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -255,6 +274,11 @@
         <script type="text/javascript">
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+            
+               $().ready(function () {
+                $("#addtipodeber").validator({debug: true});
+                $("#edittipodeber").validator({debug: true});
             });
         </script> 
     </body>

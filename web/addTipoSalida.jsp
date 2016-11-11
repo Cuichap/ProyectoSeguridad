@@ -12,6 +12,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTippoSalidaEdit = request.getParameter("idTippoSalidaEdit"); idTippoSalidaEdit = idTippoSalidaEdit == null ? "" : idTippoSalidaEdit;
+    String estadoTipoSalida = request.getParameter("estadoTipoSalida"); estadoTipoSalida = estadoTipoSalida == null ? "1" : estadoTipoSalida;
 %>
 <!DOCTYPE html>
 <html>
@@ -39,12 +40,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tiposalidas', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Salidas." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoSalida]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoSalida.jsp",
+                                            data: "estadoTipoSalida="+ $('select[name=estadoTipoSalida]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                 <select id="estadoTipoSalida" class="form-control" name="estadoTipoSalida">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoSalida.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoSalida.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -67,7 +82,7 @@
                                         MantenimientoDao dao = new MantenimientoDaoImpl();
                                         int count = 0;
 
-                                        List<TipoPermiso> listarPermiso = dao.listarSalida();
+                                        List<TipoPermiso> listarPermiso = dao.listarSalida(estadoTipoSalida);
                                         for (TipoPermiso tipoper : listarPermiso) {
                                             count++;
 
@@ -143,17 +158,21 @@
                         <form id="addtiposalida" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoSalida">Tipo de Salida</label>
-                                        <input type="text" class="form-control" id="tipoSalida" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <input required maxlength="30" pattern="^[A-Za-záéíóúñÑ,. ]*" type="text" class="form-control" id="tipoSalida" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="descripcion">Descripción</label>
-                                        <textarea class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Salida" name="descripcion"></textarea>
+                                        <textarea  maxlength="300" class="form-control" rows="4" id="descripcion" placeholder="Descripción del Tipo de Salida" name="descripcion"></textarea>
                                         <input type="hidden" name="opcion" value="AddTipoSalida">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                             </div>
@@ -183,15 +202,17 @@
                         <form id="edittiposalida" class="form-signin" role="form" method="post" action="mantenimiento">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="tipoSalidaEdit">Nombre del Tipo de Salida</label>
-                                        <input value="<%=tpEditar.getNombretipopermiso()%>" type="text" class="form-control" id="tipoSalidaEdit" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <input required maxlength="30" pattern="^[A-Za-záéíóúñÑ,. ]*" value="<%=tpEditar.getNombretipopermiso()%>" type="text" class="form-control" id="tipoSalidaEdit" placeholder="Nombre del Tipo de Salida" name="nombres">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-feedback">
                                         <label for="descripcionEdit">Descripción</label>
-                                        <input value="<%=tpEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Salida" name="descripcion">
+                                        <input maxlength="300" value="<%=tpEditar.getDescripcion()%>" class="form-control" id="descripcionEdit" placeholder="Descripción del Tipo de Salida" name="descripcion">
                                         <input type="hidden" name="opcion" value="EditTipoSalida">
                                         <input type="hidden" name="id" value="<%=idTippoSalidaEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
@@ -268,6 +289,10 @@
         <script type="text/javascript">
             $(document).ready(function (){
                 $('[data-toggle="tooltip"]').tooltip();
+            });
+               $().ready(function () {
+                $("#addtiposalida").validator({debug: true});
+                $("#edittiposalida").validator({debug: true});
             });
         </script> 
     </body>

@@ -14,7 +14,15 @@
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String idDeberEdit = request.getParameter("idDeberEdit"); idDeberEdit = idDeberEdit == null ? "" : idDeberEdit;
+    String idUsuarioEdit = request.getParameter("idUsuarioEdit"); idUsuarioEdit = idUsuarioEdit == null ? "" : idUsuarioEdit;
+    String idTurnoEdit = request.getParameter("idTurnoEdit"); idTurnoEdit = idTurnoEdit == null ? "" : idTurnoEdit;
+%>
 <!DOCTYPE html>
+<%
+    String estadoResponsabilidad = request.getParameter("estadoResponsabilidad"); estadoResponsabilidad = estadoResponsabilidad == null ? "1" : estadoResponsabilidad;
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
@@ -40,12 +48,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'responsabilidades', '1')" type="text" class="form-control" placeholder="Buscar Responsabilidades." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoResponsabilidad]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addResponsabilidad.jsp",
+                                            data: "estadoResponsabilidad="+ $('select[name=estadoResponsabilidad]').val(),
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoResponsabilidad" class="form-control" name="estadoResponsabilidad">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoResponsabilidad.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoResponsabilidad.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -75,7 +97,7 @@
                                         
                                         int count = 0;
 
-                                        List<Responsabilidad> listarResponsabilidad = sdaoDao.listarResponsabilidad();
+                                        List<Responsabilidad> listarResponsabilidad = sdaoDao.listarResponsabilidad(estadoResponsabilidad);
                                         for (Responsabilidad resp : listarResponsabilidad) {
                                             count++;
                                     %>
@@ -87,10 +109,10 @@
                                         <td><%=resp.getNomresponsab()%></td>
                                         <td><%=resp.getNomdeber()%></td>
                                         <td><%=resp.getFecha()%></td>
-                                        <td hidden><%=resp.getUsuarioidreg()%></td>
+                                        <td hidden><%=resp.getUserIdReg()%></td>
                                         <td><%=resp.getEstado()%></td>
                                         <td align="center">
-                                            <a style="cursor: pointer;">
+                                            <a style="cursor: pointer;" onclick="Editar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>(<%=resp.getDeberid()%>, <%=resp.getUsuarioid()%>, <%=resp.getTurnoid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar la Responsabilidad" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </td>
@@ -112,6 +134,30 @@
                                         $("#TipoDeberIdDelete").val("<%=resp.getDeberid()%>");
                                         $("#TipoUsuarioIdDelete").val("<%=resp.getUsuarioid()%>");
                                         $("#TipoTurnoIdDelete").val("<%=resp.getTurnoid()%>");
+                                    }
+                                    function Editar<%=resp.getDeberid()%><%=resp.getUsuarioid()%><%=resp.getTurnoid()%>(deber, usuario, turno) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addResponsabilidad.jsp",
+                                            data: "idDeberEdit=" + deber + "&idUsuarioEdit=" + usuario + "&idTurnoEdit=" + turno,
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaResponsabilidad').style.display = 'none';
+                                                document.getElementById('agregarResponsabilidad').style.display = 'none';
+                                                document.getElementById('editarResponsabilidad').style.display = 'block';
+                                                document.getElementById("fechaEdit").focus();
+                                                $("#aciones").html("Modificar Responsabilidad");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditResponsabilidad() {
+                                        document.getElementById("editresponsabilidad").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaResponsabilidad').style.display = 'block';
+                                        document.getElementById('editarResponsabilidad').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de responsabilidades");
                                     }
                                 </script>
                                 <%}%>
@@ -145,7 +191,6 @@
                                         <label for="usuario">Usuario</label>
                                         <input type="text" class="form-control" id="usuario" placeholder="Nombre del Usuario" name="usuario">
                                         <input type="hidden" name="usuarioId" value="1">
-                                        <input type="hidden" name="usuarioIdReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -187,6 +232,7 @@
                                         <label for="fecha">Fecha</label>
                                         <input type="date" class="form-control" id="fecha" placeholder="Ingrese la Fecha" name="fechaDeber">
                                         <input type="hidden" name="opcion" value="AddResponsabilidad">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
                             </div>
@@ -201,6 +247,85 @@
                             </h4>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div id="editarResponsabilidad" class="col-md-12" style="padding: 0px; display: none;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><b>Modificar los Datos de la Responsabilidad</b></h4>
+                    </div>
+                    <%  
+                        List<Responsabilidad> listaEditResponsabilidadesEdit = sdaoDao.listarEditResponsabilidad(idDeberEdit, idUsuarioEdit, idTurnoEdit);
+                        for (Responsabilidad responsabilidadEdit : listaEditResponsabilidadesEdit) {
+                    %>
+                    <div class="panel-body">
+                        <form id="editresponsabilidad" class="form-signin" role="form" method="post" action="seguridad">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="usuarioEdit">Usuario</label>
+                                        <input type="text" value="<%=responsabilidadEdit.getNomresponsab()%>" disabled class="form-control" id="usuarioEdit" placeholder="Nombre del Usuario" name="usuario">
+                                        <input type="hidden" value="<%=responsabilidadEdit.getUsuarioid()%>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="deberEdit">Deber</label>
+                                        <select class="form-control" disabled id="deberEdit" name="deberId">
+                                            <option hidden>Seleccionar el Deber</option>
+                                            <%
+
+                                                List<Deber> listaDeberActEdit = dao.listarDeberAct();
+                                                for (Deber deberEdit : listaDeberActEdit) {
+
+                                            %>
+                                            <option <% if(responsabilidadEdit.getDeberid().equals(deberEdit.getDeberid())){%>selected<%}%> value="<%=deberEdit.getDeberid()%>"><%=deberEdit.getNombredeber()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="deberEdit">Turno</label>
+                                        <select class="form-control" disabled id="deberEdit" name="turnoId">
+                                            <option hidden>Seleccionar el Turno</option>
+                                            <%
+
+                                                List<Turno> listaTurnoActEdit = dao.listarTurnoAct();
+                                                for (Turno turnoEdit : listaTurnoActEdit) {
+
+                                            %>
+                                            <option <% if(responsabilidadEdit.getTurnoid().equals(turnoEdit.getTurnoid())){%>selected<%}%> value="<%=turnoEdit.getTurnoid()%>"><%=turnoEdit.getNombreturno()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechaEdit">Fecha</label>
+                                        <input type="date" value="<%=responsabilidadEdit.getFecha()%>" class="form-control" id="fechaEdit" placeholder="Ingrese la Fecha" name="fechaDeber">
+                                        <input type="hidden" name="opcion" value="EditResponsabilidad">
+                                        <input type="hidden" name="id" value="<%=idDeberEdit%>">
+                                        <input type="hidden" name="iduser" value="<%=idUsuarioEdit%>">
+                                        <input type="hidden" name="idturno" value="<%=idTurnoEdit%>">
+                                        <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditResponsabilidad()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div class="modal fade" id="delete">

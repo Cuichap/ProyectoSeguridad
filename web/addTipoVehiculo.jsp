@@ -12,6 +12,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoVehiculoEdit = request.getParameter("idTipoVehiculoEdit"); idTipoVehiculoEdit = idTipoVehiculoEdit == null?"":idTipoVehiculoEdit;
+    String estadoTipoVehiculo = request.getParameter("estadoTipoVehiculo"); estadoTipoVehiculo = estadoTipoVehiculo == null?"1":estadoTipoVehiculo;
 %>
 <!DOCTYPE html>
 <html>
@@ -39,12 +40,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'tipoVehiculo', '1')" type="text" class="form-control" placeholder="Buscar Tipos de Vehículo." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoVehiculo]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoVehiculo.jsp",
+                                            data: "estadoTipoVehiculo="+ $('select[name=estadoTipoVehiculo]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoTipoVehiculo" class="form-control" name="estadoTipoVehiculo">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoTipoVehiculo.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoVehiculo.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -66,7 +81,7 @@
                                     MantenimientoDao dao = new MantenimientoDaoImpl();
 
                                     int count = 0;
-                                    List<TipoVehiculo> listaTipoVehiculo = dao.listarTipoVehiculo();
+                                    List<TipoVehiculo> listaTipoVehiculo = dao.listarTipoVehiculo(estadoTipoVehiculo);
                                     for (TipoVehiculo tpvehiculo : listaTipoVehiculo) {
                                         count++;
                                     %>
@@ -143,7 +158,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo de Vehículo</label>
-                                        <input type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="tipo" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
+                                        <input type="text" pattern="^[A-Za-záéíóúÑñ ]*" maxlength="20" class="form-control" id="tipo" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
                                         <input type="hidden" name="opcion" value="AddTipoVehiculo">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -179,7 +194,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="nombreTipoVehiculoEdit">Nombre del Tipo de Vehículo</label>
-                                        <input value="<%=tvEditar.getNombretipovehiculo()%>" type="text" pattern="^[A-Za-záéíóú ]*" maxlength="20" class="form-control" id="nombreTipoVehiculoEdit" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
+                                        <input value="<%=tvEditar.getNombretipovehiculo()%>" type="text" pattern="^[A-Za-záéíóúñÑ ]*" maxlength="20" class="form-control" id="nombreTipoVehiculoEdit" placeholder="Nombre del Tipo de Vehículo" name="nombres" required>
                                         <input type="hidden" name="opcion" value="EditTipoVehiculo">
                                         <input type="hidden" name="id" value="<%=idTipoVehiculoEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
@@ -261,7 +276,7 @@
             });
             $().ready(function () {
                 $("#addtipovehiculo").validator({debug: true});
-                $("#edittipovehiculoEdit").validator({debug: true});
+                $("#edittipovehiculo").validator({debug: true});
             });
         </script>
     </body>

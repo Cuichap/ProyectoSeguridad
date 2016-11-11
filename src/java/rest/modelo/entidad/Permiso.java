@@ -43,8 +43,12 @@ public class Permiso {
     private String placa;
     private String descripcionSalida;
     private String descripcionIngreso;
+
     private String usuarioreg;
     
+
+    private int count;
+
 
     public Permiso() {
     }

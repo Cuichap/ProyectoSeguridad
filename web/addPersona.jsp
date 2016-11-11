@@ -15,7 +15,8 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idPersonaEdit = request.getParameter("idPersonaEdit"); idPersonaEdit = idPersonaEdit == null ? "" : idPersonaEdit;
-%>
+    String estadoPersona = request.getParameter("estadoPersona"); estadoPersona = estadoPersona == null ? "1" : estadoPersona;
+ %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,12 +43,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'persona', '1')" type="text" class="form-control" placeholder="Buscar Persona." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoPersona]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addPersona.jsp",
+                                            data: "estadoPersona="+ $('select[name=estadoPersona]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoPersona" class="form-control" name="estadoPersona">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoPersona.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoPersona.equals("0")){%>selected<%}%> value="0">Inactivos</option>
                                 </select>
                             </div>
                         </article>
@@ -78,7 +93,7 @@
 
                                         int count = 0;
 
-                                        List<Persona> listaPer = dao.listarPersona();
+                                        List<Persona> listaPer = dao.listarPersona(estadoPersona);
                                         for (Persona per : listaPer) {
                                             count++;
                                     %>
@@ -162,7 +177,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="nombres">Nombres</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="nombres" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
+                                        <input required type="text" pattern="^[A-Za-záéíóúÑñ ][A-Za-záéíóúÑñ ]*"  maxlength="39" class="form-control" id="nombres" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -170,7 +185,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="apellidos">Apellidos</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
+                                        <input required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -280,7 +295,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="nombres">Nombres</label>
-                                        <input value="<%=perEdit.getNombres()%>" required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="nombresEdit" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=perEdit.getNombres()%>" required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="nombresEdit" placeholder="Nombres" name="nombres" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -288,7 +303,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="apellidos">Apellidos</label>
-                                        <input value="<%=perEdit.getApellidos()%>" required type="text" pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="39" class="form-control" id="apellidosEdit" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=perEdit.getApellidos()%>" required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="apellidosEdit" placeholder="Apellidos" name="apellidos" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>

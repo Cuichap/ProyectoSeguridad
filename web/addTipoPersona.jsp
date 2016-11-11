@@ -12,6 +12,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idTipoPersonaEdit = request.getParameter("idTipoPersonaEdit"); idTipoPersonaEdit = idTipoPersonaEdit == null ? "" : idTipoPersonaEdit;
+    String estadoTipoPersona = request.getParameter("estadoTipoPersona"); estadoTipoPersona = estadoTipoPersona == null ? "1" : estadoTipoPersona;
 %>
 <html>
     <head>
@@ -37,12 +38,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'persona', '1')" type="text" class="form-control" placeholder="Buscar Tipo de Persona." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoTipoPersona]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addTipoPersona.jsp",
+                                            data: "estadoTipoPersona="+ $('select[name=estadoTipoPersona]').val(),
+                                            success: function (data) {
+                                                $("#mantenimiento").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estado" class="form-control" name="estado">
+                                <select id="estadoTipoPersona" class="form-control" name="estadoTipoPersona">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="0">Activos</option>
-                                    <option value="1">Inactivos</option>
+                                    <option <% if(estadoTipoPersona.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                    <option <% if(estadoTipoPersona.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -66,7 +81,7 @@
                                         
                                         int count = 0;
 
-                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona();
+                                        List<TipoPersona> listaTipoPer = dao.listarTipoPersona(estadoTipoPersona);
                                         for (TipoPersona tipoPersona : listaTipoPer) {
                                             count++;
                                     %>
@@ -142,7 +157,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
+                                        <input type="text" required pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="30" class="form-control" id="tipo" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="AddTipoPersona">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -178,7 +193,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="tipo">Tipo Persona</label>
-                                        <input value="<%=tp.getNombreTipoPersona()%>" type="text" required pattern="^[A-Za-záéíóú ][A-Za-záéíóú ]*" maxlength="30" class="form-control" id="tipoPerEdit" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
+                                        <input value="<%=tp.getNombreTipoPersona()%>" type="text" required pattern="^[A-Za-záéíóúÑñ ][A-Za-záéíóúÑñ ]*" maxlength="30" class="form-control" id="tipoPerEdit" placeholder="Nombre del Tipo Persona" name="nombreTipoPersona" data-error="Solo se permite letras y no numeros">
                                         <input type="hidden" name="opcion" value="EditTipoPersona">
                                         <input type="hidden" name="id" value="<%=idTipoPersonaEdit%>">
                                         <input type="hidden" name="idUserReg" value="<%=idUsuario%>">

@@ -675,7 +675,7 @@ function ir36() {
 }
 
 /* Reporte de Permisos */
-function ir36() {
+function ir37() {
     $.ajax({
         type: "POST",
         url: "reportePermisos.jsp",

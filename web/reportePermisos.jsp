@@ -4,11 +4,16 @@
     Author     : USUARIO
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.Permiso"%>
+<%@page import="rest.modelo.daoimpl.ReporteDaoImpl"%>
+<%@page import="rest.modelo.dao.ReporteDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
     </head>
     <body>
         <div class="col-sm-12">
@@ -32,30 +37,42 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Campo 1</th>
-                                        <th>Campo 2</th>
-                                        <th>Campo 3</th>
-                                        <th>Campo 4</th>
-                                        <th>Campo 5</th>
-                                        <th>Campo 6</th>
-                                        <th>Campo 7</th>
+                                        <th>Nombres</th>
+                                        <th>Lugar</th>
+                                        <th>Motivo</th>
+                                        <th>Fecha y Hora de Salida</th>
+                                        <th>Fecha y Hora de Retorno</th>
+                                        <th>Observación</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%
+
+                                        ReporteDao dao = new ReporteDaoImpl();
+                                        int count = 0;
+
+                                        List<Permiso> listPerRe = dao.listaPerRes();
+
+                                        for (Permiso per : listPerRe) {
+
+                                            count++;
+
+                                    %>    
+
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td><%=per.getNombres()%></td>
+                                        <td><%=per.getLugar()%></td>
+                                         <td><%=per.getMotivo()%></td>
+                                        <td><%=per.getHorasalida()%>&nbsp;<%=per.getFechasalida()%></td>
+                                        <td><%=per.getHoraingreso()%>&nbsp;<%=per.getFechaingreso()%></td>
+                                        <td><%=per.getObservacion()%></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div>             
                 </div>
             </div>
         </div>

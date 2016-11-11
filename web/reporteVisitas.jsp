@@ -4,7 +4,12 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.Visita"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.daoimpl.ReporteDaoImpl"%>
+<%@page import="rest.modelo.dao.ReporteDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +20,7 @@
             <br>
             <section id="lista" class="col-sm-12 well well-sm backcolor" style="display: block; margin-bottom: -50px;">
                 <article class="col-sm-4" style="color: white;">
-                    <h4 ><b>Lista de Permisos de los Residentes</b></h4>
+                    <h4 ><b>Reporte de Visitas</b></h4>
                 </article>
             </section>
             <div id="listaVis" class="col-md-12" style="display: block; padding: 0px; margin-top: 60px;">
@@ -32,26 +37,39 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Campo 1</th>
-                                        <th>Campo 2</th>
-                                        <th>Campo 3</th>
-                                        <th>Campo 4</th>
-                                        <th>Campo 5</th>
-                                        <th>Campo 6</th>
-                                        <th>Campo 7</th>
+                                        <th>Nombres</th>
+                                        <th>Fecha y Hora de Ingreso</th>
+                                        <th>Destino</th>
+                                        <th>Visitado</th>
+                                        <th>Descripción</th>
+                                        <th>Fecha y Hora de Salida</th>
+                                        <th>estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
+                                    <%
+                                    ReporteDao dao= new ReporteDaoImpl();
+                                     
+                                    int count=0;
+                                    
+                                    List<Visita> ListaVisitas=dao.ListaVisitas();
+                                    
+                                    for(Visita vis:ListaVisitas ){  
+                                        count++;
+
+                                    %>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><%=count%></td>
+                                        <td><%=vis.getNombres()%></td>
+                                        <td><%=vis.getFechaentrada()%>&nbsp;<%=vis.getHoraentrada()%></td>
+                                        <td><%=vis.getDestino()%></td>
+                                        <td><%=vis.getVisitado()%></td>
+                                        <td><%=vis.getDescripcion()%></td>
+                                        <td><%=vis.getFechasalida()%>&nbsp;<%=vis.getHorasalida()%></td>
+                                        <td><%=vis.getEstado()%></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

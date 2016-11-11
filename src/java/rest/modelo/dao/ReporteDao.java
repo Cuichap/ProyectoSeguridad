@@ -7,6 +7,7 @@ package rest.modelo.dao;
 
 import java.util.List;
 import rest.modelo.entidad.Permiso;
+import rest.modelo.entidad.Visita;
 
 /**
  *
@@ -14,5 +15,8 @@ import rest.modelo.entidad.Permiso;
  */
 public interface ReporteDao {
     
-    public int cantidad();
+   public int cantidad();
+   public List<Visita> ListaVisitas();
+   public List<Permiso> listaPerRes();
+   public List<Permiso> listarPermisos(String personaid);
 }

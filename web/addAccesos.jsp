@@ -14,6 +14,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idAccesoEdit = request.getParameter("idAccesoEdit"); idAccesoEdit = idAccesoEdit == null ? "" : idAccesoEdit;
+    String estadoAcceso = request.getParameter("estadoAcceso"); estadoAcceso = estadoAcceso == null ? "si" : estadoAcceso;
 %>
 <!DOCTYPE html>
 <html>
@@ -41,12 +42,26 @@
                                 <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'menus', '1')" type="text" class="form-control" placeholder="Buscar Menú." aria-describedby="basic-addon1">
                             </div>
                         </article>
+                         <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoAcceso]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addAccesos.jsp",
+                                            data: "estadoAcceso="+ $('select[name=estadoAcceso]').val(),
+                                            success: function (data) {
+                                                $("#seguridad").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select class="form-control">
+                                <select id="estadoAcceso" class="form-control" name="estadoAcceso">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option value="1">Activos</option>
-                                    <option value="0">Inactivos</option>
+                                    <option <% if(estadoAcceso.equals("si")){%>selected<%}%> value="si">Activos</option>
+                                    <option <% if(estadoAcceso.equals("no")){%>selected<%}%> value="no">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -77,7 +92,7 @@
 
                                         int count = 0;
 
-                                        List<Acceso> listAccess = sdaoDao.listarAccesos();
+                                        List<Acceso> listAccess = sdaoDao.listarAccesos(estadoAcceso);
                                         for (Acceso acceso : listAccess) {
                                             count++;
 

@@ -170,10 +170,10 @@ public class SeguridadDaoImpl implements SeguridadDao{
     }
 
     @Override
-    public List<Perfiles> listarPerfiles() {
+    public List<Perfiles> listarPerfiles(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Perfiles> listaPerfiles = new ArrayList<>();
-        String query = "SELECT perfil_id as id, nombre_perfil as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM perfil ORDER BY perfil_id DESC";
+        String query = "SELECT perfil_id as id, nombre_perfil as nombre, CASE estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM perfil WHERE estado="+estado+" ORDER BY perfil_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Perfiles perfiles = new Perfiles();
@@ -186,10 +186,10 @@ public class SeguridadDaoImpl implements SeguridadDao{
     }
 
     @Override
-    public List<Acceso> listarAccesos() {
+    public List<Acceso> listarAccesos(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Acceso> listaAccesos = new ArrayList<>();
-        String query = "SELECT per.perfil_id as idperfil, per.nombre_perfil as perfil, o.opciones_id as idmenu, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menu, op.subopciones_id as idsubmenu, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as submenu, CASE op.tipo WHEN 'nivel1' THEN 'Menú' WHEN 'nivel2' THEN 'SubMenú' END as tipo, op.url, CASE ap.activo WHEN 'si' THEN 'Activo' WHEN'no' THEN 'Inactivo' END  as estado FROM opciones as o, opciones as op , perfil per, acceso_perfil as ap WHERE o.opciones_id=op.opciones_id AND ap.opciones_id=o.opciones_id AND per.perfil_id=ap.perfil_id AND o.estado=1 ORDER BY per.perfil_id, o.opciones_id";
+        String query = "SELECT per.perfil_id as idperfil, per.nombre_perfil as perfil, o.opciones_id as idmenu, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menu, op.subopciones_id as idsubmenu, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as submenu, CASE op.tipo WHEN 'nivel1' THEN 'Menú' WHEN 'nivel2' THEN 'SubMenú' END as tipo, op.url, CASE ap.activo WHEN 'si' THEN 'Activo' WHEN'no' THEN 'Inactivo' END  as estado FROM opciones as o, opciones as op , perfil per, acceso_perfil as ap WHERE o.opciones_id=op.opciones_id AND ap.opciones_id=o.opciones_id AND per.perfil_id=ap.perfil_id AND o.estado=1 AND ap.activo='"+estado+"' ORDER BY per.perfil_id, o.opciones_id";
         cx.execQuery(query);
         while (cx.getNext()) {
             Acceso acceso = new Acceso();
@@ -208,10 +208,10 @@ public class SeguridadDaoImpl implements SeguridadDao{
     }
 
     @Override
-    public List<Opcion> listarMenus() {
+    public List<Opcion> listarMenus(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Opcion> listaMenus = new ArrayList<>();
-        String query = "SELECT o.opciones_id as id, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menup, op.subopciones_id as idsub, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, o.tipo FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id order by o.opciones_id ASC";
+        String query = "SELECT o.opciones_id as id, CASE o.menu WHEN o.tipo='nivel2' THEN o.menu END as menup, op.subopciones_id as idsub, CASE op.menu WHEN o.tipo='nivel1' THEN o.menu END as menu_s, CASE op.tipo WHEN 'nivel1' THEN 'Area' WHEN 'nivel2' THEN'Subarea' END as tipo, op.url, CASE op.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END  as estado, o.tipo FROM opciones as o, opciones as op WHERE o.opciones_id=op.opciones_id AND op.estado="+estado+" ORDER BY o.opciones_id ASC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Opcion opcion = new Opcion();
@@ -228,10 +228,10 @@ public class SeguridadDaoImpl implements SeguridadDao{
     }
 
     @Override
-    public List<Responsabilidad> listarResponsabilidad() {
+    public List<Responsabilidad> listarResponsabilidad(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Responsabilidad> listaResponsabilidad = new ArrayList<>();
-        String query = "SELECT d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id ORDER BY d.deber_id DESC";
+        String query = "SELECT d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id AND du.estado="+estado+" ORDER BY d.deber_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Responsabilidad responsabilidad = new Responsabilidad();

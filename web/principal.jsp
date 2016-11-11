@@ -1,5 +1,11 @@
+<%@page import="rest.modelo.dao.ReporteDao"%>
+<%@page import="rest.modelo.daoimpl.ReporteDaoImpl"%>
 <%@include file="WEB-INF/jspf/top.jspf" %>
 
+<%
+    ReporteDao da=new ReporteDaoImpl();
+    int cantidad=da.cantidad();
+%>
 <div class="bs-example">
     <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
         <li>Garita UPeU</li>
@@ -12,50 +18,76 @@
 </div>
 
 <div id="page-wrapper">
-    <div class="row">
-        <div class="col-lg-3">
+    <div class="row" >
+        <div class="col-lg-2">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
-                    <div class="col-xs-5">
-                        <i class="fa fa-users fa-5x"></i>
+                    <div class="col-xs-6">
+                        <i class="fa fa-users fa-4x"></i>
                     </div>
-                    <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">34</p>
-                        <p class="alerts-text">Permisos</p>
+                    <div class="col-xs-5 text-center">
+                        <p class="alerts-heading"><%=cantidad%></p>
+                        <p class="alerts-text">Permiso Diario Residente</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
-                    <div class="col-xs-5">
+                    <div class="col-xs-6">
                         <i class="fa fa-map fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
                         <p class="alerts-heading">14</p>
+                        <p class="alerts-text">Permiso Personal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="panel panel-default ">
+                <div class="panel-body alert-info">
+                    <div class="col-xs-6">
+                        <i class="fa fa-bicycle fa-5x"></i>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <p class="alerts-heading">78</p>
+                        <p class="alerts-text">Permiso Vehiculo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="panel panel-default ">
+                <div class="panel-body alert-info">
+                    <div class="col-xs-6">
+                        <i class="fa fa-steam fa-5x"></i>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <p class="alerts-heading">28</p>
                         <p class="alerts-text">Visitas</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
-                    <div class="col-xs-5">
-                        <i class="fa fa-bicycle fa-5x"></i>
+                    <div class="col-xs-6">
+                        <i class="fa fa-steam fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">78</p>
-                        <p class="alerts-text">Incidencias</p>
+                        <p class="alerts-heading">28</p>
+                        <p class="alerts-text">Incidencia</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="panel panel-default ">
                 <div class="panel-body alert-info">
-                    <div class="col-xs-5">
+                    <div class="col-xs-6">
                         <i class="fa fa-steam fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
@@ -66,6 +98,7 @@
             </div>
         </div>
     </div>
+    
 
     <div class="row">
         <div class="col-lg-6">
@@ -78,6 +111,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-lg-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">

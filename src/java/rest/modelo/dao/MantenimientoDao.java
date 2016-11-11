@@ -107,7 +107,8 @@ public interface MantenimientoDao {
     public List<Area> listarArea();
      
     /* MANTENIMIENTO -- BUSCAR */
-    public List<Usuario> listarUsuraioAuto(String var);
+    
+    public List<Usuario> listarUsuario(String var);
     
     /* MANTENIMIENTO -- ELIMINAR */
     public boolean EliminarPersona(String id);

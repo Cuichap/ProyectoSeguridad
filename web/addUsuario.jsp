@@ -17,6 +17,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String idUsuarioEdit = request.getParameter("idUsuarioEdit"); idUsuarioEdit = idUsuarioEdit == null ? "" : idUsuarioEdit;
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -184,7 +185,7 @@
                                         <label for="tipo">Buscar Persona</label>
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                                            <input id="buscador" autofocus type="filt" onkeyup="filter(this, 'usuario', '1')" type="text" class="form-control" placeholder="Buscar Usuario" describedby="basic-addon1">
+                                            <input id="buscador" name="buscador" autofocus type="text" class="form-control" placeholder="Buscar Usuario" describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </article>

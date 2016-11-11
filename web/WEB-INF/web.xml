@@ -39,6 +39,10 @@
         <servlet-name>Seguridad</servlet-name>
         <servlet-class>rest.modelo.controlador.Seguridad</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>rest.modelo.controlador.Controller</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Validar</servlet-name>
         <url-pattern>/validar</url-pattern>
@@ -74,6 +78,10 @@
     <servlet-mapping>
         <servlet-name>Seguridad</servlet-name>
         <url-pattern>/seguridad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

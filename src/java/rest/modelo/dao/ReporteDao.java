@@ -15,6 +15,8 @@ import rest.modelo.entidad.Visita;
  */
 public interface ReporteDao {
     
-    public int cantidad();
+   public int cantidad();
    public List<Visita> ListaVisitas();
+   public List<Permiso> listaPerRes();
+   public List<Permiso> listarPermisos(String personaid);
 }

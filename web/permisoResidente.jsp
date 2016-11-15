@@ -11,8 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
-    String IdPermiso = request.getParameter("IdPermiso"); 
-    IdPermiso = IdPermiso == null ? "" : IdPermiso;
+    String IdPermiso = request.getParameter("IdPermiso"); IdPermiso = IdPermiso == null ? "" : IdPermiso;
 %>
 <!DOCTYPE html>
 <html>
@@ -190,11 +189,11 @@
                                         <label for="lugarEdit">Lugar</label>
                                         <input value="<%=perEditar.getLugar()%>" type="text" disabled="" class="form-control" id="lugarEdit" placeholder="Lugar" name="lugar">
                                         <%if(perEditar.getFechasalidareal().equals("") && perEditar.getHorasalidareal().equals("")){%>
-                                        <input type="hidden" name="opcion" value="RegistrarSalidaResidente">
+                                        <input type="" name="opcion" value="agregarSalidaResidente">
                                         <%} if(!perEditar.getFechasalidareal().equals("") && !perEditar.getHorasalidareal().equals("") && perEditar.getFechaingresoreal().equals("") && perEditar.getHoraingresoreal().equals("")){%>
-                                        <input type="hidden" name="opcion" value="RegistrarIngresoResidente">
+                                        <input type="" name="opcion" value="agregarIngresoResidente">
                                         <%}%>
-                                        <input type="hidden" name="id" value="<%=IdPermiso%>">
+                                        <input type="" name="id" value="<%=IdPermiso%>">
                                         <input type="hidden" name="usuarioreg" value="<%=idUsuario%>">
                                     </div>
                                 </div>
@@ -231,26 +230,26 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechasalidarealEdit">Fecha Salida Real</label>
-                                        <input value="<%=perEditar.getFechasalidareal()%>" type="text" <%if (!perEditar.getFechasalidareal().equals("")) {%>disabled=""<%}%> class="form-control" id="fechasalidarealEdit" placeholder="Fecha de Salida" name="fechasalidareal">
+                                        <input value="<%=perEditar.getFechasalidareal()%>" type="date" <%if (!perEditar.getFechasalidareal().equals("")) {%>disabled=""<%}%> class="form-control" id="fechasalidarealEdit" placeholder="Fecha de Salida" name="fechasalidareal">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horasalidarealEdit">Hora Salida Real</label>
-                                        <input value="<%=perEditar.getHorasalidareal()%>" type="text" <%if (!perEditar.getHorasalidareal().equals("")) {%>disabled=""<%}%>class="form-control" id="horasalidarealEdit" placeholder="Fecha de Salida" name="horasalidareal">
+                                        <input value="<%=perEditar.getHorasalidareal()%>" type="time" <%if (!perEditar.getHorasalidareal().equals("")) {%>disabled=""<%}%>class="form-control" id="horasalidarealEdit" placeholder="Fecha de Salida" name="horasalidareal">
                                     </div>
                                 </div>
                                 <% if (!perEditar.getFechasalidareal().equals("") && !perEditar.getHorasalidareal().equals("") && perEditar.getFechaingresoreal().equals("") && perEditar.getHoraingresoreal().equals("")) {%>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechaingresorealEdit">Fecha Ingreso Real</label>
-                                        <input value="<%=perEditar.getFechaingresoreal()%>" type="text" class="form-control" id="fechaingresorealEdit" placeholder="Fecha de Entrada" name="fechaingresoreal">
+                                        <input value="<%=perEditar.getFechaingresoreal()%>" type="date" class="form-control" id="fechaingresorealEdit" placeholder="Fecha de Entrada" name="fechaingresoreal">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horaingresorealEdit">Hora Ingreso Real</label>
-                                        <input value="<%=perEditar.getHoraingresoreal()%>" type="text" class="form-control" id="horaingresorealEdit" placeholder="Fecha de Entrada" name="horaingresoreal">
+                                        <input value="<%=perEditar.getHoraingresoreal()%>" type="time" class="form-control" id="horaingresorealEdit" placeholder="Fecha de Entrada" name="horaingresoreal">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">

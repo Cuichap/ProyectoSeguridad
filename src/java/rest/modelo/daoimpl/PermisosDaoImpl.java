@@ -132,7 +132,7 @@ public class PermisosDaoImpl implements PermisosDao {
     public List<Permiso> listarPermisoResidenteEdit(String IdPermiso) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Permiso> listaPermisos = new ArrayList<>();
-        String query = "SELECT p.permiso_id as idpermiso, us.persona_id as idpersona, us.usuario_id as usuarioid, concat(per.nombre,' ',per.apellidos) as nombres, p.lugar as lugar, m.motivo_id as motivoid, m.nombre_motivo as motivo, p.fechasalida as fechasal1, p.horasalida as horasal1, p.fechaingreso as fechaing1, p.horaingreso as horaing1, p.fechasalidareal as fechasal2, p.horasalidareal as horasal2, p.fechaingresoreal as fechaing2, p.horaingresoreal as horaing2, p.observacion as observacion, CASE p.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM permiso as p, tipo_permiso as tp, motivo as m, usuario_permiso as up, usuario as us, persona as per, tipo_persona as tip WHERE per.persona_id=us.persona_id AND us.usuario_id=up.usuario_id AND up.permiso_id=p.permiso_id AND p.tipo_permiso_id=tp.tipo_permiso_id and p.motivo_id=m.motivo_id AND tip.tipo_persona_id=us.tipo_persona_id AND tip.nombre_tipo_persona='Residente' AND p.permiso_id='"+IdPermiso+"'";
+        String query = "SELECT p.permiso_id as idpermiso, us.persona_id as idpersona, us.usuario_id as usuarioid, concat(per.nombre,' ',per.apellidos) as nombres, p.lugar as lugar, m.motivo_id as motivoid, m.nombre_motivo as motivo, p.fechasalida as fechasal1, p.horasalida as horasal1, p.fechaingreso as fechaing1, p.horaingreso as horaing1, p.fechasalidareal as fechasal2, p.horasalidareal as horasal2, p.fechaingresoreal as fechaing2, p.horaingresoreal as horaing2, p.observacion as observacion, CASE p.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM permiso as p, tipo_permiso as tp, motivo as m, usuario_permiso as up, usuario as us, persona as per, tipo_persona as tip WHERE per.persona_id=us.persona_id AND us.usuario_id=up.usuario_id AND up.permiso_id=p.permiso_id AND p.tipo_permiso_id=tp.tipo_permiso_id and p.motivo_id=m.motivo_id AND tip.tipo_persona_id=us.tipo_persona_id AND tip.nombre_tipo_persona='Residente' AND p.permiso_id='" + IdPermiso + "'";
         cx.execQuery(query);
         while (cx.getNext()) {
             Permiso permiso = new Permiso();
@@ -258,7 +258,7 @@ public class PermisosDaoImpl implements PermisosDao {
     @Override
     public boolean AgregarIngresoResidente(Permiso permiso, String id) {
         Conexion cx = Configuracion.GaritaUPeU();
-        String COMANDO = "UPDATE permiso SET fechaingresoreal='" + permiso.getFechaingresoreal() + "', horaingresoreal='" + permiso.getHoraingresoreal() + "', observacion='"+permiso.getObservacion()+"', usuario_id_reg='"+permiso.getUsuarioreg()+"' WHERE permiso_id='" + id + "' ";
+        String COMANDO = "UPDATE permiso SET fechaingresoreal='" + permiso.getFechaingresoreal() + "', horaingresoreal='" + permiso.getHoraingresoreal() + "', observacion='" + permiso.getObservacion() + "', usuario_id_reg='" + permiso.getUsuarioreg() + "' WHERE permiso_id='" + id + "' ";
         try {
             cx.execC(COMANDO);
             cx.Commit();
@@ -270,7 +270,44 @@ public class PermisosDaoImpl implements PermisosDao {
             System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
             System.out.println(COMANDO);
             return false;
-        }    }
+        }
+    }
+
+    @Override
+    public boolean AgregarSalidaPersonal(Permiso permiso, String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE permiso SET fechasalidareal='" + permiso.getFechasalidareal() + "', horasalidareal='" + permiso.getHorasalidareal() + "' WHERE permiso_id='" + id + "' ";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean AgregarIngresoPersonal(Permiso permiso, String id) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String COMANDO = "UPDATE permiso SET fechaingresoreal='" + permiso.getFechaingresoreal() + "', horaingresoreal='" + permiso.getHoraingresoreal() + "', observacion='" + permiso.getObservacion() + "', usuario_id_reg='" + permiso.getUsuarioreg() + "' WHERE permiso_id='" + id + "' ";
+        try {
+            cx.execC(COMANDO);
+            cx.Commit();
+            cx.Close(1, 1, 1);
+            return true;
+        } catch (Exception EX) {
+            cx.RollBack();
+            cx.Close(1, 1, 1);
+            System.out.println(EX.getMessage() + ":Tipo **** Error: " + EX.getLocalizedMessage());
+            System.out.println(COMANDO);
+            return false;
+        }
+    }
 
     @Override
     public boolean EditarPermisoVehiculo(Permiso permiso, String id, String id2) {

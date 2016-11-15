@@ -21,14 +21,65 @@ public class ReporteDaoImpl implements ReporteDao{
     
        
       @Override
-    public int cantidad() {
+    public int cantidadPermisos() {
         Conexion cx = Configuracion.GaritaUPeU();
-        String query = "SELECT count(p.fechasalida) as cantidadP FROM permiso as p,  usuario_permiso as up WHERE  up.permiso_id=p.permiso_id  and up.usuario_id=4 and fechasalida<curdate()";
+        String query = "SELECT sum(Permisos) as cantidadT FROM Permisoss";
         cx.execQuery(query);
         cx.getNext();
-        int cantidad=Integer.parseInt(cx.getCol("cantidadP"));        
-        return cantidad; 
-        }
+        int can = Integer.parseInt(cx.getCol("cantidadT"));
+        return can;
+    }
+
+    @Override
+    public int cantidadPerResidente() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String query = "SELECT count(p.fechasalida) as cantidadR FROM permiso as p,  usuario_permiso as up , tipo_persona as tper, usuario as u, tipo_permiso as tp WHERE tp.tipo_permiso_id=p.tipo_permiso_id and p.permiso_id=up.permiso_id and up.usuario_id=u.usuario_id and u.tipo_persona_id=tper.tipo_persona_id and tper.tipo_persona_id=9 and p.fechasalida=curdate()";
+        cx.execQuery(query);
+        cx.getNext();
+        int cant = Integer.parseInt(cx.getCol("cantidadR"));
+        return cant;
+    }
+
+    @Override
+    public int cantidadPerPersonal() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String query = "SELECT count(p.fechasalida) as cantidadP FROM permiso as p,  usuario_permiso as up , tipo_persona as tper, usuario as u, tipo_permiso as tp WHERE tp.tipo_permiso_id=p.tipo_permiso_id and p.permiso_id=up.permiso_id and up.usuario_id=u.usuario_id and u.tipo_persona_id=tper.tipo_persona_id and tper.tipo_persona_id=8 and p.fechasalida=curdate()";
+        cx.execQuery(query);
+        cx.getNext();
+        int canti = Integer.parseInt(cx.getCol("cantidadP"));
+        return canti;
+    }
+
+    @Override
+    public int cantidadPerVehiculo() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String query = "select count(vp.fechasalida) as cantidadV FROM permiso as p,  vehiculo_permiso as vp , vehiculo as v WHERE p.permiso_id=vp.permiso_id and vp.vehiculo_id=v.vehiculo_id and vp.fechasalida=curdate()";
+        cx.execQuery(query);
+        cx.getNext();
+        int cantidad = Integer.parseInt(cx.getCol("cantidadV"));
+        return cantidad;
+    }
+    
+    @Override
+    public int cantidadIncidencia() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String query = "select count(i.fecha) as cantidadI from incidencia as i, usuario_incidencia as ui where i.incidencia_id=ui.incidencia_id and fecha=curdate()";
+        cx.execQuery(query);
+        cx.getNext();
+        int cantidad = Integer.parseInt(cx.getCol("cantidadI"));
+        return cantidad;
+    }
+
+    @Override
+    public int cantidadVisita() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        String query = "select count(v.fechaentrada) as cantidadVi from visita as v, persona_visita as pv where v.visita_id=pv.visita_id and fechaentrada=curdate()";
+        cx.execQuery(query);
+        cx.getNext();
+        int cantidad = Integer.parseInt(cx.getCol("cantidadVi"));
+        return cantidad;
+    }
+
 
     @Override
     public List<Visita> ListaVisitas() {

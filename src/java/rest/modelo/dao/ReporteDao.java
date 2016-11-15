@@ -15,7 +15,12 @@ import rest.modelo.entidad.Visita;
  */
 public interface ReporteDao {
     
-   public int cantidad();
+   public int cantidadPermisos();
+   public int cantidadPerResidente();
+   public int cantidadPerPersonal();    
+   public int cantidadPerVehiculo();
+   public int cantidadIncidencia();
+   public int cantidadVisita();
    public List<Visita> ListaVisitas();
    public List<Permiso> listaPerRes();
    public List<Permiso> listarPermisos(String personaid);

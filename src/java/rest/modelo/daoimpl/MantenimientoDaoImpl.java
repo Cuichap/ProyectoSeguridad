@@ -908,6 +908,36 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
         return listaDeberAct;
     }
 
+    @Override
+    public List<Motivo> listarMotivoAct() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Motivo> listaMotivoAct = new ArrayList<>();
+        String query = "select motivo_id as id, nombre_motivo as nombre from motivo where estado=1";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Motivo motivo = new Motivo();
+            motivo.setMotivoid(cx.getCol("id"));
+            motivo.setNombremotivo(cx.getCol("nombre"));
+            listaMotivoAct.add(motivo);
+        }
+        return listaMotivoAct;
+    }
+
+    @Override
+    public List<TipoPermiso> listarTiipoPermisoAct() {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<TipoPermiso> listaTipoPermisoAct = new ArrayList<>();
+        String query = "select tipo_permiso_id as id, nombre_tipo_permiso as nombre from tipo_permiso where estado=1";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            TipoPermiso tp = new TipoPermiso();
+            tp.setTipopermisoid(cx.getCol("id"));
+            tp.setNombretipopermiso(cx.getCol("nombre"));
+            listaTipoPermisoAct.add(tp);
+        }
+        return listaTipoPermisoAct;
+    }
+
     /* MANTENIMIENTO -- LISTAS */
     @Override
     public List<Persona> listarPersona(String estado) {

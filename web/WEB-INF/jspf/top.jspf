@@ -104,7 +104,7 @@
                             List<Menu> list = dao.listarMenus(Perfil);
                             for (Menu men : list) {
                         %>
-                        <li id="menu<%=men.getIdmenu()%>"><a href="javascript:ir<%=men.getIdmenu()%>()"><%=men.getNombreMenu()%></a></li>
+                        <li id="menu<%=men.getIdmenu()%>"><a <% if(!IdSubMenu.equals("6") && !IdSubMenu.equals("7") && !IdSubMenu.equals("8")){%>href="javascript:ir<%=men.getIdmenu()%>()"<%}%>><%=men.getNombreMenu()%></a></li>
                             <%}
                                 for (Menu men : list) {%> 
 

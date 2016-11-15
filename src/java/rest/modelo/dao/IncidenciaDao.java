@@ -14,4 +14,5 @@ import rest.modelo.entidad.Incidencia;
  */
 public interface IncidenciaDao {
      public List<Incidencia> listarIncidencia();
+     public List<Incidencia> listarObjetoPerdido();
 }

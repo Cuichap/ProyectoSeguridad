@@ -89,6 +89,8 @@ public interface MantenimientoDao {
     public List<TipoDeber> listarTipoDeberAct();
     public List<Turno> listarTurnoAct();
     public List<Deber> listarDeberAct();
+    public List<Motivo> listarMotivoAct();
+    public List<TipoPermiso> listarTiipoPermisoAct();
     
     /* MANTENIMIENTO -- LISTAS */
     public List<TipoDocumento> listarTipoDocumento(String estado);

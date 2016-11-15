@@ -4,14 +4,409 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
+<%@page import="rest.modelo.dao.MantenimientoDao"%>
+<%@page import="rest.modelo.entidad.TipoPermiso"%>
+<%@page import="rest.modelo.entidad.Motivo"%>
+<%@page import="java.util.List"%>
+<%@page import="rest.modelo.entidad.UsuarioPermisoResident"%>
+<%@page import="rest.modelo.daoimpl.AddPermisosDaoImpl"%>
+<%@page import="rest.modelo.dao.AddPermisosDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
+<%
+    String idPermisoRes = request.getParameter("idPermisoRes"); idPermisoRes = idPermisoRes == null ? "" : idPermisoRes;
+    String UsuarioRes = request.getParameter("UsuarioRes"); UsuarioRes = UsuarioRes == null ? "" : UsuarioRes;
+    String estadoPermisoComp = request.getParameter("estadoPermisoComp"); estadoPermisoComp = estadoPermisoComp == null ? "1" : estadoPermisoComp;
+ %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="col-sm-12">
+            <br>
+            <section id="lista" class="col-sm-12 well well-sm backcolor" style="display: block; margin-bottom: -50px;">
+                <article class="col-sm-6" style="color: white;">
+                    <h4><b>Lista de Permisos Solicitados</b></h4>
+                </article>
+                <article align="right" class="col-sm-6">
+                    <div class="col-sm-3"></div>
+                    <a class="btn btn-primary" onclick="AddPermisoResidente()">Nuevo &nbsp;<i class="glyphicon glyphicon-plus"></i></a><!--  data-toggle="modal" data-target="#addPersona" -->
+                </article>
+            </section>
+            <div id="listaPermisoResidente" class="col-md-12" style="padding: 0px; display: block; margin-top: 60px;">
+                <div  class="panel panel-primary">
+                    <div class="panel-heading">
+                        <article class="col-sm-8" style="color: white;">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                                <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'perResidente', '1')" type="text" class="form-control" placeholder="Buscar Persona." aria-describedby="basic-addon1">
+                            </div>
+                        </article>
+                        <script>
+                            $(document).ready(function (){
+                                    $('select[name=estadoPermmisocompleto]').change(function (){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addPermisoPreceptor.jsp",
+                                            data: "estadoPermisoComp="+ $('select[name=estadoPermmisocompleto]').val(),
+                                            success: function (data) {
+                                                $("#permisos").html(data);
+                                            }
+                                        });
+                                    });
+                                });
+                        </script>
+                        <article align="right" class="col-sm-4">
+                            <div class="input-group col-sm-12">
+                                <select id="estadoPersona" class="form-control" name="estadoPermmisocompleto">
+                                    <option hidden>Seleccionar el Estado</option>
+                                    <option <% if(estadoPermisoComp.equals("2")){%>selected<%}%> value="2">Aceptados</option>
+                                    <option <% if(estadoPermisoComp.equals("0")){%>selected<%}%> value="0">Rechazados</option>
+                                    <option <% if(estadoPermisoComp.equals("1")){%>selected<%}%> value="1">En Proceso</option>
+                                </select>
+                            </div>
+                        </article>
+                        <div class="row"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12" style="overflow: auto; padding: 0px;">
+                            <table style="" id="perResidente" class="table table-bordered table-condensed table-hover table-responsive">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th hidden>Id Usuario</th>
+                                        <th>Nombres</th>
+                                        <th hidden>Id Permiso</th>
+                                        <th hidden>Id Tipo Permiso</th>
+                                        <th>Permiso</th>
+                                        <th hidden>Id Motivo</th>
+                                        <th>Motivo</th>
+                                        <th>Otros</th>
+                                        <th>Lugar</th>
+                                        <th>Salida</th>
+                                        <th>Entrada</th>
+                                        <th>Estado</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        AddPermisosDao dao = new AddPermisosDaoImpl();
+                                        MantenimientoDao md = new MantenimientoDaoImpl();
+
+                                        int count = 0;
+
+                                        List<UsuarioPermisoResident> listaUsuarioPendientes = dao.listarPermisoPendientes(estadoPermisoComp);
+                                        for (UsuarioPermisoResident up : listaUsuarioPendientes) {
+                                            count++;
+                                    %>
+                                    <tr>
+                                        <td><%=count%></td>
+                                        <td hidden><%=up.getUsuarioId()%></td>
+                                        <td><%=up.getNombres()%></td>
+                                        <td hidden><%=up.getPermisoId()%></td>
+                                        <td hidden><%=up.getTipoPermisoId()%></td>
+                                        <td><%=up.getNombreTipoPermiso()%></td>
+                                        <td hidden><%=up.getMotivoId()%></td>
+                                        <td><%=up.getNombreMotivo() %></td>
+                                        <td><%=up.getOtros()%></td>
+                                        <td><%=up.getLugar()%></td>
+                                        <td><%=up.getFechaSalida()%> -- <%=up.getHoraSalida()%></td>
+                                        <td><%=up.getFechaEntrada()%> -- <%=up.getHoraEntrada()%></td>
+                                        <td><%=up.getEstado()%></td>
+                                        <td align="center">
+                                            <% if (up.getEstado().equals("En Proceso")) {%>
+                                            <a style="cursor: pointer;" onclick="Editar<%=up.getUsuarioId()%><%=up.getPermisoId()%>(<%=up.getPermisoId()%>, <%=up.getUsuarioId()%>)">
+                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Permiso" class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                            <%}%>
+                                        </td>
+                                    </tr>
+                                <script>
+                                    function Editar<%=up.getUsuarioId()%><%=up.getPermisoId()%>(permiso, usuario) {
+                                        $.ajax({
+                                            stype: 'POST',
+                                            url: "addPermisoPreceptor.jsp",
+                                            data: "idPermisoRes=" + permiso + "&UsuarioRes=" + usuario,
+                                            success: function (data) {
+                                                $("#permisos").html(data);
+                                                document.getElementById('lista').style.display = 'none';
+                                                document.getElementById('listaPermisoResidente').style.display = 'none';
+                                                document.getElementById('agregarPermisoResidente').style.display = 'none';
+                                                document.getElementById('editarPermisoResidente').style.display = 'block';
+                                                document.getElementById("nombresEdit").focus();
+                                                $("#aciones").html("Modificar Permiso");
+                                            }
+                                        });
+                                    }
+                                    function cancelarEditPermisoResidente() {
+                                        document.getElementById("editpermisoresidente").reset();
+                                        document.getElementById("addpermisoresidente").reset();
+                                        document.getElementById('lista').style.display = 'block';
+                                        document.getElementById('listaPermisoResidente').style.display = 'block';
+                                        document.getElementById('editarPermisoResidente').style.display = 'none';
+                                        document.getElementById('agregarPermisoResidente').style.display = 'none';
+                                        document.getElementById("buscador").focus();
+                                        $("#aciones").html("Lista de Permisos Solicitados");
+                                    }
+                                </script>
+                                <%}%>
+                                </tbody>
+                            </table>
+                            <script>
+                                function AddPermisoResidente() {
+                                    document.getElementById('lista').style.display = 'none';
+                                    document.getElementById('listaPermisoResidente').style.display = 'none';
+                                    document.getElementById('agregarPermisoResidente').style.display = 'block';
+                                    document.getElementById('editarPermisoResidente').style.display = 'none';
+                                    document.getElementById("otros").focus();
+                                    $("#aciones").html("Agregar Permiso");
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="agregarPermisoResidente" class="col-md-12" style="padding: 0px; display: none;">
+                <div data-brackets-id="733" class="panel panel-primary">
+                    <div data-brackets-id="734" class="panel-heading">
+                        <h4><b>Ingresar los Datos del Permiso</b></h4>
+                    </div>
+                    <div data-brackets-id="736" class="panel-body">
+                        <form id="addpermisoresidente" class="form-signin" role="form" method="post" action="usuariopermiso">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipoperm">Tipo de Permiso</label>
+                                        <select required class="form-control" id="tipoperm" name="tipoPermisoId">
+                                            <option hidden>Seleccionar Tipo de Permiso</option>
+                                            <%
+                                                List<TipoPermiso> listaTipoPermisoAct = md.listarTiipoPermisoAct();
+                                                for(TipoPermiso tipoPermiso : listaTipoPermisoAct){
+                                            %>
+                                            <option value="<%=tipoPermiso.getTipopermisoid()%>"><%=tipoPermiso.getNombretipopermiso()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipomot">Motivo</label>
+                                        <select required class="form-control" id="tipomot" name="MotivoId">
+                                            <option hidden>Seleccionar el Motivo</option>
+                                            <%
+                                                List<Motivo> listaMotivoAct = md.listarMotivoAct();
+                                                for(Motivo motivo : listaMotivoAct){
+                                            %>
+                                            <option value="<%=motivo.getMotivoid()%>"><%=motivo.getNombremotivo()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="otros">Otros</label>
+                                        <input type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otros" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="lugar">Lugar</label>
+                                        <input required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="lugar" placeholder="Lugar" name="lugar" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechasalida">Fecha de Salida</label>
+                                        <input type="date" class="form-control" id="fechasalida" placeholder="Ingrese la Fecha de Salida" name="fechasalida" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="horasalida">Hora de Salida</label>
+                                        <input type="time" class="form-control" id="horasalida" placeholder="Ingresar la hora de Salida" name="horasalida" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechaEntrada">Fecha de Entrada</label>
+                                        <input type="date" class="form-control" id="fechaEntrada" placeholder="Ingrese la Fecha de Entrada" name="fechaEntrada" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="horaEntrada">Hora de Entrada</label>
+                                        <input type="time" class="form-control" id="horaEntrada" placeholder="Ingresar la Hora de Entrada" name="horaEntrada" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="opcion" value="AddPermisoResidente">
+                            <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                            
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditPermisoResidente()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="editarPermisoResidente" class="col-md-12" style="padding: 0px; display: none;">
+                <div data-brackets-id="733" class="panel panel-primary">
+                    <div data-brackets-id="734" class="panel-heading">
+                        <h4><b>Modificar los Datos de la Persona</b></h4>
+                    </div>
+                    <%
+                        List<UsuarioPermisoResident> listarEditPermisoPen = dao.listarEditPermisoPendientes(idPermisoRes, UsuarioRes);
+                        for(UsuarioPermisoResident usres : listarEditPermisoPen){
+                    %>
+                    <div data-brackets-id="736" class="panel-body">
+                        <form id="editpermisoresidente" class="form-signin" role="form" method="post" action="usuariopermiso">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group has-feedback">
+                                        <label for="otrosEdit">Usuario</label>
+                                        <input value="<%=usres.getNombres() %>" disabled type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otrosEdit" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipopermEdit">Tipo de Permiso</label>
+                                        <select required class="form-control" id="tipopermEdit" disabled name="tipoPermisoId">
+                                            <option hidden>Seleccionar Tipo de Permiso</option>
+                                            <%
+                                                List<TipoPermiso> listaTipoPermisoEditAct = md.listarTiipoPermisoAct();
+                                                for(TipoPermiso tipoPermisoEdit : listaTipoPermisoEditAct){
+                                            %>
+                                            <option <% if(usres.getTipoPermisoId().equals(tipoPermisoEdit.getTipopermisoid())){%>selected<%}%> value="<%=tipoPermisoEdit.getTipopermisoid()%>"><%=tipoPermisoEdit.getNombretipopermiso()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipomotEdit">Motivo</label>
+                                        <select required class="form-control" disabled id="tipomotEdit" name="MotivoId">
+                                            <option hidden>Seleccionar el Motivo</option>
+                                            <%
+                                                List<Motivo> listaMotivoEditAct = md.listarMotivoAct();
+                                                for(Motivo motivoEdit : listaMotivoEditAct){
+                                            %>
+                                            <option <% if(usres.getMotivoId().equals(motivoEdit.getMotivoid())){%>selected<%}%> value="<%=motivoEdit.getMotivoid()%>"><%=motivoEdit.getNombremotivo()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechasalidaEdit">Fecha de Salida</label>
+                                        <input value="<%=usres.getFechaSalida()%>" disabled type="date" class="form-control" id="fechasalidaEdit" placeholder="Ingrese la Fecha de Salida" name="fechasalida" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="horasalidaEdit">Hora de Salida</label>
+                                        <input value="<%=usres.getHoraSalida()%>" disabled type="time" class="form-control" id="horasalidaEdit" placeholder="Ingresar la hora de Salida" name="horasalida" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fechaEntradaEdit">Fecha de Entrada</label>
+                                        <input value="<%=usres.getFechaEntrada()%>" disabled type="date" class="form-control" id="fechaEntradaEdit" placeholder="Ingrese la Fecha de Entrada" name="fechaEntrada" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="horaEntradaEdit">Hora de Entrada</label>
+                                        <input value="<%=usres.getHoraEntrada() %>" disabled type="time" class="form-control" id="horaEntradaEdit" placeholder="Ingresar la Hora de Entrada" name="horaEntrada" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group has-feedback">
+                                        <label for="otrosEdit">Otros</label>
+                                        <input value="<%=usres.getOtros()%>" required disabled type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otrosEdit" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group has-feedback">
+                                        <label for="lugarEdit">Lugar</label>
+                                        <input value="<%=usres.getLugar()%>" required disabled type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="lugarEdit" placeholder="Lugar" name="lugar" data-error="Solo se permite letras no numeros">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="tipopermEdit">¿Aprobar el Permiso?</label>
+                                        <select required class="form-control" id="tipopermEdit" name="AceptarPer">
+                                            <option hidden>Seleccionar</option>
+                                            <option value="2">Aprobar</option>
+                                            <option value="0">Rechazar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="opcion" value="AprobarPermisoResidente">
+                            <input type="hidden" name="id" value="<%=idPermisoRes%>">
+                            <input type="hidden" name="idusuario" value="<%=UsuarioRes%>">
+                            <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarEditPermisoResidente()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $().ready(function () {
+                $("#addpermisoresidente").validator({debug: true});
+                $("#editpermisoresidente").validator({debug: true});
+            });
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>                                
     </body>
+
 </html>

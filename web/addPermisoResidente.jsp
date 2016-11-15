@@ -4,11 +4,11 @@
     Author     : USUARIO
 --%>
 
+<%@page import="rest.modelo.entidad.UsuarioPermisoResident"%>
 <%@page import="rest.modelo.entidad.TipoPermiso"%>
 <%@page import="rest.modelo.entidad.Motivo"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
-<%@page import="rest.modelo.entidad.UsuarioPermiso"%>
 <%@page import="java.util.List"%>
 <%@page import="rest.modelo.daoimpl.AddPermisosDaoImpl"%>
 <%@page import="rest.modelo.dao.AddPermisosDao"%>
@@ -16,6 +16,7 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%
     String idPermisoResEdit = request.getParameter("idPermisoResEdit"); idPermisoResEdit = idPermisoResEdit == null ? "" : idPermisoResEdit;
+    String user = request.getParameter("user"); user = user == null ? "" : user;
     String estadoPermisoRes = request.getParameter("estadoPermisoRes"); estadoPermisoRes = estadoPermisoRes == null ? "1" : estadoPermisoRes;
  %>
 <!DOCTYPE html>
@@ -99,8 +100,8 @@
 
                                         int count = 0;
 
-                                        List<UsuarioPermiso> listaUsuarioPerm = dao.listarPermisoResidente(idUsuario, estadoPermisoRes);
-                                        for (UsuarioPermiso up : listaUsuarioPerm) {
+                                        List<UsuarioPermisoResident> listaUsuarioPerm = dao.listarPermisoResidente(idUsuario, estadoPermisoRes);
+                                        for (UsuarioPermisoResident up : listaUsuarioPerm) {
                                             count++;
                                     %>
                                     <tr>
@@ -119,7 +120,7 @@
                                         <td><%=up.getEstado()%></td>
                                         <td align="center">
                                             <% if (up.getEstado().equals("En Proceso")) {%>
-                                            <a style="cursor: pointer;" onclick="Editar<%=up.getPermisoId()%>(<%=up.getPermisoId()%>)">
+                                            <a style="cursor: pointer;" onclick="Editar<%=up.getPermisoId()%><%=up.getUsuarioId()%>(<%=up.getPermisoId()%>, <%=up.getUsuarioId()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Modificar Permiso" class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                                 &nbsp;&nbsp;&nbsp;
@@ -141,11 +142,11 @@
                                     function Activar<%=up.getPermisoId()%>() {
                                         $("#permUserActive").val("<%=up.getPermisoId()%>");
                                     }
-                                    function Editar<%=up.getPermisoId()%>(permisoResident) {
+                                    function Editar<%=up.getPermisoId()%><%=up.getUsuarioId()%>(permisoResident, user) {
                                         $.ajax({
                                             stype: 'POST',
                                             url: "addPermisoResidente.jsp",
-                                            data: "idPermisoResEdit=" + permisoResident,
+                                            data: "idPermisoResEdit=" + permisoResident + "&user=" + user,
                                             success: function (data) {
                                                 $("#permisos").html(data);
                                                 document.getElementById('lista').style.display = 'none';
@@ -191,7 +192,7 @@
                         <h4><b>Ingresar los Datos del Permiso</b></h4>
                     </div>
                     <div data-brackets-id="736" class="panel-body">
-                        <form id="addpermisoresidente" class="form-signin" role="form" method="post" action="mantenimiento">
+                        <form id="addpermisoresidente" class="form-signin" role="form" method="post" action="usuariopermiso">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -226,7 +227,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="otros">Otros</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otros" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
+                                        <input type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otros" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -290,9 +291,12 @@
                     <div data-brackets-id="734" class="panel-heading">
                         <h4><b>Modificar los Datos de la Persona</b></h4>
                     </div>
-                    
+                    <%
+                        List<UsuarioPermisoResident> listaEditPerRes = dao.listarEditPermisoResidente(idPermisoResEdit, user);
+                        for(UsuarioPermisoResident usres : listaEditPerRes){
+                    %>
                     <div data-brackets-id="736" class="panel-body">
-                        <form id="editpermisoresidente" class="form-signin" role="form" method="post" action="mantenimiento">
+                        <form id="editpermisoresidente" class="form-signin" role="form" method="post" action="usuariopermiso">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -303,7 +307,7 @@
                                                 List<TipoPermiso> listaTipoPermisoEditAct = md.listarTiipoPermisoAct();
                                                 for(TipoPermiso tipoPermisoEdit : listaTipoPermisoEditAct){
                                             %>
-                                            <option value="<%=tipoPermisoEdit.getTipopermisoid()%>"><%=tipoPermisoEdit.getNombretipopermiso()%></option>
+                                            <option <% if(usres.getTipoPermisoId().equals(tipoPermisoEdit.getTipopermisoid())){%>selected<%}%> value="<%=tipoPermisoEdit.getTipopermisoid()%>"><%=tipoPermisoEdit.getNombretipopermiso()%></option>
                                             <%}%>
                                         </select>
                                     </div>
@@ -317,7 +321,7 @@
                                                 List<Motivo> listaMotivoEditAct = md.listarMotivoAct();
                                                 for(Motivo motivoEdit : listaMotivoEditAct){
                                             %>
-                                            <option value="<%=motivoEdit.getMotivoid()%>"><%=motivoEdit.getNombremotivo()%></option>
+                                            <option <% if(usres.getMotivoId().equals(motivoEdit.getMotivoid())){%>selected<%}%> value="<%=motivoEdit.getMotivoid()%>"><%=motivoEdit.getNombremotivo()%></option>
                                             <%}%>
                                         </select>
                                     </div>
@@ -327,7 +331,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="otrosEdit">Otros</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otrosEdit" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=usres.getOtros()%>" type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otrosEdit" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -335,7 +339,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="lugarEdit">Lugar</label>
-                                        <input required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="lugarEdit" placeholder="Lugar" name="lugar" data-error="Solo se permite letras no numeros">
+                                        <input value="<%=usres.getLugar()%>" required type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="lugarEdit" placeholder="Lugar" name="lugar" data-error="Solo se permite letras no numeros">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -345,13 +349,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechasalidaEdit">Fecha de Salida</label>
-                                        <input type="date" class="form-control" id="fechasalidaEdit" placeholder="Ingrese la Fecha de Salida" name="fechasalida" required>
+                                        <input value="<%=usres.getFechaSalida()%>" type="date" class="form-control" id="fechasalidaEdit" placeholder="Ingrese la Fecha de Salida" name="fechasalida" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horasalidaEdit">Hora de Salida</label>
-                                        <input type="time" class="form-control" id="horasalidaEdit" placeholder="Ingresar la hora de Salida" name="horasalida" required>
+                                        <input value="<%=usres.getHoraSalida()%>" type="time" class="form-control" id="horasalidaEdit" placeholder="Ingresar la hora de Salida" name="horasalida" required>
                                     </div>
                                 </div>
                             </div>
@@ -359,13 +363,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechaEntradaEdit">Fecha de Entrada</label>
-                                        <input type="date" class="form-control" id="fechaEntradaEdit" placeholder="Ingrese la Fecha de Entrada" name="fechaEntrada" required>
+                                        <input value="<%=usres.getFechaEntrada()%>" type="date" class="form-control" id="fechaEntradaEdit" placeholder="Ingrese la Fecha de Entrada" name="fechaEntrada" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horaEntradaEdit">Hora de Entrada</label>
-                                        <input type="time" class="form-control" id="horaEntradaEdit" placeholder="Ingresar la Hora de Entrada" name="horaEntrada" required>
+                                        <input value="<%=usres.getHoraEntrada() %>" type="time" class="form-control" id="horaEntradaEdit" placeholder="Ingresar la Hora de Entrada" name="horaEntrada" required>
                                     </div>
                                 </div>
                             </div>
@@ -385,6 +389,7 @@
                             </h4>
                         </form>
                     </div>
+                    <%}%>
                 </div>
             </div>
         </div>

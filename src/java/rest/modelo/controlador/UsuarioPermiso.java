@@ -49,6 +49,8 @@ public class UsuarioPermiso extends HttpServlet {
         String horasalida = request.getParameter("horasalida"); horasalida = horasalida == null ? "" : horasalida;
         String fechaEntrada = request.getParameter("fechaEntrada"); fechaEntrada = fechaEntrada == null ? "" : fechaEntrada;
         String horaEntrada = request.getParameter("horaEntrada"); horaEntrada = horaEntrada == null ? "" : horaEntrada;
+        String AceptarPer = request.getParameter("AceptarPer"); AceptarPer = AceptarPer == null ? "" : AceptarPer;
+        String idusuario = request.getParameter("idusuario"); idusuario = idusuario == null ? "" : idusuario;
         
         String id = request.getParameter("id"); id = id == null?"":id;
         String idUserReg = request.getParameter("idUserReg"); idUserReg = idUserReg == null?"":idUserReg;
@@ -77,6 +79,26 @@ public class UsuarioPermiso extends HttpServlet {
                 }
                 break;
             case "EditarPermisoResidente":
+                uspr.setTipoPermisoId(tipoPermisoId);
+                uspr.setMotivoId(MotivoId);
+                uspr.setOtros(otros);
+                uspr.setLugar(lugar);
+                uspr.setFechaSalida(fechasalida);
+                uspr.setHoraSalida(horasalida);
+                uspr.setFechaEntrada(fechaEntrada);
+                uspr.setHoraEntrada(horaEntrada);
+                uspr.setUserIdReg(idUserReg);
+                if (apd.EditarPermisoResidente(uspr, id)) {
+                    request.setAttribute("IdSubMenu", "6");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                    request.getRequestDispatcher("permisos.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "6");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Seguridad");
+                    request.getRequestDispatcher("seguridad.jsp").forward(request, response);
+                }
                 break;
             case "DeletePermisoResidente":
                 if (apd.EliminarPermisoResidente(id)) {
@@ -99,6 +121,19 @@ public class UsuarioPermiso extends HttpServlet {
                     request.getRequestDispatcher("permisos.jsp").forward(request, response);
                 } else {
                     request.setAttribute("IdSubMenu", "6");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Seguridad");
+                    request.getRequestDispatcher("seguridad.jsp").forward(request, response);
+                }
+                break;
+            case "AprobarPermisoResidente":
+                if (apd.AprobarPermisoResidente(id, idusuario, AceptarPer, idUserReg)) {
+                    request.setAttribute("IdSubMenu", "7");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                    request.getRequestDispatcher("permisos.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "7");
                     request.setAttribute("IdMenu", "2");
                     request.setAttribute("JSP", "Seguridad");
                     request.getRequestDispatcher("seguridad.jsp").forward(request, response);

@@ -7,7 +7,7 @@ var info = [];
 $(document).ready(function () {
     $(function () {
         
-        $("#buscador").autocomplete({
+        $("#buscarPersona").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     url: "controller",
@@ -21,7 +21,8 @@ $(document).ready(function () {
                         response($.map(data, function (item) {
                             info.push({
                                 id:item.personaid,
-                                nombres:item.nombre+' '+item.apellidos                                
+                                nombres:item.nombre,
+                                apellidos: item.apellidos
                             });
                             //alert(item.nombre);
                             return item.nombre+' '+item.apellidos;
@@ -35,6 +36,9 @@ $(document).ready(function () {
                 for(var i=0;i<=info.length;i++){
                     if(info[i].nombres === ui.item.value){
                         alert('ID: '+info[i].id+" Nombres: "+info[i].nombres);
+                        $("#nombresBuscador").html(info[i].nombres);
+                        $("#apellidosBuscador").html(info[i].apellidos);
+                        $("#idBuscador").html(info[i].id);
                     }                    
                 }
                 

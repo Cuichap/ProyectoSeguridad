@@ -23,6 +23,7 @@ public class Permiso {
     private String otros;
     private String fechahoraemision;
     private String lugar;
+    private String telefono;
     private String fechasalida;
     private String horasalida;
     private String fechaingreso;
@@ -138,6 +139,14 @@ public class Permiso {
 
     public String getLugar() {
         return lugar;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public void setLugar(String lugar) {

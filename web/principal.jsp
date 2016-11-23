@@ -4,8 +4,13 @@
 <!-- <script src="/graficos/Chart.js"></script> -->
 
 <%
-    ReporteDao da = new ReporteDaoImpl();
-    int cantidad = da.cantidad();
+    ReporteDao da=new ReporteDaoImpl();
+    int can=da.cantidadPermisos();
+    int cant=da.cantidadPerResidente();
+    int canti=da.cantidadPerPersonal();
+    int cantidad=da.cantidadPerVehiculo();
+    int cani=da.cantidadIncidencia();
+    int canv=da.cantidadVisita();
 %>
 <div class="bs-example">
     <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
@@ -27,7 +32,7 @@
                         <i class="fa fa-car fa-4x"></i>
                     </div>
                     <div class="col-xs-5 text-center">
-                        <p class="alerts-heading"><%=cantidad%></p>
+                        <p class="alerts-heading"><%=can%></p>
                         <p class="alerts-text">Permisos</p>
                     </div>
                 </div>
@@ -40,7 +45,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">28</p>
+                        <p class="alerts-heading"><%=canv%></p>
                         <p class="alerts-text">Visitas</p>
                     </div>
                 </div>
@@ -53,7 +58,7 @@
                         <i class="fa fa-ban fa-5x"></i>
                     </div>
                     <div class="col-xs-5 text-right">
-                        <p class="alerts-heading">28</p>
+                        <p class="alerts-heading"><%=cani%></p>
                         <p class="alerts-text">Incidencias</p>
                     </div>
                 </div>

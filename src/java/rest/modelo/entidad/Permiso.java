@@ -44,7 +44,8 @@ public class Permiso {
     private String placa;
     private String descripcionSalida;
     private String descripcionIngreso;
-    private int count;
+    private String usuarioreg;
+    
 
     public Permiso() {
     }
@@ -311,5 +312,13 @@ public class Permiso {
 
     public void setDescripcionIngreso(String descripcionIngreso) {
         this.descripcionIngreso = descripcionIngreso;
+    }
+
+    public String getUsuarioreg() {
+        return usuarioreg;
+    }
+
+    public void setUsuarioreg(String usuarioreg) {
+        this.usuarioreg = usuarioreg;
     }
 }

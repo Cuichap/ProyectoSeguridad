@@ -30,11 +30,11 @@
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     document.oncontextmenu = function(){
         return false;
     };
-</script>
+</script> -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,10 +50,16 @@
         <!--<script type="text/javascript" src="validador/js/validator.js"></script>-->
         <script type="text/javascript" src="res/js/funciones.js"></script>
 
-        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+       <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/validator.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/validator.js"></script>
+        
+        <!-- <script type="text/javascript" src="res/js/autocompleter.js"></script> -->
+        <script type="text/javascript" src="res/js/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="res/js/jquery-ui.js"></script>
+        
+        
         <!-- <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
         <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
         <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script> -->
@@ -98,7 +104,7 @@
                             List<Menu> list = dao.listarMenus(Perfil);
                             for (Menu men : list) {
                         %>
-                        <li id="menu<%=men.getIdmenu()%>"><a href="javascript:ir<%=men.getIdmenu()%>()"><%=men.getNombreMenu()%></a></li>
+                        <li id="menu<%=men.getIdmenu()%>"><a <% if(!IdSubMenu.equals("6") && !IdSubMenu.equals("7") && !IdSubMenu.equals("8")){%>href="javascript:ir<%=men.getIdmenu()%>()"<%}%>><%=men.getNombreMenu()%></a></li>
                             <%}
                                 for (Menu men : list) {%> 
 

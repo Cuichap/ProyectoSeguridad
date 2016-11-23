@@ -32,17 +32,19 @@ public class Validar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         UsuarioDao dao = new UsuarioDaoImpl();
-        
-        String us = request.getParameter(""); us = us == null?"":us;
-        String rl = request.getParameter(""); rl = rl == null?"":rl;
-        String tp = request.getParameter(""); tp = tp == null?"":tp;
-        String usuario = request.getParameter("usuario"); usuario = usuario == null?"":usuario;
-        String password = request.getParameter("contrasena"); password = password == null?"":password;
-        
-        if(dao.CompUsuario(usuario, password).getIdusuario() != null && dao.CompUsuario(usuario, password).getTipo() != null && dao.CompUsuario(usuario, password).getPerfil() != null){
-            
+
+        String us = request.getParameter(""); us = us == null ? "" : us;
+        String rl = request.getParameter(""); rl = rl == null ? "" : rl;
+        String tp = request.getParameter(""); tp = tp == null ? "" : tp;
+        String usuario = request.getParameter("usuario");
+        usuario = usuario == null ? "" : usuario;
+        String password = request.getParameter("contrasena");
+        password = password == null ? "" : password;
+
+        if (dao.CompUsuario(usuario, password).getIdusuario() != null && dao.CompUsuario(usuario, password).getTipo() != null && dao.CompUsuario(usuario, password).getPerfil() != null) {
+
             us = dao.CompUsuario(usuario, password).getIdusuario();
             rl = dao.CompUsuario(usuario, password).getPerfil();
             tp = dao.CompUsuario(usuario, password).getTipo();
@@ -51,13 +53,47 @@ public class Validar extends HttpServlet {
             session.setAttribute("Usuario", usuario);
             session.setAttribute("Tipo", tp);
             session.setAttribute("Perfil", rl);
-            
-            request.getRequestDispatcher("principal.jsp").forward(request, response);
+
+            if (rl.equals("1") || rl.equals("2") || rl.equals("3") || rl.equals("4")) {
+
+                request.getRequestDispatcher("principal.jsp").forward(request, response);
+
+            } else if (rl.equals("5")) {
+
+                request.setAttribute("IdSubMenu", "7");
+                request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                request.getRequestDispatcher("permisos.jsp").forward(request, response);
+
+            } else if (rl.equals("6")) {
+
+                request.setAttribute("IdSubMenu", "6");
+                request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                request.getRequestDispatcher("permisos.jsp").forward(request, response);
+
+            } else if (rl.equals("7")) {
+
+                request.setAttribute("IdSubMenu", "8");
+                request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                request.getRequestDispatcher("permisos.jsp").forward(request, response);
+
+            } else if(rl.equals("8")){
                 
-        }else{
+                request.setAttribute("IdSubMenu", "8");
+                request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                request.getRequestDispatcher("permisos.jsp").forward(request, response);
+                
+            }
+
+        } else {
+
             request.getRequestDispatcher("index.jsp").forward(request, response);
+
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -79,7 +79,7 @@
                                         <td hidden><%=incidencia.getObjetoid()%></td>
                                         <td><%=incidencia.getObjeto()%></td>
                                         <td><%=incidencia.getFecha()%></td>
-                                        <td><%=incidencia.getEstado()%></td>
+                                        <td hidden=""><%=incidencia.getEstado()%></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Incidencia" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Incidencia" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>

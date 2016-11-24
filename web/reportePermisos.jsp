@@ -27,9 +27,23 @@
         <div class="col-sm-12">
             <br>
             <section id="lista" class="col-sm-12 well well-sm backcolor" style="display: block; margin-bottom: -50px;">
+
                 <article class="col-sm-4" style="color: white;">
                     <h4 ><b>Reporte de Permisos</b></h4>
                 </article>
+                <%--<article class=" form-horizontal col-sm-8">
+                    <div class="col-sm-12 ">
+                        <h4 class="col-sm-4" style="color: white;">Elige el tipo de reporte:</h4>
+                            <div class=" col-sm-8 form-group">
+                                <select form-group  name="size" id="size" onchange="ir()">
+                                    <option value="10">Permiso Residente</option>
+                                    <option value="20">Permiso Personal</option>
+                                    <option value="30">Permiso Vehicular</option>
+                                </select>
+                            </div>
+                        </div>
+                </article> --%>
+
             </section>
             <div id="listaPerm" class="col-md-12" style="display: block; padding: 0px; margin-top: 60px;">
                 <div class="panel panel-primary">
@@ -97,7 +111,7 @@
                                     }
 
                                     function volverList() {
-                                        document.getElementById("delistVis").reset();
+                                       // document.getElementById("delistVis").reset();
                                         document.getElementById('lista').style.display = 'block';
                                         document.getElementById('listaPerm').style.display = 'block';
                                         document.getElementById('delistVis').style.display = 'none';
@@ -117,7 +131,7 @@
                 <div data-brackets-id="780" class="panel panel-primary">
                     <div data-brackets-id="781" class="panel-heading">
                         <h4><b>Detalle de Permiso</b></h4>
-                        <input value="<%=idPermisoRep%>" required type="text" >
+                        <input hidden value="<%=idPermisoRep%>" required type="text" >
                     </div>
 
 
@@ -131,23 +145,23 @@
                             %>
 
                             <div class="row">
-                                <div class="col-sm-12 form-horizontal">
+                                <div class="col-sm-6 form-horizontal">
                                     <div class="form-group">
-                                        <label  class="col-sm-2 ">Nombre:</label>
+                                        <label  class="col-sm-2 ">Nombres:</label>
                                         <div class="col-sm-10">
                                             <p class="form-horizontal"><%=perList.getNombres()%></p>
                                         </div>
                                     </div>
                                 </div>
-                                <%--   <div class="col-sm-6 form-horizontal">
-                        <div class="form-group">
-                            <label  class="col-sm-2">Apellidos:</label>
-                            <div class="col-sm-10">
-                                <p class="form-horizontal">Gomez Rengifo</p>
-                            </div>
-                        </div>
-                    </div>
-                                --%>
+                                <div class="col-sm-6 form-horizontal">
+                                    <div class="form-group">
+                                        <label  class="col-sm-3">Tipo salida:</label>
+                                        <div class="col-sm-9">
+                                            <p class="form-horizontal"><%=perList.getNombretipoper()%></p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 form-horizontal">
@@ -181,7 +195,7 @@
                                     <div class="form-group">
                                         <label  class="col-sm-3 ">Acompañante:</label>
                                         <div class="col-sm-9">
-                                            <p class="form-horizontal">----</p>
+                                            <p class="form-horizontal"><%=perList.getOtros()%></p>
                                         </div>
                                     </div>                                  
                                 </div>
@@ -191,14 +205,14 @@
                                     <div class="form-group">
                                         <label  class="col-sm-4">Fecha / Hora salida :</label>
                                         <div class="col-sm-8">
-                                            <p class="form-horizontal">Viaje de estudio</p>
+                                            <p class="form-horizontal"><%=perList.getFechasalida()%>&nbsp &nbsp;<%=perList.getHorasalida()%></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label  class="col-sm-4 ">Fecha/Hora entrada:</label>
                                     <div class="col-sm-8">
-                                        <p class="form-horizontal">Juan carlos Bustamante Sanchez</p>
+                                        <p class="form-horizontal"><%=perList.getFechaingreso()%>&nbsp &nbsp;<%=perList.getHoraingreso()%></p>
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +221,7 @@
                                     <div class="form-group">
                                         <label  class="col-sm-5">Fecha / Hora Salida real :</label>
                                         <div class="col-sm-7">
-                                            <p class="form-horizontal text-left">09/10/12</p>
+                                            <p class="form-horizontal text-left"><%=perList.getFechasalidareal()%>&nbsp &nbsp;<%=perList.getHorasalidareal()%></p>
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +229,7 @@
                                     <div class="form-group">
                                         <label  class="col-sm-5">Fecha/Hora entrada real:</label>
                                         <div class="col-sm-7">
-                                            <p class="form-horizontal">Juan carlos Bustamante Sanchez</p>
+                                            <p class="form-horizontal"><%=perList.getFechaingresoreal()%>&nbsp &nbsp;<%=perList.getHoraingresoreal()%></p>
                                         </div>
                                     </div>                                  
                                 </div>
@@ -225,7 +239,7 @@
                                     <div class="form-group">
                                         <label  class="col-sm-4">Autorizado por:</label>
                                         <div class="col-sm-8">
-                                            <p class="form-horizontal text-left">Preceptoria</p>
+                                            <p class="form-horizontal text-left"><%=perList.getNombreusuauto()%></p>
                                         </div>
                                     </div>
                                 </div>
@@ -233,7 +247,7 @@
                                     <div class="form-group">
                                         <label  class="col-sm-5">Agente de control:</label>
                                         <div class="col-sm-7">
-                                            <p class="form-horizontal">Juan carlos Bustamante Sanchez</p>
+                                            <p class="form-horizontal">Juan Carlos Bustamante Sanchez</p>
                                         </div>
                                     </div>                                  
                                 </div>

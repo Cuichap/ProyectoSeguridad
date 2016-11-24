@@ -14,6 +14,7 @@ public class Permiso {
     private String permisoid;
     private String personaid;
     private String tipopermisoid;
+    private String nombretipoper;
     private String areaid;
     private String area;
     private String nombrepermiso;
@@ -39,6 +40,7 @@ public class Permiso {
     private String kilometrajeingreso;
     private String usuarioid;
     private String usuarioautid;
+    private String nombreusuauto;
     private String tipovehiculoid;
     private String tipovehiculo;
     private String placa;
@@ -90,6 +92,14 @@ public class Permiso {
         this.tipopermisoid = tipopermisoid;
     }
 
+    public String getNombretipoper() {
+        return nombretipoper;
+    }
+
+    public void setNombretipoper(String nombretipoper) {
+        this.nombretipoper = nombretipoper;
+    }
+    
     public String getNombrepermiso() {
         return nombrepermiso;
     }
@@ -272,6 +282,14 @@ public class Permiso {
 
     public void setUsuarioautid(String usuarioautid) {
         this.usuarioautid = usuarioautid;
+    }
+
+    public String getNombreusuauto() {
+        return nombreusuauto;
+    }
+
+    public void setNombreusuauto(String nombreusuauto) {
+        this.nombreusuauto = nombreusuauto;
     }
 
     public String getTipovehiculoid() {

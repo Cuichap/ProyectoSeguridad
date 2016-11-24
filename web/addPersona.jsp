@@ -44,22 +44,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoPersona]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addPersona.jsp",
-                                            data: "estadoPersona="+ $('select[name=estadoPersona]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addPersona.jsp",
+                                    data: "estadoPersona="+ $('select[name=estadoPersona]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoPersona" class="form-control" name="estadoPersona">
+                                <select id="estadoPersona" class="form-control" name="estadoPersona" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoPersona.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoPersona.equals("0")){%>selected<%}%> value="0">Inactivos</option>

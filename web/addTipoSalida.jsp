@@ -41,22 +41,20 @@
                             </div>
                         </article>
                          <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoTipoSalida]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addTipoSalida.jsp",
-                                            data: "estadoTipoSalida="+ $('select[name=estadoTipoSalida]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addTipoSalida.jsp",
+                                    data: "estadoTipoSalida="+ $('select[name=estadoTipoSalida]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                 <select id="estadoTipoSalida" class="form-control" name="estadoTipoSalida">
+                                <select id="estadoTipoSalida" class="form-control" name="estadoTipoSalida" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoTipoSalida.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoTipoSalida.equals("0")){%>selected<%}%> value="0">Inactivos</option>>

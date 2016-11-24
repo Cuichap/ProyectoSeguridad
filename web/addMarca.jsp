@@ -41,22 +41,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoMarca]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addMarca.jsp",
-                                            data: "estadoMarca="+ $('select[name=estadoMarca]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addMarca.jsp",
+                                    data: "estadoMarca="+ $('select[name=estadoMarca]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoMarca" class="form-control" name="estadoMarca">
+                                <select id="estadoMarca" class="form-control" name="estadoMarca" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoMarca.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoMarca.equals("0")){%>selected<%}%> value="0">Inactivos</option>

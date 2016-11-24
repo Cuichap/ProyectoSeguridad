@@ -290,13 +290,13 @@
                     <div class="panel-heading">
                         <h4><b>Modificar los Datos del Permiso Vehiculo</b></h4>
                     </div>
-                    <%
-                        PermisosDao Pvdao = new PermisosDaoImpl();
-                        List<Permiso> listaPermisoVehiculoEdita = Pvdao.listarPermisoVehiculoEdit(IdPermisoEdit, IdVehiculoEdit);
-                        for (Permiso perEdit : listaPermisoVehiculoEdita) {
-                    %>
                     <div class="panel-body">
                         <form id="editsalidavehi" class="form-signin" role="form" method="post" action="permisos"><!---del formulario--->
+                            <%
+                                PermisosDao Pvdao = new PermisosDaoImpl();
+                                List<Permiso> listaPermisoVehiculoEdita = Pvdao.listarPermisoVehiculoEdit(IdPermisoEdit, IdVehiculoEdit);
+                                for (Permiso perEdit : listaPermisoVehiculoEdita) {
+                            %>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -375,6 +375,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <%}%>
                             <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-default" onclick="cancelarEditPermisoVeh()"><!--  data-dismiss="modal" -->
@@ -386,7 +387,6 @@
                             </h4>
                         </form>
                     </div>
-                    <%}%>
                 </div>
             </div> 
             <div class="modal fade" id="delete">

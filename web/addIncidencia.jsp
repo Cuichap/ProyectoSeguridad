@@ -52,7 +52,7 @@
                                         <th hidden>ObjetoId</th>
                                         <th>Objeto</th>
                                         <th>Fecha/Hora</th>
-                                        <th hidden>Estado</th>
+                                        <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
@@ -80,7 +80,7 @@
                                         <td><%=incidencia.getObjeto()%></td>
                                         <td><%=incidencia.getFecha()%></td>
                                         <td><%=incidencia.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Incidencia" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Incidencia" align="center"><a><i class="glyphicon glyphicon-pencil"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Incidencia" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
                                     <%}%>

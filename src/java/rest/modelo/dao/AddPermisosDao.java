@@ -38,6 +38,6 @@ public interface AddPermisosDao {
     /* preceptor */
      public List<UsuarioPermisoResident> listarPermisoPendientes(String estado);
      
-      public List<UsuarioPermisoResident> listarEditPermisoPendientes(String idper, String iduser);
+    //public List<UsuarioPermisoResident> listarEditPermisoPendientes(String idper, String iduser); 
     
 }

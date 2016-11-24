@@ -28,10 +28,6 @@ public class Consola {
     public void listarcity(){
        ReporteDao ci= new ReporteDaoImpl();
        
-      if(ci.cantidad()!=0){
-          System.out.println("cantidad"+ci.cantidad());
-          
-      }
     }
     
 }

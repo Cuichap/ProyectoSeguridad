@@ -46,22 +46,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoPermmisoResidente]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addPermisoResidente.jsp",
-                                            data: "estadoPermisoRes="+ $('select[name=estadoPermmisoResidente]').val(),
-                                            success: function (data) {
-                                                $("#permisos").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addPermisoResidente.jsp",
+                                    data: "estadoPermisoRes="+ $('select[name=estadoPermmisoResidente]').val(),
+                                    success: function (data) {
+                                        $("#permisos").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoPersona" class="form-control" name="estadoPermmisoResidente">
+                                <select id="estadoPersona" class="form-control" name="estadoPermmisoResidente" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoPermisoRes.equals("2")){%>selected<%}%> value="2">Aceptados</option>
                                     <option <% if(estadoPermisoRes.equals("0")){%>selected<%}%> value="0">Rechazados</option>

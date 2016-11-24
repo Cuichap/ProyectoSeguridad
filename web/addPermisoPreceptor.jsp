@@ -46,22 +46,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoPermmisocompleto]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addPermisoPreceptor.jsp",
-                                            data: "estadoPermisoComp="+ $('select[name=estadoPermmisocompleto]').val(),
-                                            success: function (data) {
-                                                $("#permisos").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addPermisoPreceptor.jsp",
+                                    data: "estadoPermisoComp="+ $('select[name=estadoPermmisocompleto]').val(),
+                                    success: function (data) {
+                                        $("#permisos").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoPersona" class="form-control" name="estadoPermmisocompleto">
+                                <select id="estadoPersona" class="form-control" name="estadoPermmisocompleto" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoPermisoComp.equals("2")){%>selected<%}%> value="2">Aceptados</option>
                                     <option <% if(estadoPermisoComp.equals("0")){%>selected<%}%> value="0">Rechazados</option>
@@ -118,29 +116,32 @@
                                         <td><%=up.getFechaEntrada()%> -- <%=up.getHoraEntrada()%></td>
                                         <td><%=up.getEstado()%></td>
                                         <td align="center">
-                                            <% if (up.getEstado().equals("En Proceso")) {%>
-                                            <a style="cursor: pointer;" onclick="Editar<%=up.getUsuarioId()%><%=up.getPermisoId()%>(<%=up.getPermisoId()%>, <%=up.getUsuarioId()%>)">
-                                                <i data-toggle="tooltip" data-placement="top" title="Modificar Permiso" class="glyphicon glyphicon-pencil"></i>
-                                            </a>
+                                            <% if (up.getEstado().equals("En Proceso") || up.getEstado().equals("Aceptado")) {%>
+                                            <a style="cursor: pointer;" onclick="rechazar<%=up.getUsuarioId()%><%=up.getPermisoId()%>()" data-toggle="modal" data-target="#rechazar">
+                                                <i data-toggle="tooltip" data-placement="top" title="Rechazar el Permiso" class="glyphicon glyphicon-remove"></i>
+                                            </a>&nbsp;&nbsp;&nbsp;
+                                            <%} if (up.getEstado().equals("En Proceso") || up.getEstado().equals("Rechazado")) {%>
+                                            <a style="cursor: pointer;" onclick="aceptar<%=up.getUsuarioId()%><%=up.getPermisoId()%>()" data-toggle="modal" data-target="#activar">
+                                                <i data-toggle="tooltip" data-placement="top" title="Autorizar el Permiso" class="glyphicon glyphicon-ok"></i>
+                                            </a>&nbsp;&nbsp;&nbsp;
                                             <%}%>
+                                            <a style="cursor: pointer;" onclick="eliminar<%=up.getUsuarioId()%><%=up.getPermisoId()%>()" data-toggle="modal" data-target="#delete">
+                                                <i data-toggle="tooltip" data-placement="top" title="Eliminar el Permiso" class="glyphicon glyphicon-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 <script>
-                                    function Editar<%=up.getUsuarioId()%><%=up.getPermisoId()%>(permiso, usuario) {
-                                        $.ajax({
-                                            stype: 'POST',
-                                            url: "addPermisoPreceptor.jsp",
-                                            data: "idPermisoRes=" + permiso + "&UsuarioRes=" + usuario,
-                                            success: function (data) {
-                                                $("#permisos").html(data);
-                                                document.getElementById('lista').style.display = 'none';
-                                                document.getElementById('listaPermisoResidente').style.display = 'none';
-                                                document.getElementById('agregarPermisoResidente').style.display = 'none';
-                                                document.getElementById('editarPermisoResidente').style.display = 'block';
-                                                document.getElementById("nombresEdit").focus();
-                                                $("#aciones").html("Modificar Permiso");
-                                            }
-                                        });
+                                    function rechazar<%=up.getUsuarioId()%><%=up.getPermisoId()%>() {
+                                        $("#idpermisorechazar").val("<%=up.getPermisoId()%>");
+                                        $("#idusuariorechazar").val("<%=up.getUsuarioId()%>");
+                                    }
+                                    function aceptar<%=up.getUsuarioId()%><%=up.getPermisoId()%>() {
+                                        $("#idpermisoaceptar").val("<%=up.getPermisoId()%>");
+                                        $("#idusuarioaceptar").val("<%=up.getUsuarioId()%>");
+                                    }
+                                    function eliminar<%=up.getUsuarioId()%><%=up.getPermisoId()%>() {
+                                        $("#idpermisoeliminar").val("<%=up.getPermisoId()%>");
+                                        $("#idusuarioeliminar").val("<%=up.getUsuarioId()%>");
                                     }
                                     function cancelarEditPermisoResidente() {
                                         document.getElementById("editpermisoresidente").reset();
@@ -270,133 +271,93 @@
                     </div>
                 </div>
             </div>
-            <div id="editarPermisoResidente" class="col-md-12" style="padding: 0px; display: none;">
-                <div data-brackets-id="733" class="panel panel-primary">
-                    <div data-brackets-id="734" class="panel-heading">
-                        <h4><b>Modificar los Datos de la Persona</b></h4>
-                    </div>
-                    <%
-                        List<UsuarioPermisoResident> listarEditPermisoPen = dao.listarEditPermisoPendientes(idPermisoRes, UsuarioRes);
-                        for(UsuarioPermisoResident usres : listarEditPermisoPen){
-                    %>
-                    <div data-brackets-id="736" class="panel-body">
-                        <form id="editpermisoresidente" class="form-signin" role="form" method="post" action="usuariopermiso">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group has-feedback">
-                                        <label for="otrosEdit">Usuario</label>
-                                        <input value="<%=usres.getNombres() %>" disabled type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otrosEdit" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
+            <div class="modal fade" id="rechazar">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Rechazar este Permiso?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="usuariopermiso">
+                                <div class="row">
+                                    <input type="hidden" id="idpermisorechazar" name="id">
+                                    <input type="hidden" id="idusuariorechazar" name="idusuario">
+                                    <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                    <input type="hidden" value="0" name="AceptarPer">
+                                    <input type="hidden" name="opcion" value="AprobarPermisoResidente">
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipopermEdit">Tipo de Permiso</label>
-                                        <select required class="form-control" id="tipopermEdit" disabled name="tipoPermisoId">
-                                            <option hidden>Seleccionar Tipo de Permiso</option>
-                                            <%
-                                                List<TipoPermiso> listaTipoPermisoEditAct = md.listarTiipoPermisoAct();
-                                                for(TipoPermiso tipoPermisoEdit : listaTipoPermisoEditAct){
-                                            %>
-                                            <option <% if(usres.getTipoPermisoId().equals(tipoPermisoEdit.getTipopermisoid())){%>selected<%}%> value="<%=tipoPermisoEdit.getTipopermisoid()%>"><%=tipoPermisoEdit.getNombretipopermiso()%></option>
-                                            <%}%>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipomotEdit">Motivo</label>
-                                        <select required class="form-control" disabled id="tipomotEdit" name="MotivoId">
-                                            <option hidden>Seleccionar el Motivo</option>
-                                            <%
-                                                List<Motivo> listaMotivoEditAct = md.listarMotivoAct();
-                                                for(Motivo motivoEdit : listaMotivoEditAct){
-                                            %>
-                                            <option <% if(usres.getMotivoId().equals(motivoEdit.getMotivoid())){%>selected<%}%> value="<%=motivoEdit.getMotivoid()%>"><%=motivoEdit.getNombremotivo()%></option>
-                                            <%}%>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="fechasalidaEdit">Fecha de Salida</label>
-                                        <input value="<%=usres.getFechaSalida()%>" disabled type="date" class="form-control" id="fechasalidaEdit" placeholder="Ingrese la Fecha de Salida" name="fechasalida" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="horasalidaEdit">Hora de Salida</label>
-                                        <input value="<%=usres.getHoraSalida()%>" disabled type="time" class="form-control" id="horasalidaEdit" placeholder="Ingresar la hora de Salida" name="horasalida" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="fechaEntradaEdit">Fecha de Entrada</label>
-                                        <input value="<%=usres.getFechaEntrada()%>" disabled type="date" class="form-control" id="fechaEntradaEdit" placeholder="Ingrese la Fecha de Entrada" name="fechaEntrada" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="horaEntradaEdit">Hora de Entrada</label>
-                                        <input value="<%=usres.getHoraEntrada() %>" disabled type="time" class="form-control" id="horaEntradaEdit" placeholder="Ingresar la Hora de Entrada" name="horaEntrada" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group has-feedback">
-                                        <label for="otrosEdit">Otros</label>
-                                        <input value="<%=usres.getOtros()%>" required disabled type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="otrosEdit" placeholder="Otros Motivos" name="otros" data-error="Solo se permite letras no numeros">
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group has-feedback">
-                                        <label for="lugarEdit">Lugar</label>
-                                        <input value="<%=usres.getLugar()%>" required disabled type="text" pattern="^[A-Za-záéíóúñÑ ][A-Za-záéíóúñÑ ]*" maxlength="39" class="form-control" id="lugarEdit" placeholder="Lugar" name="lugar" data-error="Solo se permite letras no numeros">
-                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="tipopermEdit">¿Aprobar el Permiso?</label>
-                                        <select required class="form-control" id="tipopermEdit" name="AceptarPer">
-                                            <option hidden>Seleccionar</option>
-                                            <option value="2">Aprobar</option>
-                                            <option value="0">Rechazar</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <input type="hidden" name="opcion" value="AprobarPermisoResidente">
-                            <input type="hidden" name="id" value="<%=idPermisoRes%>">
-                            <input type="hidden" name="idusuario" value="<%=UsuarioRes%>">
-                            <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
-
-                            <hr style="border-color: #3b5998;">
-                            <h4 align="center">
-                                <button type="button" class="btn btn-default" onclick="cancelarEditPermisoResidente()"><!--  data-dismiss="modal" -->
-                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
-                                </button>
-                                <button class="btn btn-primary" type="submit">
-                                    Modificar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
-                                </button>
-                            </h4>
-                        </form>
-                    </div>
-                    <%}%>
-                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Rechazar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
             </div>
+            <div class="modal fade" id="delete">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Eliminar este Permiso?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="usuariopermiso">
+                                <div class="row">
+                                    <input type="hidden" id="idpermisoeliminar" name="id">
+                                    <input type="hidden" id="idusuarioeliminar" name="idusuario">
+                                    <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                    <input type="hidden" value="3" name="AceptarPer">
+                                    <input type="hidden" name="opcion" value="AprobarPermisoResidente">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="submit">
+                                        Eliminar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div>
+            <div class="modal fade" id="activar">
+                <section class="modal-dialog modal-md">
+                    <section class="modal-content">
+                        <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #3b5998; color: white;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+                            <h3 align="center"><span><b>¿Está seguro de Autorizar este Permiso?</b></span></h3>
+                        </section>
+                        <section class="modal-body">
+                            <form class="form-signin" role="form" method="post" action="usuariopermiso">
+                                <div class="row">
+                                    <input type="hidden" id="idpermisoaceptar" name="id">
+                                    <input type="hidden" id="idusuarioaceptar" name="idusuario">
+                                    <input type="hidden" name="idUserReg" value="<%=idUsuario%>">
+                                    <input type="hidden" value="2" name="AceptarPer">
+                                    <input type="hidden" name="opcion" value="AprobarPermisoResidente">
+                                </div>
+                                <h4 align="center">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </button>
+                                    <button class="btn btn-primary" type="submit">
+                                        Autorizar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </button>
+                                </h4>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </div>    
         </div>
         <script type="text/javascript">
             $().ready(function () {

@@ -39,22 +39,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoTipoPersona]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addTipoPersona.jsp",
-                                            data: "estadoTipoPersona="+ $('select[name=estadoTipoPersona]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addTipoPersona.jsp",
+                                    data: "estadoTipoPersona="+ $('select[name=estadoTipoPersona]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoTipoPersona" class="form-control" name="estadoTipoPersona">
+                                <select id="estadoTipoPersona" class="form-control" name="estadoTipoPersona" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoTipoPersona.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoTipoPersona.equals("0")){%>selected<%}%> value="0">Inactivos</option>>

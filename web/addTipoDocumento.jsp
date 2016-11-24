@@ -42,22 +42,20 @@
                             </div>
                         </article>
                          <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoTipoDocumento]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addTipoDocumento.jsp",
-                                            data: "estadoTipoDocumento="+ $('select[name=estadoTipoDocumento]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addTipoDocumento.jsp",
+                                    data: "estadoTipoDocumento="+ $('select[name=estadoTipoDocumento]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoTipoDocumento" class="form-control" name="estadoTipoDocumento">
+                                <select id="estadoTipoDocumento" class="form-control" name="estadoTipoDocumento" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoTipoDocumento.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoTipoDocumento.equals("0")){%>selected<%}%> value="0">Inactivos</option>

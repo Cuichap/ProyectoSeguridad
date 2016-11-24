@@ -110,7 +110,7 @@ public class ReporteDaoImpl implements ReporteDao{
     public List<Permiso> listaPerRes() {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Permiso> listPerRe = new ArrayList<>();
-        String query = "Select p.persona_id as idp,u.usuario_id as idu, concat(p.nombre,' ', p.apellidos) as nombres, ifnull(pe.lugar,'---') as lugar, ifnull(m.nombre_motivo,'---') as motivo, pe.fechasalida as fecha1, pe.horasalida as hora1, pe.fechaingreso as fecha2, pe.horaingreso as hora2, pe.fechasalidareal as fecha11, pe.horasalidareal as hora11, pe.fechaingresoreal as fecha22, pe.horasalidareal as hora22, ifnull(pe.otros,'---') as otros, ifnull(pe.observacion,'----') as observaciones\n" +
+        String query = "Select p.persona_id as idp,u.usuario_id as idu, pe.permiso_id as idpe,  concat(p.nombre,' ', p.apellidos) as nombres, ifnull(pe.lugar,'---') as lugar, ifnull(m.nombre_motivo,'---') as motivo, pe.fechasalida as fecha1, pe.horasalida as hora1, pe.fechaingreso as fecha2, pe.horaingreso as hora2, pe.fechasalidareal as fecha11, pe.horasalidareal as hora11, pe.fechaingresoreal as fecha22, pe.horasalidareal as hora22, ifnull(pe.otros,'---') as otros, ifnull(pe.observacion,'----') as observaciones\n" +
                         "from persona as p, tipo_persona as tip, area as a, usuario as u, usuario_permiso as up, permiso as pe, tipo_permiso as tp, motivo as m\n" +
                         "where p.persona_id=u.persona_id and tip.tipo_persona_id=u.tipo_persona_id and a.area_id=u.area_id \n" +
                         "and u.usuario_id=up.usuario_id and up.permiso_id=pe.permiso_id and tp.tipo_permiso_id=pe.tipo_permiso_id and m.motivo_id=pe.motivo_id";
@@ -119,6 +119,7 @@ public class ReporteDaoImpl implements ReporteDao{
             Permiso permiso = new Permiso();
             permiso.setPersonaid(cx.getCol("idp"));
             permiso.setUsuarioid(cx.getCol("idu"));
+            permiso.setPermisoid(cx.getCol("idpe"));
             permiso.setNombres(cx.getCol("nombres"));
             permiso.setLugar(cx.getCol("lugar"));
             permiso.setMotivo(cx.getCol("motivo"));
@@ -141,10 +142,10 @@ public class ReporteDaoImpl implements ReporteDao{
     public List<Permiso> listarPermisos(String personaid) {
      Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Permiso> listPerRe = new ArrayList<>();
-        String query = "Select p.persona_id as idp,u.usuario_id as idu, concat(p.nombre,' ', p.apellidos) as nombres, ifnull(pe.lugar,'---') as lugar, ifnull(m.nombre_motivo,'---') as motivo, pe.fechasalida as fecha1, pe.horasalida as hora1, pe.fechaingreso as fecha2, pe.horaingreso as hora2, pe.fechasalidareal as fecha11, pe.horasalidareal as hora11, pe.fechaingresoreal as fecha22, pe.horasalidareal as hora22, ifnull(pe.otros,'---') as otros, ifnull(pe.observacion,'----') as observaciones\n" +
+        String query = "Select p.persona_id as idp,u.usuario_id as idu, concat(p.nombre,' ', p.apellidos) as nombres, ifnull(pe.lugar,'---') as lugar, ifnull(p.telefono,'---') as telefono, ifnull(m.nombre_motivo,'---') as motivo, pe.fechasalida as fecha1, pe.horasalida as hora1, pe.fechaingreso as fecha2, pe.horaingreso as hora2, pe.fechasalidareal as fecha11, pe.horasalidareal as hora11, pe.fechaingresoreal as fecha22, pe.horasalidareal as hora22, ifnull(pe.otros,'---') as otros, ifnull(pe.observacion,'----') as observaciones\n" +
                         "from persona as p, tipo_persona as tip, area as a, usuario as u, usuario_permiso as up, permiso as pe, tipo_permiso as tp, motivo as m\n" +
                         "where p.persona_id=u.persona_id and tip.tipo_persona_id=u.tipo_persona_id and a.area_id=u.area_id \n" +
-                        "and u.usuario_id=up.usuario_id and up.permiso_id=pe.permiso_id and tp.tipo_permiso_id=pe.tipo_permiso_id and m.motivo_id=pe.motivo_id and p.persona_id="+personaid;
+                        "and u.usuario_id=up.usuario_id and up.permiso_id=pe.permiso_id and tp.tipo_permiso_id=pe.tipo_permiso_id and m.motivo_id=pe.motivo_id and pe.permiso_id="+personaid;
         cx.execQuery(query);
         while (cx.getNext()) {
             Permiso permiso = new Permiso();
@@ -152,6 +153,7 @@ public class ReporteDaoImpl implements ReporteDao{
             permiso.setUsuarioid(cx.getCol("idu"));
             permiso.setNombres(cx.getCol("nombres"));
             permiso.setLugar(cx.getCol("lugar"));
+            permiso.setTelefono(cx.getCol("telefono"));
             permiso.setMotivo(cx.getCol("motivo"));
             permiso.setFechasalida(cx.getCol("fecha1"));
             permiso.setHorasalida(cx.getCol("hora1"));

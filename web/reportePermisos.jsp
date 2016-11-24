@@ -65,7 +65,7 @@
                                         <th>Fecha y Hora de Salida</th>
                                         <th>Fecha y Hora de Retorno</th>
                                         <th>Observación</th>
-                                        <th>Ver detalle</th>
+                                        <th aling="center">Ver detalle</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,9 +88,9 @@
                                         <td><%=per.getHorasalida()%>&nbsp;<%=per.getFechasalida()%></td>
                                         <td><%=per.getHoraingreso()%>&nbsp;<%=per.getFechaingreso()%></td>
                                         <td><%=per.getObservacion()%></td>
-                                        <td aling="center"> 
-                                            <a style="cursor: pointer;" onclick="detalleper<%=per.getPermisoid()%>(<%=per.getPermisoid()%>)">
-                                                <i data-toggle="tooltip" data-placement="top" title="Detalle Permiso" class="glyphicon glyphicon-option-horizontal"></i>
+                                        <td > 
+                                            <a  style="cursor: pointer;" onclick="detalleper<%=per.getPermisoid()%>(<%=per.getPermisoid()%>)">
+                                                <i data-toggle="tooltip" data-placement="top" title="Detalle Permiso" class="glyphicon glyphicon-plus-sign"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -253,19 +253,25 @@
                                 </div>
                             </div>
 
-                            <hr style="border-color: #3b5998;">
+                            
+                        </form>
+                    </div>
+                    <%}%>
+                    <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-primary" onclick="volverList()"><!--  data-dismiss="modal" -->
                                     Atras &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
                                 </button>
                             </h4>
-                        </form>
-                    </div>
-                    <%}%>                          
                 </div>
             </div>
         </div>
 
-
+   <script type="text/javascript">
+          
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>  
     </body>
 </html>

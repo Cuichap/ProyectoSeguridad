@@ -41,22 +41,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoObjeto]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addObjeto.jsp",
-                                            data: "estadoObjeto="+ $('select[name=estadoObjeto]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addObjeto.jsp",
+                                    data: "estadoObjeto="+ $('select[name=estadoObjeto]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoObjeto" class="form-control" name="estadoObjeto">
+                                <select id="estadoObjeto" class="form-control" name="estadoObjeto" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoObjeto.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoObjeto.equals("0")){%>selected<%}%> value="0">Inactivos</option>>

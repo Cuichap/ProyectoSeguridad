@@ -47,22 +47,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function () {
-                                $('select[name=estadoUsuario]').change(function () {
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "addUsuario.jsp",
-                                        data: "estadoUsuario=" + $('select[name=estadoUsuario]').val(),
-                                        success: function (data) {
-                                            $("#seguridad").html(data);
-                                        }
-                                    });
+                            function enviar() {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addUsuario.jsp",
+                                    data: "estadoUsuario=" + $('select[name=estadoUsuario]').val(),
+                                    success: function (data) {
+                                        $("#seguridad").html(data);
+                                    }
                                 });
-                            });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoUsuario" class="form-control" name="estadoUsuario">
+                                <select id="estadoUsuario" class="form-control" name="estadoUsuario" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if (estadoUsuario.equals("1")) {%>selected<%}%> value="1">Activos</option>
                                     <option <% if (estadoUsuario.equals("0")) {%>selected<%}%> value="0">Inactivos</option>>

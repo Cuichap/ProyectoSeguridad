@@ -49,22 +49,20 @@
                             </div>
                         </article>
                          <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoResponsabilidad]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addResponsabilidad.jsp",
-                                            data: "estadoResponsabilidad="+ $('select[name=estadoResponsabilidad]').val(),
-                                            success: function (data) {
-                                                $("#seguridad").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addResponsabilidad.jsp",
+                                    data: "estadoResponsabilidad="+ $('select[name=estadoResponsabilidad]').val(),
+                                    success: function (data) {
+                                        $("#seguridad").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoResponsabilidad" class="form-control" name="estadoResponsabilidad">
+                                <select id="estadoResponsabilidad" class="form-control" name="estadoResponsabilidad" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoResponsabilidad.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoResponsabilidad.equals("0")){%>selected<%}%> value="0">Inactivos</option>>

@@ -28,7 +28,6 @@ public class Consola {
     public void listarcity(){
        ReporteDao ci= new ReporteDaoImpl();
        
-      
     }
     
 }

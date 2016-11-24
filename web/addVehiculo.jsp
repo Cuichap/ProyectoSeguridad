@@ -43,22 +43,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoVehiculo]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addVehiculo.jsp",
-                                            data: "estadoVehiculo="+ $('select[name=estadoVehiculo]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addVehiculo.jsp",
+                                    data: "estadoVehiculo="+ $('select[name=estadoVehiculo]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoVehiculo" class="form-control" name="estadoVehiculo">
+                                <select id="estadoVehiculo" class="form-control" name="estadoVehiculo" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoVehiculo.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoVehiculo.equals("0")){%>selected<%}%> value="0">Inactivos</option>>

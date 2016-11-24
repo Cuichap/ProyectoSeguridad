@@ -90,10 +90,10 @@
                                         <td hidden><%=incidencia.getObjetoid()%></td>
                                         <td><%=incidencia.getObjeto()%></td>
                                         <td><%=incidencia.getFecha()%></td>
-                                        <td hidden=""><%=incidencia.getEstado()%></td>
                                         <td><%=incidencia.getEstado()%></td>
                                         <td align="center">
-                                            <% if (!incidencia.getDescripcion().equals("")) {%>
+                                            <%
+                                                if (!incidencia.getDescripcion().equals("")) {%>
                                             &nbsp;&nbsp;&nbsp;
                                             <a style="cursor: pointer;" onclick="Editar<%=incidencia.getIncidenciaid()%><%=incidencia.getUsuarioid()%>(<%=incidencia.getIncidenciaid()%>, <%=incidencia.getUsuarioid()%>)">
                                                 <i data-toggle="tooltip" data-placement="top" title="Editar Incidencia" class="glyphicon glyphicon-pencil"></i>

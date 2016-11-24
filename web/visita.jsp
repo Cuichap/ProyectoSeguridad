@@ -15,6 +15,7 @@
 <%@include file="WEB-INF/jspf/top.jspf" %>
 <%
     String visitaidEdit = request.getParameter("visitaidEdit"); visitaidEdit = visitaidEdit == null ? "" : visitaidEdit;
+    String listaEstadoVisita = request.getParameter("listaEstadoVisita"); listaEstadoVisita = listaEstadoVisita == null ? "" : listaEstadoVisita;
 %>
 <div class="bs-example">
     <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
@@ -45,24 +46,22 @@
                         </div>
                     </article>
                     <script>
-                        $(document).ready(function (){
-                                $('select[name=estadoVisita]').change(function (){
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "visita.jsp",
-                                        data: "estadoUsuario="+ $('select[name=estadoVisita]').val(),
-                                        success: function (data) {
-                                        }
-                                    });
-                                });
+                        function enviar(){
+                            $.ajax({
+                                type: "POST",
+                                url: "visita.jsp",
+                                data: "listaEstadoVisita="+ $('select[name=estadoVisita]').val(),
+                                success: function (data) {
+                                }
                             });
+                        };
                     </script>
                     <article align="right" class="col-sm-4">
                         <div class="input-group col-sm-12">
-                            <select id="estadoUsuario" class="form-control" name="estadoVisita">
+                            <select id="estadoUsuario" class="form-control" name="estadoVisita" onchange="enviar()">
                                 <option hidden>Seleccionar el Estado</option>
-                                <option  value="1">Activos</option>
-                                <option  value="0">Inactivos</option>>
+                                <option <% if(listaEstadoVisita.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                <option <% if(listaEstadoVisita.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
                             </select>
                         </div>
                     </article>

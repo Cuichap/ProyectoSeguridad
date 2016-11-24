@@ -30,11 +30,11 @@
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     document.oncontextmenu = function(){
         return false;
     };
-</script>
+</script> -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -55,7 +55,7 @@
         <script type="text/javascript" src="bootstrap/js/validator.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/validator.js"></script>
         
-        <script type="text/javascript" src="res/js/autocompleter.js"></script>
+        <!-- <script type="text/javascript" src="res/js/autocompleter.js"></script> -->
         <script type="text/javascript" src="res/js/jquery-1.10.2.js"></script>
         <script type="text/javascript" src="res/js/jquery-ui.js"></script>
         

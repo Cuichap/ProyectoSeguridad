@@ -107,7 +107,7 @@
                                         <td hidden><%=pVehiculo.getPermisoid()%></td>
                                         <td hidden><%=pVehiculo.getAreaid()%></td>
                                         <td><%=pVehiculo.getArea()%></td>
-                                        <td><%=pVehiculo.getNombres()%></td>
+                                        <td><%=pVehiculo.getNombres()%>|<%=pVehiculo.getPermisoid()%>|<%=pVehiculo.getVehiculoid()%></td>
                                         <td hidden><%=pVehiculo.getUsuarioautid()%></td>
                                         <td hidden><%=pVehiculo.getTipovehiculoid()%></td>
                                         <td><%=pVehiculo.getTipovehiculo()%></td>
@@ -322,13 +322,13 @@
                     <div class="panel-heading">
                         <h4><b>Modificar los Datos del Permiso Vehiculo</b></h4>
                     </div>
-                    <%
-                        PermisosDao Pvdao = new PermisosDaoImpl();
-                        List<Permiso> listaPermisoVehiculoEdita = Pvdao.listarPermisoVehiculoEdit(IdPermisoEdit, IdVehiculoEdit);
-                        for (Permiso perEdit : listaPermisoVehiculoEdita) {
-                    %>
                     <div class="panel-body">
                         <form id="editsalidavehi" class="form-signin" role="form" method="post" action="permisos"><!---del formulario--->
+                            <%
+                                PermisosDao Pvdao = new PermisosDaoImpl();
+                                List<Permiso> listaPermisoVehiculoEdita = Pvdao.listarPermisoVehiculoEdit(IdPermisoEdit, IdVehiculoEdit);
+                                for (Permiso perEdit : listaPermisoVehiculoEdita) {
+                            %>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -407,18 +407,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <%}%>
                             <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-default" onclick="cancelarEditPermisoVeh()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
                                 </button>
                                 <button class="btn btn-primary" type="submit">
-                                    Agregar Salida Agregar Entrada &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    Editar Permiso &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
                         </form>
                     </div>
-                    <%}%>
                 </div>
             </div> 
             <div class="modal fade" id="delete">

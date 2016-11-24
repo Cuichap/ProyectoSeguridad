@@ -35,4 +35,9 @@ public interface AddPermisosDao {
     /* PERMISOS -- ACTIVAR */
     public boolean ActivarPermisoResidente(String id);
     
+    /* preceptor */
+     public List<UsuarioPermisoResident> listarPermisoPendientes(String estado);
+     
+    //public List<UsuarioPermisoResident> listarEditPermisoPendientes(String idper, String iduser); 
+    
 }

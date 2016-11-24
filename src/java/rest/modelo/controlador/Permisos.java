@@ -64,7 +64,7 @@ public class Permisos extends HttpServlet {
         String id2 = request.getParameter("id2"); id2 = id2 == null?"":id2;
         
         switch(opcion){
-            case "RegistrarSalidaResidente":
+            case "agregarSalidaResidente":
                 permiso.setFechasalidareal(fechasalidareal);
                 permiso.setHorasalidareal(horasalidareal);
                 if (pdao.AgregarSalidaResidente(permiso, id)) {
@@ -79,12 +79,12 @@ public class Permisos extends HttpServlet {
                     request.getRequestDispatcher("permisos.jsp").forward(request, response);
                 }
                 break;
-            case "RegistrarIngresoResidente":
+            case "agregarIngresoResidente":
                 permiso.setFechaingresoreal(fechaingresoreal);
                 permiso.setHoraingresoreal(horaingresoreal);
                 permiso.setObservacion(observacion);
                 permiso.setUsuarioreg(usuarioreg);
-                if (pdao.AgregarSalidaResidente(permiso, id)) {
+                if (pdao.AgregarIngresoResidente(permiso, id)) {
                     request.setAttribute("IdSubMenu", "3");
                     request.setAttribute("IdMenu", "2");
                     request.setAttribute("JSP", "Permisos");
@@ -141,7 +141,39 @@ public class Permisos extends HttpServlet {
                     request.getRequestDispatcher("permisos.jsp").forward(request, response);
                 }
                 break;
-            case "EditPermisoPersonal":
+            case "RegistrarSalidaPersonal":
+                permiso.setFechasalidareal(fechasalidareal);
+                permiso.setHorasalidareal(horasalidareal);
+                if (pdao.AgregarSalidaPersonal(permiso, id)) {
+                    request.setAttribute("IdSubMenu", "4");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                    request.getRequestDispatcher("permisos.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "4");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                    request.getRequestDispatcher("permisos.jsp").forward(request, response);
+                }
+                break;
+            case "RegistrarIngresoPersonal":
+                permiso.setFechaingresoreal(fechaingresoreal);
+                permiso.setHoraingresoreal(horaingresoreal);
+                permiso.setObservacion(observacion);
+                permiso.setUsuarioreg(usuarioreg);
+                if (pdao.AgregarIngresoPersonal(permiso, id)) {
+                    request.setAttribute("IdSubMenu", "4");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                    request.getRequestDispatcher("permisos.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdSubMenu", "4");
+                    request.setAttribute("IdMenu", "2");
+                    request.setAttribute("JSP", "Permisos");
+                    request.getRequestDispatcher("permisos.jsp").forward(request, response);
+                }
+                break;
+            case "EditarPermisoPersonal":
                 permiso.setFechasalidareal(fechasalidareal);
                 permiso.setHorasalidareal(horasalidareal);
                 permiso.setFechaingresoreal(fechaingresoreal);
@@ -149,12 +181,12 @@ public class Permisos extends HttpServlet {
                 permiso.setObservacion(observacion);
                 permiso.setUsuarioreg(usuarioreg);
                 if (pdao.EditarPermiso(permiso, id)) {
-                    request.setAttribute("IdSubMenu", "3");
+                    request.setAttribute("IdSubMenu", "4");
                     request.setAttribute("IdMenu", "2");
                     request.setAttribute("JSP", "Permisos");
                     request.getRequestDispatcher("permisos.jsp").forward(request, response);
                 } else {
-                    request.setAttribute("IdSubMenu", "3");
+                    request.setAttribute("IdSubMenu", "4");
                     request.setAttribute("IdMenu", "2");
                     request.setAttribute("JSP", "Permisos");
                     request.getRequestDispatcher("permisos.jsp").forward(request, response);

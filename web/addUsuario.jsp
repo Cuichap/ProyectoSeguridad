@@ -16,13 +16,14 @@
 <jsp:useBean id="idUsuario" scope="session" class="java.lang.String" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    String idUsuarioEdit = request.getParameter("idUsuarioEdit"); idUsuarioEdit = idUsuarioEdit == null ? "" :idUsuarioEdit;
-    String estadoUsuario = request.getParameter("estadoUsuario"); estadoUsuario = estadoUsuario == null ? "1" :estadoUsuario;
+    String idUsuarioEdit = request.getParameter("idUsuarioEdit"); idUsuarioEdit = idUsuarioEdit == null ? "" : idUsuarioEdit;
+    String estadoUsuario = request.getParameter("estadoUsuario"); estadoUsuario = estadoUsuario == null ? "1" : estadoUsuario;
 %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="res/js/autocompleter.js"></script>
     </head>
     <body>
         <div class="col-sm-12">
@@ -46,25 +47,23 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoUsuario]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addUsuario.jsp",
-                                            data: "estadoUsuario="+ $('select[name=estadoUsuario]').val(),
-                                            success: function (data) {
-                                                $("#seguridad").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar() {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addUsuario.jsp",
+                                    data: "estadoUsuario=" + $('select[name=estadoUsuario]').val(),
+                                    success: function (data) {
+                                        $("#seguridad").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoUsuario" class="form-control" name="estadoUsuario">
+                                <select id="estadoUsuario" class="form-control" name="estadoUsuario" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
-                                    <option <% if(estadoUsuario.equals("1")){%>selected<%}%> value="1">Activos</option>
-                                    <option <% if(estadoUsuario.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
+                                    <option <% if (estadoUsuario.equals("1")) {%>selected<%}%> value="1">Activos</option>
+                                    <option <% if (estadoUsuario.equals("0")) {%>selected<%}%> value="0">Inactivos</option>>
                                 </select>
                             </div>
                         </article>
@@ -133,11 +132,12 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <% if(usuario.getEstado().equals("Activo")){%>
+                                            <% if (usuario.getEstado().equals("Activo")) {%>
                                             <a style="cursor: pointer;" onclick="eliminar<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#delete">
                                                 <i data-toggle="tooltip" data-placement="top" title="Eliminar Usuario" class="glyphicon glyphicon-remove"></i>
                                             </a>
-                                            <%} if(usuario.getEstado().equals("Inactivo")){%>
+                                            <%}
+                                                if (usuario.getEstado().equals("Inactivo")) {%>
                                             <a style="cursor: pointer;" onclick="activar<%=usuario.getUsuarioid()%>()" data-toggle="modal" data-target="#activar">
                                                 <i data-toggle="tooltip" data-placement="top" title="Activar Usuario" class="glyphicon glyphicon-ok"></i>
                                             </a>
@@ -199,7 +199,7 @@
                                         <label for="tipo">Buscar Persona</label>
                                         <div class="input-group">
                                             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                                            <input id="buscador" name="buscador" autofocus type="text" class="form-control" placeholder="Buscar Usuario" describedby="basic-addon1">
+                                            <input id="buscarPersona" name="buscarPersona" autofocus type="text" class="form-control" placeholder="Buscar Usuario" describedby="basic-addon1">
                                         </div>
                                     </div>
                                 </article>
@@ -208,14 +208,17 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="nombres">Nombres</label>
-                                        <input type="text" disabled="" class="form-control" id="nombres" placeholder="Nombres" name="nombres">
+                                        <input type="text" disabled="" class="form-control" id="nombresBuscador" placeholder="Nombres" name="nombres">
                                         <input type="hidden" name="personaId" value="1">
                                     </div>
                                 </div>
+                                
+                                <input type="hidden" name="idusuario" id="idBuscador">
+                                
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="apellidos">Apellidos</label>
-                                        <input type="text" disabled="" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos">
+                                        <input type="text" disabled="" class="form-control" id="apellidosBuscador" placeholder="Apellidos" name="apellidos">
                                     </div>
                                 </div>
                             </div>
@@ -297,7 +300,7 @@
                                     <div class="form-group has-feedback">
                                         <label for="codigo">Código</label>
                                         <input type="text" pattern="^[0-9][0-9]*" data-minlength="9" maxlength="10" class="form-control" id="codigo" placeholder="Código" name="codigo" required>
-                                         <div class="help-block">Mínimo 9 digitos</div>
+                                        <div class="help-block">Mínimo 9 digitos</div>
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -337,7 +340,7 @@
                     <div class="panel-heading">
                         <h4><b>Modificar los Datos del Usuario</b></h4>
                     </div>
-                    <%  
+                    <%
                         List<Usuario> listaEditUsuario = sdaoDao.listarEditUsuario(idUsuarioEdit);
                         for (Usuario usuarioEdit : listaEditUsuario) {
                     %>
@@ -369,7 +372,7 @@
                                                 for (TipoPersona tipoPerEdit : listaTipoPerEdit) {
 
                                             %>
-                                            <option <% if(usuarioEdit.getTipopersonaid().equals(tipoPerEdit.getTipoPersonaid())){%>selected<%}%> value="<%=tipoPerEdit.getTipoPersonaid()%>"><%=tipoPerEdit.getNombreTipoPersona()%></option>
+                                            <option <% if (usuarioEdit.getTipopersonaid().equals(tipoPerEdit.getTipoPersonaid())) {%>selected<%}%> value="<%=tipoPerEdit.getTipoPersonaid()%>"><%=tipoPerEdit.getNombreTipoPersona()%></option>
                                             <%}%>
                                         </select>
                                     </div>
@@ -385,13 +388,13 @@
                                                 for (Perfiles perfilesEdit : listaPerfiEdit) {
 
                                             %>
-                                            <option <% if(usuarioEdit.getPerfilid().equals(perfilesEdit.getPerfilid())){%>selected<%}%> value="<%=perfilesEdit.getPerfilid()%>"><%=perfilesEdit.getNombreperfil()%></option>
+                                            <option <% if (usuarioEdit.getPerfilid().equals(perfilesEdit.getPerfilid())) {%>selected<%}%> value="<%=perfilesEdit.getPerfilid()%>"><%=perfilesEdit.getNombreperfil()%></option>
                                             <%}%>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <% if(!usuarioEdit.getAreaid().equals("")){%>
+                            <% if (!usuarioEdit.getAreaid().equals("")) {%>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -404,7 +407,7 @@
                                                 for (Area areaEdit : listaAreaEdit) {
 
                                             %>
-                                            <option <% if(usuarioEdit.getAreaid().equals(areaEdit.getAreaid())){%>selected<%}%> value="<%=areaEdit.getAreaid()%>" data-toggle="tooltip" data-placement="top" title="<%=areaEdit.getDescripcion()%>"><%=areaEdit.getNombre()%></option>
+                                            <option <% if (usuarioEdit.getAreaid().equals(areaEdit.getAreaid())) {%>selected<%}%> value="<%=areaEdit.getAreaid()%>" data-toggle="tooltip" data-placement="top" title="<%=areaEdit.getDescripcion()%>"><%=areaEdit.getNombre()%></option>
                                             <%}%>
                                         </select>
                                     </div>
@@ -433,7 +436,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <% if(!usuarioEdit.getCodigo().equals("") && !usuarioEdit.getHabitacion().equals("") && !usuarioEdit.getCulto().equals("")){%>
+                            <% if (!usuarioEdit.getCodigo().equals("") && !usuarioEdit.getHabitacion().equals("") && !usuarioEdit.getCulto().equals("")) {%>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback">
@@ -444,7 +447,7 @@
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-4">
                                     <div class="form-group has-feedback">
                                         <label for="habitacionEdit">N° de Habitación</label>
@@ -556,12 +559,12 @@
                 </section>
             </div>
         </div>
-       <script type="text/javascript">
+        <script type="text/javascript">
             $().ready(function () {
                 $("#adduser").validator({debug: true});
                 $("#edituser").validator({debug: true});
             });
-            $(document).ready(function (){
+            $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });
         </script> 

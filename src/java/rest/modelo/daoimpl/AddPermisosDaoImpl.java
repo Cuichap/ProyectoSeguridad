@@ -57,7 +57,24 @@ public class AddPermisosDaoImpl implements AddPermisosDao{
 
     @Override
     public List<UsuarioPermisoResident> listarEditPermisoResidente(String idper, String iduser) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<UsuarioPermisoResident> listaEditPermisoUsuario = new ArrayList<>();
+        String query = "SELECT perm.tipo_permiso_id as tpid, perm.motivo_id as idmot, perm.otros, perm.lugar, perm.fechasalida, perm.horasalida, perm.fechaingreso, perm.horaingreso, CASE perm.estado WHEN 0 THEN 'Rechazado' WHEN 1 THEN 'En Proceso' WHEN 2 THEN 'Aceptado' WHEN 3 THEN 'Inactivo' END as estado, perm.usuario_id_reg FROM permiso as perm, usuario_permiso as up, usuario as us, persona as p, tipo_permiso as tp, motivo as m WHERE perm.permiso_id=up.permiso_id AND up.usuario_id=us.usuario_id AND us.persona_id=p.persona_id AND perm.motivo_id=m.motivo_id AND perm.tipo_permiso_id=tp.tipo_permiso_id AND perm.permiso_id='"+ idper +"' AND us.usuario_id='"+ iduser +"' ";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            UsuarioPermisoResident usuarioPermiso = new UsuarioPermisoResident();
+            usuarioPermiso.setTipoPermisoId(cx.getCol("tpid"));
+            usuarioPermiso.setMotivoId(cx.getCol("idmot"));
+            usuarioPermiso.setOtros(cx.getCol("otros"));
+            usuarioPermiso.setLugar(cx.getCol("lugar"));
+            usuarioPermiso.setFechaSalida(cx.getCol("fechasalida"));
+            usuarioPermiso.setHoraSalida(cx.getCol("horasalida"));
+            usuarioPermiso.setFechaEntrada(cx.getCol("fechaingreso"));
+            usuarioPermiso.setHoraEntrada(cx.getCol("horaingreso"));
+            usuarioPermiso.setEstado(cx.getCol("estado"));
+            listaEditPermisoUsuario.add(usuarioPermiso);
+        }
+        return listaEditPermisoUsuario;
     }
 
     @Override
@@ -143,5 +160,57 @@ public class AddPermisosDaoImpl implements AddPermisosDao{
             return false;
         }
     }
+    
+    /* PRECEPTOR */
+
+    @Override
+    public List<UsuarioPermisoResident> listarPermisoPendientes(String estado) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<UsuarioPermisoResident> listaPermisoUsuario = new ArrayList<>();
+        String query = "SELECT us.usuario_id as usid, concat(p.nombre,' ',p.apellidos) as nombres, perm.permiso_id as perid, perm.tipo_permiso_id as tpid, tp.nombre_tipo_permiso as nombtiper, perm.motivo_id as idmot, m.nombre_motivo as nombmot, perm.otros, perm.lugar, perm.fechasalida, perm.horasalida, perm.fechaingreso, perm.horaingreso, CASE perm.estado WHEN 0 THEN 'Rechazado' WHEN 1 THEN 'En Proceso' WHEN 2 THEN 'Aceptado' WHEN 3 THEN 'Inactivo' WHEN 4 THEN 'Ejecutandose' WHEN 5 THEN 'Terminado' END as estado, perm.usuario_id_reg FROM permiso as perm, usuario_permiso as up, usuario as us, persona as p, tipo_permiso as tp, motivo as m, tipo_persona as tper WHERE perm.permiso_id=up.permiso_id AND up.usuario_id=us.usuario_id AND us.persona_id=p.persona_id AND tper.tipo_persona_id=us.tipo_persona_id AND perm.motivo_id=m.motivo_id AND perm.tipo_permiso_id=tp.tipo_permiso_id AND tper.nombre_tipo_persona='Residente' AND perm.estado='"+ estado +"' ";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            UsuarioPermisoResident usuarioPermiso = new UsuarioPermisoResident();
+            usuarioPermiso.setUsuarioId(cx.getCol("usid"));
+            usuarioPermiso.setNombres(cx.getCol("nombres"));
+            usuarioPermiso.setPermisoId(cx.getCol("perid"));
+            usuarioPermiso.setTipoPermisoId(cx.getCol("tpid"));
+            usuarioPermiso.setNombreTipoPermiso(cx.getCol("nombtiper"));
+            usuarioPermiso.setMotivoId(cx.getCol("idmot"));
+            usuarioPermiso.setNombreMotivo(cx.getCol("nombmot"));
+            usuarioPermiso.setOtros(cx.getCol("otros"));
+            usuarioPermiso.setLugar(cx.getCol("lugar"));
+            usuarioPermiso.setFechaSalida(cx.getCol("fechasalida"));
+            usuarioPermiso.setHoraSalida(cx.getCol("horasalida"));
+            usuarioPermiso.setFechaEntrada(cx.getCol("fechaingreso"));
+            usuarioPermiso.setHoraEntrada(cx.getCol("horaingreso"));
+            usuarioPermiso.setEstado(cx.getCol("estado"));
+            listaPermisoUsuario.add(usuarioPermiso);
+        }
+        return listaPermisoUsuario;
+    }
+
+    /* @Override
+    public List<UsuarioPermisoResident> listarEditPermisoPendientes(String idper, String iduser) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<UsuarioPermisoResident> listaEditPermisoUsuario = new ArrayList<>();
+        String query = "SELECT  concat(p.nombre,' ',p.apellidos) as nombres, perm.tipo_permiso_id as tpid, perm.motivo_id as idmot, perm.otros, perm.lugar, perm.fechasalida, perm.horasalida, perm.fechaingreso, perm.horaingreso FROM permiso as perm, usuario_permiso as up, usuario as us, persona as p, tipo_permiso as tp, motivo as m, tipo_persona as tper WHERE perm.permiso_id=up.permiso_id AND up.usuario_id=us.usuario_id AND us.persona_id=p.persona_id AND tper.tipo_persona_id=us.tipo_persona_id AND perm.motivo_id=m.motivo_id AND perm.tipo_permiso_id=tp.tipo_permiso_id AND tper.nombre_tipo_persona='Residente' AND us.usuario_id='"+ iduser +"' AND perm.permiso_id='"+ idper +"' ";
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            UsuarioPermisoResident usuarioPermiso = new UsuarioPermisoResident();
+            usuarioPermiso.setNombres(cx.getCol("nombres"));
+            usuarioPermiso.setTipoPermisoId(cx.getCol("tpid"));
+            usuarioPermiso.setMotivoId(cx.getCol("idmot"));
+            usuarioPermiso.setOtros(cx.getCol("otros"));
+            usuarioPermiso.setLugar(cx.getCol("lugar"));
+            usuarioPermiso.setFechaSalida(cx.getCol("fechasalida"));
+            usuarioPermiso.setHoraSalida(cx.getCol("horasalida"));
+            usuarioPermiso.setFechaEntrada(cx.getCol("fechaingreso"));
+            usuarioPermiso.setHoraEntrada(cx.getCol("horaingreso"));
+            listaEditPermisoUsuario.add(usuarioPermiso);
+        }
+        return listaEditPermisoUsuario;
+    } */
+    
     
 }

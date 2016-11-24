@@ -41,17 +41,17 @@
                                         <th>#</th>
                                         <th hidden>IncidenciaId</th>
                                         <th hidden>UsuarioId</th>
-                                        <th>Persona Impli</th>
+                                        <th>Persona Implicada</th>
                                         <th hidden>TipoPersonaId</th>
                                         <th>Cargo</th>
                                         <th hidden>TipoIncidenciaId</th>
                                         <th>Incidencia</th>
-                                        <th>Descripcion</th>º
+                                        <th>Descripcion</th>
                                         <th>Lugar</th>
                                         <th hidden>ObjetoId</th>
                                         <th>Objeto</th>
                                         <th>Fecha/Hora</th>
-                                        <th hidden>Estado</th>
+                                        <th>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>
@@ -80,7 +80,7 @@
                                         <td><%=incidencia.getObjeto()%></td>
                                         <td><%=incidencia.getFecha()%></td>
                                         <td><%=incidencia.getEstado()%></td>
-                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Objeto Perdido" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
+                                        <td data-toggle="tooltip" data-placement="bottom" title="Modificar Objeto Perdido" align="center"><a><i class="glyphicon glyphicon-pencil"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Objeto Perdido" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
                                     <%}%>

@@ -14,8 +14,8 @@
 
 <%@include file="WEB-INF/jspf/top.jspf" %>
 <%
-    String visitaidEdit = request.getParameter("visitaidEdit");
-    visitaidEdit = visitaidEdit == null ? "" : visitaidEdit;
+    String visitaidEdit = request.getParameter("visitaidEdit"); visitaidEdit = visitaidEdit == null ? "" : visitaidEdit;
+    String listaEstadoVisita = request.getParameter("listaEstadoVisita"); listaEstadoVisita = listaEstadoVisita == null ? "" : listaEstadoVisita;
 %>
 <div class="bs-example">
     <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
@@ -39,10 +39,33 @@
         <div id="listaVis" class="col-md-12" style="display: block; padding: 0px; margin-top: 60px;">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
-                        <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'visita', '1')" type="text" class="form-control" placeholder="Buscar Visita." aria-describedby="basic-addon1">
-                    </div>
+                    <article class="col-sm-8" style="color: white;">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
+                            <input id="buscador" autofocus name="filt" onkeyup="filter(this, 'visita', '1')" type="text" class="form-control" placeholder="Buscar Usuario." aria-describedby="basic-addon1">
+                        </div>
+                    </article>
+                    <script>
+                        function enviar(){
+                            $.ajax({
+                                type: "POST",
+                                url: "visita.jsp",
+                                data: "listaEstadoVisita="+ $('select[name=estadoVisita]').val(),
+                                success: function (data) {
+                                }
+                            });
+                        };
+                    </script>
+                    <article align="right" class="col-sm-4">
+                        <div class="input-group col-sm-12">
+                            <select id="estadoUsuario" class="form-control" name="estadoVisita" onchange="enviar()">
+                                <option hidden>Seleccionar el Estado</option>
+                                <option <% if(listaEstadoVisita.equals("1")){%>selected<%}%> value="1">Activos</option>
+                                <option <% if(listaEstadoVisita.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
+                            </select>
+                        </div>
+                    </article>
+                    <div class="row"></div>
                 </div>
                 <div class="panel-body">
                     <div class="col-md-12" style="overflow: auto; padding: 0px;">

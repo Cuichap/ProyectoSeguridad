@@ -14,6 +14,7 @@ public class Permiso {
     private String permisoid;
     private String personaid;
     private String tipopermisoid;
+    private String nombretipoper;
     private String areaid;
     private String area;
     private String nombrepermiso;
@@ -23,6 +24,7 @@ public class Permiso {
     private String otros;
     private String fechahoraemision;
     private String lugar;
+    private String telefono;
     private String fechasalida;
     private String horasalida;
     private String fechaingreso;
@@ -38,17 +40,14 @@ public class Permiso {
     private String kilometrajeingreso;
     private String usuarioid;
     private String usuarioautid;
+    private String nombreusuauto;
     private String tipovehiculoid;
     private String tipovehiculo;
     private String placa;
     private String descripcionSalida;
     private String descripcionIngreso;
-
     private String usuarioreg;
     
-
-    private int count;
-
 
     public Permiso() {
     }
@@ -93,6 +92,14 @@ public class Permiso {
         this.tipopermisoid = tipopermisoid;
     }
 
+    public String getNombretipoper() {
+        return nombretipoper;
+    }
+
+    public void setNombretipoper(String nombretipoper) {
+        this.nombretipoper = nombretipoper;
+    }
+    
     public String getNombrepermiso() {
         return nombrepermiso;
     }
@@ -143,6 +150,14 @@ public class Permiso {
 
     public String getLugar() {
         return lugar;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public void setLugar(String lugar) {
@@ -267,6 +282,14 @@ public class Permiso {
 
     public void setUsuarioautid(String usuarioautid) {
         this.usuarioautid = usuarioautid;
+    }
+
+    public String getNombreusuauto() {
+        return nombreusuauto;
+    }
+
+    public void setNombreusuauto(String nombreusuauto) {
+        this.nombreusuauto = nombreusuauto;
     }
 
     public String getTipovehiculoid() {

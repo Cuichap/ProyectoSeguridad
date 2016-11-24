@@ -44,22 +44,20 @@
                             </div>
                         </article>
                         <script>
-                            $(document).ready(function (){
-                                    $('select[name=estadoPersona]').change(function (){
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addPersona.jsp",
-                                            data: "estadoPersona="+ $('select[name=estadoPersona]').val(),
-                                            success: function (data) {
-                                                $("#mantenimiento").html(data);
-                                            }
-                                        });
-                                    });
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "addPersona.jsp",
+                                    data: "estadoPersona="+ $('select[name=estadoPersona]').val(),
+                                    success: function (data) {
+                                        $("#mantenimiento").html(data);
+                                    }
                                 });
+                            };
                         </script>
                         <article align="right" class="col-sm-4">
                             <div class="input-group col-sm-12">
-                                <select id="estadoPersona" class="form-control" name="estadoPersona">
+                                <select id="estadoPersona" class="form-control" name="estadoPersona" onchange="enviar()">
                                     <option hidden>Seleccionar el Estado</option>
                                     <option <% if(estadoPersona.equals("1")){%>selected<%}%> value="1">Activos</option>
                                     <option <% if(estadoPersona.equals("0")){%>selected<%}%> value="0">Inactivos</option>
@@ -284,6 +282,7 @@
                 <div data-brackets-id="733" class="panel panel-primary">
                     <div data-brackets-id="734" class="panel-heading">
                         <h4><b>Modificar los Datos de la Persona</b></h4>
+                        <input value="<%=idPersonaEdit%>" required type="text" >
                     </div>
                     <%
                         List<Persona> listaEditPer = dao.listarEditPersona(idPersonaEdit);

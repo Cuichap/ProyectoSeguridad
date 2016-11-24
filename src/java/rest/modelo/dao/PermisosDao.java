@@ -30,6 +30,8 @@ public interface PermisosDao {
     public boolean EditarPermiso (Permiso permiso, String id);
     public boolean AgregarSalidaResidente (Permiso permiso, String id);
     public boolean AgregarIngresoResidente (Permiso permiso, String id);
+    public boolean AgregarSalidaPersonal (Permiso permiso, String id);
+    public boolean AgregarIngresoPersonal (Permiso permiso, String id);
     public boolean AgregarSalidaVehiculo (Permiso permiso, String id, String id2);
     public boolean AgregarentradaVehiculo(Permiso permiso, String id, String id2);
     public boolean EditarPermisoVehiculo(Permiso permiso, String id, String id2);

@@ -63,7 +63,7 @@
                                         <th hidden>ObjetoId</th>
                                         <th>Objeto</th>
                                         <th>Fecha/Hora</th>
-                                        <th>Estado</th>
+                                        <th hidden>Estado</th>
                                         <th colspan="2">Opciones</th>
                                     </tr>
                                 </thead>

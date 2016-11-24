@@ -75,7 +75,7 @@
                                         <td hidden><%=pVehiculo.getPermisoid()%></td>
                                         <td hidden><%=pVehiculo.getAreaid()%></td>
                                         <td><%=pVehiculo.getArea()%></td>
-                                        <td><%=pVehiculo.getNombres()%></td>
+                                        <td><%=pVehiculo.getNombres()%>|<%=pVehiculo.getPermisoid()%>|<%=pVehiculo.getVehiculoid()%></td>
                                         <td hidden><%=pVehiculo.getUsuarioautid()%></td>
                                         <td hidden><%=pVehiculo.getTipovehiculoid()%></td>
                                         <td><%=pVehiculo.getTipovehiculo()%></td>
@@ -381,7 +381,7 @@
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
                                 </button>
                                 <button class="btn btn-primary" type="submit">
-                                    Agregar Salida Agregar Entrada &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                    Editar Permiso &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
                         </form>

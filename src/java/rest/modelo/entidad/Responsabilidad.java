@@ -16,6 +16,7 @@ public class Responsabilidad {
     private String turnoid;
     private String nomresponsab;
     private String nomdeber;
+    private String nomturno;
     private String fecha;
     private String estado;
     private String userIdReg;
@@ -63,6 +64,15 @@ public class Responsabilidad {
         this.nomdeber = nomdeber;
     }
 
+    public String getNomturno() {
+        return nomturno;
+    }
+
+    public void setNomturno(String nomturno) {
+        this.nomturno = nomturno;
+    }
+    
+    
     public String getFecha() {
         return fecha;
     }

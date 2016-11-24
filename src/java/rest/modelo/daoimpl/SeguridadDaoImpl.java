@@ -301,7 +301,7 @@ public class SeguridadDaoImpl implements SeguridadDao{
     public List<Responsabilidad> listarResponsabilidad(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Responsabilidad> listaResponsabilidad = new ArrayList<>();
-        String query = "SELECT d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id AND du.estado="+estado+" ORDER BY d.deber_id DESC";
+        String query = "SELECT d.deber_id as id1, us.usuario_id as id2, t.turno_id as id3, concat(p.nombre,' ',p.apellidos) as usuario, d.nombre_deber as deber, t.nombre_turno as turno, du.fecha as fecha, CASE du.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM deber_usuario as du, deber as d, usuario as us, turno t, persona as p WHERE d.deber_id=du.deber_id and p.persona_id=us.persona_id and us.usuario_id=du.usuario_id and t.turno_id=du.turno_id AND du.estado="+estado+" ORDER BY d.deber_id DESC";
         cx.execQuery(query);
         while (cx.getNext()) {
             Responsabilidad responsabilidad = new Responsabilidad();
@@ -310,6 +310,7 @@ public class SeguridadDaoImpl implements SeguridadDao{
             responsabilidad.setTurnoid(cx.getCol("id3"));
             responsabilidad.setNomresponsab(cx.getCol("usuario"));
             responsabilidad.setNomdeber(cx.getCol("deber"));
+            responsabilidad.setNomturno(cx.getCol("turno"));
             responsabilidad.setFecha(cx.getCol("fecha"));
             responsabilidad.setEstado(cx.getCol("estado"));
             listaResponsabilidad.add(responsabilidad);

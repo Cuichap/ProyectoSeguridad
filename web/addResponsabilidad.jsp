@@ -82,6 +82,7 @@
                                         <th hidden>IdTurno</th>
                                         <th>Usuario</th>
                                         <th>Responsabilidad</th>
+                                        <th>Turno</th>
                                         <th>Fecha</th>
                                         <th hidden>IdUsuarioReg</th>
                                         <th>Estado</th>
@@ -104,8 +105,9 @@
                                         <td hidden><%=resp.getDeberid()%></td>
                                         <td hidden><%=resp.getUsuarioid()%></td>
                                         <td hidden><%=resp.getTurnoid()%></td>
-                                        <td><%=resp.getNomresponsab()%></td>
+                                        <td><%=resp.getNomresponsab()%></td>                                        
                                         <td><%=resp.getNomdeber()%></td>
+                                        <td><%=resp.getNomturno()%></td>
                                         <td><%=resp.getFecha()%></td>
                                         <td hidden><%=resp.getUserIdReg()%></td>
                                         <td><%=resp.getEstado()%></td>

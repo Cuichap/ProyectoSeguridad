@@ -38,10 +38,10 @@ public class PermisosDaoImpl implements PermisosDao {
     }
 
     @Override
-    public List<Permiso> listarPermisosResidentes() {
+    public List<Permiso> listarPermisosResidentes(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Permiso> listaPermisos = new ArrayList<>();
-        String query = "SELECT p.permiso_id as idpermiso, us.persona_id as idpersona, us.usuario_id as usuarioid, concat(per.nombre,' ',per.apellidos) as nombres, p.lugar as lugar, m.motivo_id as motivoid, m.nombre_motivo as motivo, p.fechasalida as fechasal1, p.horasalida as horasal1, p.fechaingreso as fechaing1, p.horaingreso as horaing1, p.fechasalidareal as fechasal2, p.horasalidareal as horasal2, p.fechaingresoreal as fechaing2, p.horaingresoreal as horaing2, p.observacion as observacion, CASE p.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM permiso as p, tipo_permiso as tp, motivo as m, usuario_permiso as up, usuario as us, persona as per, tipo_persona as tip WHERE per.persona_id=us.persona_id AND us.usuario_id=up.usuario_id AND up.permiso_id=p.permiso_id AND p.tipo_permiso_id=tp.tipo_permiso_id and p.motivo_id=m.motivo_id AND tip.tipo_persona_id=us.tipo_persona_id AND tip.nombre_tipo_persona='Residente' ";
+        String query = "SELECT p.permiso_id as idpermiso, us.persona_id as idpersona, us.usuario_id as usuarioid, concat(per.nombre,' ',per.apellidos) as nombres, p.lugar as lugar, m.motivo_id as motivoid, m.nombre_motivo as motivo, p.fechasalida as fechasal1, p.horasalida as horasal1, p.fechaingreso as fechaing1, p.horaingreso as horaing1, p.fechasalidareal as fechasal2, p.horasalidareal as horasal2, p.fechaingresoreal as fechaing2, p.horaingresoreal as horaing2, p.observacion as observacion, CASE p.estado WHEN 2 THEN 'Pendiente' WHEN 3 THEN 'Inactivo' WHEN 3 THEN 'Salida' WHEN 4 THEN 'Terminado' END as estado FROM permiso as p, tipo_permiso as tp, motivo as m, usuario_permiso as up, usuario as us, persona as per, tipo_persona as tip WHERE per.persona_id=us.persona_id AND us.usuario_id=up.usuario_id AND up.permiso_id=p.permiso_id AND p.tipo_permiso_id=tp.tipo_permiso_id and p.motivo_id=m.motivo_id AND tip.tipo_persona_id=us.tipo_persona_id AND tip.nombre_tipo_persona='Residente' AND p.estado="+estado+"";
         cx.execQuery(query);
         while (cx.getNext()) {
             Permiso permiso = new Permiso();
@@ -68,10 +68,10 @@ public class PermisosDaoImpl implements PermisosDao {
     }
 
     @Override
-    public List<Permiso> listarPermisosPersonal() {
+    public List<Permiso> listarPermisosPersonal(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Permiso> listaPermisos = new ArrayList<>();
-        String query = "SELECT p.permiso_id as idpermiso, us.persona_id as idpersona, us.usuario_id as usuarioid, concat(per.nombre,' ',per.apellidos) as nombres, p.lugar as lugar, m.motivo_id as motivoid, m.nombre_motivo as motivo, p.fechasalida as fechasal1, p.horasalida as horasal1, p.fechaingreso as fechaing1, p.horaingreso as horaing1, p.fechasalidareal as fechasal2, p.horasalidareal as horasal2, p.fechaingresoreal as fechaing2, p.horaingresoreal as horaing2, p.observacion as observacion, CASE p.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM permiso as p, tipo_permiso as tp, motivo as m, usuario_permiso as up, usuario as us, persona as per, tipo_persona as tip WHERE per.persona_id=us.persona_id AND us.usuario_id=up.usuario_id AND up.permiso_id=p.permiso_id AND p.tipo_permiso_id=tp.tipo_permiso_id and p.motivo_id=m.motivo_id AND tip.tipo_persona_id=us.tipo_persona_id AND tip.nombre_tipo_persona='Personal' ";
+        String query = "SELECT p.permiso_id as idpermiso, us.persona_id as idpersona, us.usuario_id as usuarioid, concat(per.nombre,' ',per.apellidos) as nombres, p.lugar as lugar, m.motivo_id as motivoid, m.nombre_motivo as motivo, p.fechasalida as fechasal1, p.horasalida as horasal1, p.fechaingreso as fechaing1, p.horaingreso as horaing1, p.fechasalidareal as fechasal2, p.horasalidareal as horasal2, p.fechaingresoreal as fechaing2, p.horaingresoreal as horaing2, p.observacion as observacion, CASE p.estado WHEN 2 THEN 'Pendiente' WHEN 3 THEN 'Inactivo' WHEN 3 THEN 'Salida' WHEN 4 THEN 'Terminado' END as estado FROM permiso as p, tipo_permiso as tp, motivo as m, usuario_permiso as up, usuario as us, persona as per, tipo_persona as tip WHERE per.persona_id=us.persona_id AND us.usuario_id=up.usuario_id AND up.permiso_id=p.permiso_id AND p.tipo_permiso_id=tp.tipo_permiso_id and p.motivo_id=m.motivo_id AND tip.tipo_persona_id=us.tipo_persona_id AND tip.nombre_tipo_persona='Personal' AND p.estado="+estado+"";
         cx.execQuery(query);
         while (cx.getNext()) {
             Permiso permiso = new Permiso();
@@ -98,10 +98,10 @@ public class PermisosDaoImpl implements PermisosDao {
     }
 
     @Override
-    public List<Permiso> listarPermisosVehiculo() {
+    public List<Permiso> listarPermisosVehiculo(String estado) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Permiso> listaPermisos = new ArrayList<>();
-        String query = "SELECT perm.permiso_id as idpermiso, a.area_id as idarea, a.nombre as area, vp.conductor as conductor, CASE up.usuario_aut_id WHEN 4 THEN 'Gerencia' END as autorizo , tipv.tipo_vehiculo_id as idtipv, tipv.nombre_tipo_vehiculo as tipveh, v.vehiculo_id as idvehiculo, v.numplaca as placa, vp.kilometrajesalida as kmsalida, vp.descripcionS descS, vp.kilometrajeingreso as kmingreso, vp.descripcionE as descentrada, vp.fechasalida as fsalida, convert(vp.horasalida, time) as hsalida, vp.fechaingreso as fingreso, convert(vp.horaingreso, time) as hingreso,  CASE perm.estado WHEN 1 THEN 'Activo' WHEN 0 THEN 'Inactivo' END as estado FROM usuario as us, tipo_persona as tip, usuario_permiso as up, permiso as perm, vehiculo_permiso as vp, vehiculo as v, marca as mar, tipo_vehiculo as tipv, area as a WHERE a.area_id=us.area_id AND us.usuario_id=up.usuario_id AND up.permiso_id=perm.permiso_id AND perm.permiso_id=vp.permiso_id AND vp.vehiculo_id=v.vehiculo_id AND v.marca_id=mar.marca_id AND tipv.tipo_vehiculo_id=v.tipo_vehiculo_id AND tip.tipo_persona_id=us.tipo_persona_id";
+        String query = "SELECT perm.permiso_id as idpermiso, a.area_id as idarea, a.nombre as area, vp.conductor as conductor, CASE up.usuario_aut_id WHEN 4 THEN 'Gerencia' END as autorizo , tipv.tipo_vehiculo_id as idtipv, tipv.nombre_tipo_vehiculo as tipveh, v.vehiculo_id as idvehiculo, v.numplaca as placa, vp.kilometrajesalida as kmsalida, vp.descripcionS descS, vp.kilometrajeingreso as kmingreso, vp.descripcionE as descentrada, vp.fechasalida as fsalida, convert(vp.horasalida, time) as hsalida, vp.fechaingreso as fingreso, convert(vp.horaingreso, time) as hingreso,  CASE perm.estado WHEN 2 THEN 'Pendiente' WHEN 3 THEN 'Inactivo' WHEN 3 THEN 'Salida' WHEN 4 THEN 'Terminado' END as estado FROM usuario as us, tipo_persona as tip, usuario_permiso as up, permiso as perm, vehiculo_permiso as vp, vehiculo as v, marca as mar, tipo_vehiculo as tipv, area as a WHERE a.area_id=us.area_id AND us.usuario_id=up.usuario_id AND up.permiso_id=perm.permiso_id AND perm.permiso_id=vp.permiso_id AND vp.vehiculo_id=v.vehiculo_id AND v.marca_id=mar.marca_id AND tipv.tipo_vehiculo_id=v.tipo_vehiculo_id AND tip.tipo_persona_id=us.tipo_persona_id AND perm.estado="+estado+"";
         cx.execQuery(query);
         while (cx.getNext()) {
             Permiso permiso = new Permiso();

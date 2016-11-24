@@ -65,6 +65,7 @@
                                         %>   
                                 
                                     <tr>
+                                        
                                         <td><%=count%></td>
                                         <td hidden><%=incidencia.getIncidenciaid()%></td>
                                         <td hidden><%=incidencia.getUsuarioid()%></td>

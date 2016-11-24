@@ -9,6 +9,7 @@
 <%@page import="rest.modelo.entidad.Motivo"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
+<%@page import="rest.modelo.entidad.UsuarioPermisoResident"%>
 <%@page import="java.util.List"%>
 <%@page import="rest.modelo.daoimpl.AddPermisosDaoImpl"%>
 <%@page import="rest.modelo.dao.AddPermisosDao"%>

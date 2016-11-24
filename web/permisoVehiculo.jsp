@@ -15,6 +15,8 @@
     IdPermisoEdit = IdPermisoEdit == null ? "" : IdPermisoEdit;
     String IdVehiculoEdit = request.getParameter("IdVehiculoEdit");
     IdVehiculoEdit = IdVehiculoEdit == null ? "" : IdVehiculoEdit;
+    String estadopermisoVehiculo = request.getParameter("estadopermisoVehiculo");
+    estadopermisoVehiculo = estadopermisoVehiculo == null ? "2" : estadopermisoVehiculo;
 %>
 <!DOCTYPE html>
 <html>
@@ -25,17 +27,47 @@
         <div class="col-sm-12">
             <br>
             <section id="lista" class="col-sm-12 well well-sm backcolor" style="display: block; margin-bottom: -50px;">
-                <article class="col-sm-4" style="color: white;">
+                <article class="col-sm-6" style="color: white;">
                     <h4 ><b>Lista de Permisos de Vehículos</b></h4>
+                </article>
+                <article align="right" class="col-sm-6">
+                    <div class="col-sm-3"></div>
+                    <a class="btn btn-primary" onclick="">Nuevo &nbsp;<i class="glyphicon glyphicon-plus"></i></a><!--  data-toggle="modal" data-target="#addPersona" -->
                 </article>
             </section>
             <div id="listaVeh" class="col-md-12" style="display: block; padding: 0px; margin-top: 60px;">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="input-group">
+                    <div class="panel-heading col-sm-12">
+                        <article class="col-sm-8" style="color: white;">
+                        <div class="input-group ">
                             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-search"></i></span>
                             <input autofocus name="filt" onkeyup="filter(this, 'perVehiculos', '1')" type="text" class="form-control" placeholder="Buscar Permisos de Vehículos." aria-describedby="basic-addon1">
                         </div>
+                        </article>
+                        <script>
+                            function enviar(){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "permisoVehiculo.jsp",
+                                    data: "estadopermisoVehiculo="+ $('select[name=estadopermisoVehiculo]').val(),
+                                    success: function (data) {
+                                        $("#permisos").html(data);
+                                    }
+                                });
+                            };
+                        </script>
+                         <article align="right" class="col-sm-4">
+                            <div class="input-group col-sm-12">
+                                <select id="" class="form-control" name="estadopermisoVehiculo" onchange="enviar()">
+                                    <option hidden>Seleccionar el Estado</option>
+                                    <option hidden>Seleccionar el Estado</option>
+                                    <option <% if(estadopermisoVehiculo.equals("2")){%>selected<%}%> value="2">Pendiente</option>
+                                    <option <% if(estadopermisoVehiculo.equals("3")){%>selected<%}%> value="3">Inactivo</option>
+                                    <option <% if(estadopermisoVehiculo.equals("4")){%>selected<%}%> value="4">Salida</option>
+                                    <option <% if(estadopermisoVehiculo.equals("5")){%>selected<%}%> value="5">Terminado</option>
+                                </select>
+                            </div>
+                        </article>
                     </div>
                     <div class="panel-body">
                         <div class="col-md-12" style="overflow: auto; padding: 0px;">
@@ -66,7 +98,7 @@
                                         PermisosDao pdao = new PermisosDaoImpl();
                                         int count = 0;
 
-                                        List<Permiso> listarPermisoVehiculo = pdao.listarPermisosVehiculo();
+                                        List<Permiso> listarPermisoVehiculo = pdao.listarPermisosVehiculo(estadopermisoVehiculo);
                                         for (Permiso pVehiculo : listarPermisoVehiculo) {
                                             count++;
                                     %>

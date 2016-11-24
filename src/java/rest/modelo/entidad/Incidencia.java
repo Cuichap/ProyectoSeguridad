@@ -25,6 +25,7 @@ public class Incidencia {
     private String objeto;
     private String fecha;
     private String estado;
+    private String usuarioreg;
 
     public Incidencia() {
     }
@@ -139,6 +140,14 @@ public class Incidencia {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUsuarioreg() {
+        return usuarioreg;
+    }
+
+    public void setUsuarioreg(String usuarioreg) {
+        this.usuarioreg = usuarioreg;
     }
     
     

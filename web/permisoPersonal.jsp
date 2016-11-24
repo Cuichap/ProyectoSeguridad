@@ -181,7 +181,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="permisoEdit">Persona</label>
-                                        <input value="<%=perEditar.getNombres()%>" type="text" disabled="" class="form-control" id="permisoEdit" placeholder="Nombres" name="nombres">
+                                        <input value="<%=perEditar.getNombres()%>" type="text" disabled="" disabled="" class="form-control" id="permisoEdit" placeholder="Nombres" name="nombres">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -207,25 +207,25 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechasalidaProgramadaEdit">Fecha Salida Programada</label>
-                                        <input value="<%=perEditar.getFechasalida()%>" type="text" disabled="" class="form-control" id="fechasalidaProgramadaEdit" placeholder="Fecha Salida Programada" name="fechasalida">
+                                        <input value="<%=perEditar.getFechasalida()%>" type="date" disabled="" class="form-control" id="fechasalidaProgramadaEdit" placeholder="Fecha Salida Programada" name="fechasalida">
                                     </div>
                                 </div> 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horasalidaProgramadaEdit">Hora Salida Programada</label>
-                                        <input value="<%=perEditar.getHorasalida()%>" type="text" disabled="" class="form-control" id="horasalidaProgramadaEdit" placeholder="Hora Salida Programada" name="horasalida">
+                                        <input value="<%=perEditar.getHorasalida()%>" type="time" disabled="" class="form-control" id="horasalidaProgramadaEdit" placeholder="Hora Salida Programada" name="horasalida">
                                     </div>
                                 </div>     
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechaingresoProgramadoEdit">Fecha Ingreso Programada</label>
-                                        <input value="<%=perEditar.getFechaingreso()%>" type="text" disabled="" class="form-control" id="fechaingresoProgramadoEdit" placeholder="Fecha Salida Programada" name="fechaingreso">
+                                        <input value="<%=perEditar.getFechaingreso()%>" type="date" disabled="" class="form-control" id="fechaingresoProgramadoEdit" placeholder="Fecha Salida Programada" name="fechaingreso">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horaingresoProgramadoEdit">Hora Ingreso Programada</label>
-                                        <input value="<%=perEditar.getHoraingreso()%>" type="text" disabled="" class="form-control" id="horaingresoProgramadoEdit" placeholder="Hora Salida Programada" name="horaingreso">
+                                        <input value="<%=perEditar.getHoraingreso()%>" type="time" disabled="" class="form-control" id="horaingresoProgramadoEdit" placeholder="Hora Salida Programada" name="horaingreso">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -289,13 +289,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="permisoEdit">Persona</label>
-                                        <input value="<%=personalEditar.getNombres()%>" type="text" class="form-control" id="permisoEdit" placeholder="Nombres" name="nombres">
+                                        <input value="<%=personalEditar.getNombres()%>" type="text" disabled="" class="form-control" id="permisoEdit" placeholder="Nombres" name="nombres">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="lugarEdit">Lugar</label>
-                                        <input value="<%=personalEditar.getLugar()%>" type="text" class="form-control" id="lugarEdit" placeholder="Lugar" name="lugar">
+                                        <input value="<%=personalEditar.getLugar()%>" type="text" disabled="" class="form-control" id="lugarEdit" placeholder="Lugar" name="lugar">
                                         <input type="hidden" name="opcion" value="EditarPermisoPersonal">
                                         <input type="hidden" name="id" value="<%=PersonalidEdit%>">
                                         <input type="hidden" name="usuarioreg" value="<%=idUsuario%>">
@@ -304,31 +304,31 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="motivoEdit">Motivo</label>
-                                        <input value="<%=personalEditar.getMotivo()%>" type="text" class="form-control" id="motivoEdit" placeholder="Nombre del Permiso" name="motivo">
+                                        <input value="<%=personalEditar.getMotivo()%>" type="text" disabled="" class="form-control" id="motivoEdit" placeholder="Nombre del Permiso" name="motivo">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechasalidaProgramadaEdit">Fecha Salida Programada</label>
-                                        <input value="<%=personalEditar.getFechasalida()%>" type="text" class="form-control" id="fechasalidaProgramadaEdit" placeholder="Fecha Salida Programada" name="fechasalida">
+                                        <input value="<%=personalEditar.getFechasalida()%>" type="date" disabled="" class="form-control" id="fechasalidaProgramadaEdit" placeholder="Fecha Salida Programada" name="fechasalida">
                                     </div>
                                 </div> 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horasalidaProgramadaEdit">Hora Salida Programada</label>
-                                        <input value="<%=personalEditar.getHorasalida()%>" type="text" class="form-control" id="horasalidaProgramadaEdit" placeholder="Hora Salida Programada" name="horasalida">
+                                        <input value="<%=personalEditar.getHorasalida()%>" type="time" disabled="" class="form-control" id="horasalidaProgramadaEdit" placeholder="Hora Salida Programada" name="horasalida">
                                     </div>
                                 </div>     
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fechaingresoProgramadoEdit">Fecha Ingreso Programada</label>
-                                        <input value="<%=personalEditar.getFechaingreso()%>" type="text" class="form-control" id="fechaingresoProgramadoEdit" placeholder="Fecha Salida Programada" name="fechaingreso">
+                                        <input value="<%=personalEditar.getFechaingreso()%>" type="date" disabled="" class="form-control" id="fechaingresoProgramadoEdit" placeholder="Fecha Salida Programada" name="fechaingreso">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="horaingresoProgramadoEdit">Hora Ingreso Programada</label>
-                                        <input value="<%=personalEditar.getHoraingreso()%>" type="text" class="form-control" id="horaingresoProgramadoEdit" placeholder="Hora Salida Programada" name="horaingreso">
+                                        <input value="<%=personalEditar.getHoraingreso()%>" type="time" disabled="" class="form-control" id="horaingresoProgramadoEdit" placeholder="Hora Salida Programada" name="horaingreso">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">

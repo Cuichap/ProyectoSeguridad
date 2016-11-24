@@ -14,6 +14,7 @@
         <li><%=JSP%></li>
         <li id="breadseg"></li>
         <li id="aciones"></li>
+        <li><%=Perfil%></li>
     </ul>
 </div>
 
@@ -23,7 +24,8 @@
 
 <script>
     $(document).ready(function () {
-        <% if(!Perfil.equals("3")) { %>
+        
+    <% if(Perfil.equals("1") || Perfil.equals("2")){ %>
             <% if(IdSubMenu.equals("29") || IdSubMenu.equals("")) { %>
                 ir29();
             <%} if(IdSubMenu.equals("30")) { %>
@@ -36,12 +38,6 @@
                 ir33();
             <%}%>
         <%}%>
-        <% if(Perfil.equals("3")){ %>
-            <% if(IdSubMenu.equals("33") || IdSubMenu.equals("")) { %>
-                ir33();
-            <%}%>
-        <%}%>
-
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>

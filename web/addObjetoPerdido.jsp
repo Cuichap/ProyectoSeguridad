@@ -65,6 +65,7 @@
                                         %>   
                                 
                                     <tr>
+                                        
                                         <td><%=count%></td>
                                         <td hidden><%=incidencia.getIncidenciaid()%></td>
                                         <td hidden><%=incidencia.getUsuarioid()%></td>
@@ -82,6 +83,7 @@
                                         <td data-toggle="tooltip" data-placement="bottom" title="Modificar Objeto Perdido" align="center"><a><i class="glyphicon glyphicon-edit"></i></a></td>
                                         <td data-toggle="tooltip" data-placement="bottom" title="Eliminar Objeto Perdido" align="center"><a><i class="glyphicon glyphicon-trash"></i></a></td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>

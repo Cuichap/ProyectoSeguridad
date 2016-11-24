@@ -17,9 +17,9 @@ public interface PermisosDao {
     public boolean agregarPermiso(Permiso permiso);
     
     /* LISTAR PERMISOS */
-    public List<Permiso> listarPermisosResidentes();
-    public List<Permiso> listarPermisosPersonal();
-    public List<Permiso> listarPermisosVehiculo();
+    public List<Permiso> listarPermisosResidentes(String estado);
+    public List<Permiso> listarPermisosPersonal(String estado);
+    public List<Permiso> listarPermisosVehiculo(String estado);
     
     /* LISTAR POR ID */
     public List<Permiso> listarPermisoResidenteEdit(String IdPermiso);

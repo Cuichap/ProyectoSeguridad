@@ -150,20 +150,17 @@
                                                 $("#permisos").html(data);
                                                 document.getElementById('lista').style.display = 'none';
                                                 document.getElementById('listaPermisoResidente').style.display = 'none';
-                                                document.getElementById('agregarPermisoResident').style.display = 'none';
                                                 document.getElementById('editarPermisoResident').style.display = 'block';
-                                                document.getElementById("nombresEdit").focus();
+                                                document.getElementById("otrosEdit").focus();
                                                 $("#aciones").html("Modificar Permiso");
                                             }
                                         });
                                     }
                                     function cancelarEditPermisoResidente() {
-                                        document.getElementById("editpermisoresidente").reset();
-                                        document.getElementById("addpermisoresidente").reset();
+                                        document.getElementById("editpermisoresid").reset();
                                         document.getElementById('lista').style.display = 'block';
                                         document.getElementById('listaPermisoResidente').style.display = 'block';
                                         document.getElementById('editarPermisoResident').style.display = 'none';
-                                        document.getElementById('agregarPermisoResident').style.display = 'none';
                                         document.getElementById("buscador").focus();
                                         $("#aciones").html("Lista de Permisos Solicitados");
                                     }
@@ -176,9 +173,16 @@
                                     document.getElementById('lista').style.display = 'none';
                                     document.getElementById('listaPermisoResidente').style.display = 'none';
                                     document.getElementById('agregarPermisoResident').style.display = 'block';
-                                    document.getElementById('editarPermisoResident').style.display = 'none';
                                     document.getElementById("otros").focus();
                                     $("#aciones").html("Agregar Permiso");
+                                }
+                                function cancelarAddPermisoResidente() {
+                                    document.getElementById("addpermisoresid").reset();
+                                    document.getElementById('lista').style.display = 'block';
+                                    document.getElementById('listaPermisoResidente').style.display = 'block';
+                                    document.getElementById('agregarPermisoResident').style.display = 'none';
+                                    document.getElementById("buscador").focus();
+                                    $("#aciones").html("Lista de Permisos Solicitados");
                                 }
                             </script>
                         </div>
@@ -191,7 +195,7 @@
                         <h4><b>Ingresar los Datos del Permiso</b></h4>
                     </div>
                     <div data-brackets-id="736" class="panel-body">
-                        <form id="addpermisoresidente" class="form-signin" role="form" method="post" action="usuariopermiso">
+                        <form id="addpermisoresid" class="form-signin" role="form" method="post" action="usuariopermiso">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -274,7 +278,7 @@
                             
                             <hr style="border-color: #3b5998;">
                             <h4 align="center">
-                                <button type="button" class="btn btn-default" onclick="cancelarEditPermisoResidente()"><!--  data-dismiss="modal" -->
+                                <button type="button" class="btn btn-default" onclick="cancelarAddPermisoResidente()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
                                 </button>
                                 <button class="btn btn-primary" type="submit">
@@ -285,10 +289,10 @@
                     </div>
                 </div>
             </div>
-            <div id="editarPermisoResident" class="col-md-12" style="padding: 0px; display: none;">
+            <div id="editarPermisoResid" class="col-md-12" style="padding: 0px; display: none;">
                 <div data-brackets-id="733" class="panel panel-primary">
                     <div data-brackets-id="734" class="panel-heading">
-                        <h4><b>Modificar los Datos de la Persona</b></h4>
+                        <h4><b>Modificar los Datos del Permiso </b></h4>
                     </div>
                     <%
                         List<UsuarioPermisoResident> listaEditPerRes = dao.listarEditPermisoResidente(idPermisoResEdit, user);

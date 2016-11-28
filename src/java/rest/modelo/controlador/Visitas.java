@@ -42,44 +42,43 @@ public class Visitas extends HttpServlet {
         String opcion = request.getParameter("opcion"); opcion = opcion == null ? "" : opcion;
         
         String visitaid = request.getParameter("visitaid"); visitaid = visitaid == null ? "" : visitaid;
-        String personaid = request.getParameter("personaid"); personaid = personaid == null ? "" : personaid;
-        String nombres = request.getParameter("nombres"); nombres = nombres == null ? "" : nombres;
-        String fechaentrada = request.getParameter("fechaentrada"); fechaentrada = fechaentrada == null ? "" : fechaentrada;
-        String horaentrada = request.getParameter("horaentrada"); horaentrada = horaentrada == null ? "" : horaentrada;
+        String personaidVisita = request.getParameter("personaidVisita"); personaidVisita = personaidVisita == null ? "" : personaidVisita;
+        String fechaIngreso = request.getParameter("fechaIngreso"); fechaIngreso = fechaIngreso == null ? "" : fechaIngreso;
+        String HoraIngreso = request.getParameter("HoraIngreso"); HoraIngreso = HoraIngreso == null ? "" : HoraIngreso;
         String destino = request.getParameter("destino"); destino = destino == null ? "" : destino;
         String visitado = request.getParameter("visitado"); visitado = visitado == null ? "" : visitado;
-        String procedencia = request.getParameter("procedencia"); procedencia = procedencia == null ? "" : procedencia;
-        String direccion = request.getParameter("direccion"); direccion = direccion == null ? "" : direccion;
         String descripcion = request.getParameter("descripcion"); descripcion = descripcion == null ? "" : descripcion;
         String horasalida = request.getParameter("horasalida"); horasalida = horasalida == null ? "" : horasalida;
         String fechasalida = request.getParameter("fechasalida"); fechasalida = fechasalida == null ? "" : fechasalida;
-        String usuarioid = request.getParameter("usuarioid"); usuarioid = usuarioid == null ? "" : usuarioid;
-        String estado = request.getParameter("estado"); estado = estado == null ? "" : estado;
-        String tipodocid = request.getParameter("tipodocid"); tipodocid = tipodocid == null ? "" : tipodocid;
-        String documento = request.getParameter("documento"); documento = documento == null ? "" : documento;
-        String usuario = request.getParameter("usuario"); usuario = usuario == null ? "" : usuario;
+        String nombres = request.getParameter("nombres"); nombres = nombres == null ? "" : nombres;
+        String apellidos = request.getParameter("apellidos"); apellidos = apellidos == null ? "" : apellidos;
+        String direccion = request.getParameter("direccion"); direccion = direccion == null ? "" : direccion;
+        String procedencia = request.getParameter("procedencia"); procedencia = procedencia == null ? "" : procedencia;
+        String tipoDocumento = request.getParameter("tipoDocumento"); tipoDocumento = tipoDocumento == null ? "" : tipoDocumento;
+        String numeroDoc = request.getParameter("numeroDoc"); numeroDoc = numeroDoc == null ? "" : numeroDoc;
         String telefono = request.getParameter("telefono"); telefono = telefono == null ? "" : telefono;
         String genero = request.getParameter("genero"); genero = genero == null ? "" : genero;
-        String ndoc = request.getParameter("ndoc"); ndoc = ndoc == null ? "" : ndoc;
+        String idUsuarioReg = request.getParameter("idUsuarioReg"); idUsuarioReg = idUsuarioReg == null ? "" : idUsuarioReg;
         
         String id = request.getParameter("id"); id = id == null?"":id;
         
         switch(opcion){
-            case "addVisit":
-                visita.setVisitaid(visitaid);
-                visita.setPersonaid(personaid);
-                visita.setNombres(nombres);
-                visita.setProcedencia(procedencia);
-                visita.setDireccion(direccion);
-                visita.setTipodocid(tipodocid);
-                visita.setDocumento(documento);
-                visita.setNombres(nombres);
-                visita.setTelefono(telefono);
-                visita.setGenero(genero);
-                if( vdao.registrarVisita(visita)){
+            case "AddVisitaConId":
+                if( vdao.registrarVisita(personaidVisita, fechaIngreso, HoraIngreso, destino, visitado, descripcion, idUsuarioReg)){
                     request.setAttribute("IdMenu", "6");
                     request.setAttribute("JSP", "Visitas");
-                    request.getRequestDispatcher("visitas.jsp").forward(request, response);
+                    request.getRequestDispatcher("visita.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("IdMenu", "6");
+                    request.setAttribute("JSP", "Visitas");
+                    request.getRequestDispatcher("visita.jsp").forward(request, response);
+                } 
+                break;
+            case "AddVisitaTodo":
+                if( vdao.registrarTodojeje(nombres, apellidos, direccion, procedencia, tipoDocumento, numeroDoc, telefono, genero, fechaIngreso, HoraIngreso, destino, visitado, descripcion, idUsuarioReg)){
+                    request.setAttribute("IdMenu", "6");
+                    request.setAttribute("JSP", "Visitas");
+                    request.getRequestDispatcher("visita.jsp").forward(request, response);
                 } else {
                     request.setAttribute("IdMenu", "6");
                     request.setAttribute("JSP", "Visitas");

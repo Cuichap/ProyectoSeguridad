@@ -4,18 +4,21 @@
     Author     : USUARIO
 --%>
 
+
 <%@page import="rest.modelo.entidad.TipoDocumento"%>
 <%@page import="rest.modelo.daoimpl.MantenimientoDaoImpl"%>
 <%@page import="rest.modelo.dao.MantenimientoDao"%>
 <%@page import="rest.modelo.entidad.Visita"%>
 <%@page import="rest.modelo.daoimpl.VisitaDaoImpl"%>
 <%@page import="rest.modelo.dao.VisitaDao"%>
+<%@page import="rest.modelo.entidad.Persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="WEB-INF/jspf/top.jspf" %>
 <%
     String visitaidEdit = request.getParameter("visitaidEdit"); visitaidEdit = visitaidEdit == null ? "" : visitaidEdit;
     String listaEstadoVisita = request.getParameter("listaEstadoVisita"); listaEstadoVisita = listaEstadoVisita == null ? "" : listaEstadoVisita;
+    String PersonaListaid = request.getParameter("PersonaListaid"); PersonaListaid = PersonaListaid == null ? "1" : PersonaListaid;
 %>
 <div class="bs-example">
     <ul class="breadcrumb" style="margin-bottom: 5px; color: #2fa4e7;">
@@ -46,11 +49,11 @@
                         </div>
                     </article>
                     <script>
-                        function enviar(){
+                        function enviar() {
                             $.ajax({
                                 type: "POST",
                                 url: "visita.jsp",
-                                data: "listaEstadoVisita="+ $('select[name=estadoVisita]').val(),
+                                data: "listaEstadoVisita=" + $('select[name=estadoVisita]').val(),
                                 success: function (data) {
                                 }
                             });
@@ -60,8 +63,8 @@
                         <div class="input-group col-sm-12">
                             <select id="estadoUsuario" class="form-control" name="estadoVisita" onchange="enviar()">
                                 <option hidden>Seleccionar el Estado</option>
-                                <option <% if(listaEstadoVisita.equals("1")){%>selected<%}%> value="1">Activos</option>
-                                <option <% if(listaEstadoVisita.equals("0")){%>selected<%}%> value="0">Inactivos</option>>
+                                <option <% if (listaEstadoVisita.equals("1")) {%>selected<%}%> value="1">Activos</option>
+                                <option <% if (listaEstadoVisita.equals("0")) {%>selected<%}%> value="0">Inactivos</option>>
                             </select>
                         </div>
                     </article>
@@ -78,6 +81,9 @@
                                     <th>Nombres</th>
                                     <th>Procedencia</th>
                                     <th>Teléfono</th>
+                                    <th>Destino</th>
+                                    <th>Visitado</th>
+                                    <th>Descripción</th>
                                     <th>Ingreso</th>
                                     <th>Salida</th>
                                     <th>Estado</th>
@@ -100,6 +106,9 @@
                                     <td><%=visita.getNombres()%></td>
                                     <td><%=visita.getProcedencia()%></td>
                                     <td><%=visita.getTelefono()%></td>
+                                    <td><%=visita.getDestino()%></td>
+                                    <td><%=visita.getVisitado()%></td>
+                                    <td><%=visita.getDescripcion()%></td>
                                     <td><%=visita.getFechaentrada()%> /<%=visita.getHoraentrada()%></td>
                                     <td><%=visita.getFechasalida()%> /<%=visita.getHorasalida()%></td>
                                     <td><%=visita.getEstado()%></td>
@@ -145,14 +154,130 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="agregarVis" class="col-md-12" style="padding: 0px; display: none;">
-                <div data-brackets-id="733" class="panel panel-primary">
-                    <div data-brackets-id="734" class="panel-heading">
-                        <h4><b>Ingresar los Datos de la Visita</b></h4>
+            <div data-brackets-id="733" class="panel panel-primary">
+                <div data-brackets-id="734" class="panel-heading">
+                    <h4><b>Ingresar los Datos de la Visita</b></h4>
+                </div>
+                <script>
+                    /* Visita */
+                    /* Registrar una Visita */
+                    function agregarVisita() {
+                        document.getElementById('lista').style.display = 'none';
+                        document.getElementById('listaVis').style.display = 'none';
+                        document.getElementById('agregarVis').style.display = 'block';
+                        $("#aciones").html("Agregar Visita");
+                    }
+                    function agregarTodo() {
+                        document.getElementById('lista').style.display = 'none';
+                        document.getElementById('listaVis').style.display = 'none';
+                        document.getElementById('agregarVis').style.display = 'block';
+                        document.getElementById('conidjeje').style.display = 'none';
+                        document.getElementById('completito').style.display = 'block';
+                        $("#aciones").html("Agregar Visita");
+                    }
+                    function cancelarVisita() {
+                        document.getElementById("addvisitajeje").reset();
+                        document.getElementById('lista').style.display = 'block';
+                        document.getElementById('listaVis').style.display = 'block';
+                        document.getElementById('agregarVis').style.display = 'none';
+                        document.getElementById('buscador').focus();
+                        $("#aciones").html("Lista de Visitas");
+                    }
+                    function cancelarVisitaTodo() {
+                        document.getElementById("addcompletojeje").reset();
+                        document.getElementById('lista').style.display = 'block';
+                        document.getElementById('listaVis').style.display = 'block';
+                        document.getElementById('agregarVis').style.display = 'none';
+                        document.getElementById('conidjeje').style.display = 'block';
+                        document.getElementById('completito').style.display = 'none';
+                        document.getElementById('buscador').focus();
+                        $("#aciones").html("Lista de Visitas");
+                    }
+                </script>
+                <div data-brackets-id="736" class="panel-body">
+                    <div id="conidjeje" style="display: block;">
+                        <form id="addvisitajeje" class="form-signin" role="form" method="post" action="visitas">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <label for="">Buscar Persona</label>
+                                        <select name="personaidVisita" required class="form-control" onchange="personaidenv()">
+                                            <option hidden>Buscar Persona</option>
+                                            <%
+                                                List<Persona> listPersona = vdao.listarPersona();
+                                                for (Persona per : listPersona) {
+                                            %>
+                                            <option value="<%=per.getPersonaid()%>"><%=per.getNombres()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="">Agregar Persona</label>
+                                        <article>
+                                            <a class="btn btn-primary" onclick="agregarTodo()">Nuevo &nbsp;<i class="glyphicon glyphicon-plus"></i></a><!--  data-toggle="modal" data-target="#addPersona" -->
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="fechaIngreso">Fecha Ingreso</label>
+                                        <input required type="date" class="form-control" id="fechaingreso" placeholder="Fecha Ingreso" name="fechaIngreso">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="horaIngreso">Hora Ingreso</label>
+                                        <input required type="time" class="form-control" id="horaIngreso" placeholder="Hora Ingreso" name="HoraIngreso">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="destino">Destino</label>
+                                        <input required type="text" maxlength="50" class="form-control" id="destino" placeholder="Destino" name="destino">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="visitado">Visitado</label>
+                                        <input required type="text" maxlength="50" class="form-control" id="visitado" placeholder="Visitado" name="visitado">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripcion</label>
+                                        <input required type="text" maxlength="200" class="form-control" id="visitado" placeholder="Descripción" name="descripcion">
+                                        <input type="hidden" value="AddVisitaConId" name="opcion">
+                                        <input type="hidden" value="<%=idUsuario%>" name="idUsuarioReg">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-color: #3b5998;">
+                            <h4 align="center">
+                                <button type="button" class="btn btn-default" onclick="cancelarVisita()"><!--  data-dismiss="modal" -->
+                                    Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
+                                </button>
+                                <button class="btn btn-primary" type="submit">
+                                    Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                            </h4>
+                        </form>
                     </div>
-                    <div data-brackets-id="736" class="panel-body">
-                        <form id="addVisit" class="form-signin" role="form" method="post" action="visita">
+                    <div id="completito" style="display: none;">
+                        <form id="addcompletojeje" class="form-signin" role="form" method="post" action="visitas">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
@@ -197,7 +322,7 @@
                                             <option hidden>Seleccionar Tipo de Documento</option>
                                             <%
                                                 MantenimientoDao mdao = new MantenimientoDaoImpl();
-                                                
+
                                                 List<TipoDocumento> listadoc = mdao.listarTipoDocumentoAct();
                                                 for (TipoDocumento tipo : listadoc) {
                                             %>
@@ -220,7 +345,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group has-feedback">
                                         <label for="telefono">Teléfono</label>
-                                        <input  type="text" pattern="^[#*0-9]*" maxlength="15" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+                                        <input  type="text" pattern="^[#*0-9]*" maxlength="10" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
                                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -234,32 +359,65 @@
                                             <option value="M">Varón</option>
                                         </select>
                                     </div>
+                                    <input type="hidden" name="opcion" value="AddVisitaTodo">
+                                    <input type="hidden" value="<%=idUsuario%>" name="idUsuarioReg">
                                 </div>
                             </div>
-                            <div class="row hidden">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="fechaIngreso">Fecha Ingreso</label>
+                                        <input required type="date" class="form-control" id="fechaingreso" placeholder="Fecha Ingreso" name="fechaIngreso">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="horaIngreso">Hora Ingreso</label>
+                                        <input required type="time" class="form-control" id="horaIngreso" placeholder="Hora Ingreso" name="HoraIngreso">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="destino">Destino</label>
+                                        <input required type="text" maxlength="50" class="form-control" id="destino" placeholder="Destino" name="destino">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group has-feedback">
+                                        <label for="visitado">Visitado</label>
+                                        <input required type="text" maxlength="50" class="form-control" id="visitado" placeholder="Visitado" name="visitado">
+                                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="imagen">Seleccione su Imagen</label>
-                                        <input type="file" disabled id="imagen" name="img">
-                                        <p class="help-block">Vayase a la ...</p>
+                                        <label for="descripcion">Descripcion</label>
+                                        <input required type="text" maxlength="200" class="form-control" id="visitado" placeholder="Descripción" name="descripcion">
                                     </div>
-                                    <input type="hidden" name="opcion" value="addVisit">
                                 </div>
                             </div>
                             <hr style="border-color: #3b5998;">
                             <h4 align="center">
-                                <button type="button" class="btn btn-default" onclick="cancelarVisita()"><!--  data-dismiss="modal" -->
+                                <button type="button" class="btn btn-default" onclick="cancelarVisitaTodo()"><!--  data-dismiss="modal" -->
                                     Cancelar &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
                                 </button>
                                 <button class="btn btn-primary" type="submit">
                                     Registrar &nbsp;&nbsp; <i class="glyphicon glyphicon-ok-circle"></i>
                                 </button>
                             </h4>
-                        </form>
-                    </div>
+                        </form> 
+                    </div>         
                 </div>
-            </div> 
-            <div class="modal fade" id="delete">
+            </div>
+        </div> 
+        <div class="modal fade" id="delete">
             <section class="modal-dialog modal-md">
                 <section class="modal-content">
                     <section class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px; background: #c71c22; color: white;">
@@ -311,11 +469,11 @@
                 </section>
             </section>
         </div>                            
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
 
-<%@include file="WEB-INF/jspf/bottom.jspf" %>
-<%@include file="WEB-INF/jspf/perfil.jspf" %>
+        <%@include file="WEB-INF/jspf/bottom.jspf" %>
+        <%@include file="WEB-INF/jspf/perfil.jspf" %>

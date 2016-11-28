@@ -6,6 +6,7 @@
 package rest.modelo.dao;
 
 import java.util.List;
+import rest.modelo.entidad.Persona;
 import rest.modelo.entidad.Visita;
 
 /**
@@ -15,11 +16,14 @@ import rest.modelo.entidad.Visita;
 public interface VisitaDao {
     
     /*INSERTAR VISITA*/
-    public boolean registrarVisita(Visita visita);
+    public boolean registrarVisita(String idper, String fing, String hing, String dest, String vistado, String descrip, String userReg);
+    public boolean registrarTodojeje(String nomb, String ape, String dir, String proce, String tpdoc, String numdoc, String tel, String gen, String fing, String hing, String dest, String vistado, String descrip, String userReg);
     
     /*LISTAR VISITAS*/
     public List<Visita> listarVisita();
     public List<Visita> listaVisitaEdit(String id);
+    public List<Persona> listarPersona();
+    public Persona MaxidPersona();
     
     /*ELIMINAR VISITA*/
     public boolean eliminarVisita(String id);

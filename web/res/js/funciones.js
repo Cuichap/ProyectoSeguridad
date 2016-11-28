@@ -728,24 +728,6 @@ function cancelarSinPermiso() {
     $("#aciones").html("Lista de Permisos del Personal");
 }
 
-/* Visita */
-/* Registrar una Visita */
-function agregarVisita() {
-    document.getElementById('lista').style.display = 'none';
-    document.getElementById('listaVis').style.display = 'none';
-    document.getElementById('agregarVis').style.display = 'block';
-    document.getElementById("campo").focus();
-    $("#aciones").html("Agregar Visita");
-}
-function cancelarVisita() {
-    document.getElementById("addVisit").reset();
-    document.getElementById('lista').style.display = 'block';
-    document.getElementById('listaVis').style.display = 'block';
-    document.getElementById('agregarVis').style.display = 'none';
-    document.getElementById('buscador').focus();
-    $("#aciones").html("Lista de Visitas");
-}
-
 /* Incidencias */
 /* Agregar Incidencia */
 function agregarIncidencia() {

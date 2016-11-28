@@ -106,6 +106,37 @@ public class ReporteDaoImpl implements ReporteDao{
         return listaVisi;
     }
 
+    
+     @Override
+    public List<Visita> ListaVisitid(String visitaid) {
+        Conexion cx = Configuracion.GaritaUPeU();
+        ArrayList<Visita> listaVisi = new ArrayList<>();
+        String query = "SELECT v.visita_id as idv, p.persona_id idp, concat(p.nombre,' ', p.apellidos) as nombres, concat(td.nombre_documento,' ',p.ndocumento) as docnumero, v.fechaentrada as fecha1, v.horaentrada as hora1, v.destino as destino, ifnull(v.visitado,'----') as visitado, ifnull(v.descripcion,'----') as descripcion, v.fechasalida as fecha2,  v.horasalida as hora2, concat(p1.nombre,' ', p1.apellidos) as Agente, CASE v.estado WHEN 0 THEN 'Inactivo' WHEN 1 THEN 'Activo' END as estado \n" +
+                        "FROM visita v, persona_visita as pv, persona as p, persona as p1, tipo_documento as td, usuario as us \n" +
+                        "WHERE v.visita_id=pv.visita_id and pv.persona_id=p.persona_id and p1.persona_id=us.persona_id and p.tipo_documento_id=td.tipo_documento_id and us.usuario_id=v.usuario_id_reg and v.visita_id=" +visitaid;
+        cx.execQuery(query);
+        while (cx.getNext()) {
+            Visita visita = new Visita();
+            visita.setVisitaid(cx.getCol("idv"));
+            visita.setPersonaid(cx.getCol("idp"));
+            visita.setNombres(cx.getCol("nombres"));
+            visita.setDocumento(cx.getCol("docnumero"));
+            visita.setFechaentrada(cx.getCol("fecha1"));
+            visita.setHoraentrada(cx.getCol("hora1"));
+            visita.setDestino(cx.getCol("destino"));
+            visita.setVisitado(cx.getCol("visitado"));
+            visita.setDescripcion(cx.getCol("descripcion"));
+            visita.setFechasalida(cx.getCol("fecha2"));
+            visita.setHorasalida(cx.getCol("hora2"));
+            visita.setEstado(cx.getCol("estado"));
+            visita.setAgente(cx.getCol("Agente"));
+            listaVisi.add(visita);
+        }
+        return listaVisi;
+    }
+    
+    
+    
     @Override
     public List<Permiso> listaPerRes() {
         Conexion cx = Configuracion.GaritaUPeU();

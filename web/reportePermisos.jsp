@@ -65,7 +65,7 @@
                                         <th>Fecha y Hora de Salida</th>
                                         <th>Fecha y Hora de Retorno</th>
                                         <th>Observación</th>
-                                        <th>Ver detalle</th>
+                                        <th aling="center">Ver detalle</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,9 +88,9 @@
                                         <td><%=per.getHorasalida()%>&nbsp;<%=per.getFechasalida()%></td>
                                         <td><%=per.getHoraingreso()%>&nbsp;<%=per.getFechaingreso()%></td>
                                         <td><%=per.getObservacion()%></td>
-                                        <td aling="center"> 
-                                            <a style="cursor: pointer;" onclick="detalleper<%=per.getPermisoid()%>(<%=per.getPermisoid()%>)">
-                                                <i data-toggle="tooltip" data-placement="top" title="Detalle Permiso" class="glyphicon glyphicon-option-horizontal"></i>
+                                        <td > 
+                                            <a  style="cursor: pointer;" onclick="detalleper<%=per.getPermisoid()%>(<%=per.getPermisoid()%>)">
+                                                <i data-toggle="tooltip" data-placement="top" title="Detalle Permiso" class="glyphicon glyphicon-plus-sign"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -104,7 +104,7 @@
                                                 $("#reportes").html(data);
                                                 document.getElementById('lista').style.display = 'none';
                                                 document.getElementById('listaPerm').style.display = 'none';
-                                                document.getElementById('delistVis').style.display = 'block';
+                                                document.getElementById('delistPerm').style.display = 'block';
                                                 $("#aciones").html("Detalle Permiso");
                                             }
                                         });
@@ -114,7 +114,7 @@
                                        // document.getElementById("delistVis").reset();
                                         document.getElementById('lista').style.display = 'block';
                                         document.getElementById('listaPerm').style.display = 'block';
-                                        document.getElementById('delistVis').style.display = 'none';
+                                        document.getElementById('delistPerm').style.display = 'none';
                                         document.getElementById("buscador").focus();
                                         $("#aciones").html("Reportes de Permisos");
                                     }
@@ -127,7 +127,7 @@
                 </div>
             </div>
 
-            <div id="delistVis" class="col-md-12" style="padding: 0px; display: none;">
+            <div id="delistPerm" class="col-md-12" style="padding: 0px; display: none;">
                 <div data-brackets-id="780" class="panel panel-primary">
                     <div data-brackets-id="781" class="panel-heading">
                         <h4><b>Detalle de Permiso</b></h4>
@@ -253,19 +253,25 @@
                                 </div>
                             </div>
 
-                            <hr style="border-color: #3b5998;">
+                            
+                        </form>
+                    </div>
+                    <%}%>
+                    <hr style="border-color: #3b5998;">
                             <h4 align="center">
                                 <button type="button" class="btn btn-primary" onclick="volverList()"><!--  data-dismiss="modal" -->
                                     Atras &nbsp;&nbsp; <i class="glyphicon glyphicon-remove-circle"></i>
                                 </button>
                             </h4>
-                        </form>
-                    </div>
-                    <%}%>                          
                 </div>
             </div>
         </div>
 
-
+   <script type="text/javascript">
+          
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>  
     </body>
 </html>

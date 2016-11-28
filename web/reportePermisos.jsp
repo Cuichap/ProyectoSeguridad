@@ -104,7 +104,7 @@
                                                 $("#reportes").html(data);
                                                 document.getElementById('lista').style.display = 'none';
                                                 document.getElementById('listaPerm').style.display = 'none';
-                                                document.getElementById('delistVis').style.display = 'block';
+                                                document.getElementById('delistPerm').style.display = 'block';
                                                 $("#aciones").html("Detalle Permiso");
                                             }
                                         });
@@ -114,7 +114,7 @@
                                        // document.getElementById("delistVis").reset();
                                         document.getElementById('lista').style.display = 'block';
                                         document.getElementById('listaPerm').style.display = 'block';
-                                        document.getElementById('delistVis').style.display = 'none';
+                                        document.getElementById('delistPerm').style.display = 'none';
                                         document.getElementById("buscador").focus();
                                         $("#aciones").html("Reportes de Permisos");
                                     }
@@ -127,7 +127,7 @@
                 </div>
             </div>
 
-            <div id="delistVis" class="col-md-12" style="padding: 0px; display: none;">
+            <div id="delistPerm" class="col-md-12" style="padding: 0px; display: none;">
                 <div data-brackets-id="780" class="panel panel-primary">
                     <div data-brackets-id="781" class="panel-heading">
                         <h4><b>Detalle de Permiso</b></h4>

@@ -31,6 +31,7 @@ public class Visita {
     private String telefono;
     private String genero;
     private String ndoc;
+    private String agente;
 
     public Visita() {
     }
@@ -193,6 +194,14 @@ public class Visita {
 
     public void setNdoc(String ndoc) {
         this.ndoc = ndoc;
+    }
+
+    public String getAgente() {
+        return agente;
+    }
+
+    public void setAgente(String agente) {
+        this.agente = agente;
     }
     
     

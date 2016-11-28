@@ -22,6 +22,7 @@ public interface ReporteDao {
    public int cantidadIncidencia();
    public int cantidadVisita();
    public List<Visita> ListaVisitas();
+   public List<Visita> ListaVisitid(String visitaid);
    public List<Permiso> listaPerRes();
    public List<Permiso> listarPermisos(String permisoid);
 }

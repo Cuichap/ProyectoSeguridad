@@ -545,7 +545,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
     public List<Persona> listarEditPersona(String id) {
         Conexion cx = Configuracion.GaritaUPeU();
         ArrayList<Persona> listaPer = new ArrayList<>();
-        String query = "SELECT nombre, apellidos, direccion, procedencia, tipo_documento_id as idtipo, ndocumento, telefono, genero FROM persona WHERE  persona_id='" + id + "'";
+        String query = "SELECT per.nombre, per.apellidos, per.direccion, per.procedencia, tip.tipo_documento_id as idtipo, tip.nombre_documento, per.ndocumento, per.telefono, per.genero FROM persona as per, tipo_documento as tip WHERE tip.tipo_documento_id=per.tipo_documento_id AND persona_id='" + id + "'";
         cx.execQuery(query);
         while (cx.getNext()) {
             Persona persona = new Persona();
@@ -554,6 +554,7 @@ public class MantenimientoDaoImpl implements MantenimientoDao {
             persona.setDireccion(cx.getCol("direccion"));
             persona.setProcedencia(cx.getCol("procedencia"));
             persona.setTipoducumentoid(cx.getCol("idtipo"));
+            persona.setNombredoc(cx.getCol("nombre_documento"));
             persona.setNumdocumento(cx.getCol("ndocumento"));
             persona.setTelefono(cx.getCol("telefono"));
             persona.setGenero(cx.getCol("genero"));
